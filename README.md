@@ -2,15 +2,20 @@
 
 A new Flutter project.
 
-## Getting Started
+## Development Cycle
 
-This project is a starting point for a Flutter application.
+1- Checkout to develop.
 
-A few resources to get you started if this is your first Flutter project:
+2- Pull.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+3- Make your new branch with feature name.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4- Commit.
+
+5- Push.
+
+6- Pull request.
+
+7- Wait for accept and review.
+
+
