@@ -14,7 +14,7 @@ class Assets {
 
   static const String iconsProfile = 'assets/icons/Profile.svg';
   static const String iconsSearch = 'assets/icons/Search.svg';
-  static const String iconsShoppingBasket = 'assets/icons/ShoppingBasket.svg';
+  static const String iconsShoppingBasket = 'assets/icons/ShoppingBasket.png';
   static const String iconsStaractive = 'assets/icons/Staractive.svg';
   static const String imagesJar = 'assets/images/Jar.png';
   static const String imagesPack = 'assets/images/Pack.png';

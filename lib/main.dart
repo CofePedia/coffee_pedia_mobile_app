@@ -50,8 +50,10 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           builder: BotToastInit(),
-          navigatorObservers: [BotToastNavigatorObserver()],
-          home: SplashScreen(),
+          navigatorObservers: [
+            BotToastNavigatorObserver(),
+          ],
+          home: ProductScreen(),
         );
       },
     );
