@@ -4,6 +4,7 @@ class Assets {
 
   static const String assetsIconsCoffePediaLogo = 'assets/icons/CoffePediaLogo.svg';
   static const String iconsCoffePediaLogo = 'assets/icons/CoffePediaLogo.png';
+  static const String iconsDelete = 'assets/icons/Delete.svg';
   static const String iconsFilter = 'assets/icons/filter.svg';
   static const String iconsHeart = 'assets/icons/heart.svg';
   static const String iconsHome = 'assets/icons/home.png';
@@ -13,11 +14,14 @@ class Assets {
   static const String iconsShoppingBasket = 'assets/icons/ShoppingBasket.png';
   static const String iconsStaractive = 'assets/icons/Staractive.svg';
   static const String imagesJar = 'assets/images/Jar.png';
+  static const String imagesMastercardLogo = 'assets/images/MastercardLogo.svg';
   static const String imagesPack = 'assets/images/Pack.png';
   static const String imagesPartnerLogo = 'assets/images/partnerLogo.png';
   static const String imagesPartnerLogo1 = 'assets/images/partnerLogo1.png';
   static const String imagesPartnerLogo2 = 'assets/images/partnerLogo2.png';
   static const String imagesSplash = 'assets/images/splash.png';
+  static const String imagesSuccsign = 'assets/images/Succsign.svg';
+  static const String imagesVisaLogo = 'assets/images/visaLogo.svg';
   static const String translationsAr = 'assets/translations/ar.json';
   static const String translationsEn = 'assets/translations/en.json';
 }
