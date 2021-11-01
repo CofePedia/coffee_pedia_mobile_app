@@ -18,17 +18,10 @@ class SplashScreen extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: RaisedButton(
-            onPressed: () {
-              context.showCustomBottomSheet(
-                CheckoutPopUp(),
-              );
-            },
-            child: Image.asset(
-              Assets.iconsCoffePediaLogo,
-              width: 199.w,
-              height: 174.h,
-            ),
+          child: Image.asset(
+            Assets.iconsCoffePediaLogo,
+            width: 199.w,
+            height: 174.h,
           ),
         ),
       ),
