@@ -14,6 +14,7 @@ class CustomInput extends StatelessWidget {
   final String hint;
   final TextEditingController textEditingController;
   final bool icon;
+  final ValueNotifier<bool> changeObscure = ValueNotifier(true);
 
   @override
   Widget build(BuildContext context) {
@@ -30,32 +31,47 @@ class CustomInput extends StatelessWidget {
           SizedBox(
             height: 9.h,
           ),
-          SizedBox(
-            height: 50.h,
-            child: TextFormField(
-              controller: textEditingController,
-              style: TextStyle(fontSize: 18.sp, color: Colors.black),
-              decoration: InputDecoration(
-                hintText: hint,
-                hintStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      color: const Color(0xffc3ccd2),
+          ValueListenableBuilder<bool>(
+            valueListenable: changeObscure,
+            builder: (context, value, _) {
+              return SizedBox(
+                height: 50.h,
+                child: TextFormField(
+                  controller: textEditingController,
+                  obscureText: !icon ? !value : value,
+                  style: TextStyle(fontSize: 18.sp, color: Colors.black),
+                  decoration: InputDecoration(
+                    hintText: hint,
+                    hintStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          color: const Color(0xffc3ccd2),
+                        ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.w),
+                      borderSide: BorderSide(
+                        color: Color(0xffE3E3E3),
+                        width: 0,
+                      ),
                     ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.w),
-                  borderSide: BorderSide(
-                    color: Color(0xffE3E3E3),
-                    width: 0,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.w),
+                      borderSide: BorderSide(
+                        color: Color(0xffE3E3E3),
+                        width: 0,
+                      ),
+                    ),
+                    suffixIconConstraints: BoxConstraints(maxHeight: 15.h, maxWidth: 24.w),
+                    suffixIcon: !icon
+                        ? null
+                        : InkWell(
+                            onTap: () {
+                              changeObscure.value = !value;
+                            },
+                            child: Icon(value ? Icons.visibility_off : Icons.visibility),
+                          ),
                   ),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.w),
-                  borderSide: BorderSide(
-                    color: Color(0xffE3E3E3),
-                    width: 0,
-                  ),
-                ),
-              ),
-            ),
+              );
+            },
           ),
           SizedBox(
             height: 16.h,

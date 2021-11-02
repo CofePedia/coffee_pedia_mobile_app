@@ -28,7 +28,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 height: 68.h,
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 icon: Icon(
                   Icons.arrow_back_ios_rounded,
                   color: Colors.black,

@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
           locale: context.locale,
           builder: BotToastInit(),
           navigatorObservers: [BotToastNavigatorObserver()],
-          home: ForgetPasswordScreen(),
+          home: SplashScreen(),
         );
       },
     );

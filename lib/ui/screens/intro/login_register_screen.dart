@@ -1,5 +1,6 @@
 import 'package:circle_checkbox/redev_checkbox.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,6 +18,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   TextEditingController _email = TextEditingController();
   bool selected = false;
   bool isLogin = true;
+
   @override
   void dispose() {
     _email.dispose();
@@ -53,8 +55,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Image.asset(
-                    Assets.iconsCoffePediaLogo,
+                  child: SvgPicture.asset(
+                    Assets.iconsLogoHor,
                     height: 51.h,
                     width: 196.w,
                   ),
@@ -181,7 +183,17 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 isLogin
                     ? Align(
                         alignment: Alignment.centerRight,
-                        child: Text("Forgot Password?"),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return ForgetPasswordScreen();
+                            }));
+                          },
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Text("Forgot Password?"),
+                        ),
                       )
                     : SizedBox.shrink(),
                 Container(
@@ -235,9 +247,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   child: Text(isLogin ? "Don’t have an Account" : "Have an Account"),
                 ),
                 TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                  onPressed: () {},
                   child: Text(
                     isLogin ? "Create account" : "Login",
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
