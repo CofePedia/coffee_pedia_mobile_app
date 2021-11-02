@@ -2,7 +2,8 @@
 class Assets {
   Assets._();
 
-  static const String assetsIconsCoffePediaLogo = 'assets/icons/CoffePediaLogo.svg';
+  static const String assetsIconsCoffePediaLogo =
+      'assets/icons/CoffePediaLogo.svg';
   static const String iconsCoffePediaLogo = 'assets/icons/CoffePediaLogo.png';
   static const String iconsFilter = 'assets/icons/filter.svg';
   static const String iconsHeart = 'assets/icons/heart.svg';
@@ -10,11 +11,9 @@ class Assets {
   static const String iconsMore = 'assets/icons/More.svg';
   static const String addIcon = 'assets/icons/add.svg';
   static const String minusIcon = 'assets/icons/minus.svg';
-
-
   static const String iconsProfile = 'assets/icons/Profile.svg';
   static const String iconsSearch = 'assets/icons/Search.svg';
-  static const String iconsShoppingBasket = 'assets/icons/ShoppingBasket.png';
+  static const String iconsShoppingBasket = 'assets/icons/ShoppingBasket.svg';
   static const String iconsStaractive = 'assets/icons/Staractive.svg';
   static const String imagesJar = 'assets/images/Jar.png';
   static const String imagesPack = 'assets/images/Pack.png';
@@ -24,5 +23,4 @@ class Assets {
   static const String imagesSplash = 'assets/images/splash.png';
   static const String translationsAr = 'assets/translations/ar.json';
   static const String translationsEn = 'assets/translations/en.json';
-
 }

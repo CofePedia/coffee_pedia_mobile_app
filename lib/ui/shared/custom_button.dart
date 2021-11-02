@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -37,7 +37,7 @@ class CustomButton extends StatelessWidget {
           onPressed: onPress,
           child: Row(
             mainAxisAlignment: assetName != null
-                ? MainAxisAlignment.spaceEvenly
+                ? MainAxisAlignment.spaceAround
                 : MainAxisAlignment.center,
             children: [
               SvgPicture.asset(

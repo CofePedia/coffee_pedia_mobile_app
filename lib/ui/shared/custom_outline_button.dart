@@ -1,59 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomOutlineButton extends StatelessWidget {
   const CustomOutlineButton({
     required this.title,
     required this.onPress,
-    this.assetName,
     this.width,
     this.height,
     this.borderRadius,
     this.borderColor,
-    this.boxShadow,
+    this.shadowColor,
     Key? key,
   }) : super(key: key);
   final String title;
-  final String? assetName;
   final double? width;
   final double? height;
   final double? borderRadius;
   final VoidCallback onPress;
   final Color? borderColor;
-  final List<BoxShadow>? boxShadow;
+  final BoxShadow? shadowColor;
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child:   Padding(
-        padding: EdgeInsets.only(
-            top: 15.h, right: 12.w, left: 12.w),
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: 50.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 3,
-            itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.only(left: 6),
-              child: CustomOutlineButton(
-                title: 'weight[index]',
-                borderColor:Theme.of(context).primaryColor,
-
-                onPress: () {
-
-                },
-                height: 40.h,
-                width: 152.w,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.transparent,
-                    // offset: Offset(0, 0),
-                    // spreadRadius: 0,
-                  ),
-                ],
-                borderRadius: 5,
+      child: Container(
+        height: height!,
+        width: width!,
+        decoration:
+            BoxDecoration(boxShadow: [shadowColor!], color: Colors.white),
+        child: OutlinedButton(
+          onPressed: onPress,
+          child: Row(
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.button!.copyWith(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 14.sp,
+                    ),
+              ),
+            ],
+          ),
+          style: ButtonStyle(
+            side: MaterialStateProperty.all<BorderSide>(
+              BorderSide(
+                color: borderColor!,
+              ),
+            ),
+            // shadowColor:
+            //     MaterialStateProperty.all(Color.fromRGBO(16, 124, 192, 0.41)),
+            shape: MaterialStateProperty.all<OutlinedBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadius ?? 4.w),
               ),
             ),
           ),

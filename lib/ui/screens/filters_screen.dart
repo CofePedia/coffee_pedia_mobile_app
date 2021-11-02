@@ -1,11 +1,9 @@
 import 'package:coffepedia/ui/shared/custom_button.dart';
-import 'package:coffepedia/ui/shared/custom_outline_button.dart';
-import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/widgets/category_items.dart';
+import 'package:coffepedia/ui/widgets/filters_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({Key? key}) : super(key: key);
@@ -15,8 +13,7 @@ class FiltersScreen extends StatefulWidget {
 }
 
 class _FiltersScreenState extends State<FiltersScreen> {
-  bool _expanded = false;
-  List <bool> _isOpen = [false, true];
+  bool? _isOpen = false;
   final List<String> brandName = [
     'Lavazza',
     'Stumptown Coffee Roasters',
@@ -70,166 +67,96 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
                 child: ExpansionPanelList(
-                  dividerColor: Colors.black,
-                  elevation: 0,
+                  dividerColor: Color(0xff979797),
                   children: [
+                    ExpansionPanel(
+                      canTapOnHeader: true,
+                      headerBuilder: (context, isOpen) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: 30.h),
+                          child: Text(componentsName[0]),
+                        );
+                      },
+                      body: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Wrap(
+                          spacing: 4.w,
+                          children: [
+                            FiltersButtons(
+                              title: 'Lavazza',
+                            ),
+                            FiltersButtons(
+                              title: 'Stumptown Coffee Roasters',
+                            ),
+                            FiltersButtons(
+                              title: 'Amazon Fresh',
+                            ),
+                            FiltersButtons(
+                              title: 'Starbucks',
+                            ),
+                            FiltersButtons(
+                              title: 'SAN FRANCISCO BAY',
+                            ),
+                          ],
+                        ),
+                      ),
+                      isExpanded: _isOpen!,
+                    ),
                     ExpansionPanel(
                       headerBuilder: (context, isOpen) {
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: 30.h),
-                          child: Text(brandName[0]),
+                          child: Text(componentsName[1]),
                         );
                       },
-                      body: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CustomOutlineButton(
-                                title: 'Lavazza',
-                                onPress: () {},
-                                height: 35.h,
-                                width: 90.w,
-                                borderRadius: 17.5.sp,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color.fromRGBO(16, 124, 192, 0),
-                                  ),
-                                ],
-                                borderColor: Theme.of(context).primaryColor,
-                              ),
-                              CustomOutlineButton(
-                                title: 'Stumptown Coffee Roasters',
-                                onPress: () {},
-                                width: 224.w,
-                                height: 35.h,
-                                borderColor: Colors.grey,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.transparent,
-                                  ),
-                                ],
-                                borderRadius: 17.5.sp,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 12.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CustomOutlineButton(
-                                title: 'Amazon Fresh',
-                                onPress: () {},
-                                height: 35.h,
-                                width: 131.w,
-                                borderRadius: 17.5.sp,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.transparent,
-                                  ),
-                                ],
-                                borderColor: Colors.grey,
-                              ),
-                              CustomOutlineButton(
-                                title: 'Starbucks',
-                                onPress: () {},
-                                height: 35.h,
-                                width: 98.w,
-                                borderRadius: 17.5.sp,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color.fromRGBO(16, 124, 192, 0),
-                                  ),
-                                ],
-                                borderColor: Theme.of(context).primaryColor,
-                              ),
-                              SizedBox(
-                                width: 80.w,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 12.h,
-                          ),
-                          Container(
-                            child: CustomOutlineButton(
-                              title: 'SAN FRANCISCO BAY',
-                              onPress: () {},
-                              width: 186.w,
-                              height: 35.h,
-                              borderColor: Colors.grey,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.transparent,
-                                ),
-                              ],
-                              borderRadius: 17.5.sp,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 12.h,
-                          ),
-                        ],
-                      ),
+                      body: Text(''),
                       isExpanded: false,
                     ),
                     ExpansionPanel(
                       headerBuilder: (context, isOpen) {
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: 30.h),
-                          child: Text(brandName[1]),
+                          child: Text(componentsName[2]),
                         );
                       },
-                      body: Text('Azzam'),
-                      isExpanded: _isOpen[0],
+                      body: Text(''),
+                      isExpanded: false,
                     ),
-                    // ExpansionPanel(
-                    //   headerBuilder: (context, isOpen) {
-                    //     return Padding(
-                    //       padding: EdgeInsets.symmetric(vertical: 30.h),
-                    //       child: Text('Rating'),
-                    //     );
-                    //   },
-                    //   body: Text('Azzam'),
-                    //   isExpanded: _isOpen[0],
-                    // ),
-                    // ExpansionPanel(
-                    //   headerBuilder: (context, isOpen) {
-                    //     return Padding(
-                    //       padding: EdgeInsets.symmetric(vertical: 30.h),
-                    //       child: Text('Coffee Flavor'),
-                    //     );
-                    //   },
-                    //   body: Text('Azzam'),
-                    //   isExpanded: _isOpen[0],
-                    // ),
-                    // ExpansionPanel(
-                    //   headerBuilder: (context, isOpen) {
-                    //     return Padding(
-                    //       padding: EdgeInsets.symmetric(vertical: 30.h),
-                    //       child: Text('Coffee Roast'),
-                    //     );
-                    //   },
-                    //   body: Text('Azzam'),
-                    //   isExpanded: _isOpen[0],
-                    // ),
-                    // ExpansionPanel(
-                    //   headerBuilder: (context, isOpen) {
-                    //     return Padding(
-                    //       padding: EdgeInsets.symmetric(vertical: 30.h),
-                    //       child: Text('Coffee Region'),
-                    //     );
-                    //   },
-                    //   body: Text('Azzam'),
-                    //   isExpanded: _isOpen[0],
-                    // ),
+                    ExpansionPanel(
+                      headerBuilder: (context, isOpen) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: 30.h),
+                          child: Text(componentsName[3]),
+                        );
+                      },
+                      body: Text(''),
+                      isExpanded: false,
+                    ),
+                    ExpansionPanel(
+                      headerBuilder: (context, isOpen) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: 30.h),
+                          child: Text(componentsName[4]),
+                        );
+                      },
+                      body: Text(''),
+                      isExpanded: false,
+                    ),
+                    ExpansionPanel(
+                      headerBuilder: (context, isOpen) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: 30.h),
+                          child: Text(componentsName[5]),
+                        );
+                      },
+                      body: Text(''),
+                      isExpanded: false,
+                    ),
                   ],
                   expansionCallback: (i, isOpen) =>
-                      setState(() => _isOpen[i] = !isOpen),
+                      setState(() => _isOpen = !isOpen),
                 ),
               ),
             ],
@@ -257,9 +184,14 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   children: [
                     CustomButton(
                       onPress: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return CategoryItems();
-                        }));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return CategoryItems();
+                            },
+                          ),
+                        );
                       },
                       title: 'Show results',
                       height: 50.h,
@@ -270,9 +202,6 @@ class _FiltersScreenState extends State<FiltersScreen> {
                       buttonColor: Color(0xff107CC0),
                       imageColor: Colors.transparent,
                     ),
-                    // SizedBox(
-                    //   height: 16.h,
-                    // ),
                     InkWell(
                       onTap: () {},
                       child: Text(
