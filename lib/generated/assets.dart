@@ -4,7 +4,9 @@ class Assets {
 
   static const String assetsIconsCoffePediaLogo = 'assets/icons/CoffePediaLogo.svg';
   static const String iconsCoffePediaLogo = 'assets/icons/CoffePediaLogo.png';
+  static const String iconsFacebookSquare = 'assets/icons/facebookSquare.svg';
   static const String iconsFilter = 'assets/icons/filter.svg';
+  static const String iconsGoogle = 'assets/icons/Google.svg';
   static const String iconsHeart = 'assets/icons/heart.svg';
   static const String iconsHome = 'assets/icons/home.png';
   static const String iconsMore = 'assets/icons/More.png';
