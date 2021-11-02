@@ -6,14 +6,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../custom_input.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class LoginRegisterScreen extends StatefulWidget {
+  const LoginRegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginRegisterScreen> createState() => _LoginRegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   TextEditingController _email = TextEditingController();
   bool selected = false;
   bool isLogin = true;
@@ -178,9 +178,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         hint: "Confirm password",
                         textEditingController: _email,
                       ),
+                isLogin
+                    ? Align(
+                        alignment: Alignment.centerRight,
+                        child: Text("Forgot Password?"),
+                      )
+                    : SizedBox.shrink(),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(top: 16.h, bottom: 32.h),
+                  margin: EdgeInsets.only(top: isLogin ? 24.h : 16.h, bottom: 32.h),
                   height: 50.h,
                   child: ElevatedButton(
                     onPressed: () {},

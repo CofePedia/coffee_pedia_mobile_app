@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:coffepedia/ui/screens/intro/register_screen.dart';
+import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
+import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
           locale: context.locale,
           builder: BotToastInit(),
           navigatorObservers: [BotToastNavigatorObserver()],
-          home: RegisterScreen(),
+          home: ForgetPasswordScreen(),
         );
       },
     );
