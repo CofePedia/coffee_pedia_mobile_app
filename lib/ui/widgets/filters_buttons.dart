@@ -17,10 +17,12 @@ class _FiltersButtonsState extends State<FiltersButtons> {
     return FilterChip(
       label: Text(
         widget.title,
-        style: TextStyle(
-          color: _selected ? Theme.of(context).primaryColor : Color(0xff231F20),
-          fontSize: 13.sp,
-        ),
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              color: _selected
+                  ? Theme.of(context).primaryColor
+                  : Color(0xff231F20),
+              fontSize: 13.sp,
+            ),
       ),
       selected: _selected,
       side: BorderSide(

@@ -14,13 +14,7 @@ class FiltersScreen extends StatefulWidget {
 
 class _FiltersScreenState extends State<FiltersScreen> {
   bool? _isOpen = false;
-  final List<String> brandName = [
-    'Lavazza',
-    'Stumptown Coffee Roasters',
-    'Amazon Fresh',
-    'Starbucks',
-    'SAN FRANCISCO BAY',
-  ];
+
   final List<String> componentsName = [
     'Brand',
     'Price',
@@ -56,10 +50,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 child: InkWell(
                   child: Text(
                     'Close',
-                    style: TextStyle(
-                      color: Color(0xff241F20),
-                      fontSize: 14.sp,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          color: Color(0xff241F20),
+                          fontSize: 14.sp,
+                        ),
                   ),
                   onTap: () {
                     Navigator.of(context).pop();
@@ -76,7 +70,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
                       headerBuilder: (context, isOpen) {
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: 30.h),
-                          child: Text(componentsName[0]),
+                          child: Text(
+                            componentsName[0],
+                            style: Theme.of(context).textTheme.caption,
+                          ),
                         );
                       },
                       body: Container(
@@ -105,50 +102,70 @@ class _FiltersScreenState extends State<FiltersScreen> {
                       isExpanded: _isOpen!,
                     ),
                     ExpansionPanel(
+                      canTapOnHeader: true,
                       headerBuilder: (context, isOpen) {
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: 30.h),
-                          child: Text(componentsName[1]),
+                          child: Text(
+                            componentsName[1],
+                            style: Theme.of(context).textTheme.caption,
+                          ),
                         );
                       },
                       body: Text(''),
                       isExpanded: false,
                     ),
                     ExpansionPanel(
+                      canTapOnHeader: true,
                       headerBuilder: (context, isOpen) {
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: 30.h),
-                          child: Text(componentsName[2]),
+                          child: Text(
+                            componentsName[2],
+                            style: Theme.of(context).textTheme.caption,
+                          ),
                         );
                       },
                       body: Text(''),
                       isExpanded: false,
                     ),
                     ExpansionPanel(
+                      canTapOnHeader: true,
                       headerBuilder: (context, isOpen) {
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: 30.h),
-                          child: Text(componentsName[3]),
+                          child: Text(
+                            componentsName[3],
+                            style: Theme.of(context).textTheme.caption,
+                          ),
                         );
                       },
                       body: Text(''),
                       isExpanded: false,
                     ),
                     ExpansionPanel(
+                      canTapOnHeader: true,
                       headerBuilder: (context, isOpen) {
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: 30.h),
-                          child: Text(componentsName[4]),
+                          child: Text(
+                            componentsName[4],
+                            style: Theme.of(context).textTheme.caption,
+                          ),
                         );
                       },
                       body: Text(''),
                       isExpanded: false,
                     ),
                     ExpansionPanel(
+                      canTapOnHeader: true,
                       headerBuilder: (context, isOpen) {
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: 30.h),
-                          child: Text(componentsName[5]),
+                          child: Text(
+                            componentsName[5],
+                            style: Theme.of(context).textTheme.caption,
+                          ),
                         );
                       },
                       body: Text(''),
@@ -170,7 +187,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   boxShadow: [
                     BoxShadow(
                       color: Color.fromRGBO(0, 0, 0, 0.18),
-                      blurRadius: 6.sp,
+                      blurRadius: 2.sp,
                     ),
                   ],
                   color: Color(0xffFFFFFF),
@@ -198,18 +215,17 @@ class _FiltersScreenState extends State<FiltersScreen> {
                       width: 345.w,
                       imageWidth: 0,
                       imageHeight: 0,
+                      buttonColor: Theme.of(context).primaryColor,
                       borderRadius: 25.sp,
-                      buttonColor: Color(0xff107CC0),
                       imageColor: Colors.transparent,
                     ),
                     InkWell(
                       onTap: () {},
                       child: Text(
                         'Clear all',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: Color(0xff007CC6),
-                        ),
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                              color: Color(0xff007CC6),
+                            ),
                       ),
                     ),
                   ],
@@ -220,50 +236,3 @@ class _FiltersScreenState extends State<FiltersScreen> {
     );
   }
 }
-// Container(
-//   height: 461.h,
-//   padding: EdgeInsets.symmetric(horizontal: 15.w),
-//   child: ListView.builder(
-//     itemCount: componentsName.length,
-//     itemBuilder: (context, i) => Column(
-//
-//       children: [
-//         SizedBox(
-//           height: 21.h,
-//         ),
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           children: [
-//             Text(
-//               componentsName[i],
-//               style: TextStyle(
-//                 color: Color(0xff231F20),
-//                 fontSize: 16.sp,
-//               ),
-//             ),
-//             InkWell(
-//               onTap: () {
-//                 setState(
-//                   () {
-//                     _expanded = !_expanded;
-//                   },
-//                 );
-//               },
-//               child: Icon(
-//                 _expanded ? Icons.expand_less : Icons.expand_more,
-//                 size: 19.h,
-//               ),
-//             )
-//           ],
-//         ),
-//         SizedBox(
-//           height: 26.h,
-//         ),
-//         Divider(
-//           height: 1.h,
-//           color: Color(0xff979797),
-//         ),
-//       ],
-//     ),
-//   ),
-// ),

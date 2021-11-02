@@ -50,6 +50,55 @@ class MyApp extends StatelessWidget {
             BotToastNavigatorObserver(),
           ],
           home: ProductScreen(),
+          theme: ThemeData(
+            accentColor: Color(0xffffffff),
+            primaryColor: Color(0xff107CC0),
+            textTheme: TextTheme(
+              bodyText1: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 10.sp,
+                color: Color(0xff231F20),
+                fontWeight: FontWeight.w600,
+              ),
+              bodyText2: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 12.sp,
+                color: Color(0xff000000),
+                fontWeight: FontWeight.w400,
+              ),
+              subtitle1: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 18.sp,
+                color: Color(0xff4470C1),
+                fontWeight: FontWeight.w600,
+              ),
+              headline2: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 14.sp,
+                color: Color(0xffffffff),
+                fontWeight: FontWeight.w600,
+              ),
+              subtitle2: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w600,
+                height: 1.5,
+                color: Color(0xff231F20),
+              ),
+              headline1: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w600,
+                color: Color(0xff000000),
+              ),
+              caption: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w900,
+                color: Color(0xff231F20),
+              ),
+            ),
+          ),
         );
       },
     );

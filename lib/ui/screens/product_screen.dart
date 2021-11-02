@@ -27,6 +27,7 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(horizontal: 15.w),
         height: 107.h,
@@ -34,14 +35,14 @@ class _ProductScreenState extends State<ProductScreen> {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.18),
-              blurRadius: 6.sp,
+              color: Color.fromRGBO(0, 0, 0, 0.04),
+              blurRadius: 2.sp,
             )
           ],
           color: Color(0xffFFFFFF),
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(12.5.h),
-            topRight: Radius.circular(12.5.h),
+            topLeft: Radius.circular(22.w),
+            topRight: Radius.circular(22.w),
           ),
         ),
         child: Row(
@@ -63,9 +64,9 @@ class _ProductScreenState extends State<ProductScreen> {
               imageColor: Color(0xff606266),
             ),
             Container(
-              padding: EdgeInsets.all(12),
               width: 50.w,
               height: 50.h,
+              alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: Color(0xffFFFFFF),
                 borderRadius: BorderRadius.circular(14.sp),
@@ -75,8 +76,12 @@ class _ProductScreenState extends State<ProductScreen> {
               ),
               child: Text(
                 '$counter'.toString(),
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16.sp, color: Color(0xff606266)),
+                // textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.caption!.copyWith(
+                      color: Color(
+                        0xff606266,
+                      ),
+                    ),
               ),
             ),
             CustomButton(
@@ -91,7 +96,7 @@ class _ProductScreenState extends State<ProductScreen> {
               buttonColor: Color(0xffF2F2F2),
               imageColor: Color(0xff606266),
               assetName: Assets.minusIcon,
-              imageHeight: 20.h,
+              imageHeight: 15.h,
               imageWidth: 15.h,
             ),
             CustomButton(
@@ -101,8 +106,8 @@ class _ProductScreenState extends State<ProductScreen> {
               assetName: Assets.iconsShoppingBasket,
               borderRadius: 25.sp,
               title: 'Add to basket',
-              buttonColor: Color(0xff107CC0),
-              imageColor: Color(0xffFFFFFF),
+              buttonColor: Theme.of(context).primaryColor,
+              imageColor: Theme.of(context).accentColor,
               imageHeight: 18.h,
               imageWidth: 24.w,
             ),
@@ -168,7 +173,7 @@ class _ProductScreenState extends State<ProductScreen> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 1150.h,
+                height: 1210.h,
                 child: Stack(
                   fit: StackFit.loose,
                   children: [
@@ -195,9 +200,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.all(3),
                                     height: 17.h,
                                     width: 55.h,
+                                    alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       color: Color(0xffFFD008),
                                       borderRadius: BorderRadius.only(
@@ -207,10 +212,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                     ),
                                     child: Text(
                                       '25% Off',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 10.sp,
-                                          fontFamily: 'Nexa_Bold_Regular'),
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
                                     ),
                                   ),
                                   Container(
@@ -243,13 +246,8 @@ class _ProductScreenState extends State<ProductScreen> {
                               padding: EdgeInsets.only(
                                   top: 15.h, right: 15.w, left: 15.w),
                               child: Text(
-                                'CoffePedia Dark Espresso Roast COFFEE',
-                                style: TextStyle(
-                                  fontSize: 22.sp,
-                                  color: Color(0xff000000),
-                                  fontFamily: 'Nexa_Bold_Regular',
-                                ),
-                              ),
+                                  'CoffePedia Dark Espresso Roast COFFEE',
+                                  style: Theme.of(context).textTheme.headline1),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
@@ -278,10 +276,13 @@ class _ProductScreenState extends State<ProductScreen> {
                                   top: 15.h, right: 15.w, left: 15.w),
                               child: Text(
                                 'EGP 450',
-                                style: TextStyle(
-                                  decoration: TextDecoration.lineThrough,
-                                  fontFamily: 'Nexa_Bold_Regular',
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(
+                                      decoration: TextDecoration.lineThrough,
+                                      color: Colors.black45,
+                                    ),
                               ),
                             ),
                             Padding(
@@ -289,11 +290,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   top: 8.h, right: 15.w, left: 15.w),
                               child: Text(
                                 'EGP 340',
-                                style: TextStyle(
-                                  color: Color(0xff4470C1),
-                                  fontSize: 18.sp,
-                                  fontFamily: 'Nexa_Bold_Regular',
-                                ),
+                                style: Theme.of(context).textTheme.subtitle1,
                               ),
                             ),
                             Padding(
@@ -304,7 +301,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                 height: 50.h,
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: 5,
+                                  itemCount: weight.length,
                                   itemBuilder: (context, index) => Padding(
                                     padding: const EdgeInsets.only(left: 6),
                                     child: CustomOutlineButton(
@@ -336,7 +333,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   top: 24.h, right: 15.w, left: 15.w),
                               child: Text(
                                 'About this item',
-                                style: TextStyle(fontSize: 16.sp),
+                                style: Theme.of(context).textTheme.caption,
                               ),
                             ),
                             Padding(
@@ -344,45 +341,35 @@ class _ProductScreenState extends State<ProductScreen> {
                                   top: 15.h, right: 15.w, left: 15.w),
                               child: Text(
                                 'Sumatra coffee is a dark-roasted, full-bodied coffee with spicy and herbal notes and a deep, earthy aroma',
-                                style: TextStyle(
-                                  fontSize: 13.sp,
-                                ),
+                                style: Theme.of(context).textTheme.subtitle2,
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(right: 15.w, left: 15.w),
                               child: Text(
                                 'Darker-roasted coffees have fuller body with robust, bold taste',
-                                style: TextStyle(
-                                  fontSize: 13.sp,
-                                ),
+                                style: Theme.of(context).textTheme.subtitle2,
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(right: 15.w, left: 15.w),
                               child: Text(
                                 'Enjoy Starbucks at home. The coffee you love without leaving the house',
-                                style: TextStyle(
-                                  fontSize: 13.sp,
-                                ),
+                                style: Theme.of(context).textTheme.subtitle2,
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(right: 15.w, left: 15.w),
                               child: Text(
                                 'For finest taste, always use clean, filtered water; clean your machine before using; and grind beans just before brewing',
-                                style: TextStyle(
-                                  fontSize: 13.sp,
-                                ),
+                                style: Theme.of(context).textTheme.subtitle2,
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(right: 15.w, left: 15.w),
                               child: Text(
                                 'Each pack includes 6 12-ounce bags of whole-bean Starbucks coffee',
-                                style: TextStyle(
-                                  fontSize: 13.sp,
-                                ),
+                                style: Theme.of(context).textTheme.subtitle2,
                               ),
                             ),
                             Padding(
@@ -398,7 +385,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   top: 24.h, right: 15.w, left: 15.w),
                               child: Text(
                                 'Product overview',
-                                style: TextStyle(fontSize: 16.sp),
+                                style: Theme.of(context).textTheme.caption,
                               ),
                             ),
                             Padding(
@@ -416,47 +403,56 @@ class _ProductScreenState extends State<ProductScreen> {
                                     children: [
                                       Text(
                                         'Flavor',
-                                        style: TextStyle(
-                                          fontSize: 13.sp,
-                                          color: Color(0xff8A8A8A),
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                              color: Color(
+                                                0xff8A8A8A,
+                                              ),
+                                            ),
                                       ),
                                       Text(
                                         'Sumatra WB',
-                                        style: TextStyle(
-                                          fontSize: 13.sp,
-                                          color: Color(0xff231F20),
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2,
                                       ),
                                       SizedBox(height: 18),
                                       Text(
                                         'Brand',
-                                        style: TextStyle(
-                                          fontSize: 13.sp,
-                                          color: Color(0xff8A8A8A),
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                              color: Color(
+                                                0xff8A8A8A,
+                                              ),
+                                            ),
                                       ),
                                       Text(
                                         'Starbucks',
-                                        style: TextStyle(
-                                          fontSize: 13.sp,
-                                          color: Color(0xff231F20),
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2,
                                       ),
                                       SizedBox(height: 18),
                                       Text(
                                         'Item Form',
-                                        style: TextStyle(
-                                          fontSize: 13.sp,
-                                          color: Color(0xff8A8A8A),
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                              color: Color(
+                                                0xff8A8A8A,
+                                              ),
+                                            ),
                                       ),
                                       Text(
                                         'Whole Beans',
-                                        style: TextStyle(
-                                          fontSize: 13.sp,
-                                          color: Color(0xff231F20),
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2,
                                       ),
                                     ],
                                   ),
@@ -466,32 +462,38 @@ class _ProductScreenState extends State<ProductScreen> {
                                     children: [
                                       Text(
                                         'Package Information',
-                                        style: TextStyle(
-                                          fontSize: 13.sp,
-                                          color: Color(0xff8A8A8A),
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                              color: Color(
+                                                0xff8A8A8A,
+                                              ),
+                                            ),
                                       ),
                                       Text(
                                         'Bag',
-                                        style: TextStyle(
-                                          fontSize: 13.sp,
-                                          color: Color(0xff231F20),
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2,
                                       ),
                                       SizedBox(height: 18),
                                       Text(
                                         'Specialty',
-                                        style: TextStyle(
-                                          fontSize: 13.sp,
-                                          color: Color(0xff8A8A8A),
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                              color: Color(
+                                                0xff8A8A8A,
+                                              ),
+                                            ),
                                       ),
                                       Text(
                                         'Single Origin',
-                                        style: TextStyle(
-                                          fontSize: 13.sp,
-                                          color: Color(0xff231F20),
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2,
                                       ),
                                     ],
                                   )
@@ -511,7 +513,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   top: 24.h, right: 15.w, left: 15.w),
                               child: Text(
                                 'About seller',
-                                style: TextStyle(fontSize: 16.sp),
+                                style: Theme.of(context).textTheme.caption,
                               ),
                             ),
                             Padding(
@@ -520,15 +522,23 @@ class _ProductScreenState extends State<ProductScreen> {
                                 leading: Image.asset(Assets.imagesPartnerLogo),
                                 title: Text(
                                   'Seller name',
-                                  style: TextStyle(
-                                      color: Color(0xff979293),
-                                      fontSize: 13.sp),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle2!
+                                      .copyWith(
+                                        color: Color(
+                                          0xff8A8A8A,
+                                        ),
+                                      ),
                                 ),
                                 subtitle: Text(
                                   'D.Cappuccino Café',
-                                  style: TextStyle(
-                                      color: Color(0xff107CC0),
-                                      fontSize: 13.sp),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle2!
+                                      .copyWith(
+                                        color: Theme.of(context).primaryColor,
+                                      ),
                                 ),
                               ),
                             ),
@@ -542,21 +552,28 @@ class _ProductScreenState extends State<ProductScreen> {
                                 child: Row(
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.all(10),
                                       height: 35.h,
                                       width: 35.w,
+                                      alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        color: Color(0xffBFE1F9),
+                                        color: Color(0xffDDF0FC),
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(19.5)),
+                                          Radius.circular(
+                                            19.5,
+                                          ),
+                                        ),
                                       ),
                                       child: Text(
                                         '3',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontSize: 14.sp),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontSize: 14.sp,
+                                            ),
                                       ),
                                     ),
                                     SizedBox(
@@ -564,9 +581,14 @@ class _ProductScreenState extends State<ProductScreen> {
                                     ),
                                     Text(
                                       'Other offers from EGP 240',
-                                      style: TextStyle(
-                                          color: Theme.of(context).primaryColor,
-                                          fontSize: 14.sp),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle2!
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontSize: 14.sp,
+                                          ),
                                     ),
                                   ],
                                 ),
