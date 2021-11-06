@@ -16,12 +16,21 @@ class LoginRegisterScreen extends StatefulWidget {
 
 class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   TextEditingController _email = TextEditingController();
+  TextEditingController _firstName = TextEditingController();
+  TextEditingController _lastName = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  TextEditingController _confirmPassword = TextEditingController();
+
   bool selected = false;
   bool isLogin = true;
 
   @override
   void dispose() {
     _email.dispose();
+    _firstName.dispose();
+    _lastName.dispose();
+    _password.dispose();
+    _confirmPassword.dispose();
     super.dispose();
   }
 
@@ -144,13 +153,14 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 isLogin
                     ? SizedBox.shrink()
                     : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
                             width: 157.w,
                             child: CustomInput(
                               title: 'First Name',
                               hint: "First Name",
-                              textEditingController: _email,
+                              textEditingController: _firstName,
                             ),
                           ),
                           SizedBox(
@@ -158,7 +168,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                             child: CustomInput(
                               title: 'Last Name',
                               hint: "Last Name",
-                              textEditingController: _email,
+                              textEditingController: _lastName,
                             ),
                           )
                         ],
@@ -171,21 +181,22 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 CustomInput(
                   title: 'Password',
                   hint: "Enter password",
-                  textEditingController: _email,
+                  textEditingController: _password,
                 ),
                 isLogin
                     ? SizedBox.shrink()
                     : CustomInput(
                         title: 'Confirm Password',
                         hint: "Confirm password",
-                        textEditingController: _email,
+                        textEditingController: _confirmPassword,
                       ),
                 isLogin
                     ? Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
                               return ForgetPasswordScreen();
                             }));
                           },
@@ -198,7 +209,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     : SizedBox.shrink(),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(top: isLogin ? 24.h : 16.h, bottom: 32.h),
+                  margin:
+                      EdgeInsets.only(top: isLogin ? 24.h : 16.h, bottom: 32.h),
                   height: 50.h,
                   child: ElevatedButton(
                     onPressed: () {},
@@ -220,7 +232,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           title: RichText(
                             textAlign: TextAlign.end,
                             text: TextSpan(
-                              style: TextStyle(color: Colors.black, fontSize: 12),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 12),
                               children: <TextSpan>[
                                 TextSpan(
                                   text: 'By creating account, you accept our ',
@@ -244,7 +257,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                       ),
                 Padding(
                   padding: EdgeInsets.only(top: 32.h, bottom: 6.h),
-                  child: Text(isLogin ? "Don’t have an Account" : "Have an Account"),
+                  child: Text(
+                      isLogin ? "Don’t have an Account" : "Have an Account"),
                 ),
                 TextButton(
                   onPressed: () {},

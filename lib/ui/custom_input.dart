@@ -7,6 +7,7 @@ class CustomInput extends StatelessWidget {
     required this.hint,
     required this.textEditingController,
     this.icon = false,
+    this.padding = true,
     Key? key,
   }) : super(key: key);
 
@@ -14,12 +15,13 @@ class CustomInput extends StatelessWidget {
   final String hint;
   final TextEditingController textEditingController;
   final bool icon;
+  final bool padding;
   final ValueNotifier<bool> changeObscure = ValueNotifier(true);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 9.w),
+      padding: EdgeInsets.symmetric(horizontal: padding ? 9.w : 0.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,14 +61,17 @@ class CustomInput extends StatelessWidget {
                         width: 0,
                       ),
                     ),
-                    suffixIconConstraints: BoxConstraints(maxHeight: 15.h, maxWidth: 24.w),
+                    suffixIconConstraints:
+                        BoxConstraints(maxHeight: 15.h, maxWidth: 24.w),
                     suffixIcon: !icon
                         ? null
                         : InkWell(
                             onTap: () {
                               changeObscure.value = !value;
                             },
-                            child: Icon(value ? Icons.visibility_off : Icons.visibility),
+                            child: Icon(value
+                                ? Icons.visibility_off
+                                : Icons.visibility),
                           ),
                   ),
                 ),
