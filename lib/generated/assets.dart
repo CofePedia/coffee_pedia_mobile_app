@@ -14,10 +14,16 @@ class Assets {
   static const String iconsProfile = 'assets/icons/Profile.svg';
   static const String iconsSearch = 'assets/icons/Search.svg';
   static const String iconsShoppingBasket = 'assets/icons/ShoppingBasket.svg';
-  static const String iconsStaractive = 'assets/icons/Staractive.svg';
+  static const String iconsStaractive = 'assets/icons/star_active.svg';
   static const String imagesJar = 'assets/images/Jar.png';
   static const String imagesPack = 'assets/images/Pack.png';
   static const String imagesPartnerLogo = 'assets/images/partnerLogo.png';
+  static const String card = 'assets/images/card.png';
+
+  static const String iconsFacebookSquare = 'assets/icons/facebookSquare.svg';
+  static const String iconsGoogle = 'assets/icons/Google.svg';
+  static const String iconsLogoHor = 'assets/icons/LogoHor.svg';
+
   static const String imagesPartnerLogo1 = 'assets/images/partnerLogo1.png';
   static const String imagesPartnerLogo2 = 'assets/images/partnerLogo2.png';
   static const String imagesSplash = 'assets/images/splash.png';

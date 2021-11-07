@@ -1,5 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:coffepedia/ui/screens/product_screen.dart';
+import 'package:coffepedia/ui/screens/category_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,10 +46,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           builder: BotToastInit(),
-          navigatorObservers: [
-            BotToastNavigatorObserver(),
-          ],
-          home: ProductScreen(),
+          navigatorObservers: [BotToastNavigatorObserver()],
           theme: ThemeData(
             accentColor: Color(0xffffffff),
             primaryColor: Color(0xff107CC0),
@@ -58,37 +55,37 @@ class MyApp extends StatelessWidget {
                 fontFamily: 'Nexa',
                 fontSize: 10.sp,
                 color: Color(0xff231F20),
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w700,
               ),
               bodyText2: TextStyle(
                 fontFamily: 'Nexa',
                 fontSize: 12.sp,
                 color: Color(0xff000000),
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w500,
               ),
               subtitle1: TextStyle(
                 fontFamily: 'Nexa',
                 fontSize: 18.sp,
                 color: Color(0xff4470C1),
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w700,
               ),
               headline2: TextStyle(
                 fontFamily: 'Nexa',
                 fontSize: 14.sp,
                 color: Color(0xffffffff),
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w700,
               ),
               subtitle2: TextStyle(
                 fontFamily: 'Nexa',
                 fontSize: 13.sp,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w700,
                 height: 1.5,
                 color: Color(0xff231F20),
               ),
               headline1: TextStyle(
                 fontFamily: 'Nexa',
                 fontSize: 22.sp,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w700,
                 color: Color(0xff000000),
               ),
               caption: TextStyle(
@@ -99,6 +96,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
+          home: CategoryScreen(),
         );
       },
     );
