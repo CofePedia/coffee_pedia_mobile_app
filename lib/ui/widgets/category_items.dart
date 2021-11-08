@@ -3,8 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CategoryItems extends StatelessWidget {
+class CategoryItems extends StatefulWidget {
   const CategoryItems({Key? key}) : super(key: key);
+
+  @override
+  State<CategoryItems> createState() => _CategoryItemsState();
+}
+
+class _CategoryItemsState extends State<CategoryItems> {
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +26,11 @@ class CategoryItems extends StatelessWidget {
           width: 158.w,
           padding: EdgeInsets.symmetric(horizontal: 4.w),
           child: OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
             style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                 EdgeInsets.zero,
@@ -31,7 +42,9 @@ class CategoryItems extends StatelessWidget {
               ),
               side: MaterialStateProperty.all<BorderSide>(
                 BorderSide(
-                  color: Color(0xffCC1010),
+                  color: _selectedIndex == index
+                      ? Color(0xffCC1010)
+                      : Colors.transparent,
                 ),
               ),
             ),

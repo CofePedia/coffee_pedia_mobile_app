@@ -29,4 +29,7 @@ class Assets {
   static const String imagesSplash = 'assets/images/splash.png';
   static const String translationsAr = 'assets/translations/ar.json';
   static const String translationsEn = 'assets/translations/en.json';
+  static const String productCardWhite = 'assets/images/cardWhite.png';
+  static const String productCardBlue = 'assets/images/cardBlue.png';
+
 }

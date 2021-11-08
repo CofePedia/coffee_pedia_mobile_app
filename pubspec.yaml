@@ -36,8 +36,7 @@ dependencies:
   circle_checkbox: ^0.0.2+1
   flutter_rating_bar: ^4.0.0
   favorite_button: ^0.0.4
-
-
+  cached_network_image: ^3.1.0
 
 
 dev_dependencies:
@@ -79,6 +78,7 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  # fonts:
   fonts:
     - family: Nexa
       fonts:
@@ -88,5 +88,6 @@ flutter:
           weight: 900
         - asset: assets/fonts/Nexa_Regular_Regular.otf
           weight: 500
+  #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
           locale: context.locale,
           builder: BotToastInit(),
           navigatorObservers: [BotToastNavigatorObserver()],
+          home: CategoryScreen(),
           theme: ThemeData(
             accentColor: Color(0xffffffff),
             primaryColor: Color(0xff107CC0),
@@ -55,37 +56,37 @@ class MyApp extends StatelessWidget {
                 fontFamily: 'Nexa',
                 fontSize: 10.sp,
                 color: Color(0xff231F20),
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w600,
               ),
               bodyText2: TextStyle(
                 fontFamily: 'Nexa',
                 fontSize: 12.sp,
                 color: Color(0xff000000),
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
               ),
               subtitle1: TextStyle(
                 fontFamily: 'Nexa',
                 fontSize: 18.sp,
                 color: Color(0xff4470C1),
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w600,
               ),
               headline2: TextStyle(
                 fontFamily: 'Nexa',
                 fontSize: 14.sp,
                 color: Color(0xffffffff),
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w600,
               ),
               subtitle2: TextStyle(
                 fontFamily: 'Nexa',
                 fontSize: 13.sp,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w600,
                 height: 1.5,
                 color: Color(0xff231F20),
               ),
               headline1: TextStyle(
                 fontFamily: 'Nexa',
                 fontSize: 22.sp,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w600,
                 color: Color(0xff000000),
               ),
               caption: TextStyle(
@@ -96,7 +97,6 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          home: CategoryScreen(),
         );
       },
     );
