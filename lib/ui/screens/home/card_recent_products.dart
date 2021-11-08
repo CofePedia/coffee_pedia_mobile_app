@@ -3,15 +3,15 @@ import 'package:coffepedia/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'rate_container.dart';
+
 class CardRecentProducts extends StatelessWidget {
   const CardRecentProducts({
     required this.product_image,
     required this.product_text,
-    this.rate,
     Key? key,
   }) : super(key: key);
   final String product_image, product_text;
-  final double? rate;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +32,7 @@ class CardRecentProducts extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                   child: Text(
-                    rate.toString(),
-                    style: TextStyle(fontSize: 12.sp , color: Colors.black),)
-                  ),
+                  RateContainer(rate: 3.4),
                 Container(
                 child: CachedNetworkImage(
                   imageUrl: product_image,
