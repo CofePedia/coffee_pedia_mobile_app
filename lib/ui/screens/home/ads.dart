@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Ad extends StatelessWidget {
-  const Ad({
+class Ads extends StatelessWidget {
+  const Ads({
     required this.ad_image_background,
     this.onPress,
     Key? key,
@@ -20,9 +20,10 @@ class Ad extends StatelessWidget {
                 onPress!();
               },
               child: Container(
-                height: 60.h,
-                width: MediaQuery.of(context).size.width,
+                height: 205.h,
+                width: 344.w,
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(11.0),
                   image: DecorationImage(
                     image: imageProvider,
                     fit: BoxFit.cover,

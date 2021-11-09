@@ -92,7 +92,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     crossAxisSpacing: 16.5.w,
                     childAspectRatio: 0.6,
                   ),
-                  itemCount: 8,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 12,
                   itemBuilder: (context, index) => Container(
                     height: 150,
                     width: 100,

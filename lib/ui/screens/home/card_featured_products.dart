@@ -1,22 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/home/discount_container.dart';
+import 'package:coffepedia/ui/screens/home/price_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'rate_container.dart';
 
 class CardFeaturedProducts extends StatelessWidget {
   const CardFeaturedProducts({
     required this.product_image,
     required this.product_text,
-    required this.price_after,
-    required this.price_before,
-    required this.discount,
-    required this.fav,
-    this.rate,
     Key? key,
   }) : super(key: key);
-  final String product_image, product_text, price_after, price_before , discount;
-  final double? rate;
-  final bool fav;
+  final String product_image, product_text;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +33,7 @@ class CardFeaturedProducts extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                 child: Text(rate.toString(),
-                 style: TextStyle(fontSize: 12.sp , color: Colors.black),
-                 )
-                ),
+                RateContainer(rate: 3.4),
               Container(
               child: CachedNetworkImage(
                 imageUrl: product_image,
@@ -59,21 +52,7 @@ class CardFeaturedProducts extends StatelessWidget {
           ],
             ),
             // discount container
-            Container(
-              height: 17.h,
-              width: 55.w,
-              decoration: BoxDecoration(
-                color: Colors.yellow,
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12.5) , bottomRight: Radius.circular(12.5) , topLeft: Radius.circular(12.5) , topRight: Radius.zero),
-              ),
-              child: Text( 
-                discount,
-                style: TextStyle(
-                  fontSize: 10.sp,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
+            DiscountContainer(discount_text: "25% Off"),
             // product text
             Container(
                   // margin: EdgeInsets.symmetric(horizontal: 5.w),
@@ -89,29 +68,9 @@ class CardFeaturedProducts extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                   children: [
-                     Container(
-                       child: Text(price_before,
-                       style: TextStyle(
-                         fontSize: 12.sp,
-                         color: Colors.grey,
-                          decoration: TextDecoration.lineThrough,
-                       ),
-                       textAlign: TextAlign.start,
-                       ),
-                     ),
-                     Text(price_after,
-                     style: TextStyle(
-                       fontSize: 16.sp,
-                       color: Colors.blue,
-                     ),
-                     textAlign: TextAlign.start,
-                     )
-                   ],
-                  ),
+                  PriceContainer( price_after: "EGP 340", price_before: "EGP 450",)
                   //fav
-
+                  
                 ],
               )
           ],
