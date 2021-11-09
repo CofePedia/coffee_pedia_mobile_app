@@ -4,11 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-<<<<<<< HEAD
-=======
-import 'ui/screens/home_page.dart';
-import 'ui/screens/intro/splash_screen.dart';
->>>>>>> f2d9aea572f2aeea62fb179eb5445f7e685f7be9
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +47,6 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           builder: BotToastInit(),
-<<<<<<< HEAD
           navigatorObservers: [
             BotToastNavigatorObserver(),
           ],
@@ -105,10 +100,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-=======
-          navigatorObservers: [BotToastNavigatorObserver()],
-          home: HomePage(),
->>>>>>> f2d9aea572f2aeea62fb179eb5445f7e685f7be9
+
         );
       },
     );
