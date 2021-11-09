@@ -1,9 +1,10 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:coffepedia/ui/screens/category_screen.dart';
+import 'package:coffepedia/ui/screens/product_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,8 +47,11 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           builder: BotToastInit(),
-          navigatorObservers: [BotToastNavigatorObserver()],
-          home: CategoryScreen(),
+<<<<<<<<< Temporary merge branch 1
+          navigatorObservers: [
+            BotToastNavigatorObserver(),
+          ],
+          home: ProductScreen(),
           theme: ThemeData(
             accentColor: Color(0xffffffff),
             primaryColor: Color(0xff107CC0),
@@ -97,6 +101,10 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
+=========
+          navigatorObservers: [BotToastNavigatorObserver()],
+          home: HomePage(),
+>>>>>>>>> Temporary merge branch 2
         );
       },
     );
