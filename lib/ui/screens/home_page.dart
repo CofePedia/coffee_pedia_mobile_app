@@ -34,6 +34,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    // appBar: AppBar(
+    //     title: Text('HomeScreen'),
+    //   ),
+      
       bottomNavigationBar: BottomNavigationBar(
         items: [
           getItem(Assets.iconsHome, "Shop", 0),
