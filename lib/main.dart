@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -47,7 +46,6 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           builder: BotToastInit(),
-<<<<<<<<< Temporary merge branch 1
           navigatorObservers: [
             BotToastNavigatorObserver(),
           ],
@@ -101,10 +99,6 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-=========
-          navigatorObservers: [BotToastNavigatorObserver()],
-          home: HomePage(),
->>>>>>>>> Temporary merge branch 2
         );
       },
     );
