@@ -17,65 +17,66 @@ class CardFeaturedProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return Container(
+    return Container(
       width: 214.w,
       height: 250.h,
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(11.0),
-    image: DecorationImage(
-      image: AssetImage(Assets.productCardWhite),
-    ),
+        borderRadius: BorderRadius.circular(11.0),
+        image: DecorationImage(
+          image: AssetImage(Assets.productCardWhite),
+        ),
       ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                RateContainer(rate: 3.4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              RateContainer(rate: 3.4),
               Container(
-              child: CachedNetworkImage(
-                imageUrl: product_image,
-                imageBuilder: (context, imageProvider) => Container(
-                  height: 90.h,
-                  width: 80.w,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.fitHeight,
+                child: CachedNetworkImage(
+                  imageUrl: product_image,
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: 90.h,
+                    width: 80.w,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.fitHeight,
+                      ),
                     ),
                   ),
                 ),
               ),
+            ],
+          ),
+          // discount container
+          DiscountContainer(discount_text: "25% Off"),
+          // product text
+          Container(
+            // margin: EdgeInsets.symmetric(horizontal: 5.w),
+            child: Text(
+              product_text,
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: Colors.black,
+              ),
             ),
-          ],
-            ),
-            // discount container
-            DiscountContainer(discount_text: "25% Off"),
-            // product text
-            Container(
-                  // margin: EdgeInsets.symmetric(horizontal: 5.w),
-                  child: Text(
-                    product_text ,
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                //price & fav icon
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  PriceContainer( price_after: "EGP 340", price_before: "EGP 450",)
-                  //fav
-                  
-                ],
+          ),
+          //price & fav icon
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              PriceContainer(
+                price_after: "EGP 340",
+                price_before: "EGP 450",
               )
-          ],
-        ),
-      );
-  
+              //fav
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

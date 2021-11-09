@@ -1,4 +1,6 @@
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/filters_screen.dart';
+import 'package:coffepedia/ui/screens/home/search_bar.dart';
 import 'package:coffepedia/ui/shared/custom_outline_button.dart';
 import 'package:coffepedia/ui/widgets/category_items.dart';
 import 'package:favorite_button/favorite_button.dart';
@@ -23,9 +25,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              alignment: Alignment.bottomCenter,
               height: 105.h,
-              width: 375.w,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.only(top: 53.h, bottom: 9.h, right: 15.w),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
@@ -33,6 +35,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     Color(0xffFFE77E),
                   ],
                 ),
+              ),
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(
+                      Icons.chevron_left,
+                      size: 22.w,
+                    ),
+                    color: Color(0xff000000),
+                  ),
+                  SearchBar(),
+                ],
               ),
             ),
             SizedBox(
@@ -67,7 +84,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ),
                   CustomOutlineButton(
                     title: 'Filter',
-                    onPress: () {},
+                    onPress: () {
+                      showModalBottomSheet(
+                        enableDrag: false,
+                        isDismissible: false,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15.h),
+                            topRight: Radius.circular(15.w),
+                          ),
+                        ),
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => FiltersScreen(),
+                      );
+                    },
                     height: 40.h,
                     width: 100.w,
                     borderRadius: 9.sp,
@@ -82,145 +113,146 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
             ),
             Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                padding: EdgeInsets.symmetric(horizontal: 15.w),
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 25.h,
-                    crossAxisSpacing: 16.5.w,
-                    childAspectRatio: 0.6,
-                  ),
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 12,
-                  itemBuilder: (context, index) => Container(
-                    height: 150,
-                    width: 100,
-                    //  color: Colors.blue,
-                    padding: EdgeInsets.all(0),
-                    child: Stack(
-                      children: [
-                        Image.asset(
-                          Assets.card,
-                          height: 305.h,
-                          width: 165.w,
+              width: MediaQuery.of(context).size.width,
+              height: 1000.h,
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: GridView.builder(
+                padding: EdgeInsets.symmetric(vertical: 24.h),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 25.h,
+                  crossAxisSpacing: 16.5.w,
+                  childAspectRatio: 0.6,
+                ),
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 8,
+                itemBuilder: (context, index) => Container(
+                  height: 150,
+                  width: 100,
+                  //  color: Colors.blue,
+                  padding: EdgeInsets.all(0),
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        Assets.card,
+                        height: 305.h,
+                        width: 165.w,
+                      ),
+                      Positioned(
+                        right: 17.w,
+                        child: Image.asset(
+                          Assets.imagesPack,
+                          width: 75.w,
+                          height: 136.h,
                         ),
-                        Positioned(
-                          right: 17.w,
-                          child: Image.asset(
-                            Assets.imagesPack,
-                            width: 75.w,
-                            height: 136.h,
-                          ),
+                      ),
+                      Positioned(
+                        top: 30.h,
+                        left: 20.w,
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(Assets.iconsStaractive),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            Text('4.5'),
+                          ],
                         ),
-                        Positioned(
-                          top: 30.h,
-                          left: 20.w,
-                          child: Row(
+                      ),
+                      Positioned(
+                        top: 152.h,
+                        left: 12.w,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SvgPicture.asset(Assets.iconsStaractive),
-                              SizedBox(
-                                width: 5.w,
+                              Container(
+                                height: 17.h,
+                                width: 55.h,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Color(0xffFFD008),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(12.5.h),
+                                      bottomRight: Radius.circular(12.5.h),
+                                      bottomLeft: Radius.circular(12.5.h)),
+                                ),
+                                child: Text(
+                                  '25% Off',
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
                               ),
-                              Text('4.5'),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              Container(
+                                width: 140.w,
+                                child: Text(
+                                  'CoffePedia Dark Espresso Roast COFFEE',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(
+                                        fontSize: 14.sp,
+                                      ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 12.h,
+                              ),
+                              Text(
+                                'EGP 450',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(
+                                      decoration: TextDecoration.lineThrough,
+                                      color: Colors.black45,
+                                    ),
+                              ),
+                              SizedBox(
+                                height: 8.h,
+                              ),
+                              Text(
+                                'EGP 340',
+                                style: Theme.of(context).textTheme.subtitle1,
+                              ),
                             ],
                           ),
                         ),
-                        Positioned(
-                          top: 152.h,
-                          left: 12.w,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.w),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 17.h,
-                                  width: 55.h,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffFFD008),
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(12.5.h),
-                                        bottomRight: Radius.circular(12.5.h),
-                                        bottomLeft: Radius.circular(12.5.h)),
-                                  ),
-                                  child: Text(
-                                    '25% Off',
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 15.h,
-                                ),
-                                Container(
-                                  width: 140.w,
-                                  child: Text(
-                                    'CoffePedia Dark Espresso Roast COFFEE',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline1!
-                                        .copyWith(
-                                          fontSize: 14.sp,
-                                        ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 12.h,
-                                ),
-                                Text(
-                                  'EGP 450',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText2!
-                                      .copyWith(
-                                        decoration: TextDecoration.lineThrough,
-                                        color: Colors.black45,
-                                      ),
-                                ),
-                                SizedBox(
-                                  height: 8.h,
-                                ),
-                                Text(
-                                  'EGP 340',
-                                  style: Theme.of(context).textTheme.subtitle1,
-                                ),
-                              ],
-                            ),
+                      ),
+                      Positioned(
+                        top: 240.h,
+                        right: 18.w,
+                        child: Container(
+                          height: 38.h,
+                          width: 38.w,
+                          decoration: BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.circular(25),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color.fromRGBO(0, 0, 0, 0.12),
+                                  offset: Offset(0, 2),
+                                  blurRadius: 11.sp)
+                            ],
+                          ),
+                          child: FavoriteButton(
+                            isFavorite: true,
+                            iconSize: 35.h,
+                            iconColor: Color(0xffE02020),
+                            valueChanged: (_isFavorite) {
+                              print('Is Favorite $_isFavorite)');
+                            },
                           ),
                         ),
-                        Positioned(
-                          top: 240.h,
-                          right: 18.w,
-                          child: Container(
-                            height: 38.h,
-                            width: 38.w,
-                            decoration: BoxDecoration(
-                              color: Color(0xffffffff),
-                              borderRadius: BorderRadius.circular(25),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Color.fromRGBO(0, 0, 0, 0.12),
-                                    offset: Offset(0, 2),
-                                    blurRadius: 11.sp)
-                              ],
-                            ),
-                            child: FavoriteButton(
-                              isFavorite: true,
-                              iconSize: 35.h,
-                              iconColor: Color(0xffE02020),
-                              valueChanged: (_isFavorite) {
-                                print('Is Favorite $_isFavorite)');
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                )),
+                ),
+              ),
+            ),
           ],
         ),
       ),

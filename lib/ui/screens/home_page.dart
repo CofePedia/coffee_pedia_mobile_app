@@ -1,11 +1,11 @@
 import 'package:coffepedia/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'basket_screen.dart';
-import 'profile_screen.dart';
 import 'home_screen.dart';
 import 'more_screen.dart';
+import 'profile_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,7 +24,9 @@ class _HomePageState extends State<HomePage> {
           image,
           width: 24.w,
           height: 24.h,
-          color: currentIndex == index ? Color(0xff4470C1) : const Color(0xff606c74),
+          color: currentIndex == index
+              ? Color(0xff4470C1)
+              : const Color(0xff606c74),
         ),
       ),
       label: title,
@@ -34,10 +36,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    // appBar: AppBar(
-    //     title: Text('HomeScreen'),
-    //   ),
-      
+      // appBar: AppBar(
+      //     title: Text('HomeScreen'),
+      //   ),
+
       bottomNavigationBar: BottomNavigationBar(
         items: [
           getItem(Assets.iconsHome, "Shop", 0),
@@ -53,8 +55,10 @@ class _HomePageState extends State<HomePage> {
         },
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Color(0xff4470C1),
-        selectedLabelStyle: TextStyle(fontSize: 12.sp, color: Color(0xff4470C1)),
-        unselectedLabelStyle: TextStyle(fontSize: 12.sp, color: Color(0xff606C74)),
+        selectedLabelStyle:
+            TextStyle(fontSize: 12.sp, color: Color(0xff4470C1)),
+        unselectedLabelStyle:
+            TextStyle(fontSize: 12.sp, color: Color(0xff606C74)),
       ),
       body: IndexedStack(
         index: currentIndex,
