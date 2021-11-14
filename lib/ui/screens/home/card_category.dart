@@ -22,7 +22,7 @@ class CardCategory extends StatelessWidget {
         decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7.0),
       image: DecorationImage(
-        image: AssetImage(Assets.productCardBlue),
+        image: AssetImage(Assets.imagesCardBlue),
         fit: BoxFit.fill,
       ),
         ),
