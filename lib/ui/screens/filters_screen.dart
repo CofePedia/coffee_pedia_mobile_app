@@ -27,7 +27,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 640.h,
+      height: 700.h,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: Color(0xffffffff),
@@ -63,7 +63,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
                 child: ExpansionPanelList(
-                  dividerColor: Color(0xff979797),
+                  dividerColor: Color(0xff979797),elevation: 0,
                   children: [
                     ExpansionPanel(
                       canTapOnHeader: true,

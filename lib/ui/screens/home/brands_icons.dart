@@ -5,11 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BrandsIcons extends StatelessWidget {
   const BrandsIcons({
-    required this.brand_icon,
+    required this.brandIcon,
     Key? key,
   }) : super(key: key);
 
-  final String brand_icon;
+  final String brandIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class BrandsIcons extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10.w),
         child: CachedNetworkImage(
-          imageUrl: brand_icon,
+          imageUrl: brandIcon,
           imageBuilder: (context, imageProvider) => Container(
             height: 80.h,
             decoration: BoxDecoration(

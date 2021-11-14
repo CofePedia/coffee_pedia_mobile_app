@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class CustomDropDownTextField extends StatelessWidget {
+  CustomDropDownTextField({
+    required this.title,
+    required this.hint,
+    Key? key,
+  }) : super(key: key);
+
+  final String title;
+  final String hint;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+        SizedBox(
+          height: 9.h,
+        ),
+        SizedBox(
+          width: 168.w,
+          height: 50.h,
+          child: DropdownButtonFormField(
+            decoration: InputDecoration(
+              isDense: false,
+              contentPadding: EdgeInsets.all(5),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.w),
+                borderSide: BorderSide(
+                  color: Color(0xffE3E3E3),
+                  width: 0,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.w),
+                borderSide: BorderSide(
+                  color: Color(0xffE3E3E3),
+                  width: 0,
+                ),
+              ),
+            ),
+            hint: Text(
+              hint,
+              style: TextStyle(
+                fontSize: 15,
+                fontFamily: "dinRegular",
+                color: Color(0xff9aa2b5),
+              ),
+            ),
+            icon: Icon(
+              Icons.keyboard_arrow_down,
+              color: Colors.black,
+            ),
+            items: [],
+          ),
+        ),
+        SizedBox(
+          height: 16.h,
+        ),
+      ],
+    );
+  }
+}

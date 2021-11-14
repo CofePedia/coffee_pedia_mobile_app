@@ -1,4 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
+import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
 import 'package:coffepedia/ui/screens/intro/splash_screen.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
