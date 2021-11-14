@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomOutlineButton extends StatelessWidget {
   const CustomOutlineButton({
@@ -10,6 +11,10 @@ class CustomOutlineButton extends StatelessWidget {
     this.borderRadius,
     this.borderColor,
     this.shadowColor,
+    this.assetName,
+    this.imageColor,
+    this.imageHeight,
+    this.imageWidth,
     Key? key,
   }) : super(key: key);
   final String title;
@@ -19,6 +24,10 @@ class CustomOutlineButton extends StatelessWidget {
   final VoidCallback onPress;
   final Color? borderColor;
   final BoxShadow? shadowColor;
+  final String? assetName;
+  final double? imageWidth;
+  final double? imageHeight;
+  final Color? imageColor;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +40,17 @@ class CustomOutlineButton extends StatelessWidget {
         child: OutlinedButton(
           onPressed: onPress,
           child: Row(
+            mainAxisAlignment: assetName != null
+                ? MainAxisAlignment.spaceAround
+                : MainAxisAlignment.center,
             children: [
+              SvgPicture.asset(
+                assetName ?? '',
+                color: imageColor,
+                alignment: Alignment.centerRight,
+                width: imageWidth,
+                height: imageHeight,
+              ),
               Text(
                 title,
                 style: Theme.of(context).textTheme.button!.copyWith(
@@ -47,11 +66,9 @@ class CustomOutlineButton extends StatelessWidget {
                 color: borderColor!,
               ),
             ),
-            // shadowColor:
-            //     MaterialStateProperty.all(Color.fromRGBO(16, 124, 192, 0.41)),
             shape: MaterialStateProperty.all<OutlinedBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 4.w),
+                borderRadius: BorderRadius.circular(borderRadius!),
               ),
             ),
           ),

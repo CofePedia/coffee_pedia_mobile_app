@@ -24,7 +24,7 @@ class CardFeaturedProducts extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(11.0),
         image: DecorationImage(
-          image: AssetImage(Assets.imagesCardWhite),
+          image: AssetImage(Assets.productCardWhite),
         ),
       ),
       child: Column(
