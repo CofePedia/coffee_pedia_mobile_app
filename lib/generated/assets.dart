@@ -13,10 +13,7 @@ class Assets {
   static const String iconsFilter = 'assets/icons/filter.svg';
   static const String iconsGoogle = 'assets/icons/Google.svg';
   static const String iconsHeart = 'assets/icons/heart.svg';
-  static const String iconsHome = 'assets/icons/home.png';
   static const String iconsLogoHor = 'assets/icons/LogoHor.svg';
-  static const String iconsMore = 'assets/icons/More.png';
-  static const String iconsProfile = 'assets/icons/Profile.png';
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsMinus = 'assets/icons/minus.svg';
   static const String iconsMore = 'assets/icons/More.svg';
