@@ -1,4 +1,5 @@
 import 'package:coffepedia/generated/assets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,16 +7,19 @@ import 'package:flutter_svg/svg.dart';
 class SearchBar extends StatelessWidget {
   const SearchBar({
     Key? key,
+    this.width,
   }) : super(key: key);
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 43.h,
-      width: 309.w,
+      width: width,
       child: TextField(
         decoration: InputDecoration(
-          hintText: 'Search Coffepedia', contentPadding: EdgeInsets.all(15.h),
+          hintText: 'Search Coffepedia',
+          contentPadding: EdgeInsets.all(15.h),
           border: InputBorder.none,
           prefixIcon: SvgPicture.asset(
             Assets.iconsSearch,
@@ -26,8 +30,6 @@ class SearchBar extends StatelessWidget {
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w700,
               ),
-          // filled: true,
-          // fillColor: Colors.white,
         ),
       ),
       decoration: BoxDecoration(

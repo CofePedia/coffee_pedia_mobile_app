@@ -1,8 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
-import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
-import 'package:coffepedia/ui/screens/intro/splash_screen.dart';
-import 'package:coffepedia/ui/screens/product_screen.dart';
+import 'package:coffepedia/ui/screens/orders_history_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -52,7 +49,7 @@ class MyApp extends StatelessWidget {
           navigatorObservers: [
             BotToastNavigatorObserver(),
           ],
-          home: SplashScreen(),
+          home: OrdersHistoryScreen(),
           theme: ThemeData(
             accentColor: Color(0xffffffff),
             primaryColor: Color(0xff107CC0),
@@ -93,6 +90,24 @@ class MyApp extends StatelessWidget {
                 fontSize: 22.sp,
                 fontWeight: FontWeight.w600,
                 color: Color(0xff000000),
+              ),
+              headline3: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff8A8A8A),
+              ),
+              headline4: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w500,
+                color: Color(0xff606266),
+              ),
+              headline5: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w700,
+                color: Color(0xffF3AE16),
               ),
               caption: TextStyle(
                 fontFamily: 'Nexa',
