@@ -22,6 +22,9 @@ class Assets {
   static const String imagesSplash = 'assets/images/splash.png';
   static const String imagesSuccsign = 'assets/images/Succsign.svg';
   static const String imagesVisaLogo = 'assets/images/visaLogo.svg';
-  static const String translationsAr = 'assets/translations/ar.json';
-  static const String translationsEn = 'assets/translations/en.json';
+  static const String iconsAdd = 'assets/icons/add.svg';
+  static const String iconsMinus = 'assets/icons/minus.svg';
+  static const String iconsStarActive = 'assets/icons/star_active.svg';
+  static const String imagesCardBlue = 'assets/images/cardBlue.png';
+  static const String imagesCardWhite = 'assets/images/cardWhite.png';
 }
