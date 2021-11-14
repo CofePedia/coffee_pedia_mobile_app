@@ -42,6 +42,9 @@ class CheckoutPopUp extends StatelessWidget {
                       "CoffePedia Dark Espresso Roast COFFEE",
                       maxLines: 2,
                       textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                            color: Color(0xff231F20),
+                          ),
                     ),
                   ),
                 ),
@@ -49,11 +52,19 @@ class CheckoutPopUp extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text("Total"),
+                    Text(
+                      "Total",
+                      style: Theme.of(context).textTheme.overline,
+                    ),
                     SizedBox(
                       height: 16.h,
                     ),
-                    Text("EGP 340"),
+                    Text(
+                      "EGP 340",
+                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                    ),
                   ],
                 ),
               ],
@@ -72,7 +83,10 @@ class CheckoutPopUp extends StatelessWidget {
                   ),
                 ),
               ),
-              child: Text("Proceed to checkout"),
+              child: Text(
+                "Proceed to checkout",
+                style: Theme.of(context).textTheme.headline2,
+              ),
             ),
           ),
           TextButton(
@@ -81,8 +95,8 @@ class CheckoutPopUp extends StatelessWidget {
             },
             child: Text(
               "Continue Shopping",
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    color: const Color(0xffe02020),
+              style: Theme.of(context).textTheme.headline2!.copyWith(
+                    color: Theme.of(context).primaryColor,
                   ),
             ),
           ),
