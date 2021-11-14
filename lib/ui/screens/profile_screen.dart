@@ -39,7 +39,10 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 60.h, bottom: 16.h),
-                      child: Text("My Profile"),
+                      child: Text(
+                        "My Profile",
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
                     ),
                     Row(
                       children: [

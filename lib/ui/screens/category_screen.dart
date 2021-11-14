@@ -151,7 +151,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         left: 20.w,
                         child: Row(
                           children: [
-                            SvgPicture.asset(Assets.iconsStaractive),
+                            SvgPicture.asset(Assets.iconsStarActive),
                             SizedBox(
                               width: 5.w,
                             ),

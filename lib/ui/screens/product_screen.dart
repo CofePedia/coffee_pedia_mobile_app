@@ -57,7 +57,7 @@ class _ProductScreenState extends State<ProductScreen> {
               width: 50.w,
               borderRadius: 35.sp,
               buttonColor: Color(0xffF2F2F2),
-              assetName: Assets.addIcon,
+              assetName: Assets.iconsAdd,
               imageWidth: 15.w,
               imageHeight: 15.h,
               imageColor: Color(0xff606266),

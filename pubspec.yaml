@@ -38,6 +38,7 @@ dependencies:
   favorite_button: ^0.0.4
   cached_network_image: ^3.1.0
 
+  circle_checkbox: ^0.0.2+1
 
 dev_dependencies:
   flutter_test:

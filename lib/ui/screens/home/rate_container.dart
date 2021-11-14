@@ -18,7 +18,7 @@ class RateContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SvgPicture.asset(
-             Assets.iconsStaractive,
+             Assets.iconsStarActive,
             ),
           Container(
               child: Text(
