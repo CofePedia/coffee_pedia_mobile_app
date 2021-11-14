@@ -18,7 +18,9 @@ class CustomDropDownTextField extends StatelessWidget {
       children: [
         Text(
           title,
-          style: Theme.of(context).textTheme.bodyText2,
+          style: Theme.of(context).textTheme.headline4!.copyWith(
+                color: Color(0xff8A8A8A),
+              ),
         ),
         SizedBox(
           height: 9.h,
@@ -29,19 +31,22 @@ class CustomDropDownTextField extends StatelessWidget {
           child: DropdownButtonFormField(
             decoration: InputDecoration(
               isDense: false,
+              hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                    color: const Color(0xffCCCCCC),
+                  ),
               contentPadding: EdgeInsets.all(5),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.w),
                 borderSide: BorderSide(
                   color: Color(0xffE3E3E3),
-                  width: 0,
+                  width: 1.w,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5.w),
                 borderSide: BorderSide(
                   color: Color(0xffE3E3E3),
-                  width: 0,
+                  width: 1.w,
                 ),
               ),
             ),

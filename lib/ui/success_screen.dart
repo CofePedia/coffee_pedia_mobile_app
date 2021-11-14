@@ -17,11 +17,17 @@ class SuccessScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Thank You"),
+            Text(
+              "Thank You",
+              style: Theme.of(context).textTheme.headline5,
+            ),
             SizedBox(
               height: 7.h,
             ),
-            Text("Your Order Placed Successfully"),
+            Text(
+              "Your Order Placed Successfully",
+              style: Theme.of(context).textTheme.caption,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 24.h),
               child: SvgPicture.asset(
@@ -30,13 +36,17 @@ class SuccessScreen extends StatelessWidget {
                 height: 102.h,
               ),
             ),
-            Text("Order ID #CP6786563722021"),
+            Text(
+              "Order ID #CP6786563722021",
+              style: Theme.of(context).textTheme.caption,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 24.h),
               child: Text(
                 "You will recieve an email with your order details and the expecting shipping date",
                 maxLines: 2,
                 textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline4,
               ),
             ),
             Container(
@@ -54,6 +64,7 @@ class SuccessScreen extends StatelessWidget {
                 ),
                 child: Text(
                   "Track your order",
+                  style: Theme.of(context).textTheme.headline2,
                 ),
               ),
             ),
@@ -63,8 +74,8 @@ class SuccessScreen extends StatelessWidget {
               },
               child: Text(
                 "Continue Shopping",
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      color: const Color(0xffe02020),
+                style: Theme.of(context).textTheme.headline2!.copyWith(
+                      color: Theme.of(context).primaryColor,
                     ),
               ),
             ),

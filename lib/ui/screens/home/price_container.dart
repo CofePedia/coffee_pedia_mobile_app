@@ -13,25 +13,17 @@ class PriceContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             child: Text(
               price_before,
-              style: TextStyle(
-                fontSize: 12.sp,
-                color: Colors.grey,
-                decoration: TextDecoration.lineThrough,
-              ),
-              textAlign: TextAlign.start,
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(color:Colors.black.withOpacity(0.5) ,  decoration: TextDecoration.lineThrough,),
             ),
           ),
           Text(
             price_after,
-            style: TextStyle(
-              fontSize: 16.sp,
-              color: Colors.blue,
-            ),
-            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 16.sp),
           )
         ],
       ),

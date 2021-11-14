@@ -32,6 +32,7 @@ class CheckoutItem extends StatelessWidget {
                           "CoffePedia Dark Espresso Roast COFFEE",
                           maxLines: 2,
                           textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.headline4,
                         ),
                       ),
                     ),
@@ -39,14 +40,19 @@ class CheckoutItem extends StatelessWidget {
                       "EGP 415",
                       maxLines: 2,
                       textAlign: TextAlign.start,
-                      style: TextStyle(
-                        decoration: TextDecoration.lineThrough,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(decoration: TextDecoration.lineThrough, color: Color(0xff606266)),
+                    ),
+                    SizedBox(
+                      height: 4.h,
                     ),
                     Text(
                       "EGP 340",
                       maxLines: 2,
                       textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.headline2!.copyWith(color: Theme.of(context).primaryColor),
                     ),
                   ],
                 ),
@@ -66,8 +72,11 @@ class CheckoutItem extends StatelessWidget {
               ],
             ),
           ),
-          Text("Sold by"),
-          Text("D.Cappuccino Café"),
+          Text("Sold by", style: Theme.of(context).textTheme.bodyText1),
+          SizedBox(
+            height: 4.h,
+          ),
+          Text("D.Cappuccino Café", style: Theme.of(context).textTheme.bodyText1),
           SizedBox(
             height: 16.h,
           ),
@@ -112,11 +121,17 @@ class CheckoutItem extends StatelessWidget {
                       Assets.iconsHeart,
                       width: 15.w,
                       height: 13.5.h,
+                      color: Theme.of(context).primaryColor,
                     ),
                     SizedBox(
                       width: 8.w,
                     ),
-                    Text("Move to Wishlist"),
+                    Text(
+                      "Move to Wishlist",
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                    ),
                   ],
                 ),
               ),
@@ -138,7 +153,12 @@ class CheckoutItem extends StatelessWidget {
                     SizedBox(
                       width: 8.w,
                     ),
-                    Text("Remove"),
+                    Text(
+                      "Remove",
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                            color: Colors.red,
+                          ),
+                    ),
                   ],
                 ),
               )

@@ -1,5 +1,6 @@
 import 'package:circle_checkbox/redev_checkbox.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,12 +50,17 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 20.h,
+                  height: 35.h,
                 ),
                 Align(
                   alignment: Alignment.centerRight,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        isLogin = !isLogin;
+                      });
+                      // Navigator.pop(context);
+                    },
                     icon: Icon(
                       Icons.close,
                       color: Color(0xff241F20),
@@ -76,6 +82,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     padding: EdgeInsets.only(top: 50.h, bottom: 32.h),
                     child: Text(
                       isLogin ? "Login" : "Create Account",
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Colors.black),
                     ),
                   ),
                 ),
@@ -92,7 +99,10 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           width: 19.3.w,
                           height: 19.3.h,
                         ),
-                        label: Text("With Facebook"),
+                        label: Text(
+                          "With Facebook",
+                          style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.white),
+                        ),
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
@@ -112,7 +122,10 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           width: 19.3.w,
                           height: 19.3.h,
                         ),
-                        label: Text("With Google"),
+                        label: Text(
+                          "With Google",
+                          style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.white),
+                        ),
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
@@ -139,6 +152,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                       child: Text(
                         isLogin ? "Or login with" : "Or",
                         textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline2!.copyWith(color: Colors.black),
                       ),
                     ),
                     Expanded(
@@ -195,25 +209,39 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
                               return ForgetPasswordScreen();
                             }));
                           },
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              EdgeInsets.zero,
+                            ),
                           ),
-                          child: Text("Forgot Password?"),
+                          child: Text(
+                            "Forgot Password?",
+                            style: Theme.of(context).textTheme.headline2!.copyWith(
+                                  color: Colors.red,
+                                ),
+                          ),
                         ),
                       )
                     : SizedBox.shrink(),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  margin:
-                      EdgeInsets.only(top: isLogin ? 24.h : 16.h, bottom: 32.h),
+                  margin: EdgeInsets.only(top: isLogin ? 10.h : 16.h, bottom: 32.h),
                   height: 50.h,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const HomePage();
+                          },
+                        ),
+                      );
+                    },
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
@@ -221,7 +249,10 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                         ),
                       ),
                     ),
-                    child: Text(isLogin ? "Login" : "Create Account"),
+                    child: Text(
+                      isLogin ? "Login" : "Create Account",
+                      style: Theme.of(context).textTheme.headline2,
+                    ),
                   ),
                 ),
                 isLogin
@@ -232,17 +263,22 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           title: RichText(
                             textAlign: TextAlign.end,
                             text: TextSpan(
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                              style: Theme.of(context).textTheme.headline2!.copyWith(
+                                    color: Color(0xff231F20),
+                                  ),
                               children: <TextSpan>[
+                                TextSpan(text: 'By creating account, you accept our '),
                                 TextSpan(
-                                  text: 'By creating account, you accept our ',
-                                ),
-                                TextSpan(text: 'terms and conditions '),
+                                    text: 'terms and conditions ',
+                                    style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                    )),
                                 TextSpan(text: 'and '),
                                 TextSpan(
-                                  text: 'privacy policy',
-                                )
+                                    text: 'privacy policy',
+                                    style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                    ))
                               ],
                             ),
                           ),
@@ -258,14 +294,22 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 Padding(
                   padding: EdgeInsets.only(top: 32.h, bottom: 6.h),
                   child: Text(
-                      isLogin ? "Don’t have an Account" : "Have an Account"),
+                    isLogin ? "Don’t have an Account" : "Have an Account",
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          color: Color(0xff231F20),
+                        ),
+                  ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      isLogin = !isLogin;
+                    });
+                  },
                   child: Text(
                     isLogin ? "Create account" : "Login",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          color: const Color(0xffe02020),
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          color: Theme.of(context).primaryColor,
                         ),
                   ),
                 ),

@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'product_screen.dart';
+
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({Key? key}) : super(key: key);
 
@@ -71,17 +73,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       children: <TextSpan>[
                         TextSpan(
                           text: 'Coffee ',
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    fontSize: 18.sp,
-                                  ),
+                          style: Theme.of(context).textTheme.headline1!.copyWith(
+                                fontSize: 18.sp,
+                              ),
                         ),
                         TextSpan(
                           text: '(156 Item)',
-                          style:
-                              Theme.of(context).textTheme.headline1!.copyWith(
-                                    fontSize: 12.sp,
-                                  ),
+                          style: Theme.of(context).textTheme.headline1!.copyWith(
+                                fontSize: 12.sp,
+                              ),
                         ),
                       ],
                     ),
@@ -126,133 +126,136 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 25.h,
                   crossAxisSpacing: 16.5.w,
-                  childAspectRatio: 0.6,
+                  childAspectRatio: 164.5.w / 305.h,
                 ),
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 8,
-                itemBuilder: (context, index) => Container(
-                  height: 150,
-                  width: 100,
-                  //  color: Colors.blue,
-                  padding: EdgeInsets.all(0),
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        Assets.card,
-                        height: 305.h,
-                        width: 165.w,
+                itemBuilder: (context, index) => InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ProductScreen();
+                        },
                       ),
-                      Positioned(
-                        right: 17.w,
-                        child: Image.asset(
-                          Assets.imagesPack,
-                          width: 75.w,
-                          height: 136.h,
+                    );
+                  },
+                  child: Container(
+                    height: 305.h,
+                    width: 164.5.w,
+                    //  color: Colors.blue,
+                    padding: EdgeInsets.all(0),
+                    child: Stack(
+                      children: [
+                        Image.asset(
+                          Assets.imagesCard,
+                          height: 305.h,
+                          width: 165.w,
                         ),
-                      ),
-                      Positioned(
-                        top: 30.h,
-                        left: 20.w,
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(Assets.iconsStarActive),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Text('4.5'),
-                          ],
+                        Positioned(
+                          right: 17.w,
+                          child: Image.asset(
+                            Assets.imagesPack,
+                            width: 75.w,
+                            height: 136.h,
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        top: 152.h,
-                        left: 12.w,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.w),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        Positioned(
+                          top: 30.h,
+                          left: 20.w,
+                          child: Row(
                             children: [
-                              Container(
-                                height: 17.h,
-                                width: 55.h,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: Color(0xffFFD008),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(12.5.h),
-                                      bottomRight: Radius.circular(12.5.h),
-                                      bottomLeft: Radius.circular(12.5.h)),
-                                ),
-                                child: Text(
-                                  '25% Off',
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                ),
-                              ),
+                              SvgPicture.asset(Assets.iconsStarActive),
                               SizedBox(
-                                height: 15.h,
+                                width: 5.w,
                               ),
-                              Container(
-                                width: 140.w,
-                                child: Text(
-                                  'CoffePedia Dark Espresso Roast COFFEE',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline1!
-                                      .copyWith(
-                                        fontSize: 14.sp,
+                              Text('4.5'),
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          top: 152.h,
+                          left: 12.w,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 17.h,
+                                  width: 55.h,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xffFFD008),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(12.5.h),
+                                        bottomRight: Radius.circular(12.5.h),
+                                        bottomLeft: Radius.circular(12.5.h)),
+                                  ),
+                                  child: Text(
+                                    '25% Off',
+                                    style: Theme.of(context).textTheme.bodyText1,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                Container(
+                                  width: 140.w,
+                                  child: Text(
+                                    'CoffePedia Dark Espresso Roast COFFEE',
+                                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                                          fontSize: 14.sp,
+                                        ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 12.h,
+                                ),
+                                Text(
+                                  'EGP 450',
+                                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                        decoration: TextDecoration.lineThrough,
+                                        color: Colors.black45,
                                       ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 12.h,
-                              ),
-                              Text(
-                                'EGP 450',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2!
-                                    .copyWith(
-                                      decoration: TextDecoration.lineThrough,
-                                      color: Colors.black45,
-                                    ),
-                              ),
-                              SizedBox(
-                                height: 8.h,
-                              ),
-                              Text(
-                                'EGP 340',
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 8.h,
+                                ),
+                                Text(
+                                  'EGP 340',
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        top: 240.h,
-                        right: 18.w,
-                        child: Container(
-                          height: 38.h,
-                          width: 38.w,
-                          decoration: BoxDecoration(
-                            color: Color(0xffffffff),
-                            borderRadius: BorderRadius.circular(25),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color.fromRGBO(0, 0, 0, 0.12),
-                                  offset: Offset(0, 2),
-                                  blurRadius: 11.sp)
-                            ],
-                          ),
-                          child: FavoriteButton(
-                            isFavorite: true,
-                            iconSize: 35.h,
-                            iconColor: Color(0xffE02020),
-                            valueChanged: (_isFavorite) {
-                              print('Is Favorite $_isFavorite)');
-                            },
+                        Positioned(
+                          top: 240.h,
+                          right: 18.w,
+                          child: Container(
+                            height: 38.h,
+                            width: 38.w,
+                            decoration: BoxDecoration(
+                              color: Color(0xffffffff),
+                              borderRadius: BorderRadius.circular(25),
+                              boxShadow: [
+                                BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.12), offset: Offset(0, 2), blurRadius: 11.sp)
+                              ],
+                            ),
+                            child: FavoriteButton(
+                              isFavorite: true,
+                              iconSize: 35.h,
+                              iconColor: Color(0xffE02020),
+                              valueChanged: (_isFavorite) {
+                                print('Is Favorite $_isFavorite)');
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

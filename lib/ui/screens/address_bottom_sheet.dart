@@ -60,11 +60,20 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                     },
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5.w),
-                      child: Text("Close"),
+                      child: Text(
+                        "Close",
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                              color: Color(0xff241F20),
+                              fontWeight: FontWeight.w700,
+                            ),
+                      ),
                     ),
                   ),
                 ),
-                Text("New Address"),
+                Text(
+                  "New Address",
+                  style: Theme.of(context).textTheme.caption,
+                ),
                 SizedBox(
                   height: 24.h,
                 ),
@@ -131,7 +140,9 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                 ),
                 Text(
                   "Address Details",
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                        color: Color(0xff8A8A8A),
+                      ),
                 ),
                 SizedBox(
                   height: 9.h,
@@ -143,18 +154,21 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                     controller: _desc,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
+                      hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                            color: const Color(0xffCCCCCC),
+                          ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.w),
                         borderSide: BorderSide(
                           color: Color(0xffE3E3E3),
-                          width: 0,
+                          width: 1.w,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.w),
                         borderSide: BorderSide(
                           color: Color(0xffE3E3E3),
-                          width: 0,
+                          width: 1.w,
                         ),
                       ),
                     ),
@@ -188,7 +202,10 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                   ),
                 ),
               ),
-              child: Text("Add Address"),
+              child: Text(
+                "Add Address",
+                style: Theme.of(context).textTheme.headline2,
+              ),
             ),
           ),
         ],
