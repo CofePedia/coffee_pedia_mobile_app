@@ -41,7 +41,9 @@ class ProfileScreen extends StatelessWidget {
                       padding: EdgeInsets.only(top: 60.h, bottom: 16.h),
                       child: Text(
                         "My Profile",
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              color: Colors.black,
+                            ),
                       ),
                     ),
                     Row(
@@ -60,10 +62,18 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Welcome back"),
-                            Text("Hesham Mahdy"),
+                            Text(
+                              "Welcome back",
+                              style: Theme.of(context).textTheme.headline4,
+                            ),
+                            Text(
+                              "Hesham Mahdy",
+                              style: Theme.of(context).textTheme.caption!.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                            ),
                           ],
                         )
                       ],
@@ -135,7 +145,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   child: Text(
                     "Logout",
-                    style: TextStyle(color: Colors.red),
+                    style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 14.sp, color: Colors.red),
                   ),
                 ),
               ),

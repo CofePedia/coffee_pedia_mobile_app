@@ -14,7 +14,7 @@ class Ads extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 24.h),
+      margin: EdgeInsets.only(bottom: 24.h , right: 15.w , left: 15.w),
       child: CachedNetworkImage(
           imageUrl: ad_image_background,
           imageBuilder: (context, imageProvider) => InkWell(

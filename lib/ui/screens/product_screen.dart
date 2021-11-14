@@ -1,5 +1,4 @@
 import 'package:coffepedia/generated/assets.dart';
-import 'package:coffepedia/ui/screens/filters_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:coffepedia/ui/shared/custom_outline_button.dart';
 import 'package:favorite_button/favorite_button.dart';
@@ -138,7 +137,9 @@ class _ProductScreenState extends State<ProductScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: Icon(
                         Icons.chevron_left,
                         size: 30.w,
@@ -146,21 +147,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       color: Color(0xff000000),
                     ),
                     InkWell(
-                      onTap: () {
-                        showModalBottomSheet(
-                          enableDrag: false,
-                          isDismissible: false,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15.h),
-                              topRight: Radius.circular(15.w),
-                            ),
-                          ),
-                          context: context,
-                          isScrollControlled: true,
-                          builder: (context) => FiltersScreen(),
-                        );
-                      },
+                      onTap: () {},
                       child: SvgPicture.asset(
                         Assets.iconsShoppingBasket,
                         width: 24.w,

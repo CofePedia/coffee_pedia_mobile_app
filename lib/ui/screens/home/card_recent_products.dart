@@ -20,7 +20,7 @@ class CardRecentProducts extends StatelessWidget {
        child: Container(
         width: 214.w,
         height: 170.h,
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(11.0.r),
          image: DecorationImage(

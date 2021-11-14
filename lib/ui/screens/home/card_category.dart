@@ -1,4 +1,5 @@
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +17,7 @@ class CardCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 84.h,
-      margin: EdgeInsets.only(bottom: 24.h),
+      margin: EdgeInsets.only(bottom: 24.h , right: 15.w , left: 15.w),
       child: Container(
         width: 150.w,
         height: 70.h,
@@ -39,7 +40,7 @@ class CardCategory extends StatelessWidget {
                         ),
                 ),
               ),
-            Container(
+              Container(
                 child: CachedNetworkImage(
                   imageUrl: category_image,
                   imageBuilder: (context, imageProvider) => Container(
