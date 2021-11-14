@@ -13,22 +13,25 @@ class AdBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-        imageUrl: ad_image_background,
-        imageBuilder: (context, imageProvider) => InkWell(
-              onTap: () {
-                onPress!();
-              },
-              child: Container(
-                height: 60.h,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
+    return Container(
+      margin: EdgeInsets.only(bottom: 16.h),
+      child: CachedNetworkImage(
+          imageUrl: ad_image_background,
+          imageBuilder: (context, imageProvider) => InkWell(
+                onTap: () {
+                  onPress!();
+                },
+                child: Container(
+                  height: 60.h,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-            ));
+              )),
+    );
   }
 }

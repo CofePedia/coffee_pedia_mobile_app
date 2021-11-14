@@ -23,7 +23,7 @@ class BrandsIcons extends StatelessWidget {
         );
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.w),
+        margin: EdgeInsets.only(bottom: 24.h),
         child: CachedNetworkImage(
           imageUrl: brand_icon,
           imageBuilder: (context, imageProvider) => Container(

@@ -22,7 +22,7 @@ class CardFeaturedProducts extends StatelessWidget {
       height: 250.h,
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(11.0),
+        borderRadius: BorderRadius.circular(11.0.r),
         image: DecorationImage(
           image: AssetImage(Assets.imagesCardWhite),
         ),
@@ -58,10 +58,7 @@ class CardFeaturedProducts extends StatelessWidget {
             // margin: EdgeInsets.symmetric(horizontal: 5.w),
             child: Text(
               product_text,
-              style: TextStyle(
-                fontSize: 14.sp,
-                color: Colors.black,
-              ),
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14.sp),
             ),
           ),
           //price & fav icon
