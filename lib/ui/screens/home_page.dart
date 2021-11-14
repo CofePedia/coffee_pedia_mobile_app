@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../basket_empty_screen.dart';
+import '../checkout_items_screen.dart';
 import 'home_screen.dart';
 import 'more_screen.dart';
 import 'profile_screen.dart';
@@ -73,7 +74,7 @@ class _HomePageState extends State<HomePage> {
         index: currentIndex,
         children: [
           const HomeScreen(),
-          const BasketEmptyScreen(),
+          const CheckoutItemsScreen(),
           const ProfileScreen(),
           const MoreScreen(),
         ],

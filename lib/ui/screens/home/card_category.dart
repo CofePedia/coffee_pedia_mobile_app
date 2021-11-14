@@ -1,4 +1,5 @@
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,32 +15,43 @@ class CardCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 84.h,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return CategoryScreen();
+            },
+          ),
+        );
+      },
       child: Container(
-        width: 150.w,
-        height: 70.h,
-        decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(7.0),
-      image: DecorationImage(
-        image: AssetImage(Assets.imagesCardBlue),
-        fit: BoxFit.fill,
-      ),
-        ),
+        height: 84.h,
+        child: Container(
+          width: 150.w,
+          height: 70.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(7.0),
+            image: DecorationImage(
+              image: AssetImage(Assets.imagesCardBlue),
+              fit: BoxFit.fill,
+            ),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.w),
                 child: Text(
-                  category_name.toString() ,
+                  category_name.toString(),
                   style: TextStyle(
                     fontSize: 15.sp,
                     color: Colors.yellow,
                   ),
                 ),
               ),
-            Container(
+              Container(
                 child: CachedNetworkImage(
                   imageUrl: category_image,
                   imageBuilder: (context, imageProvider) => Container(
@@ -57,6 +69,7 @@ class CardCategory extends StatelessWidget {
             ],
           ),
         ),
+      ),
     );
   }
 }

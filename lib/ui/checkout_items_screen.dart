@@ -1,8 +1,10 @@
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/checkout_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'checkout_item.dart';
+import 'extension_method.dart';
 
 class CheckoutItemsScreen extends StatelessWidget {
   const CheckoutItemsScreen({Key? key}) : super(key: key);
@@ -26,7 +28,11 @@ class CheckoutItemsScreen extends StatelessWidget {
           ),
         ),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            context.showCustomBottomSheet(
+              CheckoutPopUp(),
+            );
+          },
           style: ButtonStyle(
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
