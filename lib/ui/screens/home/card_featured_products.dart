@@ -33,7 +33,7 @@ class CardFeaturedProducts extends StatelessWidget {
       },
       child: Container(
         height: 286.h,
-        width: 214.w, margin: EdgeInsets.only(bottom: 24.h, right: 15.w, left: 15.w),
+        width: 214.w, margin: EdgeInsets.symmetric(horizontal: 12.w),
 
         //  color: Colors.blue,
         child: Stack(
