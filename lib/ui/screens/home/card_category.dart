@@ -15,29 +15,40 @@ class CardCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 84.h,
-      margin: EdgeInsets.only(bottom: 24.h , right: 15.w , left: 15.w),
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return const CategoryScreen();
+            },
+          ),
+        );
+      },
       child: Container(
-        width: 150.w,
-        height: 70.h,
-        decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(7.0.r),
-      image: DecorationImage(
-        image: AssetImage(Assets.imagesCardBlue),
-        fit: BoxFit.fill,
-      ),
-        ),
+        height: 84.h,
+        margin: EdgeInsets.only(bottom: 24.h, right: 15.w, left: 15.w),
+        child: Container(
+          width: 150.w,
+          height: 70.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(7.0.r),
+            image: DecorationImage(
+              image: AssetImage(Assets.imagesCardBlue),
+              fit: BoxFit.fill,
+            ),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.w),
                 child: Text(
-                  category_name.toString() ,
+                  category_name.toString(),
                   style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          color: const Color(0xffffd008),
-                        ),
+                        color: const Color(0xffffd008),
+                      ),
                 ),
               ),
               Container(
@@ -58,6 +69,7 @@ class CardCategory extends StatelessWidget {
             ],
           ),
         ),
+      ),
     );
   }
 }

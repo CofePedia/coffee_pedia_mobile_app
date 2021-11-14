@@ -14,7 +14,7 @@ class AdSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16),
+      padding: EdgeInsets.all(16),
       child: CachedNetworkImage(
         imageUrl: ad_image,
         imageBuilder: (context, imageProvider) => InkWell(

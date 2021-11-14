@@ -122,7 +122,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 25.h,
                   crossAxisSpacing: 16.5.w,
-                  childAspectRatio: 0.6,
+                  childAspectRatio: 164.5.w / 305.h,
                 ),
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 8,
@@ -138,8 +138,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     );
                   },
                   child: Container(
-                    height: 150,
-                    width: 100,
+                    height: 305.h,
+                    width: 164.5.w,
                     //  color: Colors.blue,
                     padding: EdgeInsets.all(0),
                     child: Stack(

@@ -15,52 +15,51 @@ class CardRecentProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     return Container(
-       height: 187.h,
-       child: Container(
+    return Container(
+      height: 187.h,
+      child: Container(
         width: 214.w,
         height: 170.h,
         padding: EdgeInsets.symmetric(horizontal: 15.w),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(11.0.r),
-         image: DecorationImage(
-        image: AssetImage(Assets.imagesCardWhite),
-         ),
+          borderRadius: BorderRadius.circular(11.0.r),
+          image: DecorationImage(
+            image: AssetImage(Assets.imagesCardWhite),
+          ),
         ),
-          child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RateContainer(rate: 3.4),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                RateContainer(rate: 3.4),
                 Container(
-                child: CachedNetworkImage(
-                  imageUrl: product_image,
-                  imageBuilder: (context, imageProvider) => Container(
-                    height: 90.h,
-                    width: 80.w,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.fitHeight,
+                  child: CachedNetworkImage(
+                    imageUrl: product_image,
+                    imageBuilder: (context, imageProvider) => Container(
+                      height: 90.h,
+                      width: 80.w,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.fitHeight,
+                        ),
                       ),
                     ),
                   ),
                 ),
+              ],
+            ),
+            Container(
+              // margin: EdgeInsets.symmetric(horizontal: 5.w),
+              child: Text(
+                product_text.toString(),
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14.sp),
               ),
-            ],
-              ),
-              Container(
-                    // margin: EdgeInsets.symmetric(horizontal: 5.w),
-                    child: Text(
-                      product_text.toString() ,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14.sp),
-                    ),
-                  ),
-            ],
-          ),
+            ),
+          ],
         ),
-     );
-  
+      ),
+    );
   }
 }
