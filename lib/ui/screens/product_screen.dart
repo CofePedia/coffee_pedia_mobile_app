@@ -94,7 +94,7 @@ class _ProductScreenState extends State<ProductScreen> {
               borderRadius: 35.sp,
               buttonColor: Color(0xffF2F2F2),
               imageColor: Color(0xff606266),
-              assetName: Assets.minusIcon,
+              assetName: Assets.iconsMinus,
               imageHeight: 15.h,
               imageWidth: 15.h,
             ),

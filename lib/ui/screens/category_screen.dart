@@ -145,7 +145,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     child: Stack(
                       children: [
                         Image.asset(
-                          Assets.card,
+                          Assets.imagesCard,
                           height: 305.h,
                           width: 165.w,
                         ),
