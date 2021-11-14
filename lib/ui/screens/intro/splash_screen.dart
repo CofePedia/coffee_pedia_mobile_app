@@ -1,6 +1,8 @@
 import 'package:coffepedia/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../checkout_popup.dart';
+import '../../extension_method.dart';
 
 import '../home_page.dart';
 
