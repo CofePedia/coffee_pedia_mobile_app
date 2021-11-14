@@ -28,7 +28,9 @@ class CustomInput extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.headline4!.copyWith(
+                  color: Color(0xff8A8A8A),
+                ),
           ),
           SizedBox(
             height: 9.h,
@@ -44,34 +46,31 @@ class CustomInput extends StatelessWidget {
                   style: TextStyle(fontSize: 18.sp, color: Colors.black),
                   decoration: InputDecoration(
                     hintText: hint,
-                    hintStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          color: const Color(0xffc3ccd2),
+                    hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                          color: const Color(0xffCCCCCC),
                         ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.w),
                       borderSide: BorderSide(
                         color: Color(0xffE3E3E3),
-                        width: 0,
+                        width: 1.w,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.w),
                       borderSide: BorderSide(
                         color: Color(0xffE3E3E3),
-                        width: 0,
+                        width: 1.w,
                       ),
                     ),
-                    suffixIconConstraints:
-                        BoxConstraints(maxHeight: 15.h, maxWidth: 24.w),
+                    suffixIconConstraints: BoxConstraints(maxHeight: 15.h, maxWidth: 24.w),
                     suffixIcon: !icon
                         ? null
                         : InkWell(
                             onTap: () {
                               changeObscure.value = !value;
                             },
-                            child: Icon(value
-                                ? Icons.visibility_off
-                                : Icons.visibility),
+                            child: Icon(value ? Icons.visibility_off : Icons.visibility),
                           ),
                   ),
                 ),

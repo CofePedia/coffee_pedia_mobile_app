@@ -125,14 +125,14 @@ class CheckoutItemsScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(5.w),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
-                                      width: 0,
+                                      width: 1.w,
                                     ),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.w),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
-                                      width: 0,
+                                      width: 1.w,
                                     ),
                                   ),
                                   suffixIcon: Container(

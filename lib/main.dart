@@ -112,6 +112,12 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w700,
                 color: Color(0xff9D9D9D),
               ),
+              headline5: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w900,
+                color: Color(0xff231F20),
+              ),
             ),
           ),
         );

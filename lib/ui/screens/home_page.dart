@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'basket_screen.dart';
+import '../basket_empty_screen.dart';
 import 'home_screen.dart';
 import 'more_screen.dart';
 import 'profile_screen.dart';
@@ -27,9 +27,7 @@ class _HomePageState extends State<HomePage> {
           image,
           width: 24.w,
           height: 24.h,
-          color: currentIndex == index
-              ? Color(0xff4470C1)
-              : const Color(0xff606c74),
+          color: currentIndex == index ? Color(0xff4470C1) : const Color(0xff606c74),
         ),
       ),
       label: title,
@@ -39,15 +37,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //     title: Text('HomeScreen'),
-      //   ),
       bottomNavigationBar: Container(
         width: MediaQuery.of(context).size.width,
         height: 69.h,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(22.r), topRight: Radius.circular(22.r)),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(22.r), topRight: Radius.circular(22.r)),
           color: Colors.tealAccent,
         ),
         child: BottomNavigationBar(
@@ -79,7 +73,7 @@ class _HomePageState extends State<HomePage> {
         index: currentIndex,
         children: [
           const HomeScreen(),
-          const BasketScreen(),
+          const BasketEmptyScreen(),
           const ProfileScreen(),
           const MoreScreen(),
         ],

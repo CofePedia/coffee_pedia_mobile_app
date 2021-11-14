@@ -1,6 +1,8 @@
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/home/card_featured_products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BasketEmptyScreen extends StatelessWidget {
   const BasketEmptyScreen({Key? key}) : super(key: key);
@@ -15,7 +17,12 @@ class BasketEmptyScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("My Basket"),
+            Text(
+              "My Basket",
+              style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    color: Colors.black,
+                  ),
+            ),
             Padding(
               padding: EdgeInsets.only(top: 31.h, bottom: 45.h),
               child: Container(
@@ -32,7 +39,7 @@ class BasketEmptyScreen extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       backgroundColor: Color(0xffD2F9FF),
-                      child: Image.asset(
+                      child: SvgPicture.asset(
                         Assets.iconsShoppingBasket,
                         width: 27.w,
                         height: 27.h,
@@ -41,14 +48,21 @@ class BasketEmptyScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Your Basket is Empty"),
+                        Text(
+                          "Your Basket is Empty",
+                          style: Theme.of(context).textTheme.caption!.copyWith(
+                                color: Colors.black,
+                              ),
+                        ),
                         SizedBox(
                           height: 5.h,
                         ),
-                        Expanded(
+                        SizedBox(
+                          width: 211.w,
                           child: Text(
                             "You have no items in your shopping basket.",
                             maxLines: 2,
+                            style: Theme.of(context).textTheme.headline4,
                           ),
                         ),
                       ],
@@ -63,19 +77,22 @@ class BasketEmptyScreen extends StatelessWidget {
             Text(
               "Recommended based on your shopping history",
               maxLines: 2,
+              style: Theme.of(context).textTheme.caption,
+            ),
+            SizedBox(
+              height: 23.h,
             ),
             Container(
               width: MediaQuery.of(context).size.width,
               height: 284.h,
               child: ListView.builder(
+                itemCount: 5,
+                scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  // TODO add child from after abeer push.
-
-                  return Container(
-                    width: 50.w,
-                    height: 50.h,
-                    color: Colors.yellow,
-                  );
+                  return CardFeaturedProducts(
+                      product_image:
+                          "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
+                      product_text: "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc");
                 },
               ),
             )
