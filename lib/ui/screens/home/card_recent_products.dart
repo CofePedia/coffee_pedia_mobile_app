@@ -20,9 +20,9 @@ class CardRecentProducts extends StatelessWidget {
        child: Container(
         width: 214.w,
         height: 170.h,
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(11.0),
+            borderRadius: BorderRadius.circular(11.0.r),
          image: DecorationImage(
         image: AssetImage(Assets.imagesCardWhite),
          ),
@@ -54,10 +54,7 @@ class CardRecentProducts extends StatelessWidget {
                     // margin: EdgeInsets.symmetric(horizontal: 5.w),
                     child: Text(
                       product_text.toString() ,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.black,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14.sp),
                     ),
                   ),
             ],

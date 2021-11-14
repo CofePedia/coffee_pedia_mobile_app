@@ -13,23 +13,26 @@ class Ads extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-        imageUrl: ad_image_background,
-        imageBuilder: (context, imageProvider) => InkWell(
-              onTap: () {
-                onPress!();
-              },
-              child: Container(
-                height: 205.h,
-                width: 344.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(11.0),
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
+    return Container(
+      margin: EdgeInsets.only(bottom: 24.h , right: 15.w , left: 15.w),
+      child: CachedNetworkImage(
+          imageUrl: ad_image_background,
+          imageBuilder: (context, imageProvider) => InkWell(
+                onTap: () {
+                  onPress!();
+                },
+                child: Container(
+                  height: 205.h,
+                  width: 344.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(11.0.r),
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-            ));
+              )),
+    );
   }
 }

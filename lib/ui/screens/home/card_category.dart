@@ -15,40 +15,29 @@ class CardCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return CategoryScreen();
-            },
-          ),
-        );
-      },
+    return Container(
+      height: 84.h,
+      margin: EdgeInsets.only(bottom: 24.h , right: 15.w , left: 15.w),
       child: Container(
-        height: 84.h,
-        child: Container(
-          width: 150.w,
-          height: 70.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(7.0),
-            image: DecorationImage(
-              image: AssetImage(Assets.imagesCardBlue),
-              fit: BoxFit.fill,
-            ),
-          ),
+        width: 150.w,
+        height: 70.h,
+        decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(7.0.r),
+      image: DecorationImage(
+        image: AssetImage(Assets.imagesCardBlue),
+        fit: BoxFit.fill,
+      ),
+        ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.w),
                 child: Text(
-                  category_name.toString(),
-                  style: TextStyle(
-                    fontSize: 15.sp,
-                    color: Colors.yellow,
-                  ),
+                  category_name.toString() ,
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          color: const Color(0xffffd008),
+                        ),
                 ),
               ),
               Container(
@@ -69,7 +58,6 @@ class CardCategory extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }

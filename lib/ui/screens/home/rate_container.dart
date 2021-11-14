@@ -23,7 +23,7 @@ class RateContainer extends StatelessWidget {
           Container(
               child: Text(
             rate.toString(),
-            style: TextStyle(fontSize: 12.sp, color: Colors.black),
+           style: Theme.of(context).textTheme.bodyText2,
           )),
         ],
       ),
