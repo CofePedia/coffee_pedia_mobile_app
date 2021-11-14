@@ -8,9 +8,12 @@ class Assets {
   static const String fontsNexaRegularRegular = 'assets/fonts/Nexa_Regular_Regular.otf';
   static const String iconsAdd = 'assets/icons/add.svg';
   static const String iconsCoffePediaLogo = 'assets/icons/CoffePediaLogo.png';
+  static const String iconsFacebookSquare = 'assets/icons/facebookSquare.svg';
   static const String iconsDelete = 'assets/icons/Delete.svg';
   static const String iconsFilter = 'assets/icons/filter.svg';
+  static const String iconsGoogle = 'assets/icons/Google.svg';
   static const String iconsHeart = 'assets/icons/heart.svg';
+  static const String iconsLogoHor = 'assets/icons/LogoHor.svg';
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsMinus = 'assets/icons/minus.svg';
   static const String iconsMore = 'assets/icons/More.svg';
