@@ -1,4 +1,5 @@
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/success_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:coffepedia/ui/shared/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -99,7 +100,16 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
               ),
               child: CustomButton(
                 title: 'Pay Now',
-                onPress: () {},
+                onPress: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const SuccessScreen();
+                      },
+                    ),
+                  );
+                },
                 width: 345.w,
                 height: 50.h,
                 borderRadius: 25.sp,

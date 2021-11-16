@@ -1,4 +1,5 @@
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/delivery_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -29,7 +30,8 @@ class CheckoutPopUp extends StatelessWidget {
                     color: Color(0xffF4F4F4),
                     borderRadius: BorderRadius.circular(7.r),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 6.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 17.w, vertical: 6.h),
                   margin: EdgeInsets.only(right: 12.w),
                   child: Image.asset(
                     Assets.imagesPack,
@@ -75,7 +77,16 @@ class CheckoutPopUp extends StatelessWidget {
             margin: EdgeInsets.only(top: 22.h, bottom: 7.h),
             height: 50.h,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const DeliveryInfoScreen();
+                    },
+                  ),
+                );
+              },
               style: ButtonStyle(
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(

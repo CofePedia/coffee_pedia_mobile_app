@@ -34,6 +34,8 @@ class Assets {
   static const String imagesJar = 'assets/images/Jar.png';
   static const String imagesMastercardLogo = 'assets/images/MastercardLogo.svg';
   static const String imagesPack = 'assets/images/Pack.png';
+  static const String successIcon = 'assets/images/success_icon.svg';
+
   static const String imagesPartnerLogo = 'assets/images/partnerLogo.png';
   static const String imagesPartnerLogo1 = 'assets/images/partnerLogo1.png';
   static const String imagesPartnerLogo2 = 'assets/images/partnerLogo2.png';
