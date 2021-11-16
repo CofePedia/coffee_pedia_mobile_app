@@ -1,5 +1,4 @@
 import 'package:coffepedia/ui/shared/custom_button.dart';
-import 'package:coffepedia/ui/widgets/category_items.dart';
 import 'package:coffepedia/ui/widgets/filters_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +41,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             children: [
               Container(
                 padding: EdgeInsets.only(
-                  top: 30.h,
+                  top: 24.h,
                   left: 24.w,
                   right: 24.w,
                 ),
@@ -63,7 +62,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
                 child: ExpansionPanelList(
-                  dividerColor: Color(0xff979797),elevation: 0,
+                  dividerColor: Color(0xff979797),
+                  elevation: 0,
                   children: [
                     ExpansionPanel(
                       canTapOnHeader: true,
@@ -200,16 +200,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     CustomButton(
-                      onPress: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return CategoryItems();
-                            },
-                          ),
-                        );
-                      },
+                      onPress: () {},
                       title: 'Show results',
                       height: 50.h,
                       width: 345.w,

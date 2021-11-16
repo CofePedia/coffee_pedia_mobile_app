@@ -1,3 +1,5 @@
+import 'package:coffepedia/ui/screens/add_new_address_screen.dart';
+import 'package:coffepedia/ui/screens/payment_info_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,7 +44,16 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
         ),
         child: CustomButton(
           title: 'Continue',
-          onPress: () {},
+          onPress: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return PaymentInfoScreen();
+                },
+              ),
+            );
+          },
           width: 345.w,
           height: 50.h,
           borderRadius: 25.sp,
@@ -87,12 +98,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                     alignment: Alignment.center,
                     child: Text(
                       '1',
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 14.sp,
-                        fontFamily: 'Nexa',
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -247,7 +253,21 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                showModalBottomSheet(
+                  enableDrag: false,
+                  isDismissible: false,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.h),
+                      topRight: Radius.circular(25.w),
+                    ),
+                  ),
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) => AddNewAddressScreen(),
+                );
+              },
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
                 child: Row(

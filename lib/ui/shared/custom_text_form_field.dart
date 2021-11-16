@@ -6,22 +6,25 @@ class CustomTextFormField extends StatelessWidget {
       {required this.hintText,
       this.keyboardType,
       this.width,
+      this.height,
       this.suffix,
       Key? key})
       : super(key: key);
   final TextInputType? keyboardType;
   final String hintText;
   final double? width;
+  final double? height;
   final Widget? suffix;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: 40.h,
+      height: height,
       child: TextFormField(
         keyboardType: keyboardType,
         textInputAction: TextInputAction.go,
+        maxLines: 3,
         style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14.sp),
         decoration: InputDecoration(
           hintText: hintText,
@@ -30,7 +33,7 @@ class CustomTextFormField extends StatelessWidget {
                   0xffCCCCCC,
                 ),
               ),
-          contentPadding: EdgeInsets.all(15.h),
+          contentPadding: EdgeInsets.all(12.h),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(

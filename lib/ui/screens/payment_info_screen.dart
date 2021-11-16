@@ -324,6 +324,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                                       keyboardType: TextInputType.text,
                                       width: 311.w,
                                       suffix: SizedBox.shrink(),
+                                      height: 40.h,
                                     ),
                                     SizedBox(
                                       height: 16.h,
@@ -342,6 +343,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                                       hintText: 'Card Number',
                                       keyboardType: TextInputType.number,
                                       width: 311.w,
+                                      height: 40.h,
                                       suffix: Container(
                                         width: 115.w,
                                         child: Row(
@@ -425,7 +427,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                                             hintText: 'MM',
                                             keyboardType: TextInputType.number,
                                             width: 10.w,
-                                            suffix: SizedBox.shrink(),
+                                            height: 40.h,
                                           ),
                                         ),
                                         SizedBox(
@@ -437,7 +439,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                                             hintText: 'YY',
                                             keyboardType: TextInputType.number,
                                             width: 10.w,
-                                            suffix: SizedBox.shrink(),
+                                            height: 40.h,
                                           ),
                                         ),
                                         SizedBox(
@@ -449,7 +451,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                                             hintText: 'CVV',
                                             keyboardType: TextInputType.number,
                                             width: 20.w,
-                                            suffix: SizedBox.shrink(),
+                                            height: 40.h,
                                           ),
                                         ),
                                       ],
