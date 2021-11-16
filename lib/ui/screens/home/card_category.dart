@@ -28,7 +28,8 @@ class CardCategory extends StatelessWidget {
       },
       child: Container(
         height: 84.h,
-        margin: EdgeInsets.only(bottom: 24.h, right: 15.w, left: 15.w),
+        // margin: EdgeInsets.only(bottom: 24.h, right: 15.w, left: 15.w),
+        margin: EdgeInsets.symmetric(horizontal: 12.w),
         child: Container(
           width: 150.w,
           height: 70.h,

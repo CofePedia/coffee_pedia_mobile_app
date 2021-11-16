@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,19 +23,23 @@ class BrandsIcons extends StatelessWidget {
         );
       },
       child: Container(
-        margin: EdgeInsets.only(bottom: 24.h , right: 15.w , left: 15.w) ,
-        child: CachedNetworkImage(
-          imageUrl: brandIcon,
-          imageBuilder: (context, imageProvider) => Container(
-            height: 80.h,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
-        ),
+        margin: EdgeInsets.symmetric(horizontal: 12.w) ,
+        child:  Image.asset(
+                    Assets.imagesPartnerLogo2,
+                    fit: BoxFit.contain,
+                  ),
+        // CachedNetworkImage(
+        //   imageUrl: brandIcon,
+        //   imageBuilder: (context, imageProvider) => Container(
+        //     height: 80.h,
+        //     decoration: BoxDecoration(
+        //       image: DecorationImage(
+        //         image: imageProvider,
+        //         fit: BoxFit.cover,
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }
