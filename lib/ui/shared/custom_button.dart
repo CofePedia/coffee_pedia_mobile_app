@@ -47,13 +47,7 @@ class CustomButton extends StatelessWidget {
                 width: imageWidth,
                 height: imageHeight,
               ),
-              Text(
-                title ?? '',
-                style: Theme.of(context).textTheme.button!.copyWith(
-                      color: Color(0xffFFFFFF),
-                      fontSize: 14.sp,
-                    ),
-              ),
+              Text(title ?? '', style: Theme.of(context).textTheme.headline2),
             ],
           ),
           style: ButtonStyle(

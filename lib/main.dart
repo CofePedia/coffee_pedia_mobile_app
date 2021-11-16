@@ -1,8 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
-import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
-import 'package:coffepedia/ui/screens/intro/splash_screen.dart';
-import 'package:coffepedia/ui/screens/product_screen.dart';
+import 'package:coffepedia/ui/delivery_info_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -52,7 +49,7 @@ class MyApp extends StatelessWidget {
           navigatorObservers: [
             BotToastNavigatorObserver(),
           ],
-          home: SplashScreen(),
+          home: DeliveryInfoScreen(),
           theme: ThemeData(
             accentColor: Color(0xffffffff),
             primaryColor: Color(0xff107CC0),
@@ -94,16 +91,34 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.w700,
                 color: Color(0xff000000),
               ),
+              headline3: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff8A8A8A),
+              ),
+              headline4: TextStyle(
+                  fontFamily: 'Nexa',
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xff606266),
+                  height: 1.5.sp),
+              headline5: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w700,
+                color: Color(0xffF3AE16),
+              ),
+              headline6: TextStyle(
+                fontFamily: 'Nexa',
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff107CC0),
+              ),
               caption: TextStyle(
                 fontFamily: 'Nexa',
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w900,
-                color: Color(0xff231F20),
-              ),
-              headline4: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w700,
                 color: Color(0xff231F20),
               ),
               overline: TextStyle(
@@ -111,12 +126,6 @@ class MyApp extends StatelessWidget {
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w700,
                 color: Color(0xff9D9D9D),
-              ),
-              headline5: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 22.sp,
-                fontWeight: FontWeight.w900,
-                color: Color(0xff231F20),
               ),
             ),
           ),

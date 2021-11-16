@@ -35,8 +35,10 @@ class CustomOutlineButton extends StatelessWidget {
       child: Container(
         height: height!,
         width: width!,
-        decoration:
-            BoxDecoration(boxShadow: [shadowColor!], color: Colors.white),
+        decoration: BoxDecoration(
+          boxShadow: [shadowColor!],
+          color: Colors.white,
+        ),
         child: OutlinedButton(
           onPressed: onPress,
           child: Row(
