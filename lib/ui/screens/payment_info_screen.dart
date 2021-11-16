@@ -28,7 +28,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        height: 219.h,
+        height: 225.h,
         child: Column(
           children: [
             Divider(
