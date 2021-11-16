@@ -2,10 +2,14 @@
 class Assets {
   Assets._();
 
-  static const String assetsIconsCoffePediaLogo = 'assets/icons/CoffePediaLogo.svg';
-  static const String fontsNexaBoldRegular = 'assets/fonts/Nexa_Bold_Regular.otf';
-  static const String fontsNexaHeavyRegular = 'assets/fonts/Nexa_Heavy_Regular.otf';
-  static const String fontsNexaRegularRegular = 'assets/fonts/Nexa_Regular_Regular.otf';
+  static const String assetsIconsCoffePediaLogo =
+      'assets/icons/CoffePediaLogo.svg';
+  static const String fontsNexaBoldRegular =
+      'assets/fonts/Nexa_Bold_Regular.otf';
+  static const String fontsNexaHeavyRegular =
+      'assets/fonts/Nexa_Heavy_Regular.otf';
+  static const String fontsNexaRegularRegular =
+      'assets/fonts/Nexa_Regular_Regular.otf';
   static const String iconsAdd = 'assets/icons/add.svg';
   static const String iconsCoffePediaLogo = 'assets/icons/CoffePediaLogo.png';
   static const String iconsDelete = 'assets/icons/Delete.svg';
@@ -22,6 +26,8 @@ class Assets {
   static const String iconsShoppingBasket = 'assets/icons/ShoppingBasket.svg';
   static const String iconsStarActive = 'assets/icons/star_active.svg';
   static const String imagesBitmap = 'assets/images/Bitmap.png';
+  static const String fawryImage = 'assets/images/fawry.svg';
+
   static const String imagesCard = 'assets/images/card.png';
   static const String imagesCardBlue = 'assets/images/cardBlue.png';
   static const String imagesCardWhite = 'assets/images/cardWhite.png';
