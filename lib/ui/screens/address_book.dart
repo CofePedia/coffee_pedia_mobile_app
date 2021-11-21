@@ -1,17 +1,15 @@
 import 'package:coffepedia/ui/screens/add_new_address_screen.dart';
-import 'package:coffepedia/ui/screens/payment_info_screen.dart';
-import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DeliveryInfoScreen extends StatefulWidget {
-  const DeliveryInfoScreen({Key? key}) : super(key: key);
+class AddressBookScreen extends StatefulWidget {
+  const AddressBookScreen({Key? key}) : super(key: key);
 
   @override
-  State<DeliveryInfoScreen> createState() => _DeliveryInfoScreenState();
+  State<AddressBookScreen> createState() => _AddressBookScreenState();
 }
 
-class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
+class _AddressBookScreenState extends State<AddressBookScreen> {
   List<String> title = [
     'Hesham Mahdy',
     'Hesham Shorouk City',
@@ -25,152 +23,34 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15.w),
-        height: 107.h,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.04),
-              blurRadius: 2.r,
-            )
-          ],
-          color: Color(0xffFFFFFF),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(22.r),
-            topRight: Radius.circular(22.r),
-          ),
-        ),
-        child: CustomButton(
-          title: 'Continue',
-          onPress: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return PaymentInfoScreen();
-                },
-              ),
-            );
-          },
-          width: 345.w,
-          height: 50.h,
-          borderRadius: 25.r,
-          buttonColor: Theme.of(context).primaryColor,
-        ),
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 60.h,
-            ),
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: Icon(
-                    Icons.chevron_left,
-                    size: 24.w,
-                  ),
-                  color: Color(0xff000000),
-                ),
-                Text(
-                  'Delivery info',
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
-                        fontSize: 18.sp,
-                      ),
-                ),
-              ],
-            ),
             Padding(
-              padding: EdgeInsets.only(top: 33.h, bottom: 8.h),
+              padding: EdgeInsets.only(
+                  left: 23.w, right: 23.w, top: 60.h, bottom: 18.h),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 27.h,
-                    width: 27.w,
-                    alignment: Alignment.center,
-                    child: Text(
-                      '1',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Theme.of(context).primaryColor,
-                        width: 2.w,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        25.r,
-                      ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Icon(
+                      Icons.chevron_left,
+                      size: 24.w,
                     ),
                   ),
                   SizedBox(
-                    width: 58.w,
-                    child: Divider(
-                      thickness: 2.h,
-                      color: Theme.of(context).primaryColor,
-                    ),
+                    width: 18.w,
                   ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  SizedBox(
-                    width: 58.w,
-                    child: Divider(
-                      thickness: 2.h,
-                      color: Color(0xff9D9D9D),
-                    ),
-                  ),
-                  Container(
-                    height: 27.h,
-                    width: 27.w,
-                    alignment: Alignment.center,
-                    child: Text(
-                      '2',
-                      style: Theme.of(context).textTheme.overline,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xff9D9D9D),
-                        width: 2.w,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        25.r,
-                      ),
-                    ),
+                  Text(
+                    'Address Book',
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                          fontSize: 18.sp,
+                        ),
                   ),
                 ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Delivery Info',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                SizedBox(
-                  width: 63.w,
-                ),
-                Text(
-                  'Payment Info',
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
-                        color: Color(0xff9D9D9D),
-                      ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 27.h),
-              child: Text(
-                'From Address Book',
-                style: Theme.of(context).textTheme.caption,
               ),
             ),
             Container(
@@ -181,7 +61,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                 itemCount: title.length,
                 itemBuilder: (context, index) => Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                   child: Container(
                     height: 111.h,
                     width: 343.w,
@@ -231,12 +111,56 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                           });
                         },
                         contentPadding: EdgeInsets.all(15),
-                        title: Text(
-                          title[index],
-                          style:
-                              Theme.of(context).textTheme.subtitle2!.copyWith(
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              title[index],
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle2!
+                                  .copyWith(
                                     fontSize: 14.sp,
                                   ),
+                            ),
+                            title[index] == title[0]
+                                ? Container(
+                                    height: 17.h,
+                                    width: 67.w,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: Color(
+                                        0xffFFD008,
+                                      ),
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(
+                                          12.5.r,
+                                        ),
+                                        bottomRight: Radius.circular(
+                                          12.5.r,
+                                        ),
+                                        bottomLeft: Radius.circular(
+                                          12.5.r,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      'Primary',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline1!
+                                          .copyWith(fontSize: 10.sp),
+                                    ),
+                                  )
+                                : InkWell(
+                                    onTap: () {},
+                                    child: Icon(
+                                      Icons.more_vert,
+                                      color: Theme.of(context).primaryColor,
+                                      size: 30.h,
+                                    ),
+                                  ),
+                          ],
                         ),
                         subtitle: Column(
                           children: [

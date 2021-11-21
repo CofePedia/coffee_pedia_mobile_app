@@ -1,5 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:coffepedia/ui/screens/intro/splash_screen.dart';
+import 'package:coffepedia/ui/screens/payment_info_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
           navigatorObservers: [
             BotToastNavigatorObserver(),
           ],
-          home: SplashScreen(),
+          home: PaymentInfoScreen(),
           theme: ThemeData(
             accentColor: Color(0xffffffff),
             primaryColor: Color(0xff107CC0),
