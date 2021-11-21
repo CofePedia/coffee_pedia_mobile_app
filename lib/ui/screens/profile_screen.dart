@@ -1,7 +1,7 @@
-import 'package:coffepedia/ui/screens/orders_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'orders_history_screen.dart';
 import 'profile_item.dart';
 
 class ProfileScreen extends StatelessWidget {

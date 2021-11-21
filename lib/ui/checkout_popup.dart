@@ -9,7 +9,7 @@ class CheckoutPopUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 216.h,
+      height: 222.h,
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(

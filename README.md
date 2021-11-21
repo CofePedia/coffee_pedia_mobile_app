@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Development Cycle
 
-1- Checkout to develop.
+1- Checkout to development branch.
 
 2- Pull.
 
@@ -16,6 +16,6 @@ A new Flutter project.
 
 6- Pull request.
 
-7- Wait for accept and review.
+7- Wait for review and accept.
 
 
