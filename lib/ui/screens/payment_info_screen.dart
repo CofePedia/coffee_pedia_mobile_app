@@ -89,13 +89,13 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                 boxShadow: [
                   BoxShadow(
                     color: Color.fromRGBO(0, 0, 0, 0.04),
-                    blurRadius: 2.sp,
+                    blurRadius: 2.r,
                   )
                 ],
                 color: Color(0xffFFFFFF),
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(22.w),
-                  topRight: Radius.circular(22.w),
+                  topLeft: Radius.circular(22.r),
+                  topRight: Radius.circular(22.r),
                 ),
               ),
               child: CustomButton(
@@ -112,7 +112,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                 },
                 width: 345.w,
                 height: 50.h,
-                borderRadius: 25.sp,
+                borderRadius: 25.r,
                 buttonColor: Theme.of(context).primaryColor,
               ),
             ),
@@ -165,7 +165,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                         width: 2.w,
                       ),
                       borderRadius: BorderRadius.circular(
-                        25.sp,
+                        25.r,
                       ),
                     ),
                   ),
@@ -200,7 +200,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                         width: 2.w,
                       ),
                       borderRadius: BorderRadius.circular(
-                        25.sp,
+                        25.r,
                       ),
                     ),
                   ),
@@ -246,13 +246,13 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(6.sp),
+                      borderRadius: BorderRadius.circular(6.r),
                       boxShadow: [
                         BoxShadow(
                           color: _selectedIndex == index
                               ? Color.fromRGBO(16, 124, 192, 0.41)
                               : Colors.transparent,
-                          blurRadius: 7.sp,
+                          blurRadius: 7.r,
                         ),
                       ],
                     ),
@@ -274,7 +274,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                         ),
                         shape: MaterialStateProperty.all<OutlinedBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6.sp),
+                            borderRadius: BorderRadius.circular(6.r),
                           ),
                         ),
                       ),
@@ -368,7 +368,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                                                   width: 1.w,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(5.sp),
+                                                    BorderRadius.circular(5.r),
                                               ),
                                               child: SvgPicture.asset(
                                                 Assets.imagesMastercardLogo,
@@ -390,7 +390,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                                                   width: 1.w,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(5.sp),
+                                                    BorderRadius.circular(5.r),
                                               ),
                                               child: SvgPicture.asset(
                                                 Assets.imagesVisaLogo,

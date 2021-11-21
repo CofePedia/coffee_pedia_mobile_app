@@ -1,4 +1,5 @@
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/home_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -72,7 +73,16 @@ class SuccessScreen extends StatelessWidget {
               height: 12.h,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const HomeScreen();
+                    },
+                  ),
+                );
+              },
               child: Text(
                 'Continue Shopping',
                 style: Theme.of(context).textTheme.headline2!.copyWith(

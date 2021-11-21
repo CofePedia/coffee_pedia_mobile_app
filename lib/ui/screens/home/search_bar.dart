@@ -33,7 +33,7 @@ class SearchBar extends StatelessWidget {
         ),
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(8.0.r),
         border: Border.all(
           color: Colors.black12,
         ),
@@ -41,7 +41,7 @@ class SearchBar extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.23),
-            blurRadius: 11.sp,
+            blurRadius: 11.r,
             offset: Offset(0, 2),
           ),
         ],

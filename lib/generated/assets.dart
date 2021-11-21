@@ -27,6 +27,7 @@ class Assets {
   static const String iconsStarActive = 'assets/icons/star_active.svg';
   static const String imagesBitmap = 'assets/images/Bitmap.png';
   static const String fawryImage = 'assets/images/fawry.svg';
+  static const String backgroundCard = 'assets/images/background_card.svg';
 
   static const String imagesCard = 'assets/images/card.png';
   static const String imagesCardBlue = 'assets/images/cardBlue.png';

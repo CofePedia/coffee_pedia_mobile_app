@@ -1,3 +1,4 @@
+import 'package:coffepedia/ui/screens/orders_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -70,9 +71,10 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             Text(
                               "Hesham Mahdy",
-                              style: Theme.of(context).textTheme.caption!.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                              style:
+                                  Theme.of(context).textTheme.caption!.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                      ),
                             ),
                           ],
                         )
@@ -90,7 +92,16 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     ProfileItem(
                       title: "Orders History",
-                      onPress: () {},
+                      onPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return OrdersHistoryScreen();
+                            },
+                          ),
+                        );
+                      },
                     ),
                     ProfileItem(
                       title: "My wishlist",
@@ -145,7 +156,10 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   child: Text(
                     "Logout",
-                    style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 14.sp, color: Colors.red),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(fontSize: 14.sp, color: Colors.red),
                   ),
                 ),
               ),

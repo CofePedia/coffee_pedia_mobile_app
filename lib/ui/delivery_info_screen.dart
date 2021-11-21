@@ -33,13 +33,13 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
           boxShadow: [
             BoxShadow(
               color: Color.fromRGBO(0, 0, 0, 0.04),
-              blurRadius: 2.sp,
+              blurRadius: 2.r,
             )
           ],
           color: Color(0xffFFFFFF),
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(22.w),
-            topRight: Radius.circular(22.w),
+            topLeft: Radius.circular(22.r),
+            topRight: Radius.circular(22.r),
           ),
         ),
         child: CustomButton(
@@ -56,7 +56,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
           },
           width: 345.w,
           height: 50.h,
-          borderRadius: 25.sp,
+          borderRadius: 25.r,
           buttonColor: Theme.of(context).primaryColor,
         ),
       ),
@@ -106,7 +106,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                         width: 2.w,
                       ),
                       borderRadius: BorderRadius.circular(
-                        25.sp,
+                        25.r,
                       ),
                     ),
                   ),
@@ -141,7 +141,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                         width: 2.w,
                       ),
                       borderRadius: BorderRadius.circular(
-                        25.sp,
+                        25.r,
                       ),
                     ),
                   ),
@@ -187,13 +187,13 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                     width: 343.w,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(6.sp),
+                      borderRadius: BorderRadius.circular(6.r),
                       boxShadow: [
                         BoxShadow(
                           color: _selectedIndex == index
                               ? Color.fromRGBO(16, 124, 192, 0.41)
                               : Colors.transparent,
-                          blurRadius: 7.sp,
+                          blurRadius: 7.r,
                         ),
                       ],
                     ),
@@ -217,7 +217,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                         ),
                         shape: MaterialStateProperty.all<OutlinedBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6.sp),
+                            borderRadius: BorderRadius.circular(6.r),
                           ),
                         ),
                       ),
@@ -259,8 +259,8 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                   isDismissible: false,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.h),
-                      topRight: Radius.circular(25.w),
+                      topLeft: Radius.circular(25.r),
+                      topRight: Radius.circular(25.r),
                     ),
                   ),
                   context: context,

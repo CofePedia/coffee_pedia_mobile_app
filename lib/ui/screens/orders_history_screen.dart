@@ -45,7 +45,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
               padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6.sp),
+                  borderRadius: BorderRadius.circular(6.r),
                   boxShadow: [
                     BoxShadow(
                       color: Color.fromRGBO(0, 0, 0, 0.12),
