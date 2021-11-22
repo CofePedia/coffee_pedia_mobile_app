@@ -192,7 +192,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               children: [
                                 Container(
                                   height: 17.h,
-                                  width: 55.h,
+                                  width: 55.w,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     color: Color(0xffFFD008),

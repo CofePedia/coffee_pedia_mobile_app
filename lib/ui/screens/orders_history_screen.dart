@@ -80,9 +80,9 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
                                 borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(12.5.h),
-                                  bottomRight: Radius.circular(12.5.h),
-                                  bottomLeft: Radius.circular(12.5.h),
+                                  topLeft: Radius.circular(12.5.r),
+                                  bottomRight: Radius.circular(12.5.r),
+                                  bottomLeft: Radius.circular(12.5.r),
                                 ),
                               ),
                               child: Text(
@@ -171,9 +171,9 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                               decoration: BoxDecoration(
                                 color: Color(0xff14B93B),
                                 borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(12.5.h),
-                                  bottomRight: Radius.circular(12.5.h),
-                                  bottomLeft: Radius.circular(12.5.h),
+                                  topLeft: Radius.circular(12.5.r),
+                                  bottomRight: Radius.circular(12.5.r),
+                                  bottomLeft: Radius.circular(12.5.r),
                                 ),
                               ),
                               child: Text(
@@ -415,9 +415,9 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
                                 borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(12.5.h),
-                                  bottomRight: Radius.circular(12.5.h),
-                                  bottomLeft: Radius.circular(12.5.h),
+                                  topLeft: Radius.circular(12.5.r),
+                                  bottomRight: Radius.circular(12.5.r),
+                                  bottomLeft: Radius.circular(12.5.r),
                                 ),
                               ),
                               child: Text(
