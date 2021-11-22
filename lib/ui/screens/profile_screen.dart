@@ -1,3 +1,4 @@
+import 'package:coffepedia/ui/screens/account_settings_screen.dart';
 import 'package:coffepedia/ui/screens/switch_language_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -118,7 +119,16 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     ProfileItem(
                       title: "Account settings",
-                      onPress: () {},
+                      onPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return AccountSettingsScreen();
+                            },
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
