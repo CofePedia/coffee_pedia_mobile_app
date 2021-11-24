@@ -8,6 +8,7 @@ class CustomTextFormField extends StatelessWidget {
       this.width,
       this.height,
       this.suffix,
+      this.prefix,
       Key? key})
       : super(key: key);
   final TextInputType? keyboardType;
@@ -15,6 +16,7 @@ class CustomTextFormField extends StatelessWidget {
   final double? width;
   final double? height;
   final Widget? suffix;
+  final Widget? prefix;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         keyboardType: keyboardType,
         textInputAction: TextInputAction.go,
+        textAlignVertical: TextAlignVertical.bottom,
         maxLines: 3,
         style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14.sp),
         decoration: InputDecoration(
@@ -33,7 +36,7 @@ class CustomTextFormField extends StatelessWidget {
                   0xffCCCCCC,
                 ),
               ),
-          contentPadding: EdgeInsets.all(12.h),
+          contentPadding: EdgeInsets.all(9.h),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(
@@ -41,6 +44,7 @@ class CustomTextFormField extends StatelessWidget {
               ),
             ),
           ),
+          prefixIcon: prefix,
           suffixIcon: suffix,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(3.0.sp),

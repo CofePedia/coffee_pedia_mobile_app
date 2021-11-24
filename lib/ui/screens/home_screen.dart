@@ -118,13 +118,11 @@ class HomeScreen extends StatelessWidget {
                 padding: EdgeInsets.all(0),
                 itemBuilder: (context, index) {
                   return BrandsIcons(
-                brandIcon:
-                    "https://waffarha.com/images/uploads/Cinnabon-Logo-logo-1630228283.png");
+                      brandIcon:
+                          "https://waffarha.com/images/uploads/Cinnabon-Logo-logo-1630228283.png");
                 },
               ),
             ),
-
-            
             Ads(
                 ad_image_background:
                     "https://waffarha.com/images/Cinnabon-main3-1630254257.jpg"),
@@ -132,7 +130,6 @@ class HomeScreen extends StatelessWidget {
                 ad_image_background:
                     "https://waffarha.com/images/Cinnabon-main-1630254288.jpg"),
             SecationName(section_name: "Most Recent Products"),
-
             Container(
               margin: EdgeInsets.only(bottom: 24.h),
               width: MediaQuery.of(context).size.width,
@@ -143,10 +140,10 @@ class HomeScreen extends StatelessWidget {
                 padding: EdgeInsets.all(0),
                 itemBuilder: (context, index) {
                   return CardRecentProducts(
-                product_image:
-                    "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
-                product_text:
-                    "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc");
+                      product_image:
+                          "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
+                      product_text:
+                          "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc");
                 },
               ),
             ),

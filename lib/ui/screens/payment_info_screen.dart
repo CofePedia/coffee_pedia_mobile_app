@@ -241,7 +241,6 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
                   child: Container(
-                    //  height: 55.h,
                     width: 343.w,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
