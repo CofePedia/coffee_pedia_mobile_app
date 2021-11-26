@@ -23,7 +23,7 @@ class ShowOnMapBottomSheet extends StatelessWidget {
                   child: Image.asset(
                     Assets.imagesPack,
                     height: 82.18.h,
-                    width: 107.64,
+                    width: 107.64.w,
                   ),
                 ),
                 SizedBox(
@@ -80,8 +80,10 @@ class ShowOnMapBottomSheet extends StatelessWidget {
                     SizedBox(
                       width: 7.w,
                     ),
-                    Text('Show on Map',
-                        style: Theme.of(context).textTheme.headline2),
+                    Text(
+                      'Show on Map',
+                      style: Theme.of(context).textTheme.headline2,
+                    ),
                   ],
                 ),
               ),
