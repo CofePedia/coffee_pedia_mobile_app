@@ -13,6 +13,8 @@ class Assets {
   static const String iconsAdd = 'assets/icons/add.svg';
   static const String iconsCoffePediaLogo = 'assets/icons/CoffePediaLogo.png';
   static const String iconsDelete = 'assets/icons/Delete.svg';
+  static const String playIcon = 'assets/icons/play_icon.svg';
+
   static const String iconsFacebookSquare = 'assets/icons/facebookSquare.svg';
   static const String iconsFilter = 'assets/icons/filter.svg';
   static const String iconsGoogle = 'assets/icons/Google.svg';
