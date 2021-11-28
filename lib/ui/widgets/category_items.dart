@@ -54,7 +54,7 @@ class _CategoryItemsState extends State<CategoryItems> {
                   height: 72.h,
                   width: 145.w,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.sp),
+                    borderRadius: BorderRadius.circular(10.r),
                     color: Color(0xffEED2BB),
                   ),
                 ),

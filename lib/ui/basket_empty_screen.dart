@@ -93,10 +93,11 @@ class BasketEmptyScreen extends StatelessWidget {
                   return CardFeaturedProducts(
                       product_image:
                           "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
-                      product_text: "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc");
+                      product_text:
+                          "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc");
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

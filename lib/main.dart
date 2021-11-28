@@ -1,5 +1,4 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:coffepedia/ui/checkout_items_screen.dart';
 import 'package:coffepedia/ui/screens/intro/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';

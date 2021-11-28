@@ -73,15 +73,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       children: <TextSpan>[
                         TextSpan(
                           text: 'Coffee ',
-                          style: Theme.of(context).textTheme.headline1!.copyWith(
-                                fontSize: 18.sp,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontSize: 18.sp,
+                                  ),
                         ),
                         TextSpan(
                           text: '(156 Item)',
-                          style: Theme.of(context).textTheme.headline1!.copyWith(
-                                fontSize: 12.sp,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.headline1!.copyWith(
+                                    fontSize: 12.sp,
+                                  ),
                         ),
                       ],
                     ),
@@ -94,8 +96,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         isDismissible: false,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15.h),
-                            topRight: Radius.circular(15.w),
+                            topLeft: Radius.circular(15.r),
+                            topRight: Radius.circular(15.r),
                           ),
                         ),
                         context: context,
@@ -105,7 +107,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     },
                     height: 40.h,
                     width: 100.w,
-                    borderRadius: 9.sp,
+                    borderRadius: 9.r,
                     shadowColor: BoxShadow(color: Colors.transparent),
                     imageColor: Theme.of(context).primaryColor,
                     assetName: Assets.iconsFilter,
@@ -144,8 +146,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   child: Container(
                     height: 305.h,
                     width: 164.5.w,
-                    //  color: Colors.blue,
-                    padding: EdgeInsets.all(0),
                     child: Stack(
                       children: [
                         Image.asset(
@@ -170,7 +170,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               SizedBox(
                                 width: 5.w,
                               ),
-                              Text('4.5'),
+                              Text(
+                                '4.5',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                              ),
                             ],
                           ),
                         ),
@@ -189,13 +197,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   decoration: BoxDecoration(
                                     color: Color(0xffFFD008),
                                     borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(12.5.h),
-                                        bottomRight: Radius.circular(12.5.h),
-                                        bottomLeft: Radius.circular(12.5.h)),
+                                      topLeft: Radius.circular(
+                                        12.5.r,
+                                      ),
+                                      bottomRight: Radius.circular(
+                                        12.5.r,
+                                      ),
+                                      bottomLeft: Radius.circular(
+                                        12.5.r,
+                                      ),
+                                    ),
                                   ),
                                   child: Text(
                                     '25% Off',
-                                    style: Theme.of(context).textTheme.bodyText1,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
                                   ),
                                 ),
                                 SizedBox(
@@ -205,7 +221,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   width: 140.w,
                                   child: Text(
                                     'CoffePedia Dark Espresso Roast COFFEE',
-                                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline1!
+                                        .copyWith(
                                           fontSize: 14.sp,
                                         ),
                                   ),
@@ -215,7 +234,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 ),
                                 Text(
                                   'EGP 450',
-                                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .copyWith(
                                         decoration: TextDecoration.lineThrough,
                                         color: Colors.black45,
                                       ),
@@ -241,7 +263,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               color: Color(0xffffffff),
                               borderRadius: BorderRadius.circular(25),
                               boxShadow: [
-                                BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.12), offset: Offset(0, 2), blurRadius: 11.sp)
+                                BoxShadow(
+                                    color: Color.fromRGBO(0, 0, 0, 0.12),
+                                    offset: Offset(0, 2),
+                                    blurRadius: 11.sp)
                               ],
                             ),
                             child: FavoriteButton(

@@ -31,8 +31,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
       decoration: BoxDecoration(
         color: Color(0xffffffff),
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25.h),
-          topRight: Radius.circular(25.h),
+          topLeft: Radius.circular(25.r),
+          topRight: Radius.circular(25.r),
         ),
       ),
       child: Stack(
@@ -187,13 +187,13 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   boxShadow: [
                     BoxShadow(
                       color: Color.fromRGBO(0, 0, 0, 0.18),
-                      blurRadius: 2.sp,
+                      blurRadius: 2.r,
                     ),
                   ],
                   color: Color(0xffFFFFFF),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(22.h),
-                    topRight: Radius.circular(22.h),
+                    topLeft: Radius.circular(22.r),
+                    topRight: Radius.circular(22.r),
                   ),
                 ),
                 child: Column(
@@ -207,7 +207,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                       imageWidth: 0,
                       imageHeight: 0,
                       buttonColor: Theme.of(context).primaryColor,
-                      borderRadius: 25.sp,
+                      borderRadius: 25.r,
                       imageColor: Colors.transparent,
                     ),
                     InkWell(
