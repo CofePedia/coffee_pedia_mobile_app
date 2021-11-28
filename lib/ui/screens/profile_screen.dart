@@ -1,3 +1,4 @@
+import 'package:coffepedia/ui/screens/switch_language_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -133,7 +134,21 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     ProfileItem(
                       title: "Switch Language",
-                      onPress: () {},
+                      onPress: () {
+                        showModalBottomSheet(
+                          enableDrag: false,
+                          isDismissible: true,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(22.r),
+                              topRight: Radius.circular(22.r),
+                            ),
+                          ),
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) => SwitchLanguageBottomSheet(),
+                        );
+                      },
                     ),
                     ProfileItem(
                       title: "About Coffepedia",

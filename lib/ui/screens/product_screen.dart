@@ -96,7 +96,7 @@ class _ProductScreenState extends State<ProductScreen> {
               imageColor: Color(0xff606266),
               assetName: Assets.iconsMinus,
               imageHeight: 15.h,
-              imageWidth: 15.h,
+              imageWidth: 15.w,
             ),
             CustomButton(
               onPress: () {},
@@ -188,7 +188,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                 children: [
                                   Container(
                                     height: 17.h,
-                                    width: 55.h,
+                                    width: 55.w,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                       color: Color(0xffFFD008),
@@ -256,7 +256,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   direction: Axis.horizontal,
                                   itemCount: 5,
                                   itemPadding:
-                                      EdgeInsets.symmetric(horizontal: 4.0),
+                                      EdgeInsets.symmetric(horizontal: 4.0.w),
                                   itemBuilder: (context, _) => SvgPicture.asset(
                                       'assets/icons/star_active.svg'),
                                   onRatingUpdate: (rating) {
@@ -297,7 +297,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: weight.length,
                                   itemBuilder: (context, index) => Padding(
-                                    padding: const EdgeInsets.only(left: 6),
+                                    padding: EdgeInsets.only(left: 6.w),
                                     child: CustomOutlineButton(
                                       title: weight[index],
                                       height: 40.h,
@@ -412,7 +412,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                             .textTheme
                                             .subtitle2,
                                       ),
-                                      SizedBox(height: 18),
+                                      SizedBox(height: 18.h),
                                       Text(
                                         'Brand',
                                         style: Theme.of(context)
@@ -430,7 +430,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                             .textTheme
                                             .subtitle2,
                                       ),
-                                      SizedBox(height: 18),
+                                      SizedBox(height: 18.h),
                                       Text(
                                         'Item Form',
                                         style: Theme.of(context)
@@ -471,7 +471,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                             .textTheme
                                             .subtitle2,
                                       ),
-                                      SizedBox(height: 18),
+                                      SizedBox(height: 18.h),
                                       Text(
                                         'Specialty',
                                         style: Theme.of(context)
@@ -571,7 +571,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                       ),
                                     ),
                                     SizedBox(
-                                      width: 5,
+                                      width: 5.w,
                                     ),
                                     Text(
                                       'Other offers from EGP 240',
