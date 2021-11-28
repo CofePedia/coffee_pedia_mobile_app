@@ -18,7 +18,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
     'Cash on Delivery',
     'Bank Card',
     'Fawry',
-    'Premium Card'
+    'Master Card'
   ];
 
   int _selectedIndex = 0;
@@ -283,16 +283,24 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                         groupValue: _selectedIndex,
                         value: index,
                         contentPadding: EdgeInsets.zero,
-                        secondary:
-                            _selectedIndex == index && _selectedIndex == 1
+                        secondary: title[index] == title[0]
+                            ? Text(
+                                '+ EGP 15',
+                                style: Theme.of(context).textTheme.headline4,
+                              )
+                            : title[index] == title[1]
                                 ? SizedBox.shrink()
-                                : Container(
-                                    child: SvgPicture.asset(
-                                      Assets.fawryImage,
-                                      height: 25.h,
-                                      width: 25.w,
-                                    ),
-                                  ),
+                                : title[index] == title[2]
+                                    ? SvgPicture.asset(
+                                        Assets.fawryImage,
+                                        height: 30.h,
+                                        width: 30.w,
+                                      )
+                                    : SvgPicture.asset(
+                                        Assets.imagesMastercardLogo,
+                                        height: 40.h,
+                                        width: 40.w,
+                                      ),
                         onChanged: (dynamic value) {
                           setState(() {
                             _selectedIndex = value;

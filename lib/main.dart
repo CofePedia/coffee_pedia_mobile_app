@@ -1,5 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:coffepedia/ui/screens/intro/splash_screen.dart';
+import 'package:coffepedia/ui/screens/my_wallet_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
           navigatorObservers: [
             BotToastNavigatorObserver(),
           ],
-          home: SplashScreen(),
+          home: MyWalletScreen(),
           theme: ThemeData(
             accentColor: Color(0xffffffff),
             primaryColor: Color(0xff107CC0),
@@ -98,11 +98,12 @@ class MyApp extends StatelessWidget {
                 color: Color(0xff8A8A8A),
               ),
               headline4: TextStyle(
-                  fontFamily: 'Nexa',
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xff606266),
-                  height: 1.5.sp),
+                fontFamily: 'Nexa',
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w500,
+                color: Color(0xff606266),
+                height: 1.5.sp,
+              ),
               headline5: TextStyle(
                 fontFamily: 'Nexa',
                 fontSize: 12.sp,
