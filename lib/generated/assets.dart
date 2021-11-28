@@ -36,6 +36,7 @@ class Assets {
   static const String imagesMastercardLogo = 'assets/images/MastercardLogo.svg';
   static const String imagesPack = 'assets/images/Pack.png';
   static const String successIcon = 'assets/images/success_icon.svg';
+  static const String userPhote = 'assets/images/user_photo.svg';
 
   static const String imagesPartnerLogo = 'assets/images/partnerLogo.png';
   static const String imagesPartnerLogo1 = 'assets/images/partnerLogo1.png';
