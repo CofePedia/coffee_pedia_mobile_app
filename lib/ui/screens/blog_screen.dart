@@ -82,7 +82,7 @@ class _BlogScreenState extends State<BlogScreen> {
               ),
             ),
             Container(
-              height: 39.5.h,
+              height: 40.h,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: mainTabs.length,
@@ -96,27 +96,30 @@ class _BlogScreenState extends State<BlogScreen> {
                       },
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              Icon(
-                                icons[index],
-                                color: _currentColorTabsIndex == index
-                                    ? Theme.of(context).primaryColor
-                                    : Color(0xff231F20),
-                              ),
-                              SizedBox(
-                                width: 10.w,
-                              ),
-                              Text(
-                                mainTabs[index],
-                                style: _currentColorTabsIndex == index
-                                    ? Theme.of(context).textTheme.headline6
-                                    : Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(fontSize: 14.sp),
-                              ),
-                            ],
+                          Container(
+                            height: 25.h,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  icons[index],
+                                  color: _currentColorTabsIndex == index
+                                      ? Theme.of(context).primaryColor
+                                      : Color(0xff231F20),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Text(
+                                  mainTabs[index],
+                                  style: _currentColorTabsIndex == index
+                                      ? Theme.of(context).textTheme.headline6
+                                      : Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(fontSize: 14.sp),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: 12.h,
