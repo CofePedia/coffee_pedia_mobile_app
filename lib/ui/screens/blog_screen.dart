@@ -1,5 +1,5 @@
 import 'package:coffepedia/generated/assets.dart';
-import 'package:coffepedia/ui/screens/review_details_screen.dart';
+import 'package:coffepedia/ui/screens/taps_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -138,7 +138,6 @@ class _BlogScreenState extends State<BlogScreen> {
               color: Color(0xffEFEFEF),
             ),
             _currentColorTabsIndex == 0
-                // articles
                 ? Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,56 +147,7 @@ class _BlogScreenState extends State<BlogScreen> {
                             top: 16.h,
                           ),
                           height: 40.h,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: topics.length,
-                            padding: EdgeInsets.only(
-                              left: 8.w,
-                            ),
-                            itemBuilder: (ctx, index) {
-                              return InkWell(
-                                highlightColor: Colors.transparent,
-                                splashColor: Colors.transparent,
-                                onTap: () {
-                                  setState(() {
-                                    topic = topics[index];
-                                    _currentColorTobicIndex = index;
-                                  });
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 8.w),
-                                  child: Container(
-                                    height: 35.h,
-                                    padding: EdgeInsets.all(11.h),
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(17.5.r),
-                                      color: _currentColorTobicIndex == index
-                                          ? Theme.of(context).primaryColor
-                                          : Color(0xffE9E7E7),
-                                    ),
-                                    child: Text(
-                                      topics[index],
-                                      style: _currentColorTobicIndex == index
-                                          ? Theme.of(context)
-                                              .textTheme
-                                              .headline2!
-                                              .copyWith(
-                                                fontSize: 13.sp,
-                                              )
-                                          : Theme.of(context)
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(
-                                                fontSize: 13.sp,
-                                              ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                          child: TapsWidgets(),
                         ),
                         Padding(
                           padding: EdgeInsets.only(
@@ -299,7 +249,6 @@ class _BlogScreenState extends State<BlogScreen> {
                       ],
                     ),
                   )
-                // reviews
                 : Expanded(
                     child: ListView.builder(
                       padding: EdgeInsets.only(top: 4.h),
@@ -309,117 +258,90 @@ class _BlogScreenState extends State<BlogScreen> {
                             top: 15.87.h, left: 16.w, right: 16.w),
                         child: Column(
                           children: [
-                            InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  enableDrag: true,
-                                  isDismissible: false,
-                                  backgroundColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(25.r),
-                                      topRight: Radius.circular(25.r),
+                            Container(
+                              height: 100.4.h,
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: 104.h,
+                                    width: 140.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6.sp),
+                                      color: Colors.grey,
+                                    ),
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Image.asset(
+                                          Assets.imagesPack,
+                                          height: 82.18.h,
+                                          width: 107.64,
+                                        ),
+                                        Center(
+                                          child: SvgPicture.asset(
+                                            Assets.playIcon,
+                                          ),
+                                        ),
+                                        Positioned(
+                                          right: 13.w,
+                                          bottom: 9.4.h,
+                                          child: Container(
+                                            width: 47.w,
+                                            height: 19.h,
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              '03:33',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline2!
+                                                  .copyWith(fontSize: 12.sp),
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(3.sp),
+                                              color: Color(0xff000000),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  context: context,
-                                  isScrollControlled: true,
-                                  builder: (context) => ReviewDetailsScreen(),
-                                );
-                              },
-                              child: Container(
-                                height: 100.4.h,
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      height: 104.h,
-                                      width: 140.w,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(6.r),
-                                        color: Colors.grey,
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Color(0xffFFFFFF),
-                                            Color(0xff231F20),
-                                          ],
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
+                                  SizedBox(
+                                    width: 11.w,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 6.h,
                                         ),
-                                      ),
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: [
-                                          Image.asset(
-                                            Assets.imagesPack,
-                                            height: 82.18.h,
-                                            width: 107.64,
-                                          ),
-                                          Center(
-                                            child: SvgPicture.asset(
-                                              Assets.playIcon,
-                                            ),
-                                          ),
-                                          Positioned(
-                                            right: 13.w,
-                                            bottom: 9.4.h,
-                                            child: Container(
-                                              width: 47.w,
-                                              height: 19.h,
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                '03:33',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline2!
-                                                    .copyWith(fontSize: 12.sp),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(3.sp),
-                                                color: Color(0xff000000),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                        Text(
+                                          'Coffee Brewing Essentials w/ Tim Wendelboe',
+                                          maxLines: 3,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .copyWith(
+                                                  fontSize: 14.sp,
+                                                  height: 1.25),
+                                        ),
+                                        SizedBox(
+                                          height: 6.h,
+                                        ),
+                                        Text(
+                                          'This time, our destination was a gorgeous city of Milan, Italy and it was at Christmas time!',
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline4,
+                                        ),
+                                      ],
                                     ),
-                                    SizedBox(
-                                      width: 11.w,
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            height: 6.h,
-                                          ),
-                                          Text(
-                                            'Coffee Brewing Essentials w/ Tim Wendelboe',
-                                            maxLines: 3,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1!
-                                                .copyWith(
-                                                    fontSize: 14.sp,
-                                                    height: 1.25),
-                                          ),
-                                          SizedBox(
-                                            height: 6.h,
-                                          ),
-                                          Text(
-                                            'This time, our destination was a gorgeous city of Milan, Italy and it was at Christmas time!',
-                                            maxLines: 3,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline4,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  )
+                                ],
                               ),
                             ),
                             SizedBox(
