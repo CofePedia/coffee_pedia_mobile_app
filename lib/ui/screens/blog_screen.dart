@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'articles_details_screen.dart';
+
 class BlogScreen extends StatefulWidget {
   const BlogScreen({Key? key}) : super(key: key);
 
@@ -150,72 +152,91 @@ class _BlogScreenState extends State<BlogScreen> {
                           ),
                         ),
                         Expanded(
-                            child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          itemCount: 10,
-                          itemBuilder: (context, index) => Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 16.h, vertical: 6.h),
-                            height: 106.h,
-                            width: 343.w,
-                            padding: EdgeInsets.all(12.h),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(7.r),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color.fromRGBO(0, 0, 0, 0.12),
-                                    offset: Offset(0, 2),
-                                    blurRadius: 11.r,
-                                  )
-                                ]),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 80.h,
-                                  width: 80.w,
-                                  child: Image.asset(
-                                    Assets.imagesPack,
-                                    height: 82.18.h,
-                                    width: 107.64,
+                          child: ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount: 6,
+                            itemBuilder: (context, index) => InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  enableDrag: true,
+                                  isDismissible: false,
+                                  backgroundColor: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(25.r),
+                                      topRight: Radius.circular(25.r),
+                                    ),
                                   ),
+                                  context: context,
+                                  isScrollControlled: true,
+                                  builder: (context) => ArticlesDetailsScreen(),
+                                );
+                              },
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 16.h, vertical: 6.h),
+                                height: 106.h,
+                                width: 343.w,
+                                padding: EdgeInsets.all(12.h),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7.r),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color.fromRGBO(0, 0, 0, 0.12),
+                                        offset: Offset(0, 2),
+                                        blurRadius: 11.r,
+                                      )
+                                    ]),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 80.h,
+                                      width: 80.w,
+                                      child: Image.asset(
+                                        Assets.imagesPack,
+                                        height: 82.18.h,
+                                        width: 107.64,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 12.w,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            height: 9.h,
+                                          ),
+                                          Text(
+                                            '11 Oct 2021',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1,
+                                          ),
+                                          SizedBox(
+                                            height: 15.2.h,
+                                          ),
+                                          Text(
+                                            'The Nostalgia And Beauty Of Vintage Camper Van Cafes',
+                                            maxLines: 3,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1!
+                                                .copyWith(fontSize: 14.sp),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                SizedBox(
-                                  width: 12.w,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 9.h,
-                                      ),
-                                      Text(
-                                        '11 Oct 2021',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      ),
-                                      SizedBox(
-                                        height: 15.2.h,
-                                      ),
-                                      Text(
-                                        "The Nostalgia And Beauty Of Vintage Camper Van Cafes",
-                                        maxLines: 3,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(fontSize: 14.sp),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
+                              ),
                             ),
                           ),
-                        )),
+                        ),
                       ],
                     ),
                   )
