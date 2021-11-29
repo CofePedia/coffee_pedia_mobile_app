@@ -1,5 +1,8 @@
 import 'package:coffepedia/ui/screens/account_settings_screen.dart';
+import 'package:coffepedia/ui/screens/address_book.dart';
+import 'package:coffepedia/ui/screens/my_wallet_screen.dart';
 import 'package:coffepedia/ui/screens/switch_language_bottom_sheet.dart';
+import 'package:coffepedia/ui/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -107,15 +110,42 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     ProfileItem(
                       title: "My wishlist",
-                      onPress: () {},
+                      onPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const WishlistScreen();
+                            },
+                          ),
+                        );
+                      },
                     ),
                     ProfileItem(
                       title: "Address Book",
-                      onPress: () {},
+                      onPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const AddressBookScreen();
+                            },
+                          ),
+                        );
+                      },
                     ),
                     ProfileItem(
                       title: "My Wallet",
-                      onPress: () {},
+                      onPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const MyWalletScreen();
+                            },
+                          ),
+                        );
+                      },
                     ),
                     ProfileItem(
                       title: "Account settings",
