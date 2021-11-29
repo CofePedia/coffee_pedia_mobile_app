@@ -1,3 +1,4 @@
+import 'package:coffepedia/ui/screens/coffee_shops_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,7 +36,16 @@ class MoreScreen extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 GridviewItems(
-                  onPress: () {},
+                  onPress: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const CoffeeShopsScreen();
+                        },
+                      ),
+                    );
+                  },
                   icon: Icons.store,
                   title: 'Coffee shops',
                 ),
