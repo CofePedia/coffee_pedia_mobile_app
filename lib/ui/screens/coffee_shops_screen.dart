@@ -510,20 +510,3 @@ class CoffeeShopsScreen extends StatelessWidget {
     );
   }
 }
-
-// Row(
-// mainAxisAlignment: MainAxisAlignment.spaceBetween,
-// children: [
-// Text(
-// 'Select Area',
-// style: Theme.of(context).textTheme.bodyText1!.copyWith(
-// fontSize: 14.sp,
-// fontWeight: FontWeight.w500,
-// ),
-// ),
-// Icon(
-// Icons.expand_more,
-// color: Color(0xff8A8A8A),
-// ),
-// ],
-// ),

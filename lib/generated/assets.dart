@@ -13,6 +13,8 @@ class Assets {
   static const String iconsAdd = 'assets/icons/add.svg';
   static const String iconsCoffePediaLogo = 'assets/icons/CoffePediaLogo.png';
   static const String iconsDelete = 'assets/icons/Delete.svg';
+  static const String playIcon = 'assets/icons/play_icon.svg';
+
   static const String iconsFacebookSquare = 'assets/icons/facebookSquare.svg';
   static const String iconsFilter = 'assets/icons/filter.svg';
   static const String iconsGoogle = 'assets/icons/Google.svg';
@@ -26,9 +28,12 @@ class Assets {
   static const String iconsSearch = 'assets/icons/Search.svg';
   static const String iconsShoppingBasket = 'assets/icons/ShoppingBasket.svg';
   static const String iconsStarActive = 'assets/icons/star_active.svg';
+  static const String fullscreenIcon = 'assets/icons/fullscreen_icon.svg';
+
   static const String imagesBitmap = 'assets/images/Bitmap.png';
   static const String fawryImage = 'assets/images/fawry.svg';
   static const String backgroundCard = 'assets/images/background_card.svg';
+  static const String coffeeCars = 'assets/images/coffee_cars.jpg';
 
   static const String imagesCard = 'assets/images/card.png';
   static const String imagesCardBlue = 'assets/images/cardBlue.png';
