@@ -1,5 +1,4 @@
 import 'package:coffepedia/ui/shared/custom_button.dart';
-import 'package:coffepedia/ui/widgets/category_items.dart';
 import 'package:coffepedia/ui/widgets/filters_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,13 +26,13 @@ class _FiltersScreenState extends State<FiltersScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 640.h,
+      height: 700.h,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: Color(0xffffffff),
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25.h),
-          topRight: Radius.circular(25.h),
+          topLeft: Radius.circular(25.r),
+          topRight: Radius.circular(25.r),
         ),
       ),
       child: Stack(
@@ -42,7 +41,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             children: [
               Container(
                 padding: EdgeInsets.only(
-                  top: 30.h,
+                  top: 24.h,
                   left: 24.w,
                   right: 24.w,
                 ),
@@ -64,6 +63,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
                 child: ExpansionPanelList(
                   dividerColor: Color(0xff979797),
+                  elevation: 0,
                   children: [
                     ExpansionPanel(
                       canTapOnHeader: true,
@@ -187,36 +187,27 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   boxShadow: [
                     BoxShadow(
                       color: Color.fromRGBO(0, 0, 0, 0.18),
-                      blurRadius: 2.sp,
+                      blurRadius: 2.r,
                     ),
                   ],
                   color: Color(0xffFFFFFF),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(22.h),
-                    topRight: Radius.circular(22.h),
+                    topLeft: Radius.circular(22.r),
+                    topRight: Radius.circular(22.r),
                   ),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     CustomButton(
-                      onPress: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return CategoryItems();
-                            },
-                          ),
-                        );
-                      },
+                      onPress: () {},
                       title: 'Show results',
                       height: 50.h,
                       width: 345.w,
                       imageWidth: 0,
                       imageHeight: 0,
                       buttonColor: Theme.of(context).primaryColor,
-                      borderRadius: 25.sp,
+                      borderRadius: 25.r,
                       imageColor: Colors.transparent,
                     ),
                     InkWell(

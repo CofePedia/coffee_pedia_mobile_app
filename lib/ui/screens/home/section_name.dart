@@ -12,9 +12,9 @@ class SecationName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 16.h , right: 15.w , left: 15.w),
       child: Text(section_name,
-      style: TextStyle(color: Colors.black , 
-      fontSize: 16.sp),
+      style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Colors.black),
       textAlign: TextAlign.start,),
     );
   }

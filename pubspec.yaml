@@ -33,9 +33,12 @@ dependencies:
   flutter_bloc: ^7.3.1
   bot_toast: ^4.0.1
   flutter_svg: ^0.23.0+1
+  circle_checkbox: ^0.0.2+1
   flutter_rating_bar: ^4.0.0
   favorite_button: ^0.0.4
   cached_network_image: ^3.1.0
+  custom_navigation_bar: ^0.8.2
+
 
 
 dev_dependencies:

@@ -13,28 +13,27 @@ class AdSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        CachedNetworkImage(
-          imageUrl: ad_image,
-          imageBuilder: (context, imageProvider) => InkWell(
-            onTap: () {
-              onPress!();
-            },
-            child: Container(
-              height: 170.h,
-              width: 343.w,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(7.0),
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                ),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 7.w),
+      child: CachedNetworkImage(
+        imageUrl: ad_image,
+        imageBuilder: (context, imageProvider) => InkWell(
+          onTap: () {
+            onPress!();
+          },
+          child: Container(
+            height: 170.h,
+            width: 343.w,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(7.0.r),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
               ),
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }

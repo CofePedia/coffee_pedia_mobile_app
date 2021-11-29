@@ -10,9 +10,9 @@ class FiltersButtons extends StatefulWidget {
 }
 
 class _FiltersButtonsState extends State<FiltersButtons> {
-  @override
   bool _selected = false;
 
+  @override
   Widget build(BuildContext context) {
     return FilterChip(
       label: Text(

@@ -1,6 +1,9 @@
+import 'package:coffepedia/ui/screens/account_settings_screen.dart';
+import 'package:coffepedia/ui/screens/switch_language_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'orders_history_screen.dart';
 import 'profile_item.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -39,7 +42,12 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 60.h, bottom: 16.h),
-                      child: Text("My Profile"),
+                      child: Text(
+                        "My Profile",
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              color: Colors.black,
+                            ),
+                      ),
                     ),
                     Row(
                       children: [
@@ -57,10 +65,19 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Welcome back"),
-                            Text("Hesham Mahdy"),
+                            Text(
+                              "Welcome back",
+                              style: Theme.of(context).textTheme.headline4,
+                            ),
+                            Text(
+                              "Hesham Mahdy",
+                              style:
+                                  Theme.of(context).textTheme.caption!.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                            ),
                           ],
                         )
                       ],
@@ -77,7 +94,16 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     ProfileItem(
                       title: "Orders History",
-                      onPress: () {},
+                      onPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return OrdersHistoryScreen();
+                            },
+                          ),
+                        );
+                      },
                     ),
                     ProfileItem(
                       title: "My wishlist",
@@ -93,7 +119,16 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     ProfileItem(
                       title: "Account settings",
-                      onPress: () {},
+                      onPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return AccountSettingsScreen();
+                            },
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -109,7 +144,21 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     ProfileItem(
                       title: "Switch Language",
-                      onPress: () {},
+                      onPress: () {
+                        showModalBottomSheet(
+                          enableDrag: false,
+                          isDismissible: true,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(22.r),
+                              topRight: Radius.circular(22.r),
+                            ),
+                          ),
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) => SwitchLanguageBottomSheet(),
+                        );
+                      },
                     ),
                     ProfileItem(
                       title: "About Coffepedia",
@@ -132,7 +181,10 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   child: Text(
                     "Logout",
-                    style: TextStyle(color: Colors.red),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(fontSize: 14.sp, color: Colors.red),
                   ),
                 ),
               ),

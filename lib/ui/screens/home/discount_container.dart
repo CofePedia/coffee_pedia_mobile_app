@@ -17,16 +17,13 @@ class DiscountContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.yellow,
         borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(12.5),
-            bottomRight: Radius.circular(12.5),
-            topLeft: Radius.circular(12.5),
-            topRight: Radius.zero),
+            bottomLeft: Radius.circular(12.5.r),
+            bottomRight: Radius.circular(12.5.r),
+            topLeft: Radius.circular(12.5.r),)
       ),
       child: Text(
         discount_text,
-        style: TextStyle(
-          fontSize: 10.sp,
-        ),
+        style: Theme.of(context).textTheme.bodyText1,
         textAlign: TextAlign.center,
       ),
     );
