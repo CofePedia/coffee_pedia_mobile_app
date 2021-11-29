@@ -100,9 +100,9 @@ class HomeScreen extends StatelessWidget {
                 padding: EdgeInsets.all(0),
                 itemBuilder: (context, index) {
                   return CardFeaturedProducts(
-                      product_image:
+                      productImage:
                           "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
-                      product_text:
+                      productText:
                           "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc");
                 },
               ),

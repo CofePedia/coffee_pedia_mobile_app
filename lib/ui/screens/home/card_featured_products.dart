@@ -1,22 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coffepedia/generated/assets.dart';
-import 'package:coffepedia/ui/screens/home/discount_container.dart';
-import 'package:coffepedia/ui/screens/home/price_container.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'rate_container.dart';
-
 class CardFeaturedProducts extends StatelessWidget {
   const CardFeaturedProducts({
-    required this.product_image,
-    required this.product_text,
+    required this.productImage,
+    required this.productText,
     Key? key,
   }) : super(key: key);
-  final String product_image, product_text;
+  final String productImage, productText;
 
   @override
   Widget build(BuildContext context) {
@@ -32,27 +27,20 @@ class CardFeaturedProducts extends StatelessWidget {
         );
       },
       child: Container(
-        height: 286.h,
-        width: 214.w, margin: EdgeInsets.symmetric(horizontal: 12.w),
-
-        //  color: Colors.blue,
+        height: 262.h,
+        width: 214.w,
         child: Stack(
           children: [
-            // Image.asset(
-            //   Assets.imagesCard,
-            //   height: 250.h,
-            //   width: 214.w,
-            // )
-            Align(
-              alignment: Alignment.bottomCenter,
+            Positioned(
+              top: 13.h,
               child: Container(
-                height: 260.h,
+                height: 250.h,
                 width: 214.w,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Color.fromARGB(12, 0, 0, 0),
-                      blurRadius: 12,
+                      color: Color.fromRGBO(0, 0, 0, 0.12),
+                      blurRadius: 11.r,
                       offset: Offset(0, 2),
                     ),
                   ],
@@ -72,20 +60,20 @@ class CardFeaturedProducts extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 52.h,
+              top: 30.h,
               left: 12.w,
               child: Row(
                 children: [
                   SvgPicture.asset(Assets.iconsStarActive),
                   SizedBox(
-                    width: 5.w,
+                    width: 6.14.w,
                   ),
                   Text('4.5'),
                 ],
               ),
             ),
             Positioned(
-              bottom: 21.h,
+              top: 130.h,
               left: 12.w,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,19 +95,21 @@ class CardFeaturedProducts extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 15.h,
+                    height: 13.h,
                   ),
                   Container(
-                    width: 140.w,
+                    width: 192.w,
                     child: Text(
                       'CoffePedia Dark Espresso Roast COFFEE',
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 14.sp,
                           ),
                     ),
                   ),
                   SizedBox(
-                    height: 12.h,
+                    height: 6.h,
                   ),
                   Text(
                     'EGP 450',
@@ -139,7 +129,7 @@ class CardFeaturedProducts extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 21.h,
+              bottom: 16.h,
               right: 16.w,
               child: Container(
                 height: 38.h,
@@ -147,7 +137,12 @@ class CardFeaturedProducts extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Color(0xffffffff),
                   borderRadius: BorderRadius.circular(25),
-                  boxShadow: [BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.12), offset: Offset(0, 2), blurRadius: 11.sp)],
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color.fromRGBO(0, 0, 0, 0.12),
+                        offset: Offset(0, 2),
+                        blurRadius: 11.sp)
+                  ],
                 ),
                 child: FavoriteButton(
                   isFavorite: true,

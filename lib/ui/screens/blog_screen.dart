@@ -26,6 +26,15 @@ class _BlogScreenState extends State<BlogScreen> {
   String tab = 'Articles';
   int _currentColorTabsIndex = 0;
 
+  final List<String> topics = [
+    'Van Cafes',
+    'Americano',
+    'Espresso',
+    'Doppio',
+  ];
+  String topic = 'Van Cafes';
+  int _currentColorTobicIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

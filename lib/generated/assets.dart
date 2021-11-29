@@ -28,11 +28,13 @@ class Assets {
   static const String iconsSearch = 'assets/icons/Search.svg';
   static const String iconsShoppingBasket = 'assets/icons/ShoppingBasket.svg';
   static const String iconsStarActive = 'assets/icons/star_active.svg';
+  static const String fullscreenIcon = 'assets/icons/fullscreen_icon.svg';
+
   static const String imagesBitmap = 'assets/images/Bitmap.png';
   static const String fawryImage = 'assets/images/fawry.svg';
   static const String backgroundCard = 'assets/images/background_card.svg';
-  static const String coffee = 'assets/images/coffee.jpg';
   static const String coffeeCars = 'assets/images/coffee_cars.jpg';
+  static const String coffee = 'assets/images/coffee.jpg';
 
   static const String imagesCard = 'assets/images/card.png';
   static const String imagesCardBlue = 'assets/images/cardBlue.png';
