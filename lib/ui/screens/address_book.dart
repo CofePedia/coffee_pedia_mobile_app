@@ -1,4 +1,5 @@
 import 'package:coffepedia/ui/screens/add_new_address_screen.dart';
+import 'package:coffepedia/ui/screens/address_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,8 +29,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(
-                  left: 23.w, right: 23.w, top: 60.h, bottom: 18.h),
+              padding: EdgeInsets.only(left: 23.w, right: 23.w, top: 60.h, bottom: 18.h),
               child: Row(
                 children: [
                   InkWell(
@@ -60,8 +60,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                 padding: EdgeInsets.zero,
                 itemCount: title.length,
                 itemBuilder: (context, index) => Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                   child: Container(
                     height: 111.h,
                     width: 343.w,
@@ -70,9 +69,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                       borderRadius: BorderRadius.circular(6.r),
                       boxShadow: [
                         BoxShadow(
-                          color: _selectedIndex == index
-                              ? Color.fromRGBO(16, 124, 192, 0.41)
-                              : Colors.transparent,
+                          color: _selectedIndex == index ? Color.fromRGBO(16, 124, 192, 0.41) : Colors.transparent,
                           blurRadius: 7.r,
                         ),
                       ],
@@ -90,9 +87,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                         ),
                         side: MaterialStateProperty.all<BorderSide>(
                           BorderSide(
-                            color: _selectedIndex == index
-                                ? Theme.of(context).primaryColor
-                                : Color(0xffE3E3E3),
+                            color: _selectedIndex == index ? Theme.of(context).primaryColor : Color(0xffE3E3E3),
                           ),
                         ),
                         shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -116,10 +111,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                           children: [
                             Text(
                               title[index],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle2!
-                                  .copyWith(
+                              style: Theme.of(context).textTheme.subtitle2!.copyWith(
                                     fontSize: 14.sp,
                                   ),
                             ),
@@ -146,10 +138,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                                     ),
                                     child: Text(
                                       'Primary',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline1!
-                                          .copyWith(fontSize: 10.sp),
+                                      style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: 10.sp),
                                     ),
                                   )
                                 : InkWell(
@@ -189,7 +178,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                   ),
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => AddNewAddressScreen(),
+                  builder: (context) => AddAddressSheet(),
                 );
               },
               child: Padding(
