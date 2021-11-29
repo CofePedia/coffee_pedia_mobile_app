@@ -97,13 +97,16 @@ class HomeScreen extends StatelessWidget {
               child: ListView.builder(
                 itemCount: 5,
                 scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.all(0),
+                padding: EdgeInsets.only(left: 11.w),
                 itemBuilder: (context, index) {
-                  return CardFeaturedProducts(
-                      productImage:
-                          "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
-                      productText:
-                          "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc");
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 6.w),
+                    child: CardFeaturedProducts(
+                        productImage:
+                            "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
+                        productText:
+                            "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc"),
+                  );
                 },
               ),
             ),

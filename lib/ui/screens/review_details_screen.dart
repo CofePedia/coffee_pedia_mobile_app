@@ -190,14 +190,13 @@ class ReviewDetailsScreen extends StatelessWidget {
               height: 41.h,
             ),
             Container(
+              margin: EdgeInsets.only(bottom: 24.h),
               width: MediaQuery.of(context).size.width,
-              height: 262.h,
+              height: 286.h,
               child: ListView.builder(
                 itemCount: 5,
-                padding: EdgeInsets.only(
-                  left: 8.w,
-                ),
                 scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.only(left: 11.w),
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 6.w),
@@ -210,9 +209,31 @@ class ReviewDetailsScreen extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(
-              height: 41.h,
-            ),
+            // Container(
+            //   width: MediaQuery.of(context).size.width,
+            //   height: 262.h,
+            //   margin: EdgeInsets.only(bottom: 24.h),
+            //   child: ListView.builder(
+            //     itemCount: 5,
+            //     // padding: EdgeInsets.only(
+            //     //   left: 8.w,
+            //     // ),
+            //     scrollDirection: Axis.horizontal,
+            //     itemBuilder: (context, index) {
+            //       return Padding(
+            //         padding: EdgeInsets.symmetric(horizontal: 6.w),
+            //         child: CardFeaturedProducts(
+            //             productImage:
+            //                 "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
+            //             productText:
+            //                 "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc"),
+            //       );
+            //     },
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 41.h,
+            // ),
           ],
         ),
       ),

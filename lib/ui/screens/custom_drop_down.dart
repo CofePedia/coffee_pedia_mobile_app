@@ -18,9 +18,8 @@ class CustomDropDownTextField extends StatelessWidget {
       children: [
         Text(
           title,
-          style: Theme.of(context).textTheme.headline4!.copyWith(
-                color: Color(0xff8A8A8A),
-              ),
+          style:
+              Theme.of(context).textTheme.headline3!.copyWith(fontSize: 12.sp),
         ),
         SizedBox(
           height: 9.h,

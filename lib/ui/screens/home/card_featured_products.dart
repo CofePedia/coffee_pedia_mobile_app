@@ -60,7 +60,7 @@ class CardFeaturedProducts extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 30.h,
+              top: 28.h,
               left: 12.w,
               child: Row(
                 children: [
@@ -100,12 +100,13 @@ class CardFeaturedProducts extends StatelessWidget {
                   Container(
                     width: 192.w,
                     child: Text(
-                      'CoffePedia Dark Espresso Roast COFFEE',
+                      'Wonderful Pistachios, Sweet Chili Flavor, 14 Oun..',
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                            fontSize: 14.sp,
-                          ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(fontSize: 14.sp, height: 1.25),
                     ),
                   ),
                   SizedBox(
@@ -129,7 +130,7 @@ class CardFeaturedProducts extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 16.h,
+              top: 208.h,
               right: 16.w,
               child: Container(
                 height: 38.h,
