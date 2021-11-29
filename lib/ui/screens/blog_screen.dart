@@ -1,4 +1,5 @@
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/taps_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,15 +23,6 @@ class _BlogScreenState extends State<BlogScreen> {
   ];
   String tab = 'Articles';
   int _currentColorTabsIndex = 0;
-
-  final List<String> topics = [
-    'Van Cafes',
-    'Americano',
-    'Espresso',
-    'Doppio',
-  ];
-  String topic = 'Van Cafes';
-  int _currentColorTobicIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -144,57 +136,7 @@ class _BlogScreenState extends State<BlogScreen> {
                             top: 16.h,
                           ),
                           height: 40.h,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: topics.length,
-                            padding: EdgeInsets.only(
-                              left: 8.w,
-                            ),
-                            itemBuilder: (ctx, index) {
-                              return InkWell(
-                                highlightColor: Colors.transparent,
-                                splashColor: Colors.transparent,
-                                onTap: () {
-                                  setState(() {
-                                    topic = topics[index];
-                                    _currentColorTobicIndex = index;
-                                  });
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 8.w),
-                                  child: Container(
-                                    //  margin: EdgeInsets.only(left: 8.w),
-                                    height: 35.h,
-                                    padding: EdgeInsets.all(11.h),
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(17.5.r),
-                                      color: _currentColorTobicIndex == index
-                                          ? Theme.of(context).primaryColor
-                                          : Color(0xffE9E7E7),
-                                    ),
-                                    child: Text(
-                                      topics[index],
-                                      style: _currentColorTobicIndex == index
-                                          ? Theme.of(context)
-                                              .textTheme
-                                              .headline2!
-                                              .copyWith(
-                                                fontSize: 13.sp,
-                                              )
-                                          : Theme.of(context)
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(
-                                                fontSize: 13.sp,
-                                              ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                          child: TapsWidgets(),
                         ),
                         Padding(
                           padding: EdgeInsets.only(
@@ -208,74 +150,72 @@ class _BlogScreenState extends State<BlogScreen> {
                           ),
                         ),
                         Expanded(
-                          child: ListView.builder(
-                            padding: EdgeInsets.zero,
-                            itemCount: 10,
-                            // physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) => Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 16.h, vertical: 6.h),
-                              height: 106.h,
-                              width: 343.w,
-                              padding: EdgeInsets.all(12.h),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(7.r),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color.fromRGBO(0, 0, 0, 0.12),
-                                      offset: Offset(0, 2),
-                                      blurRadius: 11.r,
-                                    )
-                                  ]),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: 80.h,
-                                    width: 80.w,
-                                    child: Image.asset(
-                                      Assets.imagesPack,
-                                      height: 82.18.h,
-                                      width: 107.64,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 12.w,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          height: 9.h,
-                                        ),
-                                        Text(
-                                          '11 Oct 2021',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
-                                        SizedBox(
-                                          height: 15.2.h,
-                                        ),
-                                        Text(
-                                          'The Nostalgia And Beauty Of Vintage Camper Van Cafes',
-                                          maxLines: 3,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(fontSize: 14.sp),
-                                        ),
-                                      ],
-                                    ),
+                            child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: 10,
+                          itemBuilder: (context, index) => Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 16.h, vertical: 6.h),
+                            height: 106.h,
+                            width: 343.w,
+                            padding: EdgeInsets.all(12.h),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7.r),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color.fromRGBO(0, 0, 0, 0.12),
+                                    offset: Offset(0, 2),
+                                    blurRadius: 11.r,
                                   )
-                                ],
-                              ),
+                                ]),
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 80.h,
+                                  width: 80.w,
+                                  child: Image.asset(
+                                    Assets.imagesPack,
+                                    height: 82.18.h,
+                                    width: 107.64,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 12.w,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 9.h,
+                                      ),
+                                      Text(
+                                        '11 Oct 2021',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                      ),
+                                      SizedBox(
+                                        height: 15.2.h,
+                                      ),
+                                      Text(
+                                        "The Nostalgia And Beauty Of Vintage Camper Van Cafes",
+                                        maxLines: 3,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(fontSize: 14.sp),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
                           ),
-                        ),
+                        )),
                       ],
                     ),
                   )
