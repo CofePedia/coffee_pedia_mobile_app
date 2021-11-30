@@ -1,4 +1,6 @@
+import 'package:coffepedia/ui/screens/blog_screen.dart';
 import 'package:coffepedia/ui/screens/coffee_shops_screen.dart';
+import 'package:coffepedia/ui/screens/recipes_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,12 +52,30 @@ class MoreScreen extends StatelessWidget {
                   title: 'Coffee shops',
                 ),
                 GridviewItems(
-                  onPress: () {},
+                  onPress: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const BlogScreen();
+                        },
+                      ),
+                    );
+                  },
                   icon: Icons.eighteen_mp,
                   title: 'Blog',
                 ),
                 GridviewItems(
-                  onPress: () {},
+                  onPress: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const RecipesScreen();
+                        },
+                      ),
+                    );
+                  },
                   icon: Icons.eighteen_mp,
                   title: 'Recipes',
                 ),

@@ -8,6 +8,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../checkout_popup.dart';
+
 class ProductScreen extends StatefulWidget {
   const ProductScreen({Key? key}) : super(key: key);
 
@@ -99,7 +101,21 @@ class _ProductScreenState extends State<ProductScreen> {
               imageWidth: 15.w,
             ),
             CustomButton(
-              onPress: () {},
+              onPress: () {
+                showModalBottomSheet(
+                  enableDrag: false,
+                  isDismissible: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.r),
+                      topRight: Radius.circular(25.r),
+                    ),
+                  ),
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) => CheckoutPopUp(),
+                );
+              },
               width: 170.w,
               height: 50.h,
               assetName: Assets.iconsShoppingBasket,

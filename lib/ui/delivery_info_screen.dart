@@ -1,4 +1,4 @@
-import 'package:coffepedia/ui/screens/add_new_address_screen.dart';
+import 'package:coffepedia/ui/screens/address_bottom_sheet.dart';
 import 'package:coffepedia/ui/screens/payment_info_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -265,7 +265,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                   ),
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => AddNewAddressScreen(),
+                  builder: (context) => AddAddressSheet(),
                 );
               },
               child: Padding(

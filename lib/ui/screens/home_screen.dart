@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/home/ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -97,13 +98,16 @@ class HomeScreen extends StatelessWidget {
               child: ListView.builder(
                 itemCount: 5,
                 scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.all(0),
+                padding: EdgeInsets.symmetric(horizontal: 11.w),
                 itemBuilder: (context, index) {
-                  return CardFeaturedProducts(
-                      product_image:
-                          "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
-                      product_text:
-                          "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc");
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 6.w),
+                    child: CardFeaturedProducts(
+                        productImage:
+                            "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
+                        productText:
+                            "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc"),
+                  );
                 },
               ),
             ),
@@ -131,19 +135,20 @@ class HomeScreen extends StatelessWidget {
                     "https://waffarha.com/images/Cinnabon-main-1630254288.jpg"),
             SecationName(section_name: "Most Recent Products"),
             Container(
-              margin: EdgeInsets.only(bottom: 24.h),
               width: MediaQuery.of(context).size.width,
-              height: 170.h,
+              height: 200.h,
               child: ListView.builder(
                 itemCount: 5,
+                padding: EdgeInsets.symmetric(horizontal: 11.w),
                 scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.all(0),
                 itemBuilder: (context, index) {
-                  return CardRecentProducts(
-                      product_image:
-                          "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
-                      product_text:
-                          "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc");
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 6.w),
+                    child: CardRecentProducts(
+                        productImage: Assets.imagesJar,
+                        productText:
+                            "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc"),
+                  );
                 },
               ),
             ),

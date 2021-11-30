@@ -1,8 +1,6 @@
+import 'package:coffepedia/ui/shared/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../custom_input.dart';
-import 'custom_drop_down.dart';
 
 class AddAddressSheet extends StatefulWidget {
   const AddAddressSheet({Key? key}) : super(key: key);
@@ -41,13 +39,17 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
     return Container(
       height: 649.h,
       width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      margin: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              padding: EdgeInsets.zero,
               children: [
                 SizedBox(
                   height: 24.h,
@@ -80,69 +82,293 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      width: 168.w,
-                      child: CustomInput(
-                        title: 'First Name',
-                        hint: "First Name",
-                        textEditingController: _firstName,
-                        padding: false,
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'First Name',
+                          style:
+                              Theme.of(context).textTheme.headline3!.copyWith(
+                                    fontSize: 12.sp,
+                                  ),
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        CustomTextFormField(
+                          hintText: 'First Name',
+                          width: 168.w,
+                          suffix: SizedBox.shrink(),
+                          keyboardType: TextInputType.name,
+                          height: 40.h,
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      width: 168.w,
-                      child: CustomInput(
-                        title: 'Last Name',
-                        hint: "Last Name",
-                        textEditingController: _lastName,
-                        padding: false,
-                      ),
-                    )
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Last Name',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .copyWith(fontSize: 12.sp),
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        CustomTextFormField(
+                          hintText: 'Last Name',
+                          width: 168.w,
+                          suffix: SizedBox.shrink(),
+                          keyboardType: TextInputType.name,
+                          height: 40.h,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-                CustomInput(
-                  title: 'Email',
-                  hint: "Email Address",
-                  textEditingController: _email,
-                  padding: false,
+                Padding(
+                  padding: EdgeInsets.only(top: 12.h),
+                  child: Text(
+                    'Email',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3!
+                        .copyWith(fontSize: 12.sp),
+                  ),
                 ),
-                CustomInput(
-                  title: 'Phone',
-                  hint: "Phone Number",
-                  textEditingController: _phone,
-                  padding: false,
+                Padding(
+                  padding: EdgeInsets.only(top: 8.h),
+                  child: CustomTextFormField(
+                    hintText: 'Email Address',
+                    width: 345.w,
+                    suffix: SizedBox.shrink(),
+                    keyboardType: TextInputType.emailAddress,
+                    height: 40.h,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 12.h),
+                  child: Text(
+                    'Phone',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3!
+                        .copyWith(fontSize: 12.sp),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 8.h, bottom: 12.h),
+                  child: CustomTextFormField(
+                    hintText: 'Phone Number',
+                    width: 345.w,
+                    suffix: SizedBox.shrink(),
+                    keyboardType: TextInputType.phone,
+                    height: 40.h,
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomDropDownTextField(
-                      hint: "Governorate",
-                      title: "Governorate",
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Governorate',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .copyWith(fontSize: 12.sp),
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        Container(
+                          height: 40.h,
+                          width: 168.w,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8.w, vertical: 9.h),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3.r),
+                            border: Border.all(
+                              color: Color(0xffE3E3E3),
+                            ),
+                          ),
+                          child: DropdownButton(
+                            items: [],
+                            onTap: () {},
+                            isExpanded: true,
+                            icon: Icon(
+                              Icons.expand_more,
+                              size: 20.h,
+                              color: Color(0xffCCCCCC),
+                            ),
+                            hint: Text(
+                              'Governorate',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                    color: Color(
+                                      0xffCCCCCC,
+                                    ),
+                                  ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        Text(
+                          'Area',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .copyWith(fontSize: 12.sp),
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        Container(
+                          height: 40.h,
+                          width: 168.w,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8.w, vertical: 9.h),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3.r),
+                            border: Border.all(
+                              color: Color(0xffE3E3E3),
+                            ),
+                          ),
+                          child: DropdownButton(
+                            items: [],
+                            onTap: () {},
+                            isExpanded: true,
+                            icon: Icon(
+                              Icons.expand_more,
+                              size: 20.h,
+                              color: Color(0xffCCCCCC),
+                            ),
+                            hint: Text(
+                              'Area',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                    color: Color(
+                                      0xffCCCCCC,
+                                    ),
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    CustomDropDownTextField(
-                      hint: "City",
-                      title: "City",
-                    )
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'City',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .copyWith(fontSize: 12.sp),
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        Container(
+                          height: 40.h,
+                          width: 168.w,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8.w, vertical: 9.h),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3.r),
+                            border: Border.all(
+                              color: Color(0xffE3E3E3),
+                            ),
+                          ),
+                          child: DropdownButton(
+                            items: [],
+                            onTap: () {},
+                            isExpanded: true,
+                            icon: Icon(
+                              Icons.expand_more,
+                              size: 20.h,
+                              color: Color(0xffCCCCCC),
+                            ),
+                            hint: Text(
+                              'City',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                    color: Color(
+                                      0xffCCCCCC,
+                                    ),
+                                  ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        Text(
+                          'Street',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .copyWith(fontSize: 12.sp),
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        Container(
+                          height: 40.h,
+                          width: 168.w,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8.w, vertical: 9.h),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3.r),
+                            border: Border.all(
+                              color: Color(0xffE3E3E3),
+                            ),
+                          ),
+                          child: DropdownButton(
+                            items: [],
+                            onTap: () {},
+                            isExpanded: true,
+                            icon: Icon(
+                              Icons.expand_more,
+                              size: 20.h,
+                              color: Color(0xffCCCCCC),
+                            ),
+                            hint: Text(
+                              'Street',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                    color: Color(
+                                      0xffCCCCCC,
+                                    ),
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomDropDownTextField(
-                      hint: "Area",
-                      title: "Area",
-                    ),
-                    CustomDropDownTextField(
-                      hint: "Street",
-                      title: "Street",
-                    ),
-                  ],
-                ),
-                Text(
-                  "Address Details",
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                        color: Color(0xff8A8A8A),
-                      ),
+                Padding(
+                  padding: EdgeInsets.only(top: 12.h),
+                  child: Text(
+                    "Address Details",
+                    style: Theme.of(context).textTheme.headline4!.copyWith(
+                          color: Color(0xff8A8A8A),
+                        ),
+                  ),
                 ),
                 SizedBox(
                   height: 9.h,
@@ -154,9 +380,10 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                     controller: _desc,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
-                      hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                            color: const Color(0xffCCCCCC),
-                          ),
+                      hintStyle:
+                          Theme.of(context).textTheme.headline2!.copyWith(
+                                color: const Color(0xffCCCCCC),
+                              ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.w),
                         borderSide: BorderSide(

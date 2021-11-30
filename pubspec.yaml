@@ -37,7 +37,8 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   favorite_button: ^0.0.4
   cached_network_image: ^3.1.0
-  custom_navigation_bar: ^0.8.2
+  card_swiper: ^1.0.4
+
 
 
 

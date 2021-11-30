@@ -1,4 +1,4 @@
-import 'package:coffepedia/ui/screens/add_new_address_screen.dart';
+import 'package:coffepedia/ui/screens/address_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -189,7 +189,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                   ),
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => AddNewAddressScreen(),
+                  builder: (context) => AddAddressSheet(),
                 );
               },
               child: Padding(

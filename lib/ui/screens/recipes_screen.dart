@@ -1,4 +1,5 @@
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/recipes_details_bottom_sheet.dart';
 import 'package:coffepedia/ui/screens/taps_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -55,56 +56,74 @@ class RecipesScreen extends StatelessWidget {
               SizedBox(
                 height: 27.54.h,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 207.h,
-                child: ListView.builder(
-                  padding: EdgeInsets.only(left: 10.w),
-                  itemCount: 5,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 6.w),
-                    child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 150.h,
-                            width: 150.w,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(4.r),
-                              child: Image.asset(
-                                Assets.coffee,
-                                fit: BoxFit.cover,
+              InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                    enableDrag: true,
+                    isDismissible: false,
+                    backgroundColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25.r),
+                        topRight: Radius.circular(25.r),
+                      ),
+                    ),
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) => RecipesDetailsBottomSheet(),
+                  );
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 207.h,
+                  child: ListView.builder(
+                    padding: EdgeInsets.only(left: 10.w),
+                    itemCount: 5,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 6.w),
+                      child: Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 150.h,
+                              width: 150.w,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(4.r),
+                                child: Image.asset(
+                                  Assets.coffee,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 12.h,
-                          ),
-                          Text(
-                            'French Cafe au Lait',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(fontSize: 14.sp),
-                          ),
-                          SizedBox(
-                            height: 6.h,
-                          ),
-                          InkWell(
-                            child: Text(
-                              'View Recipe',
+                            SizedBox(
+                              height: 12.h,
+                            ),
+                            Text(
+                              'French Cafe au Lait',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6!
-                                  .copyWith(
-                                    color: Color(0xff007CC6),
-                                  ),
+                                  .bodyText1!
+                                  .copyWith(fontSize: 14.sp),
                             ),
-                            onTap: () {},
-                          ),
-                        ],
+                            SizedBox(
+                              height: 6.h,
+                            ),
+                            InkWell(
+                              child: Text(
+                                'View Recipe',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
+                                      color: Color(0xff007CC6),
+                                    ),
+                              ),
+                              onTap: () {},
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
