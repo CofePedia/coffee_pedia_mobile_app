@@ -1,3 +1,4 @@
+import 'package:coffepedia/ui/screens/about_screen.dart';
 import 'package:coffepedia/ui/screens/blog_screen.dart';
 import 'package:coffepedia/ui/screens/coffee_shops_screen.dart';
 import 'package:coffepedia/ui/screens/recipes_screen.dart';
@@ -80,7 +81,16 @@ class MoreScreen extends StatelessWidget {
                   title: 'Recipes',
                 ),
                 GridviewItems(
-                  onPress: () {},
+                  onPress: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const AboutScreen();
+                        },
+                      ),
+                    );
+                  },
                   icon: Icons.eighteen_mp,
                   title: 'About',
                 ),

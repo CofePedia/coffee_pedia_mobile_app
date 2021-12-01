@@ -38,6 +38,8 @@ dependencies:
   favorite_button: ^0.0.4
   cached_network_image: ^3.1.0
   card_swiper: ^1.0.4
+  map: ^1.0.0
+
 
 
 

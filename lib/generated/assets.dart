@@ -17,6 +17,13 @@ class Assets {
 
   static const String iconsFacebookSquare = 'assets/icons/facebookSquare.svg';
   static const String iconsFilter = 'assets/icons/filter.svg';
+  static const String email = 'assets/icons/email.svg';
+  static const String web = 'assets/icons/web.svg';
+  static const String facebookLogo = 'assets/icons/facebook_logo.svg';
+  static const String twitterLogo = 'assets/icons/twitter_logo.svg';
+  static const String instagramLogo = 'assets/icons/instagram_logo.svg';
+  static const String youtubeLogo = 'assets/icons/youtube_icon.svg';
+
   static const String iconsGoogle = 'assets/icons/Google.svg';
   static const String iconsHeart = 'assets/icons/heart.svg';
   static const String mapIcon = 'assets/icons/map_icon.svg';
@@ -26,6 +33,8 @@ class Assets {
   static const String iconsMore = 'assets/icons/More.svg';
   static const String iconsProfile = 'assets/icons/Profile.svg';
   static const String iconsSearch = 'assets/icons/Search.svg';
+  static const String locationPin = 'assets/icons/location_pin.svg';
+
   static const String iconsShoppingBasket = 'assets/icons/ShoppingBasket.svg';
   static const String iconsStarActive = 'assets/icons/star_active.svg';
   static const String fullscreenIcon = 'assets/icons/fullscreen_icon.svg';

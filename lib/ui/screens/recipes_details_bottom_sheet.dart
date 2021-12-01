@@ -181,34 +181,36 @@ class _RecipesDetailsBottomSheetState extends State<RecipesDetailsBottomSheet> {
                 ),
               ),
             ),
-
-            Container(
-              margin: EdgeInsetsDirectional.only(end: 190.w, top: 16.h),
-              child: CustomButton(
-                onPress: () {
-                  showModalBottomSheet(
-                    enableDrag: false,
-                    isDismissible: true,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25.r),
-                        topRight: Radius.circular(25.r),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Container(
+                margin: EdgeInsetsDirectional.only(end: 190.w, top: 16.h),
+                child: CustomButton(
+                  onPress: () {
+                    showModalBottomSheet(
+                      enableDrag: false,
+                      isDismissible: true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25.r),
+                          topRight: Radius.circular(25.r),
+                        ),
                       ),
-                    ),
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (context) => CheckoutPopUp(),
-                  );
-                },
-                width: 170.w,
-                height: 50.h,
-                assetName: Assets.iconsShoppingBasket,
-                borderRadius: 25.r,
-                title: 'Add to basket',
-                buttonColor: Theme.of(context).primaryColor,
-                imageColor: Theme.of(context).accentColor,
-                imageHeight: 18.h,
-                imageWidth: 24.w,
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (context) => CheckoutPopUp(),
+                    );
+                  },
+                  width: 170.w,
+                  height: 50.h,
+                  assetName: Assets.iconsShoppingBasket,
+                  borderRadius: 25.r,
+                  title: 'Add to basket',
+                  buttonColor: Theme.of(context).primaryColor,
+                  imageColor: Theme.of(context).accentColor,
+                  imageHeight: 18.h,
+                  imageWidth: 24.w,
+                ),
               ),
             ),
             SizedBox(
@@ -299,6 +301,5 @@ class _RecipesDetailsBottomSheetState extends State<RecipesDetailsBottomSheet> {
         ),
       ),
     );
-    ;
   }
 }
