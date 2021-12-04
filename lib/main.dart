@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       builder: () {
         return MaterialApp(
-          title: 'Coffe Pedia',
+          title: 'Coffepedia',
           debugShowCheckedModeBanner: false,
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
