@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileItem extends StatelessWidget {
-  const ProfileItem({required this.title, required this.onPress, Key? key}) : super(key: key);
+  const ProfileItem({required this.title, required this.onPress, Key? key})
+      : super(key: key);
 
   final String title;
   final VoidCallback onPress;
@@ -14,18 +15,17 @@ class ProfileItem extends StatelessWidget {
         InkWell(
           onTap: onPress,
           child: ListTile(
-            title: Text(
-              title,
-              style: Theme.of(context).textTheme.headline2!.copyWith(
-                    color: Color(0xff231F20),
-                  ),
-            ),
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.black,
-              size: 16.w,
-            ),
-          ),
+              title: Text(
+                title,
+                style: Theme.of(context).textTheme.headline2!.copyWith(
+                      color: Color(0xff231F20),
+                    ),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.black,
+                size: 16.w,
+              )),
         ),
         Container(
           width: MediaQuery.of(context).size.width,

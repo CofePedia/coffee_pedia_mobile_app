@@ -1,4 +1,5 @@
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/chechbox_widget.dart';
 import 'package:coffepedia/ui/screens/success_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:coffepedia/ui/shared/custom_text_form_field.dart';
@@ -22,7 +23,6 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
   ];
 
   int _selectedIndex = 0;
-  bool _selected = false;
   String text = 'Hesham Mahdy';
   @override
   Widget build(BuildContext context) {
@@ -52,35 +52,10 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        _selected = !_selected;
-                      });
-                    },
-                    child: Icon(
-                      _selected
-                          ? Icons.check_circle
-                          : Icons.radio_button_unchecked,
-                      color: Color(0xff27DC4E),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 16.w,
-                  ),
-                  Text(
-                    'Use my wallet balance in this order',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontSize: 14.sp),
-                  ),
-                ],
-              ),
-            ),
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+                child: CheckboxWidget(
+                  title: 'Use my wallet balance in this order',
+                )),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
               height: 107.h,

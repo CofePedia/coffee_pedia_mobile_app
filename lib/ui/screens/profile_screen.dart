@@ -174,52 +174,63 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 17.h),
-                  child: Column(
-                    children: [
-                      ProfileItem(
-                        title: "Switch Language",
-                        onPress: () {
-                          showModalBottomSheet(
-                            enableDrag: false,
-                            isDismissible: true,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(22.r),
-                                topRight: Radius.circular(22.r),
-                              ),
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
+                  child: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                        enableDrag: false,
+                        isDismissible: true,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(22.r),
+                            topRight: Radius.circular(22.r),
+                          ),
+                        ),
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => SwitchLanguageBottomSheet(),
+                      );
+                    },
+                    child: ListTile(
+                      title: Text(
+                        'Switch Language',
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
+                              color: Color(0xff231F20),
                             ),
-                            context: context,
-                            isScrollControlled: true,
-                            builder: (context) => SwitchLanguageBottomSheet(),
-                          );
-                        },
                       ),
-                      ProfileItem(
-                        title: "About Coffepedia",
-                        onPress: () {},
+                      trailing: Text(
+                        'English',
+                        style: Theme.of(context).textTheme.headline6,
                       ),
-                    ],
+                    ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(9.w),
-                    color: Colors.white,
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
+                SizedBox(
+                  height: 103.h,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 54.h,
+                    width: 343.w,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.r),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromRGBO(0, 0, 0, 0.12),
+                          blurRadius: 11.r,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                      color: Colors.white,
                     ),
                     child: Text(
-                      "Logout",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4!
-                          .copyWith(fontSize: 14.sp, color: Colors.red),
+                      'Logout',
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                            fontSize: 14.sp,
+                            color: Color(0xffE23333),
+                          ),
                     ),
                   ),
                 ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'chechbox_widget.dart';
+
 class MyWalletScreen extends StatefulWidget {
   const MyWalletScreen({Key? key}) : super(key: key);
 
@@ -9,8 +11,6 @@ class MyWalletScreen extends StatefulWidget {
 }
 
 class _MyWalletScreenState extends State<MyWalletScreen> {
-  bool _selected = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,32 +96,8 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 16.h),
-            child: Row(
-              children: [
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      _selected = !_selected;
-                    });
-                  },
-                  child: Icon(
-                    _selected
-                        ? Icons.check_circle
-                        : Icons.radio_button_unchecked,
-                    color: Color(0xff27DC4E),
-                  ),
-                ),
-                SizedBox(
-                  width: 16.w,
-                ),
-                Text(
-                  'Use my wallet balance when making order',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 14.sp),
-                ),
-              ],
+            child: CheckboxWidget(
+              title: 'Use my wallet balance when making order',
             ),
           ),
         ],
