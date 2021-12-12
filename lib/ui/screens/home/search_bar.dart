@@ -19,7 +19,7 @@ class SearchBar extends StatelessWidget {
       child: TextField(
         decoration: InputDecoration(
           hintText: 'Search Coffepedia',
-          contentPadding: EdgeInsets.all(15.h),
+          contentPadding: EdgeInsets.all(8.h),
           border: InputBorder.none,
           prefixIcon: SvgPicture.asset(
             Assets.iconsSearch,

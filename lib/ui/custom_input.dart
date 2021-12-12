@@ -1,3 +1,4 @@
+import 'package:coffepedia/ui/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,9 +29,10 @@ class CustomInput extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.headline4!.copyWith(
-                  color: Color(0xff8A8A8A),
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .headline4!
+                .copyWith(color: kGrey2, fontWeight: FontWeight.w700),
           ),
           SizedBox(
             height: 9.h,
@@ -47,7 +49,7 @@ class CustomInput extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: hint,
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                          color: const Color(0xffCCCCCC),
+                          color: kGrey3,
                         ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.w),
@@ -63,14 +65,19 @@ class CustomInput extends StatelessWidget {
                         width: 1.w,
                       ),
                     ),
-                    suffixIconConstraints: BoxConstraints(maxHeight: 15.h, maxWidth: 24.w),
+                    // suffixIconConstraints:
+                    //     BoxConstraints(maxHeight: 15.h, maxWidth: 24.w),
                     suffixIcon: !icon
                         ? null
                         : InkWell(
                             onTap: () {
                               changeObscure.value = !value;
                             },
-                            child: Icon(value ? Icons.visibility_off : Icons.visibility),
+                            child: Icon(
+                              value ? Icons.visibility_off : Icons.visibility,
+                              size: 20.h,
+                              color: kGrey4,
+                            ),
                           ),
                   ),
                 ),

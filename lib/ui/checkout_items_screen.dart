@@ -3,6 +3,7 @@ import 'package:coffepedia/ui/checkout_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'checkout_item.dart';
 import 'extension_method.dart';
 
@@ -13,36 +14,39 @@ class CheckoutItemsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      bottomNavigationBar: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 92.h,
-        padding: EdgeInsets.symmetric(
-          vertical: 21.h,
-          horizontal: 15.w,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(22.r),
-            topRight: Radius.circular(22.r),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.only(bottom: 69.h),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: 92.h,
+          padding: EdgeInsets.symmetric(
+            vertical: 21.h,
+            horizontal: 15.w,
           ),
-        ),
-        child: ElevatedButton(
-          onPressed: () {
-            context.showCustomBottomSheet(
-              CheckoutPopUp(),
-            );
-          },
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.r),
-              ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(22.r),
+              topRight: Radius.circular(22.r),
             ),
           ),
-          child: Text(
-            "Proceed to checkout",
-            style: Theme.of(context).textTheme.headline2,
+          child: ElevatedButton(
+            onPressed: () {
+              context.showCustomBottomSheet(
+                CheckoutPopUp(),
+              );
+            },
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.r),
+                ),
+              ),
+            ),
+            child: Text(
+              "Proceed to checkout",
+              style: Theme.of(context).textTheme.headline2,
+            ),
           ),
         ),
       ),
@@ -76,18 +80,20 @@ class CheckoutItemsScreen extends StatelessWidget {
                       children: [
                         Text(
                           "Items",
-                          style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                                color: Colors.black,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.subtitle1!.copyWith(
+                                    color: Colors.black,
+                                  ),
                         ),
                         SizedBox(
                           width: 5.w,
                         ),
                         Text(
                           "(3 Item)",
-                          style: Theme.of(context).textTheme.headline4!.copyWith(
-                                color: Colors.black,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.headline4!.copyWith(
+                                    color: Colors.black,
+                                  ),
                         ),
                       ],
                     ),
@@ -124,7 +130,10 @@ class CheckoutItemsScreen extends StatelessWidget {
                                   fillColor: Colors.white,
                                   filled: true,
                                   hintText: "Coupon code",
-                                  hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .headline4!
+                                      .copyWith(
                                         color: Color(0xffcccccc),
                                       ),
                                   border: OutlineInputBorder(
@@ -153,7 +162,10 @@ class CheckoutItemsScreen extends StatelessWidget {
                                     alignment: Alignment.center,
                                     child: Text(
                                       "Apply",
-                                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline2!
+                                          .copyWith(
                                             fontWeight: FontWeight.w500,
                                           ),
                                     ),
@@ -164,8 +176,12 @@ class CheckoutItemsScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("Subtotal", style: Theme.of(context).textTheme.headline4),
-                                Text("EGP 840", style: Theme.of(context).textTheme.headline4),
+                                Text("Subtotal",
+                                    style:
+                                        Theme.of(context).textTheme.headline4),
+                                Text("EGP 840",
+                                    style:
+                                        Theme.of(context).textTheme.headline4),
                               ],
                             ),
                             SizedBox(
@@ -174,8 +190,12 @@ class CheckoutItemsScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("Discount", style: Theme.of(context).textTheme.headline4),
-                                Text("- EGP 120", style: Theme.of(context).textTheme.headline4),
+                                Text("Discount",
+                                    style:
+                                        Theme.of(context).textTheme.headline4),
+                                Text("- EGP 120",
+                                    style:
+                                        Theme.of(context).textTheme.headline4),
                               ],
                             ),
                             SizedBox(
@@ -191,10 +211,17 @@ class CheckoutItemsScreen extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(top: 16.h, bottom: 28.h),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("Total price", style: Theme.of(context).textTheme.headline4),
-                                  Text("EGP 854", style: Theme.of(context).textTheme.headline4),
+                                  Text("Total price",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline4),
+                                  Text("EGP 854",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline4),
                                 ],
                               ),
                             ),
