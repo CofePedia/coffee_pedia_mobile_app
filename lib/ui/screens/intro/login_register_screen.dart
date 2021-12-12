@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../constants.dart';
 import '../../custom_input.dart';
 
 class LoginRegisterScreen extends StatefulWidget {
@@ -44,26 +45,25 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: 25.w,
+              horizontal: 24.w,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 35.h,
+                  height: 68.39.h,
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: IconButton(
-                    onPressed: () {
+                  child: InkWell(
+                    onTap: () {
                       setState(() {
                         isLogin = !isLogin;
                       });
-                      // Navigator.pop(context);
                     },
-                    icon: Icon(
+                    child: Icon(
                       Icons.close,
-                      color: Color(0xff241F20),
+                      color: kGrey,
                       size: 15.8.w,
                     ),
                   ),
@@ -72,17 +72,19 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   alignment: Alignment.centerLeft,
                   child: SvgPicture.asset(
                     Assets.iconsLogoHor,
-                    height: 51.h,
+                    height: 51.3.h,
                     width: 196.w,
                   ),
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 50.h, bottom: 32.h),
+                    padding: EdgeInsets.only(top: 79.7.h, bottom: 32.h),
                     child: Text(
                       isLogin ? "Login" : "Create Account",
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Colors.black),
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                            color: kBlack,
+                          ),
                     ),
                   ),
                 ),
@@ -101,9 +103,13 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                         ),
                         label: Text(
                           "With Facebook",
-                          style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.white),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2!
+                              .copyWith(fontSize: 12.sp),
                         ),
                         style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(kDarkBlue),
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.r),
@@ -124,9 +130,13 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                         ),
                         label: Text(
                           "With Google",
-                          style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.white),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2!
+                              .copyWith(fontSize: 12.sp),
                         ),
                         style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(kBlue),
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.r),
@@ -137,32 +147,38 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        height: 109.h,
-                        color: Color(0xff929DAD),
-                        thickness: 0.5.h,
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 24.h,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          color: kLightGrey,
+                          thickness: 0.5.h,
+                        ),
                       ),
-                    ),
-                    Container(
-                      width: 89.w,
-                      child: Text(
-                        isLogin ? "Or login with" : "Or",
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline2!.copyWith(color: Colors.black),
+                      Container(
+                        width: 89.w,
+                        child: Text(
+                          isLogin ? "Or login with" : "Or",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2!
+                              .copyWith(color: kLightBlack),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        height: 109.h,
-                        color: Color(0xff929DAD),
-                        thickness: 0.5.h,
+                      Expanded(
+                        child: Divider(
+                          color: kLightGrey,
+                          thickness: 0.5.h,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 isLogin
                     ? SizedBox.shrink()
@@ -175,6 +191,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                               title: 'First Name',
                               hint: "First Name",
                               textEditingController: _firstName,
+                              padding: false,
                             ),
                           ),
                           SizedBox(
@@ -183,12 +200,14 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                               title: 'Last Name',
                               hint: "Last Name",
                               textEditingController: _lastName,
+                              padding: false,
                             ),
                           )
                         ],
                       ),
                 CustomInput(
-                  title: 'Email',
+                  padding: false,
+                  title: 'Email Address',
                   hint: "Email Address",
                   textEditingController: _email,
                 ),
@@ -196,6 +215,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   title: 'Password',
                   hint: "Enter password",
                   textEditingController: _password,
+                  icon: true,
+                  padding: false,
                 ),
                 isLogin
                     ? SizedBox.shrink()
@@ -203,33 +224,40 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                         title: 'Confirm Password',
                         hint: "Confirm password",
                         textEditingController: _confirmPassword,
+                        padding: false,
+                        icon: true,
                       ),
                 isLogin
                     ? Align(
                         alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return ForgetPasswordScreen();
-                            }));
-                          },
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                              EdgeInsets.zero,
-                            ),
-                          ),
-                          child: Text(
-                            "Forgot Password?",
-                            style: Theme.of(context).textTheme.headline2!.copyWith(
-                                  color: Colors.red,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 8.h),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return ForgetPasswordScreen();
+                                  },
                                 ),
+                              );
+                            },
+                            child: Text(
+                              "Forgot Password?",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(color: kRed),
+                            ),
                           ),
                         ),
                       )
                     : SizedBox.shrink(),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(top: isLogin ? 10.h : 16.h, bottom: 32.h),
+                  margin:
+                      EdgeInsets.only(top: isLogin ? 10.h : 16.h, bottom: 32.h),
                   height: 50.h,
                   child: ElevatedButton(
                     onPressed: () {
@@ -243,6 +271,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                       );
                     },
                     style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25.r),
@@ -256,29 +286,40 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   ),
                 ),
                 isLogin
-                    ? SizedBox.shrink()
+                    ? SizedBox(
+                        height: 32.h,
+                      )
                     : Directionality(
                         textDirection: TextDirection.rtl,
                         child: CircleCheckboxListTile(
                           title: RichText(
                             textAlign: TextAlign.end,
                             text: TextSpan(
-                              style: Theme.of(context).textTheme.headline2!.copyWith(
-                                    color: Color(0xff231F20),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(
+                                    color: kLightBlack,
                                   ),
                               children: <TextSpan>[
-                                TextSpan(text: 'By creating account, you accept our '),
                                 TextSpan(
-                                    text: 'terms and conditions ',
-                                    style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                    )),
-                                TextSpan(text: 'and '),
+                                    text:
+                                        'By creating account, you accept our '),
                                 TextSpan(
-                                    text: 'privacy policy',
-                                    style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                    ))
+                                  text: 'terms and conditions',
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                                TextSpan(text: ' and '),
+                                TextSpan(
+                                  text: 'privacy policy',
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                )
                               ],
                             ),
                           ),
@@ -288,7 +329,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           }),
                           dense: true,
                           contentPadding: EdgeInsets.all(0),
-                          activeColor: Color(0xff27DC4E),
+                          activeColor: kGreen,
                         ),
                       ),
                 Padding(
@@ -296,12 +337,12 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   child: Text(
                     isLogin ? "Don’t have an Account" : "Have an Account",
                     style: Theme.of(context).textTheme.headline2!.copyWith(
-                          color: Color(0xff231F20),
+                          color: kLightBlack,
                         ),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
+                InkWell(
+                  onTap: () {
                     setState(() {
                       isLogin = !isLogin;
                     });

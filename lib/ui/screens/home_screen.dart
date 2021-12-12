@@ -20,139 +20,142 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.only(
-                left: 15.w,
-                right: 15.w,
-                bottom: 9.h,
-                top: 53.h,
-              ),
-              height: 105.h,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xffFFD008),
-                    Color(0xffFFE77E),
-                  ],
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 69.h),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.only(
+                  left: 15.w,
+                  right: 15.w,
+                  bottom: 9.h,
+                  top: 53.h,
+                ),
+                height: 105.h,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xffFFD008),
+                      Color(0xffFFE77E),
+                    ],
+                  ),
+                ),
+                child: SearchBar(
+                  width: 345.w,
                 ),
               ),
-              child: SearchBar(
-                width: 345.w,
+              SizedBox(
+                height: 16.h,
               ),
-            ),
-            SizedBox(
-              height: 16.h,
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 24.h),
-              width: MediaQuery.of(context).size.width,
-              height: 170.h,
-              child: ListView.builder(
-                itemCount: 5,
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.all(0),
-                itemBuilder: (context, index) {
-                  return AdSlider(
-                    ad_image:
-                        "https://waffarha.com/images/main-cinema-1617716096.jpg",
-                    onPress: onTap,
-                  );
-                },
+              Container(
+                margin: EdgeInsets.only(bottom: 24.h),
+                width: MediaQuery.of(context).size.width,
+                height: 170.h,
+                child: ListView.builder(
+                  itemCount: 5,
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.only(left: 8.w, right: 8.w),
+                  itemBuilder: (context, index) {
+                    return AdSlider(
+                      ad_image:
+                          "https://waffarha.com/images/main-cinema-1617716096.jpg",
+                      onPress: onTap,
+                    );
+                  },
+                ),
               ),
-            ),
-            AdBanner(
-              adImageBackground:
-                  "https://waffarha.com/images/app_banner/banner.JPG",
-              onPress: onTap,
-            ),
-            SecationName(section_name: "Shop By Category"),
-            Container(
-              margin: EdgeInsets.only(bottom: 24.h),
-              width: MediaQuery.of(context).size.width,
-              height: 80.h,
-              child: ListView.builder(
-                itemCount: 5,
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.all(0),
-                itemBuilder: (context, index) {
-                  return CardCategory(
-                    category_image:
-                        "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
-                    category_image_background:
-                        "https://www.pngmagic.com/product_images/beautiful-blue-color-background.png",
-                    category_name: "coffee",
-                  );
-                },
+              AdBanner(
+                adImageBackground:
+                    "https://waffarha.com/images/app_banner/banner.JPG",
+                onPress: onTap,
               ),
-            ),
-            SecationName(section_name: "Featured Products"),
-            Container(
-              margin: EdgeInsets.only(bottom: 24.h),
-              width: MediaQuery.of(context).size.width,
-              height: 286.h,
-              child: ListView.builder(
-                itemCount: 5,
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(horizontal: 11.w),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 6.w),
-                    child: CardFeaturedProducts(
-                        productImage:
-                            "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
-                        productText:
-                            "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc"),
-                  );
-                },
+              SecationName(section_name: "Shop By Category"),
+              Container(
+                margin: EdgeInsets.only(bottom: 24.h),
+                width: MediaQuery.of(context).size.width,
+                height: 80.h,
+                child: ListView.builder(
+                  itemCount: 5,
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                  itemBuilder: (context, index) {
+                    return CardCategory(
+                      categoryImage:
+                          "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
+                      categoryImageBackground:
+                          "https://www.pngmagic.com/product_images/beautiful-blue-color-background.png",
+                      categoryName: "coffee",
+                    );
+                  },
+                ),
               ),
-            ),
-            SecationName(section_name: "Shop By Brands"),
-            Container(
-              margin: EdgeInsets.only(bottom: 24.h),
-              width: MediaQuery.of(context).size.width,
-              height: 90.h,
-              child: ListView.builder(
-                itemCount: 5,
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.all(0),
-                itemBuilder: (context, index) {
-                  return BrandsIcons(
-                      brandIcon:
-                          "https://waffarha.com/images/uploads/Cinnabon-Logo-logo-1630228283.png");
-                },
+              SecationName(section_name: "Featured Products"),
+              Container(
+                margin: EdgeInsets.only(bottom: 24.h),
+                width: MediaQuery.of(context).size.width,
+                height: 286.h,
+                child: ListView.builder(
+                  itemCount: 5,
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.symmetric(horizontal: 11.w),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 6.w),
+                      child: CardFeaturedProducts(
+                          productImage:
+                              "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
+                          productText:
+                              "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc"),
+                    );
+                  },
+                ),
               ),
-            ),
-            Ads(
-                ad_image_background:
-                    "https://waffarha.com/images/Cinnabon-main3-1630254257.jpg"),
-            Ads(
-                ad_image_background:
-                    "https://waffarha.com/images/Cinnabon-main-1630254288.jpg"),
-            SecationName(section_name: "Most Recent Products"),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 200.h,
-              child: ListView.builder(
-                itemCount: 5,
-                padding: EdgeInsets.symmetric(horizontal: 11.w),
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 6.w),
-                    child: CardRecentProducts(
-                        productImage: Assets.imagesJar,
-                        productText:
-                            "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc"),
-                  );
-                },
+              SecationName(section_name: "Shop By Brands"),
+              Container(
+                margin: EdgeInsets.only(bottom: 24.h),
+                width: MediaQuery.of(context).size.width,
+                height: 90.h,
+                child: ListView.builder(
+                  itemCount: 5,
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.all(0),
+                  itemBuilder: (context, index) {
+                    return BrandsIcons(
+                        brandIcon:
+                            "https://waffarha.com/images/uploads/Cinnabon-Logo-logo-1630228283.png");
+                  },
+                ),
               ),
-            ),
-          ],
+              Ads(
+                  ad_image_background:
+                      "https://waffarha.com/images/Cinnabon-main3-1630254257.jpg"),
+              Ads(
+                  ad_image_background:
+                      "https://waffarha.com/images/Cinnabon-main-1630254288.jpg"),
+              SecationName(section_name: "Most Recent Products"),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 200.h,
+                child: ListView.builder(
+                  itemCount: 5,
+                  padding: EdgeInsets.symmetric(horizontal: 11.w),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 6.w),
+                      child: CardRecentProducts(
+                          productImage: Assets.imagesJar,
+                          productText:
+                              "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc"),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
