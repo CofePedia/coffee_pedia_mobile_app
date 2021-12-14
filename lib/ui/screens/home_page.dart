@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../constants/colors.dart';
 import '../checkout_items_screen.dart';
-import '../constants.dart';
 import 'home_screen.dart';
 import 'more_screen.dart';
 import 'profile_screen.dart';

@@ -1,9 +1,12 @@
+import 'package:coffepedia/business_logic/auth/auth_bloc.dart';
 import 'package:coffepedia/ui/screens/account_settings_screen.dart';
 import 'package:coffepedia/ui/screens/address_book.dart';
+import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
 import 'package:coffepedia/ui/screens/my_wallet_screen.dart';
 import 'package:coffepedia/ui/screens/switch_language_bottom_sheet.dart';
 import 'package:coffepedia/ui/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'orders_history_screen.dart';
@@ -209,7 +212,13 @@ class ProfileScreen extends StatelessWidget {
                   height: 103.h,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    BlocProvider.of<AuthBloc>(context).add(LoggedOut());
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (_) {
+                      return LoginRegisterScreen();
+                    }), (route) => false);
+                  },
                   child: Container(
                     height: 54.h,
                     width: 343.w,

@@ -1,9 +1,15 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:coffepedia/business_logic/login/login_bloc.dart';
+import 'package:coffepedia/data/repository/user_repository.dart';
 import 'package:coffepedia/ui/screens/intro/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'business_logic/auth/auth_bloc.dart';
+import 'data/web_services/auth_web_services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +32,15 @@ void main() async {
           ],
           path: 'assets/translations',
           fallbackLocale: Locale('en'),
-          child: MyApp(),
+          child: RepositoryProvider(
+              create: (_) {
+                return UserRepository(AuthWebServices());
+              },
+              child: BlocProvider(
+                  create: (_) => AuthBloc(
+                        RepositoryProvider.of<UserRepository>(_),
+                      ),
+                  child: MyApp())),
         ),
       );
     },
@@ -41,94 +55,104 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: () {
-        return MaterialApp(
-          title: 'Coffepedia',
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          builder: BotToastInit(),
-          navigatorObservers: [
-            BotToastNavigatorObserver(),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<LoginBloc>(
+              create: (_) => LoginBloc(
+                authBloc: BlocProvider.of<AuthBloc>(context),
+                userRepository: RepositoryProvider.of<UserRepository>(context),
+              ),
+            )
           ],
-          home: SplashScreen(),
-          theme: ThemeData(
-            accentColor: Color(0xffffffff),
-            primaryColor: Color(0xff107CC0),
-            textTheme: TextTheme(
-              bodyText1: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 10.sp,
-                color: Color(0xff231F20),
-                fontWeight: FontWeight.w700,
-              ),
-              bodyText2: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 12.sp,
-                color: Color(0xff000000),
-                fontWeight: FontWeight.w500,
-              ),
-              subtitle1: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 18.sp,
-                color: Color(0xff4470C1),
-                fontWeight: FontWeight.w700,
-              ),
-              headline2: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 14.sp,
-                color: Color(0xffffffff),
-                fontWeight: FontWeight.w700,
-              ),
-              subtitle2: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w700,
-                height: 1.5,
-                color: Color(0xff231F20),
-              ),
-              headline1: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 22.sp,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff000000),
-              ),
-              headline3: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff8A8A8A),
-              ),
-              headline4: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w500,
-                color: Color(0xff606266),
-                height: 1.5.sp,
-              ),
-              headline5: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w700,
-                color: Color(0xffF3AE16),
-              ),
-              headline6: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff107CC0),
-              ),
-              caption: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w900,
-                color: Color(0xff231F20),
-              ),
-              overline: TextStyle(
-                fontFamily: 'Nexa',
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff9D9D9D),
+          child: MaterialApp(
+            title: 'Coffepedia',
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            builder: BotToastInit(),
+            navigatorObservers: [
+              BotToastNavigatorObserver(),
+            ],
+            home: SplashScreen(),
+            theme: ThemeData(
+              accentColor: Color(0xffffffff),
+              primaryColor: Color(0xff107CC0),
+              textTheme: TextTheme(
+                bodyText1: TextStyle(
+                  fontFamily: 'Nexa',
+                  fontSize: 10.sp,
+                  color: Color(0xff231F20),
+                  fontWeight: FontWeight.w700,
+                ),
+                bodyText2: TextStyle(
+                  fontFamily: 'Nexa',
+                  fontSize: 12.sp,
+                  color: Color(0xff000000),
+                  fontWeight: FontWeight.w500,
+                ),
+                subtitle1: TextStyle(
+                  fontFamily: 'Nexa',
+                  fontSize: 18.sp,
+                  color: Color(0xff4470C1),
+                  fontWeight: FontWeight.w700,
+                ),
+                headline2: TextStyle(
+                  fontFamily: 'Nexa',
+                  fontSize: 14.sp,
+                  color: Color(0xffffffff),
+                  fontWeight: FontWeight.w700,
+                ),
+                subtitle2: TextStyle(
+                  fontFamily: 'Nexa',
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w700,
+                  height: 1.5,
+                  color: Color(0xff231F20),
+                ),
+                headline1: TextStyle(
+                  fontFamily: 'Nexa',
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff000000),
+                ),
+                headline3: TextStyle(
+                  fontFamily: 'Nexa',
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff8A8A8A),
+                ),
+                headline4: TextStyle(
+                  fontFamily: 'Nexa',
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xff606266),
+                  height: 1.5.sp,
+                ),
+                headline5: TextStyle(
+                  fontFamily: 'Nexa',
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xffF3AE16),
+                ),
+                headline6: TextStyle(
+                  fontFamily: 'Nexa',
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff107CC0),
+                ),
+                caption: TextStyle(
+                  fontFamily: 'Nexa',
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w900,
+                  color: Color(0xff231F20),
+                ),
+                overline: TextStyle(
+                  fontFamily: 'Nexa',
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff9D9D9D),
+                ),
               ),
             ),
           ),

@@ -1,4 +1,4 @@
-import 'package:coffepedia/ui/constants.dart';
+import 'package:coffepedia/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

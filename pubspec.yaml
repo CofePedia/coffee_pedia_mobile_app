@@ -40,6 +40,14 @@ dependencies:
   card_swiper: ^1.0.4
   map: ^1.0.0
   badges: ^2.0.2
+  meta: ^1.7.0
+  equatable: ^2.0.3
+  sqflite: ^2.0.1
+  path_provider: ^2.0.8
+
+
+
+
 
 
 
