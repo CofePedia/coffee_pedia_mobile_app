@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'business_logic/auth/auth_bloc.dart';
+import 'business_logic/signup/signup_bloc.dart';
 import 'data/web_services/auth_web_services.dart';
 
 void main() async {
@@ -20,6 +21,7 @@ void main() async {
       statusBarIconBrightness: Brightness.light,
     ),
   );
+
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
   ).then(
@@ -33,14 +35,16 @@ void main() async {
           path: 'assets/translations',
           fallbackLocale: Locale('en'),
           child: RepositoryProvider(
-              create: (_) {
-                return UserRepository(AuthWebServices());
-              },
-              child: BlocProvider(
-                  create: (_) => AuthBloc(
-                        RepositoryProvider.of<UserRepository>(_),
-                      ),
-                  child: MyApp())),
+            create: (_) {
+              return UserRepository(AuthWebServices());
+            },
+            child: BlocProvider(
+              create: (_) => AuthBloc(
+                RepositoryProvider.of<UserRepository>(_),
+              ),
+              child: MyApp(),
+            ),
+          ),
         ),
       );
     },
@@ -62,7 +66,13 @@ class MyApp extends StatelessWidget {
                 authBloc: BlocProvider.of<AuthBloc>(context),
                 userRepository: RepositoryProvider.of<UserRepository>(context),
               ),
-            )
+            ),
+            BlocProvider<SignupBloc>(
+              create: (_) => SignupBloc(
+                userRepository: RepositoryProvider.of<UserRepository>(context),
+                authBloc: BlocProvider.of<AuthBloc>(context),
+              ),
+            ),
           ],
           child: MaterialApp(
             title: 'Coffepedia',

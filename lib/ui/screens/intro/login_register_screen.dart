@@ -1,5 +1,6 @@
 import 'package:circle_checkbox/redev_checkbox.dart';
 import 'package:coffepedia/business_logic/login/login_bloc.dart';
+import 'package:coffepedia/business_logic/signup/signup_bloc.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
@@ -47,343 +48,423 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     );
   }
 
+  _signupButtonPressed() {
+    BlocProvider.of<SignupBloc>(context).add(
+      SignupSubmitted(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<LoginBloc, LoginState>(
-        listener: (context, state) {
-          if (state is LoginFaliure) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('${state.error}'),
-              backgroundColor: Colors.red,
-            ));
-          } else if (state is LoginSuccess) {
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => HomePage()));
-          }
-        },
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<LoginBloc, LoginState>(
+            listener: (context, state) {
+              if (state is LoginFaliure) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('${state.error}'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              } else if (state is LoginSuccess) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(),
+                  ),
+                );
+              }
+            },
+          ),
+          BlocListener<SignupBloc, SignupState>(
+            listener: (context, state) {
+              if (state.formStatus is SubmissionFailed) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('${state.formStatus}'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              } else if (state.formStatus is SubmissionSuccess) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(),
+                  ),
+                );
+              }
+            },
+          ),
+        ],
         child: BlocBuilder<LoginBloc, LoginState>(
           builder: (context, state) {
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 24.w,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 68.39.h,
+            return BlocBuilder<SignupBloc, SignupState>(
+              builder: (context, state) {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24.w,
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              isLogin = !isLogin;
-                            });
-                          },
-                          child: Icon(
-                            Icons.close,
-                            color: kGrey,
-                            size: 15.8.w,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 68.39.h,
                           ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: SvgPicture.asset(
-                          Assets.iconsLogoHor,
-                          height: 51.3.h,
-                          width: 196.w,
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 79.7.h, bottom: 32.h),
-                          child: Text(
-                            isLogin ? "Login" : "Create Account",
-                            style:
-                                Theme.of(context).textTheme.subtitle1!.copyWith(
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  isLogin = !isLogin;
+                                });
+                              },
+                              child: Icon(
+                                Icons.close,
+                                color: kGrey,
+                                size: 15.8.w,
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: SvgPicture.asset(
+                              Assets.iconsLogoHor,
+                              height: 51.3.h,
+                              width: 196.w,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding:
+                                  EdgeInsets.only(top: 79.7.h, bottom: 32.h),
+                              child: Text(
+                                isLogin ? "Login" : "Create Account",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1!
+                                    .copyWith(
                                       color: kBlack,
                                     ),
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: 156.w,
-                            height: 40.h,
-                            child: ElevatedButton.icon(
-                              onPressed: () {},
-                              icon: SvgPicture.asset(
-                                Assets.iconsFacebookSquare,
-                                width: 19.3.w,
-                                height: 19.3.h,
-                              ),
-                              label: Text(
-                                "With Facebook",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline2!
-                                    .copyWith(fontSize: 12.sp),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(kDarkBlue),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.r),
-                                  ),
-                                ),
                               ),
                             ),
                           ),
-                          Container(
-                            width: 156.w,
-                            height: 40.h,
-                            child: ElevatedButton.icon(
-                              onPressed: () {},
-                              icon: SvgPicture.asset(
-                                Assets.iconsGoogle,
-                                width: 19.3.w,
-                                height: 19.3.h,
-                              ),
-                              label: Text(
-                                "With Google",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline2!
-                                    .copyWith(fontSize: 12.sp),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(kBlue),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.r),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 156.w,
+                                height: 40.h,
+                                child: ElevatedButton.icon(
+                                  onPressed: () {},
+                                  icon: SvgPicture.asset(
+                                    Assets.iconsFacebookSquare,
+                                    width: 19.3.w,
+                                    height: 19.3.h,
+                                  ),
+                                  label: Text(
+                                    "With Facebook",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline2!
+                                        .copyWith(fontSize: 12.sp),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(kDarkBlue),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.r),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
+                              Container(
+                                width: 156.w,
+                                height: 40.h,
+                                child: ElevatedButton.icon(
+                                  onPressed: () {},
+                                  icon: SvgPicture.asset(
+                                    Assets.iconsGoogle,
+                                    width: 19.3.w,
+                                    height: 19.3.h,
+                                  ),
+                                  label: Text(
+                                    "With Google",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline2!
+                                        .copyWith(fontSize: 12.sp),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(kBlue),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.r),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 24.h,
                             ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Divider(
+                                    color: kLightGrey,
+                                    thickness: 0.5.h,
+                                  ),
+                                ),
+                                Container(
+                                  width: 89.w,
+                                  child: Text(
+                                    isLogin ? "Or login with" : "Or",
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline2!
+                                        .copyWith(color: kLightBlack),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Divider(
+                                    color: kLightGrey,
+                                    thickness: 0.5.h,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          isLogin
+                              ? SizedBox.shrink()
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                      width: 157.w,
+                                      child: CustomInput(
+                                          title: 'First Name',
+                                          hint: "First Name",
+                                          textEditingController: _firstName,
+                                          padding: false,
+                                          onChanged: (value) {
+                                            print("50089");
+                                            context.read<SignupBloc>().add(
+                                                  SignupFirstNameChanged(
+                                                      firstName: value),
+                                                );
+                                          }),
+                                    ),
+                                    SizedBox(
+                                      width: 157.w,
+                                      child: CustomInput(
+                                        title: 'Last Name',
+                                        hint: "Last Name",
+                                        textEditingController: _lastName,
+                                        padding: false,
+                                        onChanged: (value) =>
+                                            context.read<SignupBloc>().add(
+                                                  SignupLastNameChanged(
+                                                      lastName: value),
+                                                ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                          CustomInput(
+                            padding: false,
+                            title: 'Email Address',
+                            hint: "Email Address",
+                            textEditingController: _email,
+                            onChanged: (value) =>
+                                context.read<SignupBloc>().add(
+                                      SignupEmailChanged(email: value),
+                                    ),
+                          ),
+                          CustomInput(
+                            title: 'Password',
+                            hint: "Enter password",
+                            textEditingController: _password,
+                            icon: true,
+                            padding: false,
+                            onChanged: (value) =>
+                                context.read<SignupBloc>().add(
+                                      SignupPasswordChanged(password: value),
+                                    ),
+                          ),
+                          isLogin
+                              ? SizedBox.shrink()
+                              : CustomInput(
+                                  title: 'Confirm Password',
+                                  hint: "Confirm password",
+                                  textEditingController: _confirmPassword,
+                                  padding: false,
+                                  icon: true,
+                                  onChanged: (value) =>
+                                      context.read<SignupBloc>().add(
+                                            SignupPasswordConfirmationChanged(
+                                                passwordConfirmation: value),
+                                          ),
+                                ),
+                          isLogin
+                              ? Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 8.h),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) {
+                                              return ForgetPasswordScreen();
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        "Forgot Password?",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2!
+                                            .copyWith(color: kRed),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : SizedBox.shrink(),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.only(
+                                top: isLogin ? 10.h : 16.h, bottom: 32.h),
+                            height: 50.h,
+                            child: ElevatedButton(
+                              onPressed: !isLogin
+                                  ? _signupButtonPressed
+                                  : state is! LoginLoading
+                                      ? _onLoginButtonPressed
+                                      : null,
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    Theme.of(context).primaryColor),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25.r),
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                isLogin ? "Login" : "Create Account",
+                                style: Theme.of(context).textTheme.headline2,
+                              ),
+                            ),
+                          ),
+                          isLogin
+                              ? SizedBox(
+                                  height: 32.h,
+                                )
+                              : Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: CircleCheckboxListTile(
+                                    title: RichText(
+                                      textAlign: TextAlign.end,
+                                      text: TextSpan(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2!
+                                            .copyWith(
+                                              color: kLightBlack,
+                                            ),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text:
+                                                  'By creating account, you accept our '),
+                                          TextSpan(
+                                            text: 'terms and conditions',
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                          ),
+                                          TextSpan(text: ' and '),
+                                          TextSpan(
+                                            text: 'privacy policy',
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    value: selected,
+                                    onChanged: (value) => setState(() {
+                                      selected = value!;
+                                    }),
+                                    dense: true,
+                                    contentPadding: EdgeInsets.all(0),
+                                    activeColor: kGreen,
+                                  ),
+                                ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 32.h, bottom: 6.h),
+                            child: Text(
+                              isLogin
+                                  ? "Don’t have an Account"
+                                  : "Have an Account",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(
+                                    color: kLightBlack,
+                                  ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                isLogin = !isLogin;
+                              });
+                            },
+                            child: Text(
+                              isLogin ? "Create account" : "Login",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20.h,
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 24.h,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Divider(
-                                color: kLightGrey,
-                                thickness: 0.5.h,
-                              ),
-                            ),
-                            Container(
-                              width: 89.w,
-                              child: Text(
-                                isLogin ? "Or login with" : "Or",
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline2!
-                                    .copyWith(color: kLightBlack),
-                              ),
-                            ),
-                            Expanded(
-                              child: Divider(
-                                color: kLightGrey,
-                                thickness: 0.5.h,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      isLogin
-                          ? SizedBox.shrink()
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                  width: 157.w,
-                                  child: CustomInput(
-                                    title: 'First Name',
-                                    hint: "First Name",
-                                    textEditingController: _firstName,
-                                    padding: false,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 157.w,
-                                  child: CustomInput(
-                                    title: 'Last Name',
-                                    hint: "Last Name",
-                                    textEditingController: _lastName,
-                                    padding: false,
-                                  ),
-                                )
-                              ],
-                            ),
-                      CustomInput(
-                        padding: false,
-                        title: 'Email Address',
-                        hint: "Email Address",
-                        textEditingController: _email,
-                      ),
-                      CustomInput(
-                        title: 'Password',
-                        hint: "Enter password",
-                        textEditingController: _password,
-                        icon: true,
-                        padding: false,
-                      ),
-                      isLogin
-                          ? SizedBox.shrink()
-                          : CustomInput(
-                              title: 'Confirm Password',
-                              hint: "Confirm password",
-                              textEditingController: _confirmPassword,
-                              padding: false,
-                              icon: true,
-                            ),
-                      isLogin
-                          ? Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8.h),
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return ForgetPasswordScreen();
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  child: Text(
-                                    "Forgot Password?",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline2!
-                                        .copyWith(color: kRed),
-                                  ),
-                                ),
-                              ),
-                            )
-                          : SizedBox.shrink(),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.only(
-                            top: isLogin ? 10.h : 16.h, bottom: 32.h),
-                        height: 50.h,
-                        child: ElevatedButton(
-                          onPressed: state is! LoginLoading
-                              ? _onLoginButtonPressed
-                              : null,
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                Theme.of(context).primaryColor),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.r),
-                              ),
-                            ),
-                          ),
-                          child: Text(
-                            isLogin ? "Login" : "Create Account",
-                            style: Theme.of(context).textTheme.headline2,
-                          ),
-                        ),
-                      ),
-                      isLogin
-                          ? SizedBox(
-                              height: 32.h,
-                            )
-                          : Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: CircleCheckboxListTile(
-                                title: RichText(
-                                  textAlign: TextAlign.end,
-                                  text: TextSpan(
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline2!
-                                        .copyWith(
-                                          color: kLightBlack,
-                                        ),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text:
-                                              'By creating account, you accept our '),
-                                      TextSpan(
-                                        text: 'terms and conditions',
-                                        style: TextStyle(
-                                          color: Theme.of(context).primaryColor,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                      ),
-                                      TextSpan(text: ' and '),
-                                      TextSpan(
-                                        text: 'privacy policy',
-                                        style: TextStyle(
-                                          color: Theme.of(context).primaryColor,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                value: selected,
-                                onChanged: (value) => setState(() {
-                                  selected = value!;
-                                }),
-                                dense: true,
-                                contentPadding: EdgeInsets.all(0),
-                                activeColor: kGreen,
-                              ),
-                            ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 32.h, bottom: 6.h),
-                        child: Text(
-                          isLogin ? "Don’t have an Account" : "Have an Account",
-                          style:
-                              Theme.of(context).textTheme.headline2!.copyWith(
-                                    color: kLightBlack,
-                                  ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            isLogin = !isLogin;
-                          });
-                        },
-                        child: Text(
-                          isLogin ? "Create account" : "Login",
-                          style:
-                              Theme.of(context).textTheme.headline2!.copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             );
           },
         ),

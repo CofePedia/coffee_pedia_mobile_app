@@ -12,8 +12,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc(this.userRepository) : super(AuthInitial());
   @override
-  AuthState get initialState => AuthenticationUnintialized();
-
   @override
   Stream<AuthState> mapEventToState(
     AuthEvent event,

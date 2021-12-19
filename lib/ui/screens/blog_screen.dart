@@ -34,7 +34,6 @@ class _BlogScreenState extends State<BlogScreen> {
     'Doppio',
   ];
   String topic = 'Van Cafes';
-  int _currentColorTobicIndex = 0;
 
   @override
   Widget build(BuildContext context) {
