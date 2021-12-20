@@ -27,7 +27,7 @@ class AuthWebServices {
     }
   }
 
-  Future<SignupDataUser> signUp(
+  Future<Signup> signUp(
     String firstName,
     String lastName,
     String email,
@@ -47,9 +47,9 @@ class AuthWebServices {
     );
     print("response ${response.body}");
 
-    if (response.statusCode == 200) {
-      return SignupDataUser.fromJson(
-        json.decode(response.body)["data"],
+    if (response.statusCode == 201) {
+      return Signup.fromJson(
+        json.decode(response.body),
       );
     } else {
       print(json.decode(response.body).toString());

@@ -17,7 +17,7 @@ class UserRepository {
     return userData;
   }
 
-  Future<SignupDataUser> signUp(
+  Future<Signup> signUp(
     String firstName,
     String lastName,
     String email,

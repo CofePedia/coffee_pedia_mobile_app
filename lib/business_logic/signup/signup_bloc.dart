@@ -21,47 +21,38 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   Stream<SignupState> mapEventToState(SignupEvent event) async* {
     // firstName updated
     if (event is SignupFirstNameChanged) {
-      print("FIRST NAME ${event.firstName}");
       yield state.copyWith(firstName: event.firstName);
-      print("FIRST NAME st ${state.firstName}");
 
       // lastName updated
     } else if (event is SignupLastNameChanged) {
-      print("kjkjk");
       yield state.copyWith(lastName: event.lastName);
 
       // Email updated
     } else if (event is SignupEmailChanged) {
-      print("email is");
-
+      print("lklklklk ${state.formStatus}");
       yield state.copyWith(email: event.email);
-      print("email is ${state.email}");
 
       // Password updated
     } else if (event is SignupPasswordChanged) {
-      print("password is");
-
       yield state.copyWith(password: event.password);
 
       // PasswordConfirmation updated
     } else if (event is SignupPasswordConfirmationChanged) {
-      print("passwordconfirmation is");
-
-      yield state.copyWith(password: event.passwordConfirmation);
+      yield state.copyWith(passwordConfirmation: event.passwordConfirmation);
 
       // Form submitted
     } else if (event is SignupSubmitted) {
       yield state.copyWith(formStatus: FormSubmitting());
-      print("500");
       try {
-        print("STATE kj ${state.email}");
         await userRepository.signUp(state.firstName!, state.lastName!,
             state.email!, state.password!, state.passwordConfirmation!);
+        print("500123");
         yield state.copyWith(
           formStatus: SubmissionSuccess(),
         );
+        print("500123 t ${state.formStatus}");
       } catch (e) {
-        print("5001");
+        print("500123 mdm t $e");
 
         yield state.copyWith(
           formStatus: SubmissionFailed(e),

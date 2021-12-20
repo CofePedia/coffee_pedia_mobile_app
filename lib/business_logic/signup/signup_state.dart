@@ -11,10 +11,10 @@ class SignupState {
   bool get isValidEmail => email!.contains('@');
 
   final String? password;
-  bool get isValidPassword => password!.length > 6;
+  bool get isValidPassword => password!.length > 8;
 
   final String? passwordConfirmation;
-  bool get isValidPasswordConfirmation => passwordConfirmation!.length > 6;
+  bool get isValidPasswordConfirmation => passwordConfirmation!.length > 8;
 
   FormSubmissionStatus? formStatus;
 
@@ -41,17 +41,7 @@ class SignupState {
       email: email ?? this.email,
       password: password ?? this.password,
       passwordConfirmation: passwordConfirmation ?? this.passwordConfirmation,
-      formStatus: formStatus ?? this.formStatus,
+      formStatus: formStatus ?? FormSubmitting(),
     );
   }
-}
-
-class FormSubmitting extends FormSubmissionStatus {}
-
-class SubmissionSuccess extends FormSubmissionStatus {}
-
-class SubmissionFailed extends FormSubmissionStatus {
-  final Object exception;
-
-  SubmissionFailed(this.exception);
 }
