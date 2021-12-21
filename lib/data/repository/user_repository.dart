@@ -24,8 +24,6 @@ class UserRepository {
     String password,
     String passwordConfirmation,
   ) async {
-    print("$firstName");
-
     final signUpUserData = await authWebServices.signUp(
       firstName,
       lastName,

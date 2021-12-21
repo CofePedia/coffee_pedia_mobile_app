@@ -1,14 +1,13 @@
 import 'dart:convert';
 
+import 'package:coffepedia/constants/strings.dart';
 import 'package:coffepedia/data/models/login_data_user.dart';
 import 'package:coffepedia/data/models/signup_data_user.dart';
 import 'package:http/http.dart' as http;
 
-final _base = "https://api-staging.coffepidia.com/";
-
 class AuthWebServices {
   Future<LoginData> getToken(String email, String password) async {
-    final url = Uri.parse(_base + 'auth/login');
+    final url = Uri.parse(baseUrl + 'auth/login');
     final http.Response response = await http.post(
       url,
       body: {'email': email, 'password': password},
@@ -34,7 +33,7 @@ class AuthWebServices {
     String password,
     String passwordConfirmation,
   ) async {
-    final url = Uri.parse(_base + 'auth/register');
+    final url = Uri.parse(baseUrl + 'auth/register');
     final http.Response response = await http.post(
       url,
       body: {

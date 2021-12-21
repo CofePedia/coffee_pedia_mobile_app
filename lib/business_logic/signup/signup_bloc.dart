@@ -29,7 +29,6 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
       // Email updated
     } else if (event is SignupEmailChanged) {
-      print("lklklklk ${state.formStatus}");
       yield state.copyWith(email: event.email);
 
       // Password updated
@@ -46,14 +45,10 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       try {
         await userRepository.signUp(state.firstName!, state.lastName!,
             state.email!, state.password!, state.passwordConfirmation!);
-        print("500123");
         yield state.copyWith(
           formStatus: SubmissionSuccess(),
         );
-        print("500123 t ${state.formStatus}");
       } catch (e) {
-        print("500123 mdm t $e");
-
         yield state.copyWith(
           formStatus: SubmissionFailed(e),
         );

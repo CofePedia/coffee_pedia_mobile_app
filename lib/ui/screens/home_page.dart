@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
       body: IndexedStack(
         index: currentIndex,
         children: [
-          const HomeScreen(),
+          const HomeScreenProvider(),
           const CheckoutItemsScreen(),
           const ProfileScreen(),
           const MoreScreen(),

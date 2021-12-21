@@ -97,7 +97,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
           ),
           BlocListener<SignupBloc, SignupState>(
             listener: (context, state) {
-              print("STATE STATE STATE $state ${state.formStatus}");
               if (state.formStatus is SubmissionFailed) {
                 final stateForm = state.formStatus;
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -285,7 +284,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                           textEditingController: _firstName,
                                           padding: false,
                                           onChanged: (value) {
-                                            print("50089");
                                             context.read<SignupBloc>().add(
                                                   SignupFirstNameChanged(
                                                       firstName: value),

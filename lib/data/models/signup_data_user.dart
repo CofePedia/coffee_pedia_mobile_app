@@ -32,8 +32,6 @@ class SignupDataUser {
     required this.name,
   });
   SignupDataUser.fromJson(Map<String, dynamic> json) {
-    print("sdsads ${json["id"]}");
-    print("sdsads ${json["id"]}");
     firstName = json['first_name'].toString();
     lastName = json['last_name'].toString();
     email = json['email'].toString();
