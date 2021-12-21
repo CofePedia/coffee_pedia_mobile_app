@@ -27,7 +27,8 @@ class CustomDropDownTextField extends StatelessWidget {
         SizedBox(
           width: 168.w,
           height: 50.h,
-          child: DropdownButtonFormField(
+          child: DropdownButtonFormField<String>(
+            onChanged: (value) {},
             decoration: InputDecoration(
               isDense: false,
               hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
