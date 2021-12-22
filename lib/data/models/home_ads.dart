@@ -246,9 +246,7 @@ class HomeAds {
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    if (data != null) {
-      data['data'] = this.data!.toJson();
-    }
+
     return data;
   }
 }

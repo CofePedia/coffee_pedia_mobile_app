@@ -6,5 +6,11 @@ abstract class HomeAdsState {}
 class HomeAdsInitial extends HomeAdsState {}
 
 class HomeAdsLoaded extends HomeAdsState {
-  HomeAds? homeAds;
+  final HomeAds? homeAds;
+  HomeAdsLoaded(this.homeAds);
+}
+
+class FeaturedProductsLoaded extends HomeAdsState {
+  final FeaturedProducts? featuredProducts;
+  FeaturedProductsLoaded(this.featuredProducts);
 }

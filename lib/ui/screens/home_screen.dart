@@ -22,9 +22,16 @@ class HomeScreenProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          HomeAdsCubit(HomeAdsRepository(HomeAdsWebServices())),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => HomeAdsCubit(
+            HomeAdsRepository(
+              HomeAdsWebServices(),
+            ),
+          ),
+        ),
+      ],
       child: HomeScreen(),
     );
   }
@@ -86,24 +93,32 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: MediaQuery.of(context).size.width,
                       height: 170.h,
                       child: ListView.builder(
-                        itemCount: 5,
+                        itemCount: state.homeAds!.data!.besideSlider!.length,
                         scrollDirection: Axis.horizontal,
                         padding: EdgeInsets.only(left: 8.w, right: 8.w),
                         itemBuilder: (context, index) {
                           return AdSlider(
-                            ad_image:
-                                "https://waffarha.com/images/main-cinema-1617716096.jpg",
+                            adImage: state
+                                .homeAds!.data!.besideSlider![index].image!,
                             onPress: onTap,
                           );
                         },
                       ),
                     ),
-                    AdBanner(
-                      adImageBackground:
-                          "https://waffarha.com/images/app_banner/banner.JPG",
-                      onPress: onTap,
+                    Container(
+                      height: 100.h,
+                      child: ListView.builder(
+                        itemCount: state.homeAds!.data!.topHeader!.length,
+                        scrollDirection: Axis.horizontal,
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (context, index) => AdBanner(
+                          adImageBackground:
+                              state.homeAds!.data!.topHeader![index].image,
+                          onPress: onTap,
+                        ),
+                      ),
                     ),
-                    SecationName(section_name: "Shop By Category"),
+                    SecationName(sectionName: "Shop By Category"),
                     Container(
                       margin: EdgeInsets.only(bottom: 24.h),
                       width: MediaQuery.of(context).size.width,
@@ -123,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
-                    SecationName(section_name: "Featured Products"),
+                    SecationName(sectionName: "Featured Products"),
                     Container(
                       margin: EdgeInsets.only(bottom: 24.h),
                       width: MediaQuery.of(context).size.width,
@@ -136,15 +151,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Padding(
                             padding: EdgeInsets.symmetric(horizontal: 6.w),
                             child: CardFeaturedProducts(
-                                productImage:
-                                    "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
-                                productText:
-                                    "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc"),
+                              productImage:
+                                  "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
+                              productText:
+                                  "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc",
+                              rate: "4.5",
+                              percentage: '25',
+                              priceAfterDiscount: '340',
+                              priceBeforeDiscount: '450',
+                            ),
                           );
                         },
                       ),
                     ),
-                    SecationName(section_name: "Shop By Brands"),
+                    SecationName(sectionName: "Shop By Brands"),
                     Container(
                       margin: EdgeInsets.only(bottom: 24.h),
                       width: MediaQuery.of(context).size.width,
@@ -160,13 +180,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
-                    Ads(
-                        ad_image_background:
-                            "https://waffarha.com/images/Cinnabon-main3-1630254257.jpg"),
-                    Ads(
-                        ad_image_background:
-                            "https://waffarha.com/images/Cinnabon-main-1630254288.jpg"),
-                    SecationName(section_name: "Most Recent Products"),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 24.h),
+                      width: MediaQuery.of(context).size.width,
+                      child: ListView.builder(
+                        itemCount: state.homeAds!.data!.inPage!.length,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        padding: EdgeInsets.only(left: 8.w, right: 8.w),
+                        itemBuilder: (context, index) {
+                          return Ads(
+                            adImageBackground:
+                                state.homeAds!.data!.inPage![index].image,
+                          );
+                        },
+                      ),
+                    ),
+                    SecationName(sectionName: "Most Recent Products"),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 200.h,

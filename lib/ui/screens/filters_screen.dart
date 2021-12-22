@@ -1,6 +1,5 @@
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:coffepedia/ui/widgets/filters_buttons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

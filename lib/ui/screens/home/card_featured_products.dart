@@ -1,17 +1,45 @@
+import 'package:coffepedia/business_logic/home_ads/home_ads_cubit.dart';
+import 'package:coffepedia/data/repository/home_ads_repository.dart';
+import 'package:coffepedia/data/web_services/home_ads_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+class FeaturedProducts extends StatelessWidget {
+  const FeaturedProducts({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => HomeAdsCubit(
+        HomeAdsRepository(
+          HomeAdsWebServices(),
+        ),
+      ),
+    );
+  }
+}
 
 class CardFeaturedProducts extends StatelessWidget {
   const CardFeaturedProducts({
     required this.productImage,
     required this.productText,
+    required this.rate,
+    required this.percentage,
+    required this.priceAfterDiscount,
+    required this.priceBeforeDiscount,
     Key? key,
   }) : super(key: key);
-  final String productImage, productText;
+  final String productImage,
+      productText,
+      rate,
+      percentage,
+      priceAfterDiscount,
+      priceBeforeDiscount;
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +81,8 @@ class CardFeaturedProducts extends StatelessWidget {
             ),
             Positioned(
               right: 17.w,
-              child: Image.asset(
-                Assets.imagesPack,
+              child: Image.network(
+                productImage,
                 width: 85.w,
                 height: 156.h,
               ),
@@ -68,7 +96,9 @@ class CardFeaturedProducts extends StatelessWidget {
                   SizedBox(
                     width: 6.14.w,
                   ),
-                  Text('4.5'),
+                  Text(
+                    rate,
+                  ),
                 ],
               ),
             ),
@@ -90,7 +120,7 @@ class CardFeaturedProducts extends StatelessWidget {
                           bottomLeft: Radius.circular(12.5.h)),
                     ),
                     child: Text(
-                      '25% Off',
+                      '$percentage% Off',
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
@@ -100,7 +130,7 @@ class CardFeaturedProducts extends StatelessWidget {
                   Container(
                     width: 192.w,
                     child: Text(
-                      'Wonderful Pistachios, Sweet Chili Flavor, 14 Oun..',
+                      productText,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
@@ -113,7 +143,7 @@ class CardFeaturedProducts extends StatelessWidget {
                     height: 6.h,
                   ),
                   Text(
-                    'EGP 450',
+                    'EGP $priceBeforeDiscount',
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           decoration: TextDecoration.lineThrough,
                           color: Colors.black45,
@@ -123,7 +153,7 @@ class CardFeaturedProducts extends StatelessWidget {
                     height: 8.h,
                   ),
                   Text(
-                    'EGP 340',
+                    'EGP $priceAfterDiscount',
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ],

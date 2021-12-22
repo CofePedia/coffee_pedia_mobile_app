@@ -82,9 +82,7 @@ class SignupData {
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    if (user != null) {
-      data['user'] = user.toJson();
-    }
+
     data['message'] = message;
     return data;
   }
@@ -118,9 +116,7 @@ class Signup {
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    if (data != null) {
-      data['data'] = this.data.toJson();
-    }
+
     return data;
   }
 }

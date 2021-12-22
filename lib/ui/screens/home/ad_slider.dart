@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AdSlider extends StatelessWidget {
   const AdSlider({
-    required this.ad_image,
+    required this.adImage,
     this.onPress,
     Key? key,
   }) : super(key: key);
-  final String ad_image;
+  final String adImage;
   final Function? onPress;
 
   @override
@@ -16,7 +16,7 @@ class AdSlider extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 7.w),
       child: CachedNetworkImage(
-        imageUrl: ad_image,
+        imageUrl: adImage,
         imageBuilder: (context, imageProvider) => InkWell(
           onTap: () {
             onPress!();
