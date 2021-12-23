@@ -215,7 +215,7 @@ class ProfileScreen extends StatelessWidget {
                     BlocProvider.of<AuthBloc>(context).add(LoggedOut());
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (_) {
-                      return LoginRegisterScreen();
+                      return LoginPage();
                     }), (route) => false);
                   },
                   child: Container(

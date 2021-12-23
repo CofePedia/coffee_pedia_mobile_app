@@ -9,8 +9,6 @@ class OrdersHistoryScreen extends StatefulWidget {
 }
 
 class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
-  bool? _isOpen = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

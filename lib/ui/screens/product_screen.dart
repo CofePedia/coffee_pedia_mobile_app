@@ -2,7 +2,6 @@ import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:coffepedia/ui/shared/custom_outline_button.dart';
 import 'package:favorite_button/favorite_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

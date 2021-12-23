@@ -17,15 +17,13 @@ class UserRepository {
     return userData;
   }
 
-  Future<SignupDataUser> signUp(
+  Future<Signup> signUp(
     String firstName,
     String lastName,
     String email,
     String password,
     String passwordConfirmation,
   ) async {
-    print("$firstName");
-
     final signUpUserData = await authWebServices.signUp(
       firstName,
       lastName,

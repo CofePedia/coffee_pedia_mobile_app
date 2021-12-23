@@ -195,9 +195,9 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                               color: Color(0xffE3E3E3),
                             ),
                           ),
-                          child: DropdownButton(
+                          child: DropdownButton<String>(
                             items: [],
-                            onTap: () {},
+                            onChanged: (value) {},
                             isExpanded: true,
                             icon: Icon(
                               Icons.expand_more,
@@ -241,9 +241,9 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                               color: Color(0xffE3E3E3),
                             ),
                           ),
-                          child: DropdownButton(
+                          child: DropdownButton<String>(
                             items: [],
-                            onTap: () {},
+                            onChanged: (value) {},
                             isExpanded: true,
                             icon: Icon(
                               Icons.expand_more,
@@ -289,10 +289,10 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                               color: Color(0xffE3E3E3),
                             ),
                           ),
-                          child: DropdownButton(
+                          child: DropdownButton<String>(
                             items: [],
-                            onTap: () {},
                             isExpanded: true,
+                            onChanged: (value) {},
                             icon: Icon(
                               Icons.expand_more,
                               size: 20.h,
@@ -335,9 +335,10 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                               color: Color(0xffE3E3E3),
                             ),
                           ),
-                          child: DropdownButton(
+                          child: DropdownButton<String>(
                             items: [],
                             onTap: () {},
+                            onChanged: (value) {},
                             isExpanded: true,
                             icon: Icon(
                               Icons.expand_more,

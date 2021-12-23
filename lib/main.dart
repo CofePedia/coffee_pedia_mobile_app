@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'business_logic/auth/auth_bloc.dart';
-import 'business_logic/signup/signup_bloc.dart';
 import 'data/web_services/auth_web_services.dart';
 
 void main() async {
@@ -65,12 +64,6 @@ class MyApp extends StatelessWidget {
               create: (_) => LoginBloc(
                 authBloc: BlocProvider.of<AuthBloc>(context),
                 userRepository: RepositoryProvider.of<UserRepository>(context),
-              ),
-            ),
-            BlocProvider<SignupBloc>(
-              create: (_) => SignupBloc(
-                userRepository: RepositoryProvider.of<UserRepository>(context),
-                authBloc: BlocProvider.of<AuthBloc>(context),
               ),
             ),
           ],

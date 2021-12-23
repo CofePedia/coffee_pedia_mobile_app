@@ -1,6 +1,9 @@
 import 'package:circle_checkbox/redev_checkbox.dart';
+import 'package:coffepedia/business_logic/auth/auth_bloc.dart';
 import 'package:coffepedia/business_logic/login/login_bloc.dart';
+import 'package:coffepedia/business_logic/signup/form_submission_status.dart';
 import 'package:coffepedia/business_logic/signup/signup_bloc.dart';
+import 'package:coffepedia/data/repository/user_repository.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
@@ -11,6 +14,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants/colors.dart';
 import '../../custom_input.dart';
+
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<SignupBloc>(
+      create: (_) => SignupBloc(
+        userRepository: RepositoryProvider.of<UserRepository>(context),
+        authBloc: BlocProvider.of<AuthBloc>(context),
+      ),
+      child: LoginRegisterScreen(),
+    );
+  }
+}
 
 class LoginRegisterScreen extends StatefulWidget {
   const LoginRegisterScreen({Key? key}) : super(key: key);
@@ -80,9 +98,11 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
           BlocListener<SignupBloc, SignupState>(
             listener: (context, state) {
               if (state.formStatus is SubmissionFailed) {
+                final stateForm = state.formStatus;
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text('${state.formStatus}'),
+                    content: Text(
+                        '${stateForm is SubmissionFailed ? stateForm.exception.toString() : ""}'),
                     backgroundColor: Colors.red,
                   ),
                 );
@@ -92,6 +112,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     builder: (context) => HomePage(),
                   ),
                 );
+                BlocProvider.of<SignupBloc>(context).close();
               }
             },
           ),
@@ -263,7 +284,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                           textEditingController: _firstName,
                                           padding: false,
                                           onChanged: (value) {
-                                            print("50089");
                                             context.read<SignupBloc>().add(
                                                   SignupFirstNameChanged(
                                                       firstName: value),
