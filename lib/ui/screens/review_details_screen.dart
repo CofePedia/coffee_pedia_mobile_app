@@ -200,15 +200,15 @@ class ReviewDetailsScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 6.w),
-                    child: CardFeaturedProducts(
-                      productImage:
-                          "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
-                      productText:
-                          "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc",
-                      rate: '4.5',
-                      percentage: '25',
-                      priceAfterDiscount: '340',
-                      priceBeforeDiscount: '450',
+                    child: FeaturedProducts(
+                      // productImage:
+                      //     "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
+                      // productText:
+                      //     "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc",
+                      // rate: '4.5',
+                      // percentage: '25',
+                      // priceAfterDiscount: '340',
+                      // priceBeforeDiscount: '450',
                     ),
                   );
                 },

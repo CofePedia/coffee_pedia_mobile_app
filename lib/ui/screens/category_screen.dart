@@ -137,7 +137,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return ProductScreen();
+                          return ProductProvider();
                         },
                       ),
                     );

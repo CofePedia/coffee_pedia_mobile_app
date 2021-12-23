@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AdSlider extends StatelessWidget {
@@ -28,7 +28,7 @@ class AdSlider extends StatelessWidget {
               borderRadius: BorderRadius.circular(7.0.r),
               image: DecorationImage(
                 image: imageProvider,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
           ),

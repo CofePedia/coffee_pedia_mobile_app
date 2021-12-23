@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Ads extends StatelessWidget {
@@ -14,7 +14,7 @@ class Ads extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 24.h, right: 15.w, left: 15.w),
+      margin: EdgeInsets.only(bottom: 24.h , right: 15.w , left: 15.w),
       child: CachedNetworkImage(
           imageUrl: adImageBackground,
           imageBuilder: (context, imageProvider) => InkWell(

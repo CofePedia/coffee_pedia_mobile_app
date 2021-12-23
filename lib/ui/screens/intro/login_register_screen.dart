@@ -92,6 +92,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     builder: (context) => HomePage(),
                   ),
                 );
+                BlocProvider.of<SignupBloc>(context).close();
               }
             },
           ),
