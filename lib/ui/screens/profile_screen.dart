@@ -18,7 +18,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Scaffold(
         backgroundColor: Colors.white,
         body: Container(
           width: MediaQuery.of(context).size.width,
@@ -247,7 +246,6 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }

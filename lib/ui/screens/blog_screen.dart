@@ -81,7 +81,7 @@ class _BlogScreenState extends State<BlogScreen> {
               ),
             ),
             Container(
-              height: 40.h,
+              height: 39.5.h,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: mainTabs.length,
@@ -95,8 +95,7 @@ class _BlogScreenState extends State<BlogScreen> {
                       },
                       child: Column(
                         children: [
-                          Container(
-                            height: 25.h,
+                          Container(  height: 25.h,
                             child: Row(
                               children: [
                                 Icon(
