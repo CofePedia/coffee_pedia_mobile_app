@@ -4,13 +4,13 @@ import 'package:coffepedia/data/repository/home_ads_repository.dart';
 import 'package:coffepedia/data/web_services/home_ads_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/home/ads.dart';
+import 'package:coffepedia/ui/screens/home/brands_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'home/ad_banner.dart';
 import 'home/ad_slider.dart';
-import 'home/brands_icons.dart';
 import 'home/card_category.dart';
 import 'home/card_featured_products.dart';
 import 'home/card_recent_products.dart';
@@ -118,43 +118,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     SecationName(sectionName: "Shop By Category"),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 24.h),
-                      width: MediaQuery.of(context).size.width,
-                      height: 80.h,
-                      child: ListView.builder(
-                        itemCount: 5,
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                        itemBuilder: (context, index) {
-                          return CardCategory(
-                            categoryImage:
-                                "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
-                            categoryImageBackground:
-                                "https://www.pngmagic.com/product_images/beautiful-blue-color-background.png",
-                            categoryName: "coffee",
-                          );
-                        },
-                      ),
-                    ),
+                    SubCategories(),
                     SecationName(sectionName: "Featured Products"),
                     FeaturedProducts(),
                     SecationName(sectionName: "Shop By Brands"),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 24.h),
-                      width: MediaQuery.of(context).size.width,
-                      height: 90.h,
-                      child: ListView.builder(
-                        itemCount: 5,
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.all(0),
-                        itemBuilder: (context, index) {
-                          return BrandsIcons(
-                              brandIcon:
-                                  "https://waffarha.com/images/uploads/Cinnabon-Logo-logo-1630228283.png");
-                        },
-                      ),
-                    ),
+                    BrandsProvider(),
                     Container(
                       margin: EdgeInsets.only(bottom: 24.h),
                       width: MediaQuery.of(context).size.width,

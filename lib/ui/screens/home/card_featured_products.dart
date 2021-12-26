@@ -87,9 +87,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                   ),
                                 ],
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(
-                                  11.r,
-                                ),
+                                borderRadius: BorderRadius.circular(11.r),
                               ),
                             ),
                           ),
@@ -111,7 +109,8 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                   width: 6.14.w,
                                 ),
                                 Text(
-                                  state.featuredProducts!.data!.data![index].rate!
+                                  state.featuredProducts!.data!.data![index]
+                                      .rate!
                                       .toString(),
                                 ),
                               ],

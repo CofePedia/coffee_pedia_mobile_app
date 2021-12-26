@@ -9,8 +9,3 @@ class HomeAdsLoaded extends HomeAdsState {
   final HomeAds? homeAds;
   HomeAdsLoaded(this.homeAds);
 }
-
-class FeaturedProductsLoaded extends HomeAdsState {
-  final FeaturedProducts? featuredProducts;
-  FeaturedProductsLoaded(this.featuredProducts);
-}
