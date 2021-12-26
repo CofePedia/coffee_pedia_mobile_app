@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PriceContainer extends StatelessWidget {
   const PriceContainer({
-    required this.price_after,
-    required this.price_before,
+    required this.priceAfter,
+    required this.priceBefore,
     Key? key,
   }) : super(key: key);
- final String price_after, price_before;
+  final String priceAfter, priceBefore;
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +17,19 @@ class PriceContainer extends StatelessWidget {
         children: [
           Container(
             child: Text(
-              price_before,
-              style: Theme.of(context).textTheme.bodyText2!.copyWith(color:Colors.black.withOpacity(0.5) ,  decoration: TextDecoration.lineThrough,),
+              priceBefore,
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                    color: Colors.black.withOpacity(0.5),
+                    decoration: TextDecoration.lineThrough,
+                  ),
             ),
           ),
           Text(
-            price_after,
-            style: Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 16.sp),
+            priceAfter,
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1!
+                .copyWith(fontSize: 16.sp),
           )
         ],
       ),

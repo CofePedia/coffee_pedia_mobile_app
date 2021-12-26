@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class BrandsIcons extends StatelessWidget {
   const BrandsIcons({
     required this.brandIcon,
-    Key? key, 
+    Key? key,
   }) : super(key: key);
   final String brandIcon;
 
@@ -18,16 +17,16 @@ class BrandsIcons extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) {
-            return ProductScreen();
+            return ProductProvider();
           }),
         );
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 12.w) ,
-        child:  Image.asset(
-                    Assets.imagesPartnerLogo2,
-                    fit: BoxFit.contain,
-                  ),
+        margin: EdgeInsets.symmetric(horizontal: 12.w),
+        child: Image.asset(
+          Assets.imagesPartnerLogo2,
+          fit: BoxFit.contain,
+        ),
         // CachedNetworkImage(
         //   imageUrl: brandIcon,
         //   imageBuilder: (context, imageProvider) => Container(

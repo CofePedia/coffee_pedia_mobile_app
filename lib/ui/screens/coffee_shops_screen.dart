@@ -81,9 +81,9 @@ class CoffeeShopsScreen extends StatelessWidget {
                   ],
                   borderRadius: BorderRadius.circular(8.r),
                 ),
-                child: DropdownButton(
+                child: DropdownButton<String>(
                   items: [],
-                  onTap: () {},
+                  onChanged: (value) {},
                   isExpanded: true,
                   icon: Icon(
                     Icons.expand_more,

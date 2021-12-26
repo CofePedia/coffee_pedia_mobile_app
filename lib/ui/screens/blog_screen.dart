@@ -1,7 +1,6 @@
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/review_details_screen.dart';
 import 'package:coffepedia/ui/screens/taps_widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -34,7 +33,6 @@ class _BlogScreenState extends State<BlogScreen> {
     'Doppio',
   ];
   String topic = 'Van Cafes';
-  int _currentColorTobicIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +80,7 @@ class _BlogScreenState extends State<BlogScreen> {
               ),
             ),
             Container(
-              height: 40.h,
+              height: 39.5.h,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: mainTabs.length,
@@ -96,8 +94,7 @@ class _BlogScreenState extends State<BlogScreen> {
                       },
                       child: Column(
                         children: [
-                          Container(
-                            height: 25.h,
+                          Container(  height: 25.h,
                             child: Row(
                               children: [
                                 Icon(

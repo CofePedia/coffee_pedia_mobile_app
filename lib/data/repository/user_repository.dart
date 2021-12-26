@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:coffepedia/data/models/login_data_user.dart';
+import 'package:coffepedia/data/models/signup_data_user.dart';
 import 'package:coffepedia/data/web_services/auth_web_services.dart';
 import 'package:coffepedia/database/database_provider.dart';
 
@@ -14,6 +15,23 @@ class UserRepository {
     final userData = await authWebServices.getToken(email, password);
 
     return userData;
+  }
+
+  Future<Signup> signUp(
+    String firstName,
+    String lastName,
+    String email,
+    String password,
+    String passwordConfirmation,
+  ) async {
+    final signUpUserData = await authWebServices.signUp(
+      firstName,
+      lastName,
+      email,
+      password,
+      passwordConfirmation,
+    );
+    return signUpUserData;
   }
 
   Future<void> persistToken({required LoginData user}) async {

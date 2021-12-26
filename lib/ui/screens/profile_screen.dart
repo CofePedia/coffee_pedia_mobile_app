@@ -18,7 +18,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Scaffold(
         backgroundColor: Colors.white,
         body: Container(
           width: MediaQuery.of(context).size.width,
@@ -216,7 +215,7 @@ class ProfileScreen extends StatelessWidget {
                     BlocProvider.of<AuthBloc>(context).add(LoggedOut());
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (_) {
-                      return LoginRegisterScreen();
+                      return LoginPage();
                     }), (route) => false);
                   },
                   child: Container(
@@ -247,7 +246,6 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }

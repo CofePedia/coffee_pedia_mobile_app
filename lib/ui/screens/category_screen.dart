@@ -4,7 +4,6 @@ import 'package:coffepedia/ui/screens/home/search_bar.dart';
 import 'package:coffepedia/ui/shared/custom_outline_button.dart';
 import 'package:coffepedia/ui/widgets/category_items.dart';
 import 'package:favorite_button/favorite_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -138,7 +137,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return ProductScreen();
+                          return ProductProvider();
                         },
                       ),
                     );

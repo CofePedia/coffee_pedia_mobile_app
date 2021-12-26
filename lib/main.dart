@@ -20,6 +20,7 @@ void main() async {
       statusBarIconBrightness: Brightness.light,
     ),
   );
+
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
   ).then(
@@ -33,14 +34,16 @@ void main() async {
           path: 'assets/translations',
           fallbackLocale: Locale('en'),
           child: RepositoryProvider(
-              create: (_) {
-                return UserRepository(AuthWebServices());
-              },
-              child: BlocProvider(
-                  create: (_) => AuthBloc(
-                        RepositoryProvider.of<UserRepository>(_),
-                      ),
-                  child: MyApp())),
+            create: (_) {
+              return UserRepository(AuthWebServices());
+            },
+            child: BlocProvider(
+              create: (_) => AuthBloc(
+                RepositoryProvider.of<UserRepository>(_),
+              ),
+              child: MyApp(),
+            ),
+          ),
         ),
       );
     },
@@ -62,7 +65,7 @@ class MyApp extends StatelessWidget {
                 authBloc: BlocProvider.of<AuthBloc>(context),
                 userRepository: RepositoryProvider.of<UserRepository>(context),
               ),
-            )
+            ),
           ],
           child: MaterialApp(
             title: 'Coffepedia',

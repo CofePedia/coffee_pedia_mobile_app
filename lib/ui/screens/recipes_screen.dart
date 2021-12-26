@@ -1,7 +1,6 @@
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/recipes_details_bottom_sheet.dart';
 import 'package:coffepedia/ui/screens/taps_widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
