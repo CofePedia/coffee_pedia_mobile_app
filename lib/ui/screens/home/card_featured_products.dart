@@ -51,7 +51,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
             width: MediaQuery.of(context).size.width,
             height: 286.h,
             child: ListView.builder(
-              itemCount: 5,
+              itemCount: state.featuredProducts!.data!.data!.length,
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 11.w),
               itemBuilder: (context, index) {
@@ -93,10 +93,15 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                           ),
                           Positioned(
                             right: 17.w,
-                            child: Image.network(
-                              state.featuredProducts!.data!.data![index].image!,
-                              width: 85.w,
-                              height: 156.h,
+                            child: Container(
+                              color: Colors.red,
+                              child: Image.network(
+                                state.featuredProducts!.data!.data![index]
+                                    .image!,
+                                width: 85.w,
+                                height: 130.h,
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                           Positioned(

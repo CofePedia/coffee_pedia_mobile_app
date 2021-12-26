@@ -2,9 +2,9 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/home_ads/home_ads_cubit.dart';
 import 'package:coffepedia/data/repository/home_ads_repository.dart';
 import 'package:coffepedia/data/web_services/home_ads_web_services.dart';
-import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/home/ads.dart';
 import 'package:coffepedia/ui/screens/home/brands_icons.dart';
+import 'package:coffepedia/ui/screens/home/card_recent_products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +13,6 @@ import 'home/ad_banner.dart';
 import 'home/ad_slider.dart';
 import 'home/card_category.dart';
 import 'home/card_featured_products.dart';
-import 'home/card_recent_products.dart';
 import 'home/search_bar.dart';
 import 'home/section_name.dart';
 
@@ -141,24 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     SecationName(sectionName: "Most Recent Products"),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 200.h,
-                      child: ListView.builder(
-                        itemCount: 5,
-                        padding: EdgeInsets.symmetric(horizontal: 11.w),
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 6.w),
-                            child: CardRecentProducts(
-                                productImage: Assets.imagesJar,
-                                productText:
-                                    "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc"),
-                          );
-                        },
-                      ),
-                    ),
+                    MostRecent(),
                   ],
                 ),
               ),
