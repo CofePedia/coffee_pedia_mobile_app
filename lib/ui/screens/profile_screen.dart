@@ -1,5 +1,5 @@
 import 'package:coffepedia/business_logic/auth/auth_bloc.dart';
-import 'package:coffepedia/business_logic/me/cubit/me_cubit.dart';
+import 'package:coffepedia/business_logic/me/me_cubit.dart';
 import 'package:coffepedia/constants/colors.dart';
 import 'package:coffepedia/data/repository/me_repository.dart';
 import 'package:coffepedia/data/web_services/me_web_services.dart';
@@ -12,6 +12,7 @@ import 'package:coffepedia/ui/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'orders_history_screen.dart';
 import 'profile_item.dart';
 
@@ -250,7 +251,9 @@ class _MeState extends State<Me> {
                     ),
                     InkWell(
                       onTap: () {
-                        BlocProvider.of<AuthBloc>(context).add(LoggedOut());
+                        BlocProvider.of<AuthBloc>(context).add(
+                          LoggedOut(),
+                        );
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (_) {
                           return LoginPage();

@@ -6,8 +6,6 @@ import 'package:coffepedia/data/models/login_data_user.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:bot_toast/bot_toast.dart';
-import 'package:coffepedia/constants/strings.dart';
 
 final userTable = 'userTable';
 
@@ -110,9 +108,7 @@ class UserDao {
     final db = await dbProvider.database;
     try {
       var res = await db.rawQuery("SELECT token FROM $userTable WHERE id=0");
-      return res.isNotEmpty
-          ? GetTokenDatabase.fromJson(res.first)
-          : null;
+      return res.isNotEmpty ? GetTokenDatabase.fromJson(res.first) : null;
     } catch (err) {
       return null;
     }
