@@ -107,15 +107,12 @@ class UserDao {
     }
   }
 
-  Future<String?> getUserToken() async {
+  Future<GetTokenDatabase?> getUserToken() async {
     final db = await dbProvider.database;
     try {
       var res = await db.rawQuery("SELECT token FROM $userTable WHERE id=0");
-      BotToast.showText(
-          text: "token = " +
-              GetTokenDatabase.fromJson(res.first).token.toString());
       return res.isNotEmpty
-          ? GetTokenDatabase.fromJson(res.first).token.toString()
+          ? GetTokenDatabase.fromJson(res.first)
           : null;
     } catch (err) {
       return null;
