@@ -17,3 +17,4 @@ const kBlue = Color(0xff4285F4);
 const kRed = Color(0xffE02020);
 const kGreen = Color(0xff27DC4E);
 const kYellow = Color(0xffFFD008);
+const kBabyYellow = Color(0xffFFE77E);
