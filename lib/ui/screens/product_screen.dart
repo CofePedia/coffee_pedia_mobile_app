@@ -44,6 +44,7 @@ class _ProductScreenState extends State<ProductScreen> {
     '18 Ounce (Pack of 3)',
     '18 Ounce (Pack of 6)',
   ];
+  final List<String> overview = ['region', 'Brand', 'roast', 'flavor'];
   @override
   void initState() {
     BlocProvider.of<ProductCubit>(context).getProduct();
@@ -299,8 +300,10 @@ class _ProductScreenState extends State<ProductScreen> {
                           Padding(
                             padding: EdgeInsets.only(
                                 top: 15.h, right: 15.w, left: 15.w),
-                            child: Text(state.product!.data!.title!,
-                                style: Theme.of(context).textTheme.headline1,),
+                            child: Text(
+                              state.product!.data!.title!,
+                              style: Theme.of(context).textTheme.headline1,
+                            ),
                           ),
                           Padding(
                             padding: EdgeInsets.only(
@@ -317,7 +320,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                 itemPadding:
                                     EdgeInsets.symmetric(horizontal: 4.0.w),
                                 itemBuilder: (context, _) => SvgPicture.asset(
-                                    'assets/icons/star_active.svg',),
+                                  'assets/icons/star_active.svg',
+                                ),
                                 onRatingUpdate: (rating) {
                                   print('rating_bar: $rating');
                                 },
@@ -397,7 +401,6 @@ class _ProductScreenState extends State<ProductScreen> {
                               style: Theme.of(context).textTheme.subtitle2,
                             ),
                           ),
-
                           Padding(
                             padding: EdgeInsets.only(top: 15.h),
                             child: Container(
@@ -420,7 +423,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               padding: EdgeInsets.symmetric(horizontal: 15.w),
                               child: GridView.builder(
                                 padding: EdgeInsets.zero,
-                                itemCount: 1,
+                                itemCount: 4,
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 gridDelegate:
