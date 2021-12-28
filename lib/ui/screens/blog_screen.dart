@@ -84,6 +84,7 @@ class _BlogScreenState extends State<BlogScreen> {
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: mainTabs.length,
+                  padding: EdgeInsets.zero,
                   itemBuilder: (ctx, index) {
                     return InkWell(
                       onTap: () {
@@ -94,7 +95,8 @@ class _BlogScreenState extends State<BlogScreen> {
                       },
                       child: Column(
                         children: [
-                          Container(  height: 25.h,
+                          Container(
+                            height: 25.h,
                             child: Row(
                               children: [
                                 Icon(
@@ -119,7 +121,7 @@ class _BlogScreenState extends State<BlogScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 12.h,
+                            height: 10.h,
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width / 2,

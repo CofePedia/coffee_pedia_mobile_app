@@ -1,21 +1,21 @@
-import 'package:coffepedia/business_logic/sub_categories/sub_categories_cubit.dart';
-import 'package:coffepedia/data/repository/sub_categories_repository.dart';
-import 'package:coffepedia/data/web_services/sub_categories_web_services.dart';
+import 'package:coffepedia/business_logic/categories/categories_cubit.dart';
+import 'package:coffepedia/data/repository/categories_repository.dart';
+import 'package:coffepedia/data/web_services/categories_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SubCategories extends StatelessWidget {
-  const SubCategories({Key? key}) : super(key: key);
+class Categories extends StatelessWidget {
+  const Categories({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SubCategoriesCubit(
-        SubCategoriesRepository(
-          SubCategoriesWebServices(),
+      create: (context) => CategoriesCubit(
+        CategoriesRepository(
+          CategoriesWebServices(),
         ),
       ),
       child: CardCategory(),
@@ -35,21 +35,21 @@ class CardCategory extends StatefulWidget {
 class _CardCategoryState extends State<CardCategory> {
   @override
   void initState() {
-    BlocProvider.of<SubCategoriesCubit>(context).getSubCategories();
+    BlocProvider.of<CategoriesCubit>(context).getCategories();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SubCategoriesCubit, SubCategoriesState>(
+    return BlocBuilder<CategoriesCubit, CategoriesState>(
       builder: (context, state) {
-        if (state is SubCategoriesLoaded) {
+        if (state is CategoriesLoaded) {
           return Container(
             margin: EdgeInsets.only(bottom: 24.h),
             width: MediaQuery.of(context).size.width,
             height: 80.h,
             child: ListView.builder(
-              itemCount: state.subCategories!.data!.length,
+              itemCount: state.categories!.data!.length,
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.only(left: 10.w, right: 10.w),
               itemBuilder: (context, index) {
@@ -59,7 +59,7 @@ class _CardCategoryState extends State<CardCategory> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return const CategoryScreen();
+                          return const CategoryScreenProvider();
                         },
                       ),
                     );
@@ -100,7 +100,7 @@ class _CardCategoryState extends State<CardCategory> {
                           left: 11.w,
                           top: 30.h,
                           child: Text(
-                            state.subCategories!.data![index]!.name!,
+                            state.categories!.data![index]!.name!,
                             style:
                                 Theme.of(context).textTheme.headline5!.copyWith(
                                       color: Color(0xffFFD008),
@@ -110,7 +110,7 @@ class _CardCategoryState extends State<CardCategory> {
                         Positioned(
                           right: 12.5.w,
                           child: Image.network(
-                            state.subCategories!.data![index]!.icon!,
+                            state.categories!.data![index]!.icon!,
                             width: 42.w,
                             height: 76.h,
                           ),
