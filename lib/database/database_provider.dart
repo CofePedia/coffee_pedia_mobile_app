@@ -55,7 +55,6 @@ class UserDao {
 
   Future<int> createUser(LoginData user) async {
     final db = await dbProvider.database;
-
     var result = db.insert(userTable, {"id": "0", "token": user.token});
     return result;
   }

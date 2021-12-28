@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SecationName extends StatelessWidget {
-  const SecationName({
+class SectionName extends StatelessWidget {
+  const SectionName({
     required this.sectionName,
     Key? key,
   }) : super(key: key);
