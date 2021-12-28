@@ -155,7 +155,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
                     child: GridView.builder(
-                      padding: EdgeInsets.only(top: 40.h),
+                      padding: EdgeInsets.only(top: 40.h, bottom: 15.h),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisSpacing: 16.h,
