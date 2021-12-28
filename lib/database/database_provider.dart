@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:coffepedia/data/models/gettoken_database.dart';
 import 'package:coffepedia/data/models/login_data_user.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:coffepedia/constants/strings.dart';
 
 final userTable = 'userTable';
 
@@ -57,12 +60,13 @@ class UserDao {
     final db = await dbProvider.database;
 
     var result = db.insert(userTable, {"id": "0", "token": user.token});
+    getUserToken();
     return result;
   }
 
   Future<int> deleteUser(int id) async {
     final db = await dbProvider.database;
-    var result = await db.delete(userTable, where: "id = ?", whereArgs: [id]);
+    var result = await db.delete(userTable, where: "id = 0", whereArgs: [id]);
     return result;
   }
 
@@ -100,6 +104,21 @@ class UserDao {
       }
     } catch (error) {
       return false;
+    }
+  }
+
+  Future<String?> getUserToken() async {
+    final db = await dbProvider.database;
+    try {
+      var res = await db.rawQuery("SELECT token FROM $userTable WHERE id=0");
+      BotToast.showText(
+          text: "token = " +
+              GetTokenDatabase.fromJson(res.first).token.toString());
+      return res.isNotEmpty
+          ? GetTokenDatabase.fromJson(res.first).token.toString()
+          : null;
+    } catch (err) {
+      return null;
     }
   }
 }
