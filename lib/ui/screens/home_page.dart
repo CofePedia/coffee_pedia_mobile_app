@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
         index: currentIndex,
         children: [
           const HomeScreenProvider(),
-          const CheckoutItemsScreen(),
+          const CheckoutItemsScreenProvider(),
           const ProfileScreen(),
           const MoreScreen(),
         ],

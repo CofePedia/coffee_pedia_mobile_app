@@ -75,21 +75,23 @@ class _ProductScreenState extends State<ProductScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomButton(
-              onPress: () {
+            InkWell(
+              onTap: () {
                 setState(() {
                   counter++;
                 });
               },
-              height: 50.h,
-              width: 50.w,
-              borderRadius: 35.r,
-              buttonColor: Color(0xffF2F2F2),
-              assetName: Assets.iconsAdd,
-              imageWidth: 15.w,
-              imageHeight: 15.h,
-              imageColor: Color(0xff606266),
+              child: CircleAvatar(
+                backgroundColor: Color(0xffF2F2F2),
+                radius: 27.h,
+                child: Icon(
+                  Icons.add,
+                  size: 20.r,
+                  color: Color(0xff606266),
+                ),
+              ),
             ),
+
             Container(
               width: 50.w,
               height: 50.h,
@@ -103,29 +105,45 @@ class _ProductScreenState extends State<ProductScreen> {
               ),
               child: Text(
                 '$counter'.toString(),
-                // textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.caption!.copyWith(
+                      fontWeight: FontWeight.w700,
                       color: Color(
                         0xff606266,
                       ),
                     ),
               ),
             ),
-            CustomButton(
-              onPress: () {
+            InkWell(
+              onTap: () {
                 setState(() {
                   counter--;
                 });
               },
-              height: 50.h,
-              width: 50.w,
-              borderRadius: 35.r,
-              buttonColor: Color(0xffF2F2F2),
-              imageColor: Color(0xff606266),
-              assetName: Assets.iconsMinus,
-              imageHeight: 15.h,
-              imageWidth: 15.w,
+              child: CircleAvatar(
+                backgroundColor: Color(0xffF2F2F2),
+                radius: 27.h,
+                child: Icon(
+                  Icons.remove,
+                  size: 20.r,
+                  color: Color(0xff606266),
+                ),
+              ),
             ),
+            // CustomButton(
+            //   onPress: () {
+            //     setState(() {
+            //       counter--;
+            //     });
+            //   },
+            //   height: 50.h,
+            //   width: 50.w,
+            //   borderRadius: 35.r,
+            //   buttonColor: Color(0xffF2F2F2),
+            //   imageColor: Color(0xff606266),
+            //   assetName: Assets.iconsMinus,
+            //   imageHeight: 15.h,
+            //   imageWidth: 15.w,
+            // ),
             CustomButton(
               onPress: () {
                 showModalBottomSheet(

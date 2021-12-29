@@ -3,8 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CheckoutItem extends StatelessWidget {
-  const CheckoutItem({Key? key}) : super(key: key);
+class CheckoutItem extends StatefulWidget {
+  const CheckoutItem(
+      {this.quantity,
+      this.title,
+      this.priceBeforeDiscount,
+      this.image,
+      this.price,
+      Key? key})
+      : super(key: key);
+
+  final String? title;
+  final String? image;
+  final String? price;
+  final String? priceBeforeDiscount;
+  final int? quantity;
+
+  @override
+  State<CheckoutItem> createState() => _CheckoutItemState();
+}
+
+class _CheckoutItemState extends State<CheckoutItem> {
+  int counter = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -25,34 +45,39 @@ class CheckoutItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 9.h),
-                        child: Text(
-                          "CoffePedia Dark Espresso Roast COFFEE",
-                          maxLines: 2,
-                          textAlign: TextAlign.start,
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                      child: Text(
+                        widget.title!,
+                        maxLines: 2,
+                        textAlign: TextAlign.start,
+                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                            color: Color(0xff231F20),
+                            fontWeight: FontWeight.w700),
                       ),
-                    ),
-                    Text(
-                      "EGP 415",
-                      maxLines: 2,
-                      textAlign: TextAlign.start,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(decoration: TextDecoration.lineThrough, color: Color(0xff606266)),
                     ),
                     SizedBox(
                       height: 4.h,
                     ),
                     Text(
-                      "EGP 340",
+                      "EGP ${widget.priceBeforeDiscount}",
                       maxLines: 2,
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.headline2!.copyWith(color: Theme.of(context).primaryColor),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          decoration: TextDecoration.lineThrough,
+                          color: Color(0xff606266)),
+                    ),
+                    SizedBox(
+                      height: 4.h,
+                    ),
+                    Text(
+                      "EGP ${widget.price}",
+                      maxLines: 2,
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2!
+                          .copyWith(color: Theme.of(context).primaryColor),
                     ),
                   ],
                 ),
@@ -63,10 +88,11 @@ class CheckoutItem extends StatelessWidget {
                     color: Color(0xffF4F4F4),
                     borderRadius: BorderRadius.circular(7.r),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 6.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 17.w, vertical: 6.h),
                   margin: EdgeInsets.only(right: 12.w),
-                  child: Image.asset(
-                    Assets.imagesPack,
+                  child: Image.network(
+                    widget.image!,
                   ),
                 ),
               ],
@@ -76,19 +102,27 @@ class CheckoutItem extends StatelessWidget {
           SizedBox(
             height: 4.h,
           ),
-          Text("D.Cappuccino Café", style: Theme.of(context).textTheme.bodyText1),
+          Text("D.Cappuccino Café",
+              style: Theme.of(context).textTheme.bodyText1),
           SizedBox(
             height: 16.h,
           ),
           Row(
             children: [
-              CircleAvatar(
-                backgroundColor: Color(0xffF2F2F2),
-                radius: 17.h,
-                child: Icon(
-                  Icons.add,
-                  size: 20.r,
-                  color: Color(0xff606266),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    counter++;
+                  });
+                },
+                child: CircleAvatar(
+                  backgroundColor: Color(0xffF2F2F2),
+                  radius: 17.h,
+                  child: Icon(
+                    Icons.add,
+                    size: 20.r,
+                    color: Color(0xff606266),
+                  ),
                 ),
               ),
               Container(
@@ -101,15 +135,22 @@ class CheckoutItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.r),
                 ),
                 alignment: Alignment.center,
-                child: Text("1"),
+                child: Text(widget.quantity.toString()),
               ),
-              CircleAvatar(
-                backgroundColor: Color(0xffF2F2F2),
-                radius: 17.h,
-                child: Icon(
-                  Icons.remove,
-                  size: 20.r,
-                  color: Color(0xff606266),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    counter--;
+                  });
+                },
+                child: CircleAvatar(
+                  backgroundColor: Color(0xffF2F2F2),
+                  radius: 17.h,
+                  child: Icon(
+                    Icons.remove,
+                    size: 20.r,
+                    color: Color(0xff606266),
+                  ),
                 ),
               ),
               Spacer(),
@@ -163,7 +204,10 @@ class CheckoutItem extends StatelessWidget {
                 ),
               )
             ],
-          )
+          ),
+          SizedBox(
+            height: 15.75.h,
+          ),
         ],
       ),
     );

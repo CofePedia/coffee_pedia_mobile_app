@@ -13,11 +13,13 @@ class BasketWebServices {
     final url = Uri.parse(baseUrl + 'cart');
     GetTokenDatabase? token = await userDao.getUserToken();
 
-    final http.Response response = await http.post(
+    print("token1 = " + token!.getToken!);
+
+    final http.Response response = await http.get(
       url,
-      headers: {'Authorization': 'Bearer ' + token!.getToken!},
+      headers: {'Authorization': 'Bearer ' + token.getToken!},
     );
-    print("response me ${response.body}");
+    print("response Basket ${response.body}");
 
     if (response.statusCode == 200) {
       return Basket.fromJson(
