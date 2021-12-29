@@ -78,7 +78,7 @@ class SuccessScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return const HomeScreen();
+                      return const HomeScreenProvider();
                     },
                   ),
                 );
