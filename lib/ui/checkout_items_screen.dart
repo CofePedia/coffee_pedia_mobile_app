@@ -2,14 +2,13 @@ import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
-import 'package:coffepedia/ui/checkout_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'checkout_item.dart';
-import 'extension_method.dart';
+import 'delivery_info_screen.dart';
 
 class CheckoutItemsScreenProvider extends StatelessWidget {
   const CheckoutItemsScreenProvider({Key? key}) : super(key: key);
@@ -39,48 +38,53 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(bottom: 69.h),
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: 92.h,
-          padding: EdgeInsets.symmetric(
-            vertical: 21.h,
-            horizontal: 15.w,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(22.r),
-              topRight: Radius.circular(22.r),
-            ),
-          ),
-          child: ElevatedButton(
-            onPressed: () {
-              context.showCustomBottomSheet(
-                CheckoutPopUp(),
-              );
-            },
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25.r),
+    return BlocBuilder<BasketCubit, BasketState>(
+      builder: (context, state) {
+        if (state is BasketLoaded) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            bottomNavigationBar: Padding(
+              padding: EdgeInsets.only(bottom: 69.h),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 92.h,
+                padding: EdgeInsets.symmetric(
+                  vertical: 21.h,
+                  horizontal: 15.w,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(22.r),
+                    topRight: Radius.circular(22.r),
+                  ),
+                ),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const DeliveryInfoScreen();
+                        },
+                      ),
+                    );
+                  },
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.r),
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    "Proceed to checkout",
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
                 ),
               ),
             ),
-            child: Text(
-              "Proceed to checkout",
-              style: Theme.of(context).textTheme.headline2,
-            ),
-          ),
-        ),
-      ),
-      body: BlocBuilder<BasketCubit, BasketState>(
-        builder: (context, state) {
-          if (state is BasketLoaded) {
-            return Container(
+            body: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: Column(
@@ -174,8 +178,10 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                   children: [
                                     Text(
                                       "Have a coupon?",
-                                      style:
-                                          Theme.of(context).textTheme.headline2,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(fontSize: 14.sp),
                                     ),
                                     Padding(
                                       padding:
@@ -185,6 +191,8 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                         child: TextFormField(
                                           decoration: InputDecoration(
                                             fillColor: Colors.white,
+                                            contentPadding:
+                                                EdgeInsets.only(left: 12.w),
                                             filled: true,
                                             hintText: "Coupon code",
                                             hintStyle: Theme.of(context)
@@ -509,14 +517,14 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                   ),
                 ],
               ),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
+            ),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 }

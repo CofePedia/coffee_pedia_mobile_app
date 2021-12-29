@@ -53,130 +53,134 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15.w),
-        height: 107.h,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.04),
-              blurRadius: 2.r,
-            )
-          ],
-          color: Color(0xffFFFFFF),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(22.r),
-            topRight: Radius.circular(22.r),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: () {
-                setState(() {
-                  counter++;
-                });
-              },
-              child: CircleAvatar(
-                backgroundColor: Color(0xffF2F2F2),
-                radius: 27.h,
-                child: Icon(
-                  Icons.add,
-                  size: 20.r,
-                  color: Color(0xff606266),
-                ),
-              ),
-            ),
-
-            Container(
-              width: 50.w,
-              height: 50.h,
-              alignment: Alignment.center,
+    return BlocBuilder<ProductCubit, ProductState>(
+      builder: (context, state) {
+        if (state is ProductLoaded) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            bottomNavigationBar: Container(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              height: 107.h,
+              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.04),
+                    blurRadius: 2.r,
+                  )
+                ],
                 color: Color(0xffFFFFFF),
-                borderRadius: BorderRadius.circular(14.r),
-                border: Border.all(
-                  color: Color(0xffF3F1F1),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(22.r),
+                  topRight: Radius.circular(22.r),
                 ),
               ),
-              child: Text(
-                '$counter'.toString(),
-                style: Theme.of(context).textTheme.caption!.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: Color(
-                        0xff606266,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        counter++;
+                      });
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Color(0xffF2F2F2),
+                      radius: 27.h,
+                      child: Icon(
+                        Icons.add,
+                        size: 20.r,
+                        color: Color(0xff606266),
                       ),
                     ),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                setState(() {
-                  counter--;
-                });
-              },
-              child: CircleAvatar(
-                backgroundColor: Color(0xffF2F2F2),
-                radius: 27.h,
-                child: Icon(
-                  Icons.remove,
-                  size: 20.r,
-                  color: Color(0xff606266),
-                ),
-              ),
-            ),
-            // CustomButton(
-            //   onPress: () {
-            //     setState(() {
-            //       counter--;
-            //     });
-            //   },
-            //   height: 50.h,
-            //   width: 50.w,
-            //   borderRadius: 35.r,
-            //   buttonColor: Color(0xffF2F2F2),
-            //   imageColor: Color(0xff606266),
-            //   assetName: Assets.iconsMinus,
-            //   imageHeight: 15.h,
-            //   imageWidth: 15.w,
-            // ),
-            CustomButton(
-              onPress: () {
-                showModalBottomSheet(
-                  enableDrag: false,
-                  isDismissible: true,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.r),
-                      topRight: Radius.circular(25.r),
+                  ),
+
+                  Container(
+                    width: 50.w,
+                    height: 50.h,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Color(0xffFFFFFF),
+                      borderRadius: BorderRadius.circular(14.r),
+                      border: Border.all(
+                        color: Color(0xffF3F1F1),
+                      ),
+                    ),
+                    child: Text(
+                      '$counter'.toString(),
+                      style: Theme.of(context).textTheme.caption!.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: Color(
+                              0xff606266,
+                            ),
+                          ),
                     ),
                   ),
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) => CheckoutPopUp(),
-                );
-              },
-              width: 170.w,
-              height: 50.h,
-              assetName: Assets.iconsShoppingBasket,
-              borderRadius: 25.r,
-              title: 'Add to basket',
-              buttonColor: Theme.of(context).primaryColor,
-              imageColor: Theme.of(context).accentColor,
-              imageHeight: 18.h,
-              imageWidth: 24.w,
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        counter--;
+                      });
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Color(0xffF2F2F2),
+                      radius: 27.h,
+                      child: Icon(
+                        Icons.remove,
+                        size: 20.r,
+                        color: Color(0xff606266),
+                      ),
+                    ),
+                  ),
+                  // CustomButton(
+                  //   onPress: () {
+                  //     setState(() {
+                  //       counter--;
+                  //     });
+                  //   },
+                  //   height: 50.h,
+                  //   width: 50.w,
+                  //   borderRadius: 35.r,
+                  //   buttonColor: Color(0xffF2F2F2),
+                  //   imageColor: Color(0xff606266),
+                  //   assetName: Assets.iconsMinus,
+                  //   imageHeight: 15.h,
+                  //   imageWidth: 15.w,
+                  // ),
+                  CustomButton(
+                    onPress: () {
+                      showModalBottomSheet(
+                        enableDrag: false,
+                        isDismissible: true,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(25.r),
+                            topRight: Radius.circular(25.r),
+                          ),
+                        ),
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => CheckoutPopUp(
+                          title: state.product!.data!.title,
+                          image: state.product!.data!.image,
+                          totalPrice: state.product!.data!.price,
+                        ),
+                      );
+                    },
+                    width: 170.w,
+                    height: 50.h,
+                    assetName: Assets.iconsShoppingBasket,
+                    borderRadius: 25.r,
+                    title: 'Add to basket',
+                    buttonColor: Theme.of(context).primaryColor,
+                    imageColor: Theme.of(context).accentColor,
+                    imageHeight: 18.h,
+                    imageWidth: 24.w,
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-      body: BlocBuilder<ProductCubit, ProductState>(
-        builder: (context, state) {
-          if (state is ProductLoaded) {
-            return Container(
+            body: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
@@ -569,14 +573,14 @@ class _ProductScreenState extends State<ProductScreen> {
                   ],
                 ),
               ),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
+            ),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 }
