@@ -265,7 +265,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                   ),
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => AddAddressSheet(),
+                  builder: (context) => AddAddressSheetProvider(),
                 );
               },
               child: Padding(

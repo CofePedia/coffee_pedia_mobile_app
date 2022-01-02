@@ -1,6 +1,29 @@
+import 'package:coffepedia/business_logic/address/address_cubit.dart';
+import 'package:coffepedia/data/repository/address_repository.dart';
+import 'package:coffepedia/data/web_services/address_web_services.dart';
 import 'package:coffepedia/ui/shared/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../area_address_widget.dart';
+import '../city_address_widget.dart';
+
+class AddAddressSheetProvider extends StatelessWidget {
+  const AddAddressSheetProvider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AddressCubit(
+        AddressRepository(
+          AddressWebServices(),
+        ),
+      ),
+      child: AddAddressSheet(),
+    );
+  }
+}
 
 class AddAddressSheet extends StatefulWidget {
   const AddAddressSheet({Key? key}) : super(key: key);
@@ -14,11 +37,16 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
   TextEditingController _firstName = TextEditingController();
   TextEditingController _lastName = TextEditingController();
   TextEditingController _phone = TextEditingController();
-  TextEditingController _governorate = TextEditingController();
-  TextEditingController _city = TextEditingController();
-  TextEditingController _area = TextEditingController();
   TextEditingController _street = TextEditingController();
   TextEditingController _desc = TextEditingController();
+
+  int? _selectedGovernorate;
+  int governorateId = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -26,9 +54,6 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
     _firstName.dispose();
     _lastName.dispose();
     _phone.dispose();
-    _governorate.dispose();
-    _city.dispose();
-    _area.dispose();
     _street.dispose();
     _desc.dispose();
     super.dispose();
@@ -36,6 +61,8 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<AddressCubit>(context).getGovernorate();
+
     return Container(
       height: 649.h,
       width: MediaQuery.of(context).size.width,
@@ -184,38 +211,66 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                         SizedBox(
                           height: 8.h,
                         ),
-                        Container(
-                          height: 40.h,
-                          width: 168.w,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 8.w, vertical: 9.h),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(3.r),
-                            border: Border.all(
-                              color: Color(0xffE3E3E3),
-                            ),
-                          ),
-                          child: DropdownButton<String>(
-                            items: [],
-                            onChanged: (value) {},
-                            isExpanded: true,
-                            icon: Icon(
-                              Icons.expand_more,
-                              size: 20.h,
-                              color: Color(0xffCCCCCC),
-                            ),
-                            hint: Text(
-                              'Governorate',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .copyWith(
-                                    color: Color(
-                                      0xffCCCCCC,
+                        BlocBuilder<AddressCubit, AddressState>(
+                          builder: (context, state) {
+                            if (state is GovernorateLoaded) {
+                              return Container(
+                                height: 40.h,
+                                width: 168.w,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 8.w, vertical: 9.h),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3.r),
+                                  border: Border.all(
+                                    color: Color(0xffE3E3E3),
+                                  ),
+                                ),
+                                child: DropdownButton<int>(
+                                  value: _selectedGovernorate,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _selectedGovernorate = value;
+                                      governorateId = _selectedGovernorate!;
+                                    });
+                                    print(
+                                        '_selectedGovernorate $_selectedGovernorate');
+                                    print('governorateId $governorateId');
+                                  },
+                                  items: List.generate(
+                                    state.governorates!.data!.length,
+                                    (index) => DropdownMenuItem(
+                                      child: Text(
+                                        state.governorates!.data![index]!.name!,
+                                      ),
+                                      value:
+                                          state.governorates!.data![index]!.id!,
                                     ),
                                   ),
-                            ),
-                          ),
+                                  isExpanded: true,
+                                  icon: Icon(
+                                    Icons.expand_more,
+                                    size: 20.h,
+                                    color: Color(0xffCCCCCC),
+                                  ),
+                                  hint: Text(
+                                    'Governorate',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6!
+                                        .copyWith(
+                                          color: Color(
+                                            0xffCCCCCC,
+                                          ),
+                                        ),
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          },
                         ),
                         SizedBox(
                           height: 12.h,
@@ -230,38 +285,8 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                         SizedBox(
                           height: 8.h,
                         ),
-                        Container(
-                          height: 40.h,
-                          width: 168.w,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 8.w, vertical: 9.h),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(3.r),
-                            border: Border.all(
-                              color: Color(0xffE3E3E3),
-                            ),
-                          ),
-                          child: DropdownButton<String>(
-                            items: [],
-                            onChanged: (value) {},
-                            isExpanded: true,
-                            icon: Icon(
-                              Icons.expand_more,
-                              size: 20.h,
-                              color: Color(0xffCCCCCC),
-                            ),
-                            hint: Text(
-                              'Area',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .copyWith(
-                                    color: Color(
-                                      0xffCCCCCC,
-                                    ),
-                                  ),
-                            ),
-                          ),
+                        AreaAddressProvider(
+                          cityId: 2,
                         ),
                       ],
                     ),
@@ -278,38 +303,8 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                         SizedBox(
                           height: 8.h,
                         ),
-                        Container(
-                          height: 40.h,
-                          width: 168.w,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 8.w, vertical: 9.h),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(3.r),
-                            border: Border.all(
-                              color: Color(0xffE3E3E3),
-                            ),
-                          ),
-                          child: DropdownButton<String>(
-                            items: [],
-                            isExpanded: true,
-                            onChanged: (value) {},
-                            icon: Icon(
-                              Icons.expand_more,
-                              size: 20.h,
-                              color: Color(0xffCCCCCC),
-                            ),
-                            hint: Text(
-                              'City',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .copyWith(
-                                    color: Color(
-                                      0xffCCCCCC,
-                                    ),
-                                  ),
-                            ),
-                          ),
+                        CityAddressProvider(
+                          governorateId: governorateId,
                         ),
                         SizedBox(
                           height: 12.h,
