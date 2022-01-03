@@ -35,7 +35,7 @@ class AboutScreen extends StatelessWidget {
                       width: 10.w,
                     ),
                     Text(
-                      'Recipes',
+                      'About Coffepedia',
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 18.sp,
                           ),
