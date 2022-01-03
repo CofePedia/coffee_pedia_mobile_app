@@ -7,7 +7,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AreaAddressProvider extends StatelessWidget {
   final int? cityId;
-  const AreaAddressProvider({this.cityId, Key? key}) : super(key: key);
+  final Function? onSelectedCity;
+  final int? selectedArea;
+  const AreaAddressProvider(
+      {this.cityId, this.onSelectedCity, this.selectedArea, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +23,8 @@ class AreaAddressProvider extends StatelessWidget {
       ),
       child: AreaAddress(
         cityId: cityId,
+        onSelectedCity: onSelectedCity,
+        selectedArea: selectedArea,
       ),
     );
   }
@@ -26,23 +32,21 @@ class AreaAddressProvider extends StatelessWidget {
 
 class AreaAddress extends StatefulWidget {
   final int? cityId;
-  const AreaAddress({this.cityId, Key? key}) : super(key: key);
+  final Function? onSelectedCity;
+  final int? selectedArea;
+  const AreaAddress(
+      {this.cityId, this.onSelectedCity, this.selectedArea, Key? key})
+      : super(key: key);
 
   @override
   _AreaAddressState createState() => _AreaAddressState();
 }
 
 class _AreaAddressState extends State<AreaAddress> {
-  String? _selectedArea;
-
-  @override
-  void initState() {
-    BlocProvider.of<AddressCubit>(context).getAreas(widget.cityId!);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<AddressCubit>(context).getAreas(widget.cityId!);
+
     return BlocBuilder<AddressCubit, AddressState>(
       builder: (context, state) {
         if (state is AreasLoaded) {
@@ -56,23 +60,25 @@ class _AreaAddressState extends State<AreaAddress> {
                 color: Color(0xffE3E3E3),
               ),
             ),
-            child: DropdownButton<String>(
-              value: _selectedArea,
-              items: List.generate(
-                state.areas!.data!.length,
-                (index) => DropdownMenuItem(
-                  child: Text(
-                    state.areas!.data![index]!.name!,
-                  ),
-                  value: state.areas!.data![index]!.name!,
-                ),
-              ),
+            child: DropdownButton<int>(
+              value: widget.selectedArea,
+              items: state.areas!.data!.isEmpty
+                  ? []
+                  : List.generate(
+                      state.areas!.data!.length,
+                      (index) => DropdownMenuItem(
+                        child: Text(
+                          state.areas!.data![index]!.name!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontSize: 14.sp),
+                        ),
+                        value: state.areas!.data![index]!.id!,
+                      ),
+                    ),
               isExpanded: true,
-              onChanged: (value) {
-                setState(() {
-                  _selectedArea = value;
-                });
-              },
+              onChanged: (value) => widget.onSelectedCity!(value),
               icon: Icon(
                 Icons.expand_more,
                 size: 20.h,

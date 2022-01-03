@@ -37,14 +37,18 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
   TextEditingController _firstName = TextEditingController();
   TextEditingController _lastName = TextEditingController();
   TextEditingController _phone = TextEditingController();
-  TextEditingController _street = TextEditingController();
   TextEditingController _desc = TextEditingController();
 
   int? _selectedGovernorate;
   int governorateId = 0;
 
+  int? _selectedCity;
+  int? cityId = 0;
+  int? _selectedArea;
+
   @override
   void initState() {
+    BlocProvider.of<AddressCubit>(context).getGovernorate();
     super.initState();
   }
 
@@ -54,17 +58,28 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
     _firstName.dispose();
     _lastName.dispose();
     _phone.dispose();
-    _street.dispose();
     _desc.dispose();
     super.dispose();
   }
 
+  void onSelectedGovernorate(int value) {
+    setState(() {
+      _selectedCity = value;
+      cityId = _selectedCity;
+      _selectedArea = null;
+    });
+  }
+
+  void onSelectedCity(int value) {
+    setState(() {
+      _selectedArea = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<AddressCubit>(context).getGovernorate();
-
     return Container(
-      height: 649.h,
+      height: 450.h,
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       margin: EdgeInsets.only(
@@ -106,95 +121,95 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                 SizedBox(
                   height: 24.h,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'First Name',
-                          style:
-                              Theme.of(context).textTheme.headline3!.copyWith(
-                                    fontSize: 12.sp,
-                                  ),
-                        ),
-                        SizedBox(
-                          height: 8.h,
-                        ),
-                        CustomTextFormField(
-                          hintText: 'First Name',
-                          width: 168.w,
-                          suffix: SizedBox.shrink(),
-                          keyboardType: TextInputType.name,
-                          height: 40.h,
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Last Name',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(fontSize: 12.sp),
-                        ),
-                        SizedBox(
-                          height: 8.h,
-                        ),
-                        CustomTextFormField(
-                          hintText: 'Last Name',
-                          width: 168.w,
-                          suffix: SizedBox.shrink(),
-                          keyboardType: TextInputType.name,
-                          height: 40.h,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 12.h),
-                  child: Text(
-                    'Email',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3!
-                        .copyWith(fontSize: 12.sp),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 8.h),
-                  child: CustomTextFormField(
-                    hintText: 'Email Address',
-                    width: 345.w,
-                    suffix: SizedBox.shrink(),
-                    keyboardType: TextInputType.emailAddress,
-                    height: 40.h,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 12.h),
-                  child: Text(
-                    'Phone',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3!
-                        .copyWith(fontSize: 12.sp),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 8.h, bottom: 12.h),
-                  child: CustomTextFormField(
-                    hintText: 'Phone Number',
-                    width: 345.w,
-                    suffix: SizedBox.shrink(),
-                    keyboardType: TextInputType.phone,
-                    height: 40.h,
-                  ),
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Column(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: [
+                //         Text(
+                //           'First Name',
+                //           style:
+                //               Theme.of(context).textTheme.headline3!.copyWith(
+                //                     fontSize: 12.sp,
+                //                   ),
+                //         ),
+                //         SizedBox(
+                //           height: 8.h,
+                //         ),
+                //         CustomTextFormField(
+                //           hintText: 'First Name',
+                //           width: 168.w,
+                //           suffix: null,
+                //           keyboardType: TextInputType.name,
+                //           height: 40.h,
+                //         ),
+                //       ],
+                //     ),
+                //     Column(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: [
+                //         Text(
+                //           'Last Name',
+                //           style: Theme.of(context)
+                //               .textTheme
+                //               .headline3!
+                //               .copyWith(fontSize: 12.sp),
+                //         ),
+                //         SizedBox(
+                //           height: 8.h,
+                //         ),
+                //         CustomTextFormField(
+                //           hintText: 'Last Name',
+                //           width: 168.w,
+                //           suffix: null,
+                //           keyboardType: TextInputType.name,
+                //           height: 40.h,
+                //         ),
+                //       ],
+                //     ),
+                //   ],
+                // ),
+                // Padding(
+                //   padding: EdgeInsets.only(top: 12.h),
+                //   child: Text(
+                //     'Email',
+                //     style: Theme.of(context)
+                //         .textTheme
+                //         .headline3!
+                //         .copyWith(fontSize: 12.sp),
+                //   ),
+                // ),
+                // Padding(
+                //   padding: EdgeInsets.only(top: 8.h),
+                //   child: CustomTextFormField(
+                //     hintText: 'Email Address',
+                //     width: 345.w,
+                //     suffix: null,
+                //     keyboardType: TextInputType.emailAddress,
+                //     height: 40.h,
+                //   ),
+                // ),
+                // Padding(
+                //   padding: EdgeInsets.only(top: 12.h),
+                //   child: Text(
+                //     'Phone',
+                //     style: Theme.of(context)
+                //         .textTheme
+                //         .headline3!
+                //         .copyWith(fontSize: 12.sp),
+                //   ),
+                // ),
+                // Padding(
+                //   padding: EdgeInsets.only(top: 8.h, bottom: 12.h),
+                //   child: CustomTextFormField(
+                //     hintText: 'Phone Number',
+                //     width: 345.w,
+                //     suffix: null,
+                //     keyboardType: TextInputType.phone,
+                //     height: 40.h,
+                //   ),
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -231,16 +246,20 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                                     setState(() {
                                       _selectedGovernorate = value;
                                       governorateId = _selectedGovernorate!;
+                                      cityId = 0;
+                                      _selectedCity = null;
+                                      _selectedArea = null;
                                     });
-                                    print(
-                                        '_selectedGovernorate $_selectedGovernorate');
-                                    print('governorateId $governorateId');
                                   },
                                   items: List.generate(
                                     state.governorates!.data!.length,
                                     (index) => DropdownMenuItem(
                                       child: Text(
                                         state.governorates!.data![index]!.name!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(fontSize: 14.sp),
                                       ),
                                       value:
                                           state.governorates!.data![index]!.id!,
@@ -286,7 +305,9 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                           height: 8.h,
                         ),
                         AreaAddressProvider(
-                          cityId: 2,
+                          cityId: cityId,
+                          onSelectedCity: onSelectedCity,
+                          selectedArea: _selectedArea,
                         ),
                       ],
                     ),
@@ -305,6 +326,8 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                         ),
                         CityAddressProvider(
                           governorateId: governorateId,
+                          onChange: onSelectedGovernorate,
+                          selectedCity: _selectedCity,
                         ),
                         SizedBox(
                           height: 12.h,
@@ -319,39 +342,12 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                         SizedBox(
                           height: 8.h,
                         ),
-                        Container(
-                          height: 40.h,
+                        CustomTextFormField(
+                          hintText: 'Street',
                           width: 168.w,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 8.w, vertical: 9.h),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(3.r),
-                            border: Border.all(
-                              color: Color(0xffE3E3E3),
-                            ),
-                          ),
-                          child: DropdownButton<String>(
-                            items: [],
-                            onTap: () {},
-                            onChanged: (value) {},
-                            isExpanded: true,
-                            icon: Icon(
-                              Icons.expand_more,
-                              size: 20.h,
-                              color: Color(0xffCCCCCC),
-                            ),
-                            hint: Text(
-                              'Street',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .copyWith(
-                                    color: Color(
-                                      0xffCCCCCC,
-                                    ),
-                                  ),
-                            ),
-                          ),
+                          suffix: null,
+                          keyboardType: TextInputType.phone,
+                          height: 40.h,
                         ),
                       ],
                     ),
