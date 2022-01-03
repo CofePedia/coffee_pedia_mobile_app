@@ -33,17 +33,18 @@ class AddAddressSheet extends StatefulWidget {
 }
 
 class _AddAddressSheetState extends State<AddAddressSheet> {
-  TextEditingController _email = TextEditingController();
-  TextEditingController _firstName = TextEditingController();
-  TextEditingController _lastName = TextEditingController();
-  TextEditingController _phone = TextEditingController();
+  // TextEditingController _email = TextEditingController();
+  // TextEditingController _firstName = TextEditingController();
+  // TextEditingController _lastName = TextEditingController();
+  // TextEditingController _phone = TextEditingController();
   TextEditingController _desc = TextEditingController();
+  TextEditingController _street = TextEditingController();
 
   int? _selectedGovernorate;
-  int governorateId = 0;
+  int _governorateId = 0;
 
   int? _selectedCity;
-  int? cityId = 0;
+  int? _cityId = 0;
   int? _selectedArea;
 
   @override
@@ -54,10 +55,11 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
 
   @override
   void dispose() {
-    _email.dispose();
-    _firstName.dispose();
-    _lastName.dispose();
-    _phone.dispose();
+    // _email.dispose();
+    // _firstName.dispose();
+    // _lastName.dispose();
+    // _phone.dispose();
+    _street.dispose();
     _desc.dispose();
     super.dispose();
   }
@@ -65,7 +67,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
   void onSelectedGovernorate(int value) {
     setState(() {
       _selectedCity = value;
-      cityId = _selectedCity;
+      _cityId = _selectedCity;
       _selectedArea = null;
     });
   }
@@ -245,8 +247,8 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                                   onChanged: (value) {
                                     setState(() {
                                       _selectedGovernorate = value;
-                                      governorateId = _selectedGovernorate!;
-                                      cityId = 0;
+                                      _governorateId = _selectedGovernorate!;
+                                      _cityId = 0;
                                       _selectedCity = null;
                                       _selectedArea = null;
                                     });
@@ -305,7 +307,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                           height: 8.h,
                         ),
                         AreaAddressProvider(
-                          cityId: cityId,
+                          cityId: _cityId,
                           onSelectedCity: onSelectedCity,
                           selectedArea: _selectedArea,
                         ),
@@ -325,7 +327,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                           height: 8.h,
                         ),
                         CityAddressProvider(
-                          governorateId: governorateId,
+                          governorateId: _governorateId,
                           onChange: onSelectedGovernorate,
                           selectedCity: _selectedCity,
                         ),
@@ -346,7 +348,8 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                           hintText: 'Street',
                           width: 168.w,
                           suffix: null,
-                          keyboardType: TextInputType.phone,
+                          keyboardType: TextInputType.text,
+                          textEditingController: _street,
                           height: 40.h,
                         ),
                       ],
@@ -371,6 +374,10 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                     maxLines: 7,
                     controller: _desc,
                     keyboardType: TextInputType.multiline,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(fontSize: 14.sp),
                     decoration: InputDecoration(
                       hintStyle:
                           Theme.of(context).textTheme.headline2!.copyWith(
