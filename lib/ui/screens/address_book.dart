@@ -189,7 +189,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                   ),
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => AddAddressSheet(),
+                  builder: (context) => AddAddressSheetProvider(),
                 );
               },
               child: Padding(

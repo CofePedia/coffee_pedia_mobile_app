@@ -49,7 +49,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       ),
                       child: Text(
                         "Forgot Password",
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Colors.black),
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(color: Colors.black),
                       ),
                     ),
                     Text(
