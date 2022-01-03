@@ -1,11 +1,14 @@
-import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/delivery_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CheckoutPopUp extends StatelessWidget {
-  const CheckoutPopUp({Key? key}) : super(key: key);
+  const CheckoutPopUp({this.title, this.totalPrice, this.image, Key? key})
+      : super(key: key);
 
+  final String? image;
+  final String? title;
+  final String? totalPrice;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,21 +36,19 @@ class CheckoutPopUp extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 17.w, vertical: 6.h),
                   margin: EdgeInsets.only(right: 12.w),
-                  child: Image.asset(
-                    Assets.imagesPack,
+                  child: Image.network(
+                    image!,
                   ),
                 ),
                 Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 9.h),
-                    child: Text(
-                      "CoffePedia Dark Espresso Roast COFFEE",
-                      maxLines: 2,
-                      textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
-                            color: Color(0xff231F20),
-                          ),
-                    ),
+                  child: Text(
+                    title!,
+                    maxLines: 2,
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .copyWith(color: Color(0xff231F20), height: 1.5.h),
                   ),
                 ),
                 Column(
@@ -55,14 +56,14 @@ class CheckoutPopUp extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "Total",
+                      "TOTAL",
                       style: Theme.of(context).textTheme.overline,
                     ),
                     SizedBox(
                       height: 16.h,
                     ),
                     Text(
-                      "EGP 340",
+                      "EGP $totalPrice",
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             color: Theme.of(context).primaryColor,
                           ),

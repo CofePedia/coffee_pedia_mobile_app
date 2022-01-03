@@ -316,6 +316,173 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                   state.basket!.data!.items![index]!.quantity!,
                             ),
                           );
+                          // if (index == 2) {
+                          //   return Container(
+                          //     width: MediaQuery.of(context).size.width,
+                          //     color: Color(0xffF8F8F8),
+                          //     padding: EdgeInsets.symmetric(
+                          //       horizontal: 16.w,
+                          //       vertical: 16.h,
+                          //     ),
+                          //     child: Column(
+                          //       mainAxisAlignment: MainAxisAlignment.start,
+                          //       crossAxisAlignment: CrossAxisAlignment.start,
+                          //       children: [
+                          //         Text(
+                          //           "Have a coupon?",
+                          //           style:
+                          //               Theme.of(context).textTheme.headline2,
+                          //         ),
+                          //         Padding(
+                          //           padding:
+                          //               EdgeInsets.symmetric(vertical: 16.h),
+                          //           child: TextFormField(
+                          //             decoration: InputDecoration(
+                          //               fillColor: Colors.white,
+                          //               filled: true,
+                          //               hintText: "Coupon code",
+                          //               hintStyle: Theme.of(context)
+                          //                   .textTheme
+                          //                   .headline4!
+                          //                   .copyWith(
+                          //                     color: Color(0xffcccccc),
+                          //                   ),
+                          //               border: OutlineInputBorder(
+                          //                 borderRadius:
+                          //                     BorderRadius.circular(5.w),
+                          //                 borderSide: BorderSide(
+                          //                   color: Colors.transparent,
+                          //                   width: 1.w,
+                          //                 ),
+                          //               ),
+                          //               enabledBorder: OutlineInputBorder(
+                          //                 borderRadius:
+                          //                     BorderRadius.circular(5.w),
+                          //                 borderSide: BorderSide(
+                          //                   color: Colors.transparent,
+                          //                   width: 1.w,
+                          //                 ),
+                          //               ),
+                          //               suffixIcon: Container(
+                          //                 width: 90.w,
+                          //                 decoration: BoxDecoration(
+                          //                   borderRadius: BorderRadius.only(
+                          //                     bottomRight: Radius.circular(5.r),
+                          //                     topRight: Radius.circular(5.r),
+                          //                   ),
+                          //                   color: Color(0xff107CC0),
+                          //                 ),
+                          //                 alignment: Alignment.center,
+                          //                 child: Text(
+                          //                   "Apply",
+                          //                   style: Theme.of(context)
+                          //                       .textTheme
+                          //                       .headline2!
+                          //                       .copyWith(
+                          //                         fontWeight: FontWeight.w500,
+                          //                       ),
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         ),
+                          //         Row(
+                          //           mainAxisAlignment:
+                          //               MainAxisAlignment.spaceBetween,
+                          //           children: [
+                          //             Text("Subtotal",
+                          //                 style: Theme.of(context)
+                          //                     .textTheme
+                          //                     .headline4),
+                          //             Text("EGP 840",
+                          //                 style: Theme.of(context)
+                          //                     .textTheme
+                          //                     .headline4),
+                          //           ],
+                          //         ),
+                          //         SizedBox(
+                          //           height: 5.h,
+                          //         ),
+                          //         Row(
+                          //           mainAxisAlignment:
+                          //               MainAxisAlignment.spaceBetween,
+                          //           children: [
+                          //             Text("Discount",
+                          //                 style: Theme.of(context)
+                          //                     .textTheme
+                          //                     .headline4),
+                          //             Text("- EGP 120",
+                          //                 style: Theme.of(context)
+                          //                     .textTheme
+                          //                     .headline4),
+                          //           ],
+                          //         ),
+                          //         SizedBox(
+                          //           height: 5.h,
+                          //         ),
+                          //         Row(
+                          //           mainAxisAlignment:
+                          //               MainAxisAlignment.spaceBetween,
+                          //           children: [
+                          //             Text("Delivery charge"),
+                          //             Text("+ EGP 50"),
+                          //           ],
+                          //         ),
+                          //         Padding(
+                          //           padding: EdgeInsets.only(
+                          //               top: 16.h, bottom: 28.h),
+                          //           child: Row(
+                          //             mainAxisAlignment:
+                          //                 MainAxisAlignment.spaceBetween,
+                          //             children: [
+                          //               Text("Total price",
+                          //                   style: Theme.of(context)
+                          //                       .textTheme
+                          //                       .headline4),
+                          //               Text("EGP 854",
+                          //                   style: Theme.of(context)
+                          //                       .textTheme
+                          //                       .headline4),
+                          //             ],
+                          //           ),
+                          //         ),
+                          //         Row(
+                          //           mainAxisAlignment: MainAxisAlignment.center,
+                          //           children: [
+                          //             SvgPicture.asset(
+                          //               Assets.imagesVisaLogo,
+                          //               width: 53.w,
+                          //               height: 25.h,
+                          //             ),
+                          //             SizedBox(
+                          //               width: 7.w,
+                          //             ),
+                          //             SvgPicture.asset(
+                          //               Assets.imagesMastercardLogo,
+                          //               width: 44.w,
+                          //               height: 28.h,
+                          //             ),
+                          //           ],
+                          //         )
+                          //       ],
+                          //     ),
+                          //   );
+                          // }
+                          // return Padding(
+                          //   padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          //   child: CheckoutItem(
+                          //     price: state.basket!.data!.items![index]!
+                          //         .priceAfterDiscount!
+                          //         .toString(),
+                          //     title: state.basket!.data!.items![index]!.title!,
+                          //     priceBeforeDiscount: state.basket!.data!
+                          //         .items![index]!.priceBeforeDiscount!
+                          //         .toString(),
+                          //     image: state.basket!.data!.items![index]!.image!,
+                          //     quantity:
+                          //         state.basket!.data!.items![index]!.quantity!,
+                          //   ),
+                          // );
                         },
                         separatorBuilder: (context, index) {
                           return Container(
