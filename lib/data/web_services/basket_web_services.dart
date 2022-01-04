@@ -11,6 +11,7 @@ class BasketWebServices {
 
   Future<Basket> getBasket() async {
     final url = Uri.parse(baseUrl + 'cart');
+    print(baseUrl + 'cart');
     GetTokenDatabase? token = await userDao.getUserToken();
 
     print("token1 = " + token!.getToken!);
