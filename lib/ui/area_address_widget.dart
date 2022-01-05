@@ -47,21 +47,22 @@ class _AreaAddressState extends State<AreaAddress> {
   Widget build(BuildContext context) {
     BlocProvider.of<AddressCubit>(context).getAreas(widget.cityId!);
 
-    return BlocBuilder<AddressCubit, AddressState>(
-      builder: (context, state) {
-        if (state is AreasLoaded) {
-          return Container(
-            height: 40.h,
-            width: 168.w,
-            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 9.h),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(3.r),
-              border: Border.all(
-                color: Color(0xffE3E3E3),
-              ),
-            ),
-            child: DropdownButton<int>(
+    return Container(
+      height: 40.h,
+      width: 168.w,
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 9.h),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(3.r),
+        border: Border.all(
+          color: Color(0xffE3E3E3),
+        ),
+      ),
+      child: BlocBuilder<AddressCubit, AddressState>(
+        builder: (context, state) {
+          if (state is AreasLoaded) {
+            return DropdownButton<int>(
               value: widget.selectedArea,
+              isDense: true,
               items: state.areas!.data!.isEmpty
                   ? []
                   : List.generate(
@@ -92,14 +93,30 @@ class _AreaAddressState extends State<AreaAddress> {
                       ),
                     ),
               ),
-            ),
-          );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
+            );
+          } else {
+            return DropdownButton<int>(
+              isDense: true,
+              items: [],
+              isExpanded: true,
+              onChanged: (value) {},
+              icon: Icon(
+                Icons.expand_more,
+                size: 20.h,
+                color: Color(0xffCCCCCC),
+              ),
+              hint: Text(
+                'Area',
+                style: Theme.of(context).textTheme.headline6!.copyWith(
+                      color: Color(
+                        0xffCCCCCC,
+                      ),
+                    ),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }

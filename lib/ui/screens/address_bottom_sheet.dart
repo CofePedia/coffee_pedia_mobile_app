@@ -240,21 +240,22 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                           SizedBox(
                             height: 8.h,
                           ),
-                          BlocBuilder<AddressCubit, AddressState>(
-                            builder: (context, state) {
-                              if (state is GovernorateLoaded) {
-                                return Container(
-                                  height: 40.h,
-                                  width: 168.w,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 8.w, vertical: 9.h),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(3.r),
-                                    border: Border.all(
-                                      color: Color(0xffE3E3E3),
-                                    ),
-                                  ),
-                                  child: DropdownButton<int>(
+                          Container(
+                            height: 40.h,
+                            width: 168.w,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8.w, vertical: 9.h),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(3.r),
+                              border: Border.all(
+                                color: Color(0xffE3E3E3),
+                              ),
+                            ),
+                            child: BlocBuilder<AddressCubit, AddressState>(
+                              builder: (context, state) {
+                                if (state is GovernorateLoaded) {
+                                  return DropdownButton<int>(
+                                    isDense: true,
                                     value: _selectedGovernorate,
                                     onChanged: (value) {
                                       setState(() {
@@ -297,14 +298,33 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                                             ),
                                           ),
                                     ),
-                                  ),
-                                );
-                              } else {
-                                return Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-                            },
+                                  );
+                                } else {
+                                  return DropdownButton<int>(
+                                    isDense: true,
+                                    onChanged: (value) {},
+                                    items: [],
+                                    isExpanded: true,
+                                    icon: Icon(
+                                      Icons.expand_more,
+                                      size: 20.h,
+                                      color: Color(0xffCCCCCC),
+                                    ),
+                                    hint: Text(
+                                      'Governorate',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6!
+                                          .copyWith(
+                                            color: Color(
+                                              0xffCCCCCC,
+                                            ),
+                                          ),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
                           ),
                           SizedBox(
                             height: 12.h,
