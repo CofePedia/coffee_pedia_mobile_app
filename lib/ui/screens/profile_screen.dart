@@ -146,7 +146,7 @@ class _MeState extends State<Me> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return OrdersHistoryScreen();
+                                    return OrdersHistoryProvider();
                                   },
                                 ),
                               );

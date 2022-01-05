@@ -1,7 +1,24 @@
+import 'package:coffepedia/business_logic/orders_history/orders_history_cubit.dart';
+import 'package:coffepedia/data/repository/orders_history_repository.dart';
+import 'package:coffepedia/data/web_services/order_history_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+class OrdersHistoryProvider extends StatelessWidget {
+  const OrdersHistoryProvider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => OrdersHistoryCubit(
+          OrdersHistoryRepository(OrderHistoryWebServices())),
+      child: OrdersHistoryScreen(),
+    );
+  }
+}
 
 class OrdersHistoryScreen extends StatefulWidget {
   @override
@@ -9,6 +26,12 @@ class OrdersHistoryScreen extends StatefulWidget {
 }
 
 class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<OrdersHistoryCubit>(context).getOrdersHistory();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
