@@ -19,3 +19,8 @@ class AreasLoaded extends AddressState {
   final Areas? areas;
   AreasLoaded(this.areas);
 }
+
+class AddAddressIsPressed extends AddressState {
+  final AddAddress? addAddress;
+  AddAddressIsPressed(this.addAddress);
+}

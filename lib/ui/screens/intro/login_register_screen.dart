@@ -79,7 +79,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
         listeners: [
           BlocListener<LoginBloc, LoginState>(
             listener: (context, state) {
-              if (state is LoginFaliure) {
+              if (state is LoginFailure) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('${state.error}'),

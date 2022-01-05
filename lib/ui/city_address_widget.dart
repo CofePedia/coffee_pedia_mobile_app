@@ -46,20 +46,20 @@ class _CityAddressState extends State<CityAddress> {
   Widget build(BuildContext context) {
     BlocProvider.of<AddressCubit>(context).getCities(widget.governorateId!);
 
-    return BlocBuilder<AddressCubit, AddressState>(
-      builder: (context, state) {
-        if (state is CitiesLoaded) {
-          return Container(
-            height: 40.h,
-            width: 168.w,
-            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 9.h),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(3.r),
-              border: Border.all(
-                color: Color(0xffE3E3E3),
-              ),
-            ),
-            child: DropdownButton<int>(
+    return Container(
+      height: 40.h,
+      width: 168.w,
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 9.h),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(3.r),
+        border: Border.all(
+          color: Color(0xffE3E3E3),
+        ),
+      ),
+      child: BlocBuilder<AddressCubit, AddressState>(
+        builder: (context, state) {
+          if (state is CitiesLoaded) {
+            return DropdownButton<int>(
               value: widget.selectedCity,
               items: state.cities!.data!.isEmpty
                   ? []
@@ -77,6 +77,7 @@ class _CityAddressState extends State<CityAddress> {
                       ),
                     ),
               isExpanded: true,
+              isDense: true,
               onChanged: (value) => widget.onChange!(value),
               icon: Icon(
                 Icons.expand_more,
@@ -91,14 +92,30 @@ class _CityAddressState extends State<CityAddress> {
                       ),
                     ),
               ),
-            ),
-          );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
+            );
+          } else {
+            return DropdownButton<int>(
+              items: [],
+              isExpanded: true,
+              isDense: true,
+              onChanged: (value) {},
+              icon: Icon(
+                Icons.expand_more,
+                size: 20.h,
+                color: Color(0xffCCCCCC),
+              ),
+              hint: Text(
+                'City',
+                style: Theme.of(context).textTheme.headline6!.copyWith(
+                      color: Color(
+                        0xffCCCCCC,
+                      ),
+                    ),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }
