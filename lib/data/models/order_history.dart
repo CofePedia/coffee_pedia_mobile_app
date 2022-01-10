@@ -45,18 +45,18 @@ class OrderHistoryDataItems {
   "description": "<p>Quia sunt officiis repellendus Deserunt obcaecati sunt sit aute iusto veritatis beatae suscipit omnis corrupti consequatur dolorum autem est sint</p>",
   "name": "22 Consectetur minus aspernatur ad sequi deserunt id earum id nisi aut eu sunt qui eligendi molestiae",
   "rate": 2,
-  "discount": null,
+  "discount": 0,
   "price_before_discount": 990,
   "flavor_id": 2,
   "region_id": 1,
   "roast_id": 2,
   "brand_id": 1,
-  "vendor_id": null,
+  "vendor_id": 0,
   "images": [
     "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
   ],
   "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
-  "vendor": null,
+  "vendor": "",
   "overview": {
     "region": "Regions 1",
     "brand": "First Brand",
@@ -74,13 +74,13 @@ class OrderHistoryDataItems {
   String? description;
   String? name;
   int? rate;
-  String? discount;
+  int? discount;
   int? priceBeforeDiscount;
   int? flavorId;
   int? regionId;
   int? roastId;
   int? brandId;
-  String? vendorId;
+  int? vendorId;
   List<String?>? images;
   String? image;
   String? vendor;
@@ -116,13 +116,13 @@ class OrderHistoryDataItems {
     description = json['description']?.toString();
     name = json['name']?.toString();
     rate = json['rate']?.toInt();
-    discount = json['discount']?.toString();
+    discount = json['discount']?.toInt();
     priceBeforeDiscount = json['price_before_discount']?.toInt();
     flavorId = json['flavor_id']?.toInt();
     regionId = json['region_id']?.toInt();
     roastId = json['roast_id']?.toInt();
     brandId = json['brand_id']?.toInt();
-    vendorId = json['vendor_id']?.toString();
+    vendorId = json['vendor_id']?.toInt();
     if (json['images'] != null) {
       final v = json['images'];
       final arr0 = <String>[];
@@ -180,6 +180,7 @@ class OrderHistoryData {
 {
   "id": 3,
   "status": "pending",
+  "status_color": "0xff107CC0",
   "date": "05 Jan 2022",
   "items": [
     {
@@ -187,18 +188,18 @@ class OrderHistoryData {
       "description": "<p>Quia sunt officiis repellendus Deserunt obcaecati sunt sit aute iusto veritatis beatae suscipit omnis corrupti consequatur dolorum autem est sint</p>",
       "name": "22 Consectetur minus aspernatur ad sequi deserunt id earum id nisi aut eu sunt qui eligendi molestiae",
       "rate": 2,
-      "discount": null,
+      "discount": 0,
       "price_before_discount": 990,
       "flavor_id": 2,
       "region_id": 1,
       "roast_id": 2,
       "brand_id": 1,
-      "vendor_id": null,
+      "vendor_id": 0,
       "images": [
         "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
       ],
       "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
-      "vendor": null,
+      "vendor": "",
       "overview": {
         "region": "Regions 1",
         "brand": "First Brand",
@@ -216,18 +217,21 @@ class OrderHistoryData {
 
   int? id;
   String? status;
+  String? statusColor;
   String? date;
   List<OrderHistoryDataItems?>? items;
 
   OrderHistoryData({
     this.id,
     this.status,
+    this.statusColor,
     this.date,
     this.items,
   });
   OrderHistoryData.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toInt();
     status = json['status']?.toString();
+    statusColor = json['status_color']?.toString();
     date = json['date']?.toString();
     if (json['items'] != null) {
       final v = json['items'];
@@ -242,6 +246,7 @@ class OrderHistoryData {
     final data = <String, dynamic>{};
     data['id'] = id;
     data['status'] = status;
+    data['status_color'] = statusColor;
     data['date'] = date;
     if (items != null) {
       final v = items;
@@ -262,6 +267,7 @@ class OrderHistory {
     {
       "id": 3,
       "status": "pending",
+      "status_color": "0xff107CC0",
       "date": "05 Jan 2022",
       "items": [
         {
@@ -269,18 +275,18 @@ class OrderHistory {
           "description": "<p>Quia sunt officiis repellendus Deserunt obcaecati sunt sit aute iusto veritatis beatae suscipit omnis corrupti consequatur dolorum autem est sint</p>",
           "name": "22 Consectetur minus aspernatur ad sequi deserunt id earum id nisi aut eu sunt qui eligendi molestiae",
           "rate": 2,
-          "discount": null,
+          "discount": 0,
           "price_before_discount": 990,
           "flavor_id": 2,
           "region_id": 1,
           "roast_id": 2,
           "brand_id": 1,
-          "vendor_id": null,
+          "vendor_id": 0,
           "images": [
             "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
           ],
           "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
-          "vendor": null,
+          "vendor": "",
           "overview": {
             "region": "Regions 1",
             "brand": "First Brand",
