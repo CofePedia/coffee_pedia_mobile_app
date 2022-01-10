@@ -27,6 +27,7 @@ class AddressRepository {
   Future<AddAddress> getAddAddress(
     String governorateId,
     String cityId,
+    String name,
     String areaId,
     String street,
     String details,
@@ -34,6 +35,7 @@ class AddressRepository {
     final addAddress = await addressWebServices.getAddAddress(
       governorateId,
       cityId,
+      name,
       areaId,
       street,
       details,

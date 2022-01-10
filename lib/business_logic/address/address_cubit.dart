@@ -39,6 +39,7 @@ class AddressCubit extends Cubit<AddressState> {
   void getAddAddress(
     String governorateId,
     String cityId,
+    String name,
     String areaId,
     String street,
     String details,
@@ -47,6 +48,7 @@ class AddressCubit extends Cubit<AddressState> {
         .getAddAddress(
       governorateId,
       cityId,
+      name,
       areaId,
       street,
       details,

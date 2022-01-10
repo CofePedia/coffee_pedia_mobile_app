@@ -76,6 +76,7 @@ class AddressWebServices {
   Future<AddAddress> getAddAddress(
     String governorateId,
     String cityId,
+    String name,
     String areaId,
     String street,
     String details,
@@ -91,6 +92,7 @@ class AddressWebServices {
       body: {
         'governorate_id': governorateId,
         'city_id': cityId,
+        'name': name,
         'area_id': areaId,
         'street': street,
         'details': details,

@@ -61,6 +61,7 @@ class _CityAddressState extends State<CityAddress> {
           if (state is CitiesLoaded) {
             return DropdownButton<int>(
               value: widget.selectedCity,
+              underline: SizedBox(),
               items: state.cities!.data!.isEmpty
                   ? []
                   : List.generate(

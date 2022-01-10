@@ -40,6 +40,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
   // TextEditingController _phone = TextEditingController();
   TextEditingController _details = TextEditingController();
   TextEditingController _street = TextEditingController();
+  TextEditingController _name = TextEditingController();
 
   int? _selectedGovernorate;
   int _governorateId = 0;
@@ -62,6 +63,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
     // _phone.dispose();
     _street.dispose();
     _details.dispose();
+    _name.dispose();
     super.dispose();
   }
 
@@ -92,7 +94,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
         }
       },
       child: Container(
-        height: 450.h,
+        height: 550.h,
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(horizontal: 15.w),
         margin: EdgeInsets.only(
@@ -224,6 +226,24 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                   //     height: 40.h,
                   //   ),
                   // ),
+                  Text(
+                    'Name',
+                    style: Theme.of(context).textTheme.headline3!.copyWith(
+                          fontSize: 12.sp,
+                        ),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsets.only(top: 8.h, bottom: 12.h),
+                    child: CustomTextFormField(
+                      hintText: 'Name',
+                      width: 345.w,
+                      suffix: null,
+                      keyboardType: TextInputType.text,
+                      height: 40.h,
+                      textEditingController: _name,
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -255,6 +275,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                               builder: (context, state) {
                                 if (state is GovernorateLoaded) {
                                   return DropdownButton<int>(
+                                    underline: SizedBox(),
                                     isDense: true,
                                     value: _selectedGovernorate,
                                     onChanged: (value) {
@@ -456,12 +477,14 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                 onPressed: _selectedGovernorate == 0 ||
                         _selectedArea == 0 ||
                         _selectedArea == 0 ||
-                        _street.text.isEmpty
+                        _street.text.isEmpty ||
+                        _name.text.isEmpty
                     ? null
                     : () {
                         BlocProvider.of<AddressCubit>(context).getAddAddress(
                           _selectedGovernorate.toString(),
                           _selectedCity.toString(),
+                          _name.text,
                           _selectedArea.toString(),
                           _street.text,
                           _details.text,

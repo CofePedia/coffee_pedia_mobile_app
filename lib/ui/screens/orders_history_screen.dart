@@ -64,117 +64,154 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
               builder: (context, state) {
                 if (state is OrdersHistoryLoaded) {
                   return ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: state.orderHistory!.data!.length,
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (context, index) => Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8.h, horizontal: 16.w),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6.r),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color.fromRGBO(0, 0, 0, 0.12),
-                                    offset: Offset(0, 2),
-                                    blurRadius: 11.sp,
-                                  ),
-                                ],
-                                color: Colors.white,
-                              ),
-                              child: ExpansionTile(
-                                collapsedIconColor: Color(0xff000000),
-                                iconColor: Color(0xff000000),
-                                subtitle: Padding(
-                                  padding: EdgeInsets.only(top: 12.h),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Status',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline3,
-                                          ),
-                                          SizedBox(
-                                            height: 6.h,
-                                          ),
-                                          Container(
-                                            height: 17.h,
-                                            width: 67.w,
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                              borderRadius: BorderRadius.only(
-                                                topLeft:
-                                                    Radius.circular(12.5.r),
-                                                bottomRight:
-                                                    Radius.circular(12.5.r),
-                                                bottomLeft:
-                                                    Radius.circular(12.5.r),
-                                              ),
-                                            ),
-                                            child: Text(
-                                              state.orderHistory!.data![index]!
-                                                  .status!,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline2!
-                                                  .copyWith(fontSize: 10.sp),
-                                            ),
-                                          ),
-                                        ],
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: state.orderHistory!.data!.length,
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (context, index) => Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromRGBO(0, 0, 0, 0.12),
+                              offset: Offset(0, 2),
+                              blurRadius: 11.sp,
+                            ),
+                          ],
+                          color: Colors.white,
+                        ),
+                        child: ExpansionTile(
+                          collapsedIconColor: Color(0xff000000),
+                          iconColor: Color(0xff000000),
+                          subtitle: Padding(
+                            padding: EdgeInsets.only(top: 12.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Status',
+                                      style:
+                                          Theme.of(context).textTheme.headline3,
+                                    ),
+                                    SizedBox(
+                                      height: 6.h,
+                                    ),
+                                    Container(
+                                      height: 17.h,
+                                      width: 67.w,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).primaryColor,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(12.5.r),
+                                          bottomRight: Radius.circular(12.5.r),
+                                          bottomLeft: Radius.circular(12.5.r),
+                                        ),
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Date',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline3,
-                                          ),
-                                          SizedBox(
-                                            height: 6.h,
-                                          ),
-                                          Text(
-                                            state.orderHistory!.data![index]!
-                                                .date!,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption!
-                                                .copyWith(
-                                                  fontSize: 13.sp,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          )
-                                        ],
+                                      child: Text(
+                                        state.orderHistory!.data![index]!
+                                            .status!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2!
+                                            .copyWith(fontSize: 10.sp),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                                tilePadding: EdgeInsets.symmetric(
-                                    vertical: 18.h, horizontal: 16.w),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Date',
+                                      style:
+                                          Theme.of(context).textTheme.headline3,
+                                    ),
+                                    SizedBox(
+                                      height: 6.h,
+                                    ),
+                                    Text(
+                                      state.orderHistory!.data![index]!.date!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .caption!
+                                          .copyWith(
+                                            fontSize: 13.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          tilePadding: EdgeInsets.symmetric(
+                              vertical: 18.h, horizontal: 16.w),
+                          title: Text(
+                            'Order ID: ${state.orderHistory!.data![index]!.id!}',
+                            style:
+                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                                      fontSize: 14.sp,
+                                    ),
+                          ),
+                          children: [
+                            Divider(
+                              thickness: 1.h,
+                              color: Color(0xffE3E3E3),
+                            ),
+                            ListView.builder(
+                              itemCount: state
+                                  .orderHistory!.data![index]!.items!.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.zero,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, itemsIndex) => ListTile(
                                 title: Text(
-                                  'Order ID: ${state.orderHistory!.data![index]!.id!}',
+                                  state.orderHistory!.data![index]!
+                                      .items![itemsIndex]!.name!,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
-                                      .copyWith(
-                                        fontSize: 14.sp,
-                                      ),
+                                      .copyWith(fontSize: 12.sp),
+                                ),
+                                subtitle: Padding(
+                                  padding: EdgeInsets.only(top: 10.h),
+                                  child: Text(
+                                    'x${state.orderHistory!.data![index]!.items![itemsIndex]!.quantity!.toString()}',
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
+                                  ),
+                                ),
+                                trailing: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 6.h, horizontal: 17.w),
+                                  decoration: BoxDecoration(
+                                    color: Color(0xffF4F4F4),
+                                    borderRadius: BorderRadius.circular(7.sp),
+                                  ),
+                                  child: Image.network(
+                                    state.orderHistory!.data![index]!
+                                        .items![itemsIndex]!.image!,
+                                    fit: BoxFit.cover,
+                                    height: 48.h,
+                                    width: 26.w,
+                                  ),
                                 ),
                               ),
                             ),
-                          ));
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
                 } else {
                   return Center(
                     child: CircularProgressIndicator(),
@@ -557,6 +594,9 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
             //     ),
             //   ),
             // ),
+            SizedBox(
+              height: 8.h,
+            ),
           ],
         ),
       ),
