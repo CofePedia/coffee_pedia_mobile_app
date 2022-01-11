@@ -63,7 +63,7 @@ class UserDao {
 
   Future<int> deleteUser(int id) async {
     final db = await dbProvider.database;
-    var result = await db.delete(userTable, where: "id = 0", whereArgs: [id]);
+    var result = await db.delete(userTable);
     return result;
   }
 

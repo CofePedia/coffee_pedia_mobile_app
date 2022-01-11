@@ -8,6 +8,7 @@ class CustomTextFormField extends StatelessWidget {
       this.width,
       this.height,
       this.suffix,
+      this.textEditingController,
       this.prefix,
       Key? key})
       : super(key: key);
@@ -17,6 +18,7 @@ class CustomTextFormField extends StatelessWidget {
   final double? height;
   final Widget? suffix;
   final Widget? prefix;
+  final TextEditingController? textEditingController;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         keyboardType: keyboardType,
         textInputAction: TextInputAction.go,
+        controller: textEditingController,
         textAlignVertical: TextAlignVertical.bottom,
         maxLines: 3,
         style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14.sp),

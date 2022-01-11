@@ -9,10 +9,10 @@ import 'package:http/http.dart' as http;
 class MeWebServices {
   final userDao = UserDao();
 
-  Future<Me> getMe() async {
+  Future<MeModel> getMe() async {
     final url = Uri.parse(baseUrl + 'auth/me');
     GetTokenDatabase? token = await userDao.getUserToken();
-    print("token0 = " + token!.getToken!);
+    print("token me = " + token!.getToken!);
 
     final http.Response response = await http.post(
       url,
@@ -22,7 +22,7 @@ class MeWebServices {
 
 
     if (response.statusCode == 200) {
-      return Me.fromJson(
+      return MeModel.fromJson(
         json.decode(response.body),
       );
     } else {

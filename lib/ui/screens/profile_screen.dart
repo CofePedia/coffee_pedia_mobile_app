@@ -49,6 +49,8 @@ class _MeState extends State<Me> {
 
   @override
   Widget build(BuildContext context) {
+        // BlocProvider.of<MeCubit>(context).getMe();
+
     return BlocBuilder<MeCubit, MeState>(
       builder: (context, state) {
         if (state is MeIsLoaded) {
@@ -95,15 +97,26 @@ class _MeState extends State<Me> {
                           ),
                           Row(
                             children: [
-                              CircleAvatar(
-                                backgroundColor: Colors.white,
-                                maxRadius: 25.w,
-                                child: Icon(
-                                  Icons.account_circle,
-                                  color: Colors.grey,
-                                  size: 26.w,
-                                ),
-                              ),
+                              state.me!.data!.avatar != null
+                                  ? Container(
+                                      width: 50.0.w,
+                                      height: 50.0.h,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                  state.me!.data!.avatar!)),
+                                          shape: BoxShape.circle),
+                                    )
+                                  : CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      maxRadius: 25.w,
+                                      child: Icon(
+                                        Icons.account_circle,
+                                        color: Colors.grey,
+                                        size: 26.w,
+                                      ),
+                                    ),
                               SizedBox(
                                 width: 12.w,
                               ),
@@ -198,7 +211,9 @@ class _MeState extends State<Me> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return AccountSettingsScreen();
+                                    return AccountSettingsScreen(
+                                      me: state.me!,
+                                    );
                                   },
                                 ),
                               );

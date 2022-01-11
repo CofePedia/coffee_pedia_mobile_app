@@ -6,7 +6,7 @@ class MeRepository {
 
   MeRepository(this.meWebServices);
 
-  Future<Me> getMe() async {
+  Future<MeModel> getMe() async {
     final me = meWebServices.getMe();
     return me;
   }

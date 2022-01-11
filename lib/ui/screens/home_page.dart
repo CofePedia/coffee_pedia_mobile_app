@@ -96,10 +96,10 @@ class _HomePageState extends State<HomePage> {
       body: IndexedStack(
         index: currentIndex,
         children: [
-          const HomeScreenProvider(),
-          const CheckoutItemsScreenProvider(),
-          const ProfileScreen(),
-          const MoreScreen(),
+           HomeScreenProvider(),
+           CheckoutItemsScreenProvider(),
+           ProfileScreen(),
+           MoreScreen(),
         ],
       ),
     );

@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'business_logic/auth/auth_bloc.dart';
 import 'data/web_services/auth_web_services.dart';
 
@@ -77,9 +76,11 @@ class MyApp extends StatelessWidget {
             navigatorObservers: [
               BotToastNavigatorObserver(),
             ],
-            home: SplashScreen(),
+            home: SplashScreen(), //MyHomePage(title: "test",),
             theme: ThemeData(
-              accentColor: Color(0xffffffff),
+              colorScheme: ThemeData().colorScheme.copyWith(
+                    secondary: Color(0xffffffff),
+                  ),
               primaryColor: Color(0xff107CC0),
               textTheme: TextTheme(
                 bodyText1: TextStyle(

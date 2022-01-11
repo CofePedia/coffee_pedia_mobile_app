@@ -10,6 +10,6 @@ abstract class MeState extends Equatable {
 class MeInitial extends MeState {}
 
 class MeIsLoaded extends MeState {
-  final Me? me;
+  final MeModel? me;
   MeIsLoaded(this.me);
 }
