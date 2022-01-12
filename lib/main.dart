@@ -79,7 +79,9 @@ class MyApp extends StatelessWidget {
             ],
             home: SplashScreen(),
             theme: ThemeData(
-              accentColor: Color(0xffffffff),
+              colorScheme: ThemeData().colorScheme.copyWith(
+                    secondary: Color(0xffffffff),
+                  ),
               primaryColor: Color(0xff107CC0),
               fontFamily: 'Nexa',
               textTheme: TextTheme(
