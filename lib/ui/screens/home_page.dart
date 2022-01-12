@@ -11,14 +11,17 @@ import 'more_screen.dart';
 import 'profile_screen.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required this.currentIndex}) : super(key: key);
+  final int currentIndex;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(this.currentIndex);
 }
 
 class _HomePageState extends State<HomePage> {
-  int currentIndex = 0;
+  late int currentIndex;
+
+  _HomePageState(this.currentIndex);
 
   BottomNavigationBarItem getItem(String image, String title, int index) {
     return BottomNavigationBarItem(
@@ -96,10 +99,10 @@ class _HomePageState extends State<HomePage> {
       body: IndexedStack(
         index: currentIndex,
         children: [
-           HomeScreenProvider(),
-           CheckoutItemsScreenProvider(),
-           ProfileScreen(),
-           MoreScreen(),
+          HomeScreenProvider(),
+          CheckoutItemsScreenProvider(),
+          ProfileScreen(),
+          MoreScreen(),
         ],
       ),
     );

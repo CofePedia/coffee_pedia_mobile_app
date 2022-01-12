@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
             navigatorObservers: [
               BotToastNavigatorObserver(),
             ],
-            home: SplashScreen(), //MyHomePage(title: "test",),
+            home: SplashScreen(),
             theme: ThemeData(
               colorScheme: ThemeData().colorScheme.copyWith(
                     secondary: Color(0xffffffff),

@@ -26,31 +26,30 @@ class ProfileScreen extends StatelessWidget {
           MeWebServices(),
         ),
       ),
-      child: Me(),
+      child: _ProfileScreen(),
     );
   }
 }
 
-class Me extends StatefulWidget {
-  const Me({
+class _ProfileScreen extends StatefulWidget {
+  const _ProfileScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<Me> createState() => _MeState();
+  State<_ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _MeState extends State<Me> {
+class _ProfileScreenState extends State<_ProfileScreen> {
   @override
   void initState() {
-    BlocProvider.of<MeCubit>(context).getMe();
+    // BlocProvider.of<MeCubit>(context).getMe();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-        // BlocProvider.of<MeCubit>(context).getMe();
-
+    BlocProvider.of<MeCubit>(context).getMe();
     return BlocBuilder<MeCubit, MeState>(
       builder: (context, state) {
         if (state is MeIsLoaded) {
