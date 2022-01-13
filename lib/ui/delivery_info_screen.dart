@@ -49,7 +49,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return PaymentInfoScreen();
+                  return PaymentInfoScreenProvider();
                 },
               ),
             );

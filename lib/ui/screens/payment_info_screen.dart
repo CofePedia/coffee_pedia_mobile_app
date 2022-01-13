@@ -1,11 +1,29 @@
+import 'package:coffepedia/business_logic/payments/payments_cubit.dart';
+import 'package:coffepedia/data/repository/payments_repository.dart';
+import 'package:coffepedia/data/web_services/payments_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
-import 'package:coffepedia/ui/screens/chechbox_widget.dart';
 import 'package:coffepedia/ui/screens/success_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:coffepedia/ui/shared/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+
+import 'chechbox_widget.dart';
+
+class PaymentInfoScreenProvider extends StatelessWidget {
+  const PaymentInfoScreenProvider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) =>
+          PaymentsCubit(PaymentsRepository(PaymentsWebServices())),
+      child: PaymentInfoScreen(),
+    );
+  }
+}
 
 class PaymentInfoScreen extends StatefulWidget {
   const PaymentInfoScreen({Key? key}) : super(key: key);
@@ -24,74 +42,52 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
 
   int _selectedIndex = 0;
   String text = 'Hesham Mahdy';
+
+  @override
+  void initState() {
+    BlocProvider.of<PaymentsCubit>(context).getPayments();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        height: 225.h,
-        child: Column(
-          children: [
-            Divider(
-              color: Color(0xff979797),
-              thickness: 0.7.h,
+        height: 107.h,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
+          height: 107.h,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.04),
+                blurRadius: 2.r,
+              )
+            ],
+            color: Color(0xffFFFFFF),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(22.r),
+              topRight: Radius.circular(22.r),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 23.h, right: 15.w, left: 15.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Wallet Balance',
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                  Text(
-                    'EGP199',
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
-                child: CheckboxWidget(
-                  title: 'Use my wallet balance in this order',
-                )),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              height: 107.h,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(0, 0, 0, 0.04),
-                    blurRadius: 2.r,
-                  )
-                ],
-                color: Color(0xffFFFFFF),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(22.r),
-                  topRight: Radius.circular(22.r),
+          ),
+          child: CustomButton(
+            title: 'Pay Now',
+            onPress: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const SuccessScreenProvider();
+                  },
                 ),
-              ),
-              child: CustomButton(
-                title: 'Pay Now',
-                onPress: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const SuccessScreen();
-                      },
-                    ),
-                  );
-                },
-                width: 345.w,
-                height: 50.h,
-                borderRadius: 25.r,
-                buttonColor: Theme.of(context).primaryColor,
-              ),
-            ),
-          ],
+              );
+            },
+            width: 345.w,
+            height: 50.h,
+            borderRadius: 25.r,
+            buttonColor: Theme.of(context).primaryColor,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -206,12 +202,11 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
               ),
             ),
             Container(
-              height: 350.h,
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(bottom: 12.h),
               child: ListView.builder(
                 padding: EdgeInsets.zero,
                 itemCount: title.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
@@ -461,6 +456,31 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                 ),
               ),
             ),
+            Divider(
+              color: Color(0xff979797),
+              thickness: 0.7.h,
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 23.h, right: 15.w, left: 15.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Wallet Balance',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  Text(
+                    'EGP199',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+                child: CheckboxWidget(
+                  title: 'Use my wallet balance in this order',
+                )),
           ],
         ),
       ),

@@ -46,7 +46,6 @@ class _AreaAddressState extends State<AreaAddress> {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<AddressCubit>(context).getAreas(widget.cityId!);
-
     return Container(
       height: 40.h,
       width: 168.w,
@@ -62,6 +61,7 @@ class _AreaAddressState extends State<AreaAddress> {
           if (state is AreasLoaded) {
             return DropdownButton<int>(
               value: widget.selectedArea,
+              underline: SizedBox(),
               isDense: true,
               items: state.areas!.data!.isEmpty
                   ? []

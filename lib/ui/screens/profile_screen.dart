@@ -52,6 +52,7 @@ class _MeState extends State<Me> {
     return BlocBuilder<MeCubit, MeState>(
       builder: (context, state) {
         if (state is MeIsLoaded) {
+          print("name state ${state.me!.data!.name}");
           return Scaffold(
             backgroundColor: Colors.white,
             body: Container(
