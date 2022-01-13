@@ -10,7 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SuccessScreenProvider extends StatelessWidget {
-  const SuccessScreenProvider({Key? key}) : super(key: key);
+  final int paymentId;
+  const SuccessScreenProvider({required this.paymentId, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,26 +22,29 @@ class SuccessScreenProvider extends StatelessWidget {
           MakeOrderWebServices(),
         ),
       ),
-      child: SuccessScreen(),
+      child: SuccessScreen(
+        paymentId: paymentId,
+      ),
     );
   }
 }
 
 class SuccessScreen extends StatefulWidget {
-  const SuccessScreen({Key? key}) : super(key: key);
+  final int paymentId;
+
+  const SuccessScreen({required this.paymentId, Key? key}) : super(key: key);
 
   @override
   State<SuccessScreen> createState() => _SuccessScreenState();
 }
 
 class _SuccessScreenState extends State<SuccessScreen> {
-  int? addressId;
-  int? paymentId;
-
   @override
   void initState() {
-    BlocProvider.of<MakeOrderCubit>(context)
-        .getMakeOrder(32.toString(), 1.toString());
+    BlocProvider.of<MakeOrderCubit>(context).getMakeOrder(
+      32.toString(),
+      widget.paymentId.toString(),
+    );
     super.initState();
   }
 

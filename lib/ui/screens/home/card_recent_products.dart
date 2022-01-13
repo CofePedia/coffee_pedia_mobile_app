@@ -117,8 +117,7 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                                 Container(
                                   width: 192.w,
                                   child: Text(
-                                    state
-                                        .mostRecent!.data!.data![index]!.title!,
+                                    state.mostRecent!.data!.data![index]!.name!,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)

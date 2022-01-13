@@ -3,6 +3,7 @@ import 'package:coffepedia/data/models/add_address.dart';
 import 'package:coffepedia/data/models/areas.dart';
 import 'package:coffepedia/data/models/cities.dart';
 import 'package:coffepedia/data/models/governorates.dart';
+import 'package:coffepedia/data/models/my_addresses.dart';
 import 'package:coffepedia/data/repository/address_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -56,6 +57,16 @@ class AddressCubit extends Cubit<AddressState> {
         .then(
       (value) {
         emit(AddAddressIsPressed(value));
+      },
+    );
+  }
+
+  void getMyAddresses() {
+    addressRepository.getMyAddresses().then(
+      (myAddresses) {
+        emit(
+          MyAddressesIsLoaded(myAddresses),
+        );
       },
     );
   }

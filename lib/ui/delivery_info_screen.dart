@@ -1,8 +1,25 @@
+import 'package:coffepedia/business_logic/address/address_cubit.dart';
+import 'package:coffepedia/data/repository/address_repository.dart';
+import 'package:coffepedia/data/web_services/address_web_services.dart';
 import 'package:coffepedia/ui/screens/address_bottom_sheet.dart';
 import 'package:coffepedia/ui/screens/payment_info_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class DeliveryInfoScreenProvider extends StatelessWidget {
+  const DeliveryInfoScreenProvider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) =>
+          AddressCubit(AddressRepository(AddressWebServices())),
+      child: DeliveryInfoScreen(),
+    );
+  }
+}
 
 class DeliveryInfoScreen extends StatefulWidget {
   const DeliveryInfoScreen({Key? key}) : super(key: key);
@@ -12,16 +29,23 @@ class DeliveryInfoScreen extends StatefulWidget {
 }
 
 class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
-  List<String> title = [
-    'Hesham Mahdy',
-    'Hesham Shorouk City',
-  ];
+  // List<String> title = [
+  //   'Hesham Mahdy',
+  //   'Hesham Shorouk City',
+  // ];
   List<String> description = [
     'Walk Of Cairo 6 October City, Giza Governorate, Egypt 12588 - 6th of October City',
     'El-Shorouk City, km 37 Cairo - Suez Rd P.O Box. 51 El-Shorouk City - Behind City Hall, El-Shorouk, Cairo',
   ];
   int _selectedIndex = 0;
   String text = 'Hesham Mahdy';
+
+  @override
+  void initState() {
+    BlocProvider.of<AddressCubit>(context).getMyAddresses();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,84 +197,113 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                 style: Theme.of(context).textTheme.caption,
               ),
             ),
-            Container(
-              height: 280.h,
-              width: MediaQuery.of(context).size.width,
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                itemCount: title.length,
-                itemBuilder: (context, index) => Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
-                  child: Container(
-                    height: 111.h,
-                    width: 343.w,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(6.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: _selectedIndex == index
-                              ? Color.fromRGBO(16, 124, 192, 0.41)
-                              : Colors.transparent,
-                          blurRadius: 7.r,
-                        ),
-                      ],
-                    ),
-                    child: OutlinedButton(
-                      onPressed: () {
-                        setState(() {
-                          text = title[index];
-                          _selectedIndex = index;
-                        });
-                      },
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                          EdgeInsets.zero,
-                        ),
-                        side: MaterialStateProperty.all<BorderSide>(
-                          BorderSide(
-                            color: _selectedIndex == index
-                                ? Theme.of(context).primaryColor
-                                : Color(0xffE3E3E3),
-                          ),
-                        ),
-                        shape: MaterialStateProperty.all<OutlinedBorder>(
-                          RoundedRectangleBorder(
+            BlocBuilder<AddressCubit, AddressState>(
+              builder: (context, state) {
+                if (state is MyAddressesIsLoaded) {
+                  return Container(
+                    height: 280.h,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: state.myAddresses!.data!.length,
+                      itemBuilder: (context, index) => Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.w, vertical: 12.h),
+                        child: Container(
+                          height: 111.h,
+                          width: 343.w,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(6.r),
+                            boxShadow: [
+                              BoxShadow(
+                                color: _selectedIndex == index
+                                    ? Color.fromRGBO(16, 124, 192, 0.41)
+                                    : Colors.transparent,
+                                blurRadius: 7.r,
+                              ),
+                            ],
+                          ),
+                          child: OutlinedButton(
+                            onPressed: () {
+                              setState(() {
+                                text = state.myAddresses!.data![index]!.name!;
+                                _selectedIndex = index;
+                              });
+                            },
+                            style: ButtonStyle(
+                              padding:
+                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                EdgeInsets.zero,
+                              ),
+                              side: MaterialStateProperty.all<BorderSide>(
+                                BorderSide(
+                                  color: _selectedIndex == index
+                                      ? Theme.of(context).primaryColor
+                                      : Color(0xffE3E3E3),
+                                ),
+                              ),
+                              shape: MaterialStateProperty.all<OutlinedBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6.r),
+                                ),
+                              ),
+                            ),
+                            child: RadioListTile(
+                              activeColor: Theme.of(context).primaryColor,
+                              groupValue: _selectedIndex,
+                              value: index,
+                              onChanged: (dynamic value) {
+                                setState(() {
+                                  _selectedIndex = value;
+                                });
+                              },
+                              contentPadding: EdgeInsets.all(15),
+                              title: Text(
+                                state.myAddresses!.data![index]!.name!,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2!
+                                    .copyWith(
+                                      fontSize: 14.sp,
+                                    ),
+                              ),
+                              subtitle: RichText(
+                                text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text:
+                                            '${state.myAddresses!.data![index]!.area!}, ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline4),
+                                    TextSpan(
+                                        text:
+                                            '${state.myAddresses!.data![index]!.city!}, ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline4),
+                                    TextSpan(
+                                        text:
+                                            '${state.myAddresses!.data![index]!.governorate!}.',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline4),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                      child: RadioListTile(
-                        activeColor: Theme.of(context).primaryColor,
-                        groupValue: _selectedIndex,
-                        value: index,
-                        onChanged: (dynamic value) {
-                          setState(() {
-                            _selectedIndex = value;
-                          });
-                        },
-                        contentPadding: EdgeInsets.all(15),
-                        title: Text(
-                          title[index],
-                          style:
-                              Theme.of(context).textTheme.subtitle2!.copyWith(
-                                    fontSize: 14.sp,
-                                  ),
-                        ),
-                        subtitle: Column(
-                          children: [
-                            Text(
-                              description[index],
-                              style: Theme.of(context).textTheme.headline4,
-                            ),
-                          ],
-                        ),
-                      ),
                     ),
-                  ),
-                ),
-              ),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
             ),
             GestureDetector(
               onTap: () {

@@ -2,6 +2,7 @@ import 'package:coffepedia/data/models/add_address.dart';
 import 'package:coffepedia/data/models/areas.dart';
 import 'package:coffepedia/data/models/cities.dart';
 import 'package:coffepedia/data/models/governorates.dart';
+import 'package:coffepedia/data/models/my_addresses.dart';
 import 'package:coffepedia/data/web_services/address_web_services.dart';
 
 class AddressRepository {
@@ -42,5 +43,10 @@ class AddressRepository {
     );
 
     return addAddress;
+  }
+
+  Future<MyAddresses> getMyAddresses() async {
+    final myAddresses = addressWebServices.getMyAddresses();
+    return myAddresses;
   }
 }

@@ -194,7 +194,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 right: 17.w,
                                 child: Container(
                                   child: Image.network(
-                                    state.featuredProducts!.data!.data![index]
+                                    state.featuredProducts!.data!.data![index]!
                                         .image!,
                                     width: 75.w,
                                     height: 136.h,
@@ -212,8 +212,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       width: 5.w,
                                     ),
                                     Text(
-                                      state.featuredProducts!.data!.data![index]
-                                          .rate!
+                                      state.featuredProducts!.data!
+                                          .data![index]!.rate!
                                           .toString(),
                                       style: Theme.of(context)
                                           .textTheme
@@ -254,7 +254,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           ),
                                         ),
                                         child: Text(
-                                          '${state.featuredProducts!.data!.data![index].discount}% Off',
+                                          '${state.featuredProducts!.data!.data![index]!.discount}% Off',
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1,
@@ -267,7 +267,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         width: 140.w,
                                         child: Text(
                                           state.featuredProducts!.data!
-                                              .data![index].title!,
+                                              .data![index]!.name!,
                                           maxLines: 3,
                                           overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
@@ -282,7 +282,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         height: 12.h,
                                       ),
                                       Text(
-                                        'EGP ${state.featuredProducts!.data!.data![index].priceBeforeDiscount!}',
+                                        'EGP ${state.featuredProducts!.data!.data![index]!.priceBeforeDiscount!}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText2!
@@ -296,7 +296,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         height: 8.h,
                                       ),
                                       Text(
-                                        'EGP ${state.featuredProducts!.data!.data![index].price!}',
+                                        'EGP ${state.featuredProducts!.data!.data![index]!.price!}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1,

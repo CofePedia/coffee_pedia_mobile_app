@@ -24,3 +24,8 @@ class AddAddressIsPressed extends AddressState {
   final AddAddress? addAddress;
   AddAddressIsPressed(this.addAddress);
 }
+
+class MyAddressesIsLoaded extends AddressState {
+  final MyAddresses? myAddresses;
+  MyAddressesIsLoaded(this.myAddresses);
+}
