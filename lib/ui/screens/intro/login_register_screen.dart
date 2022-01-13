@@ -89,7 +89,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               } else if (state is LoginSuccess) {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => HomePage(currentIndex: 0,),
                   ),
                 );
                 BlocProvider.of<SignupBloc>(context).close();
@@ -110,7 +110,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               } else if (state.formStatus is SubmissionSuccess) {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => HomePage(currentIndex: 0,),
                   ),
                 );
                 BlocProvider.of<SignupBloc>(context).close();

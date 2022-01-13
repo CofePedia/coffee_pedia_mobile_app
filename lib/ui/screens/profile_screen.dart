@@ -26,29 +26,30 @@ class ProfileScreen extends StatelessWidget {
           MeWebServices(),
         ),
       ),
-      child: Me(),
+      child: _ProfileScreen(),
     );
   }
 }
 
-class Me extends StatefulWidget {
-  const Me({
+class _ProfileScreen extends StatefulWidget {
+  const _ProfileScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<Me> createState() => _MeState();
+  State<_ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _MeState extends State<Me> {
+class _ProfileScreenState extends State<_ProfileScreen> {
   @override
   void initState() {
-    BlocProvider.of<MeCubit>(context).getMe();
+    // BlocProvider.of<MeCubit>(context).getMe();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<MeCubit>(context).getMe();
     return BlocBuilder<MeCubit, MeState>(
       builder: (context, state) {
         if (state is MeIsLoaded) {
@@ -96,15 +97,26 @@ class _MeState extends State<Me> {
                           ),
                           Row(
                             children: [
-                              CircleAvatar(
-                                backgroundColor: Colors.white,
-                                maxRadius: 25.w,
-                                child: Icon(
-                                  Icons.account_circle,
-                                  color: Colors.grey,
-                                  size: 26.w,
-                                ),
-                              ),
+                              state.me!.data!.avatar != null
+                                  ? Container(
+                                      width: 50.0.w,
+                                      height: 50.0.h,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                  state.me!.data!.avatar!)),
+                                          shape: BoxShape.circle),
+                                    )
+                                  : CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      maxRadius: 25.w,
+                                      child: Icon(
+                                        Icons.account_circle,
+                                        color: Colors.grey,
+                                        size: 26.w,
+                                      ),
+                                    ),
                               SizedBox(
                                 width: 12.w,
                               ),
@@ -199,7 +211,9 @@ class _MeState extends State<Me> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return AccountSettingsScreen();
+                                    return AccountSettingsScreen(
+                                      me: state.me!,
+                                    );
                                   },
                                 ),
                               );
