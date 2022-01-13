@@ -5,19 +5,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CheckoutItem extends StatefulWidget {
   const CheckoutItem(
-      {this.quantity,
-      this.title,
+      {required this.quantity,
+      required this.title,
       this.priceBeforeDiscount,
-      this.image,
-      this.price,
+      required this.vendor,
+      required this.image,
+      required this.price,
       Key? key})
       : super(key: key);
 
-  final String? title;
-  final String? image;
-  final String? price;
+  final String title;
+  final String image;
+  final String price;
   final String? priceBeforeDiscount;
-  final int? quantity;
+  final int quantity;
+  final String vendor;
 
   @override
   State<CheckoutItem> createState() => _CheckoutItemState();
@@ -48,7 +50,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
                     Container(
                       width: MediaQuery.of(context).size.width / 2,
                       child: Text(
-                        widget.title!,
+                        widget.title,
                         maxLines: 2,
                         textAlign: TextAlign.start,
                         style: Theme.of(context).textTheme.headline4!.copyWith(
@@ -92,7 +94,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
                       EdgeInsets.symmetric(horizontal: 17.w, vertical: 6.h),
                   margin: EdgeInsets.only(right: 12.w),
                   child: Image.network(
-                    widget.image!,
+                    widget.image,
                   ),
                 ),
               ],
@@ -102,8 +104,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
           SizedBox(
             height: 4.h,
           ),
-          Text("D.Cappuccino Café",
-              style: Theme.of(context).textTheme.bodyText1),
+          Text(widget.vendor, style: Theme.of(context).textTheme.bodyText1),
           SizedBox(
             height: 16.h,
           ),

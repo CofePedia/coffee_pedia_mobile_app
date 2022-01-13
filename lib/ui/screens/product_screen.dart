@@ -94,7 +94,6 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                     ),
                   ),
-
                   Container(
                     width: 50.w,
                     height: 50.h,
@@ -132,21 +131,6 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                     ),
                   ),
-                  // CustomButton(
-                  //   onPress: () {
-                  //     setState(() {
-                  //       counter--;
-                  //     });
-                  //   },
-                  //   height: 50.h,
-                  //   width: 50.w,
-                  //   borderRadius: 35.r,
-                  //   buttonColor: Color(0xffF2F2F2),
-                  //   imageColor: Color(0xff606266),
-                  //   assetName: Assets.iconsMinus,
-                  //   imageHeight: 15.h,
-                  //   imageWidth: 15.w,
-                  // ),
                   CustomButton(
                     onPress: () {
                       showModalBottomSheet(
@@ -161,9 +145,9 @@ class _ProductScreenState extends State<ProductScreen> {
                         context: context,
                         isScrollControlled: true,
                         builder: (context) => CheckoutPopUp(
-                          title: state.product!.data!.title,
+                          title: state.product!.data!.name,
                           image: state.product!.data!.image,
-                          totalPrice: state.product!.data!.price,
+                          totalPrice: state.product!.data!.price.toString(),
                         ),
                       );
                     },
@@ -323,7 +307,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             padding: EdgeInsets.only(
                                 top: 15.h, right: 15.w, left: 15.w),
                             child: Text(
-                              state.product!.data!.title!,
+                              state.product!.data!.name!,
                               style: Theme.of(context).textTheme.headline1,
                             ),
                           ),
@@ -386,7 +370,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   child: CustomOutlineButton(
                                     title: weight[index],
                                     height: 40.h,
-                                    width: 152.w,
+                                    width: 160.w,
                                     onPress: () {
                                       setState(() {
                                         _selectedIndex = index;

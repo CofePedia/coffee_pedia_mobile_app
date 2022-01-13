@@ -6,6 +6,7 @@ import 'package:coffepedia/data/models/areas.dart';
 import 'package:coffepedia/data/models/cities.dart';
 import 'package:coffepedia/data/models/gettoken_database.dart';
 import 'package:coffepedia/data/models/governorates.dart';
+import 'package:coffepedia/data/models/my_addresses.dart';
 import 'package:coffepedia/database/database_provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -102,6 +103,29 @@ class AddressWebServices {
 
     if (response.statusCode == 200) {
       return AddAddress.fromJson(
+        json.decode(response.body),
+      );
+    } else {
+      print(json.decode(response.body).toString());
+      throw Exception(
+        json.decode(response.body),
+      );
+    }
+  }
+
+  Future<MyAddresses> getMyAddresses() async {
+    final url = Uri.parse(baseUrl + 'myAddresses');
+    GetTokenDatabase? token = await userDao.getUserToken();
+    print("token myAddresses = " + token!.getToken!);
+
+    final http.Response response = await http.get(
+      url,
+      headers: {'Authorization': 'Bearer ' + token.getToken!},
+    );
+    print("response myAddresses ${response.body}");
+
+    if (response.statusCode == 200) {
+      return MyAddresses.fromJson(
         json.decode(response.body),
       );
     } else {

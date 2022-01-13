@@ -83,7 +83,7 @@ class CheckoutPopUp extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return const DeliveryInfoScreen();
+                      return const DeliveryInfoScreenProvider();
                     },
                   ),
                 );

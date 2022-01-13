@@ -6,7 +6,6 @@ import 'package:coffepedia/data/web_services/me_web_services.dart';
 import 'package:coffepedia/ui/screens/account_settings_screen.dart';
 import 'package:coffepedia/ui/screens/address_bookٍ_screen.dart';
 import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
-import 'package:coffepedia/ui/screens/my_wallet_screen.dart';
 import 'package:coffepedia/ui/screens/switch_language_bottom_sheet.dart';
 import 'package:coffepedia/ui/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +52,6 @@ class _ProfileScreenState extends State<_ProfileScreen> {
     return BlocBuilder<MeCubit, MeState>(
       builder: (context, state) {
         if (state is MeIsLoaded) {
-          print("name state ${state.me!.data!.name}");
           return Scaffold(
             backgroundColor: Colors.white,
             body: Container(
@@ -191,19 +189,19 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                               );
                             },
                           ),
-                          ProfileItem(
-                            title: "My Wallet",
-                            onPress: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return const MyWalletScreen();
-                                  },
-                                ),
-                              );
-                            },
-                          ),
+                          // ProfileItem(
+                          //   title: "My Wallet",
+                          //   onPress: () {
+                          //     Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //         builder: (context) {
+                          //           return const MyWalletScreen();
+                          //         },
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
                           ProfileItem(
                             title: "Account settings",
                             onPress: () {

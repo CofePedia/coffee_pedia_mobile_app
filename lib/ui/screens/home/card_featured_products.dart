@@ -96,7 +96,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                             child: Container(
                               color: Colors.red,
                               child: Image.network(
-                                state.featuredProducts!.data!.data![index]
+                                state.featuredProducts!.data!.data![index]!
                                     .image!,
                                 width: 85.w,
                                 height: 130.h,
@@ -114,7 +114,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                   width: 6.14.w,
                                 ),
                                 Text(
-                                  state.featuredProducts!.data!.data![index]
+                                  state.featuredProducts!.data!.data![index]!
                                       .rate!
                                       .toString(),
                                 ),
@@ -139,7 +139,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                         bottomLeft: Radius.circular(12.5.h)),
                                   ),
                                   child: Text(
-                                    '${state.featuredProducts!.data!.data![index].discount}% Off',
+                                    '${state.featuredProducts!.data!.data![index]!.discount}% Off',
                                     style:
                                         Theme.of(context).textTheme.bodyText1,
                                   ),
@@ -150,8 +150,8 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                 Container(
                                   width: 192.w,
                                   child: Text(
-                                    state.featuredProducts!.data!.data![index]
-                                        .title!,
+                                    state.featuredProducts!.data!.data![index]!
+                                        .name!,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
@@ -165,7 +165,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                   height: 6.h,
                                 ),
                                 Text(
-                                  'EGP ${state.featuredProducts!.data!.data![index].priceBeforeDiscount}',
+                                  'EGP ${state.featuredProducts!.data!.data![index]!.priceBeforeDiscount}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2!
@@ -178,7 +178,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                   height: 8.h,
                                 ),
                                 Text(
-                                  'EGP ${state.featuredProducts!.data!.data![index].price}',
+                                  'EGP ${state.featuredProducts!.data!.data![index]!.price}',
                                   style: Theme.of(context).textTheme.subtitle1,
                                 ),
                               ],

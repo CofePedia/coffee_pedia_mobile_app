@@ -88,7 +88,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
         if (state is AddAddressIsPressed) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => DeliveryInfoScreen(),
+              builder: (context) => DeliveryInfoScreenProvider(),
             ),
           );
         }
@@ -476,7 +476,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
               child: ElevatedButton(
                 onPressed: _selectedGovernorate == 0 ||
                         _selectedArea == 0 ||
-                        _selectedArea == 0 ||
+                        _selectedCity == 0 ||
                         _street.text.isEmpty ||
                         _name.text.isEmpty
                     ? null

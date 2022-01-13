@@ -1,7 +1,6 @@
 import 'package:coffepedia/business_logic/brands/brands_cubit.dart';
 import 'package:coffepedia/data/repository/brands_repository.dart';
 import 'package:coffepedia/data/web_services/brands_web_services.dart';
-import 'package:coffepedia/ui/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,12 +49,12 @@ class _BrandsIconsState extends State<BrandsIcons> {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) {
-                        return ProductProvider();
-                      }),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) {
+                    //     return ProductProvider();
+                    //   }),
+                    // );
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 12.w),
