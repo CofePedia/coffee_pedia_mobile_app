@@ -1,3 +1,5 @@
+import 'my_addresses.dart';
+
 class LoginDataUser {
 /*
 {
@@ -32,23 +34,24 @@ class LoginDataUser {
   String? status;
   String? avatar;
   String? name;
+  List<MyAddressesData>? myAddresses;
 
-  LoginDataUser({
-    this.id,
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.mobile,
-    this.emailVerifiedAt,
-    this.gender,
-    this.birthdate,
-    this.rememberToken,
-    this.createdAt,
-    this.updatedAt,
-    this.status,
-    this.avatar,
-    this.name,
-  });
+  LoginDataUser(
+      {this.id,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.mobile,
+      this.emailVerifiedAt,
+      this.gender,
+      this.birthdate,
+      this.rememberToken,
+      this.createdAt,
+      this.updatedAt,
+      this.status,
+      this.avatar,
+      this.name,
+      this.myAddresses});
   LoginDataUser.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toInt();
     firstName = json['first_name']?.toString();
@@ -64,6 +67,14 @@ class LoginDataUser {
     status = json['status']?.toString();
     avatar = json['avatar']?.toString();
     name = json['name']?.toString();
+    if (json['address'] != null) {
+      final v = json['address'];
+      final arr0 = <MyAddressesData>[];
+      v.forEach((v) {
+        arr0.add(MyAddressesData.fromJson(v));
+      });
+      myAddresses = arr0;
+    }
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -81,6 +92,14 @@ class LoginDataUser {
     data['status'] = status;
     data['avatar'] = avatar;
     data['name'] = name;
+    if (myAddresses != null) {
+      final v = myAddresses;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v.toJson());
+      });
+      data['address'] = arr0;
+    }
     return data;
   }
 }

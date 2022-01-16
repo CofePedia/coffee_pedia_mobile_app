@@ -17,6 +17,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'address_bookٍ_screen.dart';
+import 'address_card.dart';
+
 class AccountSettingsScreen extends StatelessWidget {
   const AccountSettingsScreen({Key? key, required this.me}) : super(key: key);
   final MeModel me;
@@ -52,6 +55,7 @@ class _AccountSettingsState extends State<AccountSettings> {
   final ImagePicker _picker = ImagePicker();
   bool? visableEditable = false;
   bool? onPressed = false;
+  bool? updated = false;
   TextEditingController firstname = TextEditingController();
   TextEditingController lastname = TextEditingController();
   TextEditingController email = TextEditingController();
@@ -91,16 +95,19 @@ class _AccountSettingsState extends State<AccountSettings> {
   }
 
   Future<bool> _onWillPop() async {
-    await Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return HomePage(
-            currentIndex: 2,
-          );
-        },
-      ),
-    );
+    if (updated == true)
+      await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return HomePage(
+              currentIndex: 2,
+            );
+          },
+        ),
+      );
+    else
+      Navigator.of(context).pop();
     return true;
   }
 
@@ -120,6 +127,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                         firstname.text.trim() + " " + lastname.text.trim();
                     visableEditable = false;
                     onPressed = false;
+                    updated = true;
                     BotToast.showText(text: state.updateProfile!.data!.msg!);
                     return screenBody();
                   } else {
@@ -157,17 +165,7 @@ class _AccountSettingsState extends State<AccountSettings> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // Navigator.of(context).pop();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return HomePage(
-                            currentIndex: 2,
-                          );
-                        },
-                      ),
-                    );
+                    _onWillPop();
                   },
                   child: Icon(
                     Icons.chevron_left,
@@ -501,97 +499,79 @@ class _AccountSettingsState extends State<AccountSettings> {
           SizedBox(
             height: 16.h,
           ),
-          Container(
-            height: 144.h,
-            margin: EdgeInsets.symmetric(horizontal: 15.w),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(6.sp),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.12),
-                  offset: Offset(0, 2),
-                  blurRadius: 11.r,
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(top: 19.8.h, right: 15.w, left: 15.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Shipping Address',
-                        style: Theme.of(context).textTheme.caption,
-                      ),
-                      Text(
-                        'Manage Addresses',
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                              fontSize: 12.sp,
+          widget.me.data!.myAddresses!.length > 0
+              ? Container(
+                  height: 50.h,
+                  margin: EdgeInsets.symmetric(horizontal: 15.w),
+                  alignment: Alignment.center,
+                  // decoration: BoxDecoration(
+                  //   color: Colors.white,
+                  //   borderRadius: BorderRadius.circular(6.sp),
+                  //   boxShadow: [
+                  //     BoxShadow(
+                  //       color: Color.fromRGBO(0, 0, 0, 0.12),
+                  //       offset: Offset(0, 2),
+                  //       blurRadius: 11.r,
+                  //     ),
+                  //   ],
+                  // ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(top: 19.8.h, right: 15.w, left: 15.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Shipping Address',
+                              style: Theme.of(context).textTheme.caption,
                             ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Hesham Mahdy',
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                              fontSize: 14.sp,
-                            ),
-                      ),
-                      Container(
-                        height: 17.h,
-                        width: 67.w,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Color(
-                            0xffFFD008,
-                          ),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(
-                              12.5.r,
-                            ),
-                            bottomRight: Radius.circular(
-                              12.5.r,
-                            ),
-                            bottomLeft: Radius.circular(
-                              12.5.r,
-                            ),
-                          ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return const AddressBookScreen();
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Manage Addresses',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
+                                      fontSize: 12.sp,
+                                    ),
+                              ),
+                            )
+                          ],
                         ),
-                        child: Text(
-                          'Primary',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(fontSize: 10.sp),
+                        SizedBox(
+                          height: 12.h,
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 6.h,
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Walk Of Cairo 6 October City, Giza Governorate, Egypt 12588 - 6th of October City',
-                      maxLines: 3,
-                      style: Theme.of(context).textTheme.headline4,
+                      ],
                     ),
-                  )
-                ],
-              ),
-            ),
-          ),
+                  ),
+                )
+              : Container(),
+          widget.me.data!.myAddresses!.length > 0
+              ?
+              //  ListView.builder(
+              //             itemCount: widget.me.data!.myAddresses!.length,
+              //             itemBuilder: (context, index) {
+              //               return AddressCard(
+              //                 address: widget.me.data!.myAddresses![index],
+              //               );
+              //             })
+              AddressCard(
+                  address: widget.me.data!.myAddresses!,
+                )
+              : Container(),
           SizedBox(
             height: 16.h,
           ),
