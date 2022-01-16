@@ -14,8 +14,11 @@ class DeliveryInfoScreenProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          AddressCubit(AddressRepository(AddressWebServices())),
+      create: (context) => AddressCubit(
+        AddressRepository(
+          AddressWebServices(),
+        ),
+      ),
       child: DeliveryInfoScreen(),
     );
   }
@@ -29,16 +32,10 @@ class DeliveryInfoScreen extends StatefulWidget {
 }
 
 class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
-  // List<String> title = [
-  //   'Hesham Mahdy',
-  //   'Hesham Shorouk City',
-  // ];
-  List<String> description = [
-    'Walk Of Cairo 6 October City, Giza Governorate, Egypt 12588 - 6th of October City',
-    'El-Shorouk City, km 37 Cairo - Suez Rd P.O Box. 51 El-Shorouk City - Behind City Hall, El-Shorouk, Cairo',
-  ];
-  int _selectedIndex = 0;
-  String text = 'Hesham Mahdy';
+  int? _selectedIndex;
+  // String text = 'Hesham Mahdy';
+
+  int? _addressId;
 
   @override
   void initState() {
@@ -73,7 +70,9 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return PaymentInfoScreenProvider();
+                  return PaymentInfoScreenProvider(
+                    addressId: _addressId!,
+                  );
                 },
               ),
             );
@@ -201,101 +200,110 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
               builder: (context, state) {
                 if (state is MyAddressesIsLoaded) {
                   return Container(
-                    height: 280.h,
                     width: MediaQuery.of(context).size.width,
                     child: ListView.builder(
                       padding: EdgeInsets.zero,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
                       itemCount: state.myAddresses!.data!.length,
-                      itemBuilder: (context, index) => Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 15.w, vertical: 12.h),
-                        child: Container(
-                          height: 111.h,
-                          width: 343.w,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(6.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: _selectedIndex == index
-                                    ? Color.fromRGBO(16, 124, 192, 0.41)
-                                    : Colors.transparent,
-                                blurRadius: 7.r,
-                              ),
-                            ],
-                          ),
-                          child: OutlinedButton(
-                            onPressed: () {
-                              setState(() {
-                                text = state.myAddresses!.data![index]!.name!;
-                                _selectedIndex = index;
-                              });
-                            },
-                            style: ButtonStyle(
-                              padding:
-                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                EdgeInsets.zero,
-                              ),
-                              side: MaterialStateProperty.all<BorderSide>(
-                                BorderSide(
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 12.h),
+                          child: Container(
+                            height: 111.h,
+                            width: 343.w,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(6.r),
+                              boxShadow: [
+                                BoxShadow(
                                   color: _selectedIndex == index
-                                      ? Theme.of(context).primaryColor
-                                      : Color(0xffE3E3E3),
+                                      ? Color.fromRGBO(16, 124, 192, 0.41)
+                                      : Colors.transparent,
+                                  blurRadius: 7.r,
                                 ),
-                              ),
-                              shape: MaterialStateProperty.all<OutlinedBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6.r),
-                                ),
-                              ),
+                              ],
                             ),
-                            child: RadioListTile(
-                              activeColor: Theme.of(context).primaryColor,
-                              groupValue: _selectedIndex,
-                              value: index,
-                              onChanged: (dynamic value) {
+                            child: OutlinedButton(
+                              onPressed: () {
                                 setState(() {
-                                  _selectedIndex = value;
+                                  _selectedIndex = index;
                                 });
                               },
-                              contentPadding: EdgeInsets.all(15),
-                              title: Text(
-                                state.myAddresses!.data![index]!.name!,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle2!
-                                    .copyWith(
-                                      fontSize: 14.sp,
-                                    ),
+                              style: ButtonStyle(
+                                padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(
+                                  EdgeInsets.zero,
+                                ),
+                                side: MaterialStateProperty.all<BorderSide>(
+                                  BorderSide(
+                                    color: _selectedIndex == index
+                                        ? Theme.of(context).primaryColor
+                                        : Color(0xffE3E3E3),
+                                  ),
+                                ),
+                                shape:
+                                    MaterialStateProperty.all<OutlinedBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6.r),
+                                  ),
+                                ),
                               ),
-                              subtitle: RichText(
-                                text: TextSpan(
-                                  children: <TextSpan>[
-                                    TextSpan(
+                              child: RadioListTile(
+                                activeColor: Theme.of(context).primaryColor,
+                                groupValue: _selectedIndex,
+                                value: index,
+                                onChanged: (dynamic value) {
+                                  setState(() {
+                                    _selectedIndex = value;
+                                    _addressId =
+                                        state.myAddresses!.data![index]!.id!;
+                                    print('addressID: $_addressId');
+                                  });
+                                },
+                                contentPadding: EdgeInsets.all(15.h),
+                                title: Text(
+                                  state.myAddresses!.data![index]!.name!,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle2!
+                                      .copyWith(
+                                        fontSize: 14.sp,
+                                      ),
+                                ),
+                                subtitle: RichText(
+                                  text: TextSpan(
+                                    children: <TextSpan>[
+                                      TextSpan(
                                         text:
                                             '${state.myAddresses!.data![index]!.area!}, ',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline4),
-                                    TextSpan(
+                                            .headline4,
+                                      ),
+                                      TextSpan(
                                         text:
                                             '${state.myAddresses!.data![index]!.city!}, ',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline4),
-                                    TextSpan(
+                                            .headline4,
+                                      ),
+                                      TextSpan(
                                         text:
                                             '${state.myAddresses!.data![index]!.governorate!}.',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline4),
-                                  ],
+                                            .headline4,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   );
                 } else {
