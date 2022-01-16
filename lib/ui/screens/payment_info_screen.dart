@@ -8,7 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PaymentInfoScreenProvider extends StatelessWidget {
-  const PaymentInfoScreenProvider({Key? key}) : super(key: key);
+  final int addressId;
+  const PaymentInfoScreenProvider({
+    required this.addressId,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,20 +22,28 @@ class PaymentInfoScreenProvider extends StatelessWidget {
           PaymentsWebServices(),
         ),
       ),
-      child: PaymentInfoScreen(),
+      child: PaymentInfoScreen(
+        addressId: addressId,
+      ),
     );
   }
 }
 
 class PaymentInfoScreen extends StatefulWidget {
-  const PaymentInfoScreen({Key? key}) : super(key: key);
+  final int addressId;
+
+  const PaymentInfoScreen({
+    required this.addressId,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<PaymentInfoScreen> createState() => _PaymentInfoScreenState();
 }
 
 class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
-  int _selectedIndex = 0;
+  int? _selectedIndex;
+  int? _paymentId;
 
   @override
   void initState() {
@@ -72,7 +84,8 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                       MaterialPageRoute(
                         builder: (context) {
                           return SuccessScreenProvider(
-                            paymentId: state.payments!.data![0]!.id!,
+                            paymentId: _paymentId!,
+                            addressId: widget.addressId,
                           );
                         },
                       ),
@@ -279,7 +292,10 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                               onChanged: (dynamic value) {
                                 setState(() {
                                   _selectedIndex = value;
+                                  _paymentId = state.payments!.data![index]!.id;
                                 });
+                                print(
+                                    'paymentID: ${state.payments!.data![index]!.id}');
                               },
                               title: Text(
                                 state.payments!.data![index]!.name!,

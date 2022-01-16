@@ -2,7 +2,7 @@ import 'package:coffepedia/business_logic/make_order/make_order_cubit.dart';
 import 'package:coffepedia/data/repository/make_order_repository.dart';
 import 'package:coffepedia/data/web_services/make_order_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
-import 'package:coffepedia/ui/screens/home_screen.dart';
+import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,8 +11,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SuccessScreenProvider extends StatelessWidget {
   final int paymentId;
-  const SuccessScreenProvider({required this.paymentId, Key? key})
-      : super(key: key);
+  final int addressId;
+  const SuccessScreenProvider({
+    required this.addressId,
+    required this.paymentId,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,7 @@ class SuccessScreenProvider extends StatelessWidget {
       ),
       child: SuccessScreen(
         paymentId: paymentId,
+        addressId: addressId,
       ),
     );
   }
@@ -31,8 +36,13 @@ class SuccessScreenProvider extends StatelessWidget {
 
 class SuccessScreen extends StatefulWidget {
   final int paymentId;
+  final int addressId;
 
-  const SuccessScreen({required this.paymentId, Key? key}) : super(key: key);
+  const SuccessScreen({
+    required this.addressId,
+    required this.paymentId,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<SuccessScreen> createState() => _SuccessScreenState();
@@ -42,9 +52,11 @@ class _SuccessScreenState extends State<SuccessScreen> {
   @override
   void initState() {
     BlocProvider.of<MakeOrderCubit>(context).getMakeOrder(
-      32.toString(),
+      widget.addressId.toString(),
       widget.paymentId.toString(),
     );
+    print('widget.addressId ${widget.addressId}');
+    print('widget.paymentId ${widget.paymentId}');
     super.initState();
   }
 
@@ -121,7 +133,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return const HomeScreenProvider();
+                            return const HomePage(currentIndex: 0);
                           },
                         ),
                       );
