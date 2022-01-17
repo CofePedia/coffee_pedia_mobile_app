@@ -3,6 +3,7 @@ import 'package:coffepedia/business_logic/me/me_cubit.dart';
 import 'package:coffepedia/constants/colors.dart';
 import 'package:coffepedia/data/repository/me_repository.dart';
 import 'package:coffepedia/data/web_services/me_web_services.dart';
+import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/account_settings_screen.dart';
 import 'package:coffepedia/ui/screens/address_bookٍ_screen.dart';
 import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
@@ -11,6 +12,7 @@ import 'package:coffepedia/ui/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'orders_history_screen.dart';
 import 'profile_item.dart';
@@ -95,24 +97,26 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                           ),
                           Row(
                             children: [
-                              state.me!.data!.avatar != null
+                              state.me!.data!.avatar != ''
                                   ? Container(
                                       width: 50.0.w,
                                       height: 50.0.h,
                                       decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  state.me!.data!.avatar!)),
-                                          shape: BoxShape.circle),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                            state.me!.data!.avatar!,
+                                          ),
+                                        ),
+                                        shape: BoxShape.circle,
+                                      ),
                                     )
                                   : CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      maxRadius: 25.w,
-                                      child: Icon(
-                                        Icons.account_circle,
-                                        color: Colors.grey,
-                                        size: 26.w,
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                      radius: 25.r,
+                                      child: SvgPicture.asset(
+                                        Assets.userPhote,
                                       ),
                                     ),
                               SizedBox(
