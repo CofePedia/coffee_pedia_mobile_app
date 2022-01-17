@@ -7,19 +7,15 @@ class RatingBarComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: RatingBar.builder(
-          initialRating: 3,
-          minRating: 1,
-          direction: Axis.horizontal,
-          itemCount: 5,
-          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-          itemBuilder: (context, _) =>
-              SvgPicture.asset('assets/icons/star_active.svg'),
-          onRatingUpdate: (rating) {},
-        ),
-      ),
+    return RatingBar.builder(
+      initialRating: 3,
+      minRating: 1,
+      direction: Axis.horizontal,
+      itemCount: 5,
+      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+      itemBuilder: (context, _) =>
+          SvgPicture.asset('assets/icons/star_active.svg'),
+      onRatingUpdate: (rating) {},
     );
   }
 }

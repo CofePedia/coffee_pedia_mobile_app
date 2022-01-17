@@ -174,7 +174,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return const WishlistScreen();
+                                    return const WishlistScreenProvider();
                                   },
                                 ),
                               );

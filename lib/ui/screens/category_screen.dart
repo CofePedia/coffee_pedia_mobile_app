@@ -5,8 +5,8 @@ import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/filters_screen.dart';
 import 'package:coffepedia/ui/screens/home/search_bar.dart';
 import 'package:coffepedia/ui/shared/custom_outline_button.dart';
+import 'package:coffepedia/ui/shared/wishlist_icon.dart';
 import 'package:coffepedia/ui/widgets/category_items.dart';
-import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -322,13 +322,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       )
                                     ],
                                   ),
-                                  child: FavoriteButton(
-                                    isFavorite: true,
-                                    iconSize: 35.h,
-                                    iconColor: Color(0xffE02020),
-                                    valueChanged: (_isFavorite) {
-                                      print('Is Favorite $_isFavorite)');
-                                    },
+                                  child: WishlistIconWidget(
+                                    productId: state.featuredProducts!.data!
+                                        .data![index]!.id!
+                                        .toString(),
                                   ),
                                 ),
                               ),

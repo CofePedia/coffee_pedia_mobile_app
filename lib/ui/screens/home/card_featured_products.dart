@@ -3,7 +3,7 @@ import 'package:coffepedia/data/repository/featured_products_repository.dart';
 import 'package:coffepedia/data/web_services/featured_products_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
-import 'package:favorite_button/favorite_button.dart';
+import 'package:coffepedia/ui/shared/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -200,13 +200,10 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                       blurRadius: 11.sp)
                                 ],
                               ),
-                              child: FavoriteButton(
-                                isFavorite: true,
-                                iconSize: 35.h,
-                                iconColor: Color(0xffE02020),
-                                valueChanged: (_isFavorite) {
-                                  print('Is Favorite $_isFavorite)');
-                                },
+                              child: WishlistIconWidget(
+                                productId: state
+                                    .featuredProducts!.data!.data![index]!.id!
+                                    .toString(),
                               ),
                             ),
                           ),

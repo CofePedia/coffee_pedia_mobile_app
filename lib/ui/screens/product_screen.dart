@@ -4,7 +4,7 @@ import 'package:coffepedia/data/web_services/product_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:coffepedia/ui/shared/custom_outline_button.dart';
-import 'package:favorite_button/favorite_button.dart';
+import 'package:coffepedia/ui/shared/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -291,13 +291,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                           blurRadius: 11.r)
                                     ],
                                   ),
-                                  child: FavoriteButton(
-                                    isFavorite: true,
-                                    iconSize: 35.h,
-                                    iconColor: Color(0xffE02020),
-                                    valueChanged: (_isFavorite) {
-                                      print('Is Favorite $_isFavorite)');
-                                    },
+                                  child: WishlistIconWidget(
+                                    productId:
+                                        state.product!.data!.id.toString(),
                                   ),
                                 ),
                               ],

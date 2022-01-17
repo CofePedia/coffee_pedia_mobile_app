@@ -146,7 +146,9 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
-                          child: CheckoutItem(
+                          child: CheckoutItemProvider(
+                            productId: state.basket!.data!.items![index]!.id!
+                                .toString(),
                             price: state.basket!.data!.items![index]!.price!
                                 .toString(),
                             title: state.basket!.data!.items![index]!.name!,

@@ -1,7 +1,52 @@
+import 'package:coffepedia/business_logic/wishlist/wishlist_cubit.dart';
+import 'package:coffepedia/data/repository/wishlist_repository.dart';
+import 'package:coffepedia/data/web_services/wishlist_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+class CheckoutItemProvider extends StatelessWidget {
+  final String title;
+  final String productId;
+
+  final String image;
+  final String price;
+  final String? priceBeforeDiscount;
+  final int quantity;
+  final String vendor;
+  const CheckoutItemProvider(
+      {required this.quantity,
+      required this.title,
+      this.priceBeforeDiscount,
+      required this.vendor,
+      required this.image,
+      required this.price,
+      required this.productId,
+      Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => WishlistCubit(
+        WishlistRepository(
+          WishlistWebServices(),
+        ),
+      ),
+      child: CheckoutItem(
+        image: image,
+        title: title,
+        vendor: vendor,
+        quantity: quantity,
+        price: price,
+        priceBeforeDiscount: priceBeforeDiscount,
+        productId: productId,
+      ),
+    );
+  }
+}
 
 class CheckoutItem extends StatefulWidget {
   const CheckoutItem(
@@ -11,6 +56,7 @@ class CheckoutItem extends StatefulWidget {
       required this.vendor,
       required this.image,
       required this.price,
+      required this.productId,
       Key? key})
       : super(key: key);
 
@@ -20,6 +66,7 @@ class CheckoutItem extends StatefulWidget {
   final String? priceBeforeDiscount;
   final int quantity;
   final String vendor;
+  final String productId;
 
   @override
   State<CheckoutItem> createState() => _CheckoutItemState();
@@ -155,27 +202,35 @@ class _CheckoutItemState extends State<CheckoutItem> {
                 ),
               ),
               Spacer(),
-              InkWell(
-                onTap: () {},
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      Assets.iconsHeart,
-                      width: 15.w,
-                      height: 13.5.h,
-                      color: Theme.of(context).primaryColor,
+              BlocBuilder<WishlistCubit, WishlistState>(
+                builder: (context, state) {
+                  return InkWell(
+                    onTap: () {
+                      BlocProvider.of<WishlistCubit>(context)
+                          .getToggleProductsInWishlist(widget.productId);
+                    },
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          Assets.iconsHeart,
+                          width: 15.w,
+                          height: 13.5.h,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        SizedBox(
+                          width: 8.w,
+                        ),
+                        Text(
+                          "Move to Wishlist",
+                          style:
+                              Theme.of(context).textTheme.headline4!.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    Text(
-                      "Move to Wishlist",
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
               Container(
                 width: 2.w,
