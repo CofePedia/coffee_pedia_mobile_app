@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/update_profile/update_profile_cubit.dart';
 import 'package:coffepedia/business_logic/update_profile/update_profile_state.dart';
-import 'package:coffepedia/constants/colors.dart';
 import 'package:coffepedia/data/models/me.dart';
 import 'package:coffepedia/data/repository/update_profile_repository.dart';
 import 'package:coffepedia/data/web_services/update_profile_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
+import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:coffepedia/ui/shared/custom_text_form_field.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -116,25 +116,28 @@ class _AccountSettingsState extends State<AccountSettings> {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-          body: onPressed == true
-              ? BlocBuilder<UpdateProfileCubit, UpdateProfileState>(
-                  builder: (context, state) {
-                  if (state is UpdateProfileIsLoaded) {
-                    widget.me.data!.email = email.text.trim();
-                    widget.me.data!.lastName = lastname.text.trim();
-                    widget.me.data!.firstName = firstname.text.trim();
-                    widget.me.data!.name =
-                        firstname.text.trim() + " " + lastname.text.trim();
-                    visableEditable = false;
-                    onPressed = false;
-                    updated = true;
-                    BotToast.showText(text: state.updateProfile!.data!.msg!);
-                    return screenBody();
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                })
-              : screenBody()),
+        body: onPressed == true
+            ? BlocBuilder<UpdateProfileCubit, UpdateProfileState>(
+                builder: (context, state) {
+                if (state is UpdateProfileIsLoaded) {
+                  widget.me.data!.email = email.text.trim();
+                  widget.me.data!.lastName = lastname.text.trim();
+                  widget.me.data!.firstName = firstname.text.trim();
+                  widget.me.data!.name =
+                      firstname.text.trim() + " " + lastname.text.trim();
+                  visableEditable = false;
+                  onPressed = false;
+                  updated = true;
+                  BotToast.showText(text: state.updateProfile!.data!.msg!);
+                  return screenBody();
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              })
+            : screenBody(),
+      ),
     );
   }
 
@@ -159,7 +162,11 @@ class _AccountSettingsState extends State<AccountSettings> {
         children: [
           Padding(
             padding: EdgeInsets.only(
-                left: 20.w, top: 60.h, right: 23.w, bottom: 35.5.h),
+              left: 20.w,
+              top: 60.h,
+              right: 23.w,
+              bottom: 35.5.h,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -187,28 +194,39 @@ class _AccountSettingsState extends State<AccountSettings> {
 
           imageFile != null
               ? Container(
-                  width: 50.0.w,
-                  height: 50.0.h,
+                  // width: 50.0.w,
+                  // height: 50.0.h,
                   decoration: BoxDecoration(
-                      image: kIsWeb
-                          ? DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(imageFile!.path),
-                            )
-                          : DecorationImage(
-                              fit: BoxFit.cover,
-                              image: FileImage(File(imageFile!.path))),
-                      shape: BoxShape.circle),
+                    image: kIsWeb
+                        ? DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(imageFile!.path),
+                          )
+                        : DecorationImage(
+                            fit: BoxFit.cover,
+                            image: FileImage(
+                              File(
+                                imageFile!.path,
+                              ),
+                            ),
+                          ),
+                    shape: BoxShape.circle,
+                  ),
                 )
               : widget.me.data!.avatar != null
                   ? Container(
-                      width: 50.0.w,
-                      height: 50.0.h,
+                      // width: 50.0.w,
+                      // height: 50.0.h,
                       decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(widget.me.data!.avatar!)),
-                          shape: BoxShape.circle))
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            widget.me.data!.avatar!,
+                          ),
+                        ),
+                        shape: BoxShape.circle,
+                      ),
+                    )
                   : CircleAvatar(
                       backgroundColor: Color(0xffD8D8D8),
                       radius: 30.r,
@@ -216,9 +234,9 @@ class _AccountSettingsState extends State<AccountSettings> {
                         Assets.userPhote,
                       ),
                     ),
-          SizedBox(
-            height: 4.h,
-          ),
+          // SizedBox(
+          //   height: 4.h,
+          // ),
           ElevatedButton(
             style: ButtonStyle(
                 elevation: MaterialStateProperty.all(0.0.sp),
@@ -234,9 +252,9 @@ class _AccountSettingsState extends State<AccountSettings> {
                   .copyWith(fontSize: 12.sp),
             ),
           ),
-          SizedBox(
-            height: 10.5.h,
-          ),
+          // SizedBox(
+          //   height: 10.5.h,
+          // ),
           Text(
             widget.me.data!.name!,
             style: Theme.of(context)
@@ -255,7 +273,7 @@ class _AccountSettingsState extends State<AccountSettings> {
             height: 24.h,
           ),
           Container(
-            height: visableEditable! ? 305.h : 200.h,
+            height: visableEditable! ? 320.h : 225.h,
             margin: EdgeInsets.symmetric(horizontal: 15.w),
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -332,6 +350,9 @@ class _AccountSettingsState extends State<AccountSettings> {
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  SizedBox(
+                                    height: 8.h,
+                                  ),
                                   Text(
                                     'First Name',
                                     style: Theme.of(context)
@@ -343,12 +364,15 @@ class _AccountSettingsState extends State<AccountSettings> {
                                           ),
                                         ),
                                   ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
                                   visableEditable!
                                       ? CustomTextFormField(
                                           width: 150.w,
                                           keyboardType: TextInputType.text,
                                           textEditingController: firstname,
-                                          height: 35.h,
+                                          height: 40.h,
                                           hintText: 'First Name',
                                         )
                                       : Container(
@@ -364,6 +388,9 @@ class _AccountSettingsState extends State<AccountSettings> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                SizedBox(
+                                  height: 8.h,
+                                ),
                                 Text(
                                   'Last Name',
                                   style: Theme.of(context)
@@ -375,12 +402,15 @@ class _AccountSettingsState extends State<AccountSettings> {
                                         ),
                                       ),
                                 ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
                                 visableEditable!
                                     ? CustomTextFormField(
                                         width: 150.w,
                                         keyboardType: TextInputType.text,
                                         textEditingController: lastname,
-                                        height: 35.h,
+                                        height: 40.h,
                                         hintText: 'Last Name',
                                       )
                                     : Container(
@@ -395,7 +425,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                               ],
                             )
                           ]),
-                      SizedBox(height: 10.h),
+                      SizedBox(height: 8.h),
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -410,12 +440,15 @@ class _AccountSettingsState extends State<AccountSettings> {
                                     ),
                                   ),
                             ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
                             visableEditable!
                                 ? CustomTextFormField(
                                     width: 250.w,
                                     keyboardType: TextInputType.emailAddress,
                                     textEditingController: email,
-                                    height: 35.h,
+                                    height: 40.h,
                                     hintText: 'email',
                                   )
                                 : Container(
@@ -427,10 +460,12 @@ class _AccountSettingsState extends State<AccountSettings> {
                                     ),
                                   ),
                           ]),
-                      SizedBox(height: 10.h),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          SizedBox(
+                            height: 8.h,
+                          ),
                           Text(
                             'Password',
                             style:
@@ -440,12 +475,15 @@ class _AccountSettingsState extends State<AccountSettings> {
                                       ),
                                     ),
                           ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
                           visableEditable!
                               ? CustomTextFormField(
                                   width: 250.w,
                                   keyboardType: TextInputType.visiblePassword,
                                   textEditingController: password,
-                                  height: 35.h,
+                                  height: 40.h,
                                   hintText: 'password',
                                 )
                               : Container(
@@ -461,32 +499,42 @@ class _AccountSettingsState extends State<AccountSettings> {
                       // SizedBox(
                       //   height: 10.w,
                       // ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
                       visableEditable!
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                ElevatedButton(
-                                  style: ButtonStyle(
-                                      elevation:
-                                          MaterialStateProperty.all(0.0.sp),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(kYellow)),
-                                  onPressed:
-                                      // setState(() {
-                                      onUpdateProfileButtonPressed
-                                  // visableEditable = false;
-                                  // });
-                                  ,
-                                  child: Text(
-                                    'save',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline6!
-                                        .copyWith(
-                                          fontSize: 17.sp,
-                                        ),
-                                  ),
+                                CustomButton(
+                                  onPress: onUpdateProfileButtonPressed,
+                                  title: 'Save',
+                                  width: 75.w,
+                                  height: 35.h,
+                                  borderRadius: 25.sp,
                                 ),
+                                // ElevatedButton(
+                                //   style: ButtonStyle(
+                                //       elevation:
+                                //           MaterialStateProperty.all(0.0.sp),
+                                //       backgroundColor:
+                                //           MaterialStateProperty.all(kYellow)),
+                                //   onPressed:
+                                //       // setState(() {
+                                //       onUpdateProfileButtonPressed
+                                //   // visableEditable = false;
+                                //   // });
+                                //   ,
+                                //   child: Text(
+                                //     'save',
+                                //     style: Theme.of(context)
+                                //         .textTheme
+                                //         .headline6!
+                                //         .copyWith(
+                                //           fontSize: 17.sp,
+                                //         ),
+                                //   ),
+                                // ),
                               ],
                             )
                           : Container(),
@@ -501,7 +549,7 @@ class _AccountSettingsState extends State<AccountSettings> {
           ),
           widget.me.data!.myAddresses!.length > 0
               ? Container(
-                  height: 50.h,
+                  //height: 50.h,
                   margin: EdgeInsets.symmetric(horizontal: 15.w),
                   alignment: Alignment.center,
                   // decoration: BoxDecoration(
@@ -551,9 +599,9 @@ class _AccountSettingsState extends State<AccountSettings> {
                             )
                           ],
                         ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
+                        // SizedBox(
+                        //   height: 12.h,
+                        // ),
                       ],
                     ),
                   ),

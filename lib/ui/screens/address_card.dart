@@ -17,14 +17,16 @@ class AddressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
+      height: 100.h,
       width: MediaQuery.of(context).size.width,
       color: Colors.transparent,
       margin: EdgeInsets.symmetric(horizontal: 15.w),
       child: ListView.builder(
+          padding: EdgeInsets.zero,
           itemCount: address.length,
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) => Container(
+                margin: EdgeInsets.only(top: 18.h),
                 height: 100.h,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
@@ -89,8 +91,7 @@ class AddressCard extends StatelessWidget {
                               : menu == null
                                   ? new PopupMenuButton<String>(
                                       itemBuilder: (BuildContext context) {
-                                        return myMenuItems
-                                            .map((String choice) {
+                                        return myMenuItems.map((String choice) {
                                           return PopupMenuItem<String>(
                                             child: Text(choice),
                                             value: choice,

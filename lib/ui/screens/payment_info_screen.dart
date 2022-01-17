@@ -43,7 +43,7 @@ class PaymentInfoScreen extends StatefulWidget {
 
 class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
   int? _selectedIndex;
-  int? _paymentId;
+  int? _paymentId = 0;
 
   @override
   void initState() {
@@ -78,23 +78,27 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                 ),
                 child: CustomButton(
                   title: 'Pay Now',
-                  onPress: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return SuccessScreenProvider(
-                            paymentId: _paymentId!,
-                            addressId: widget.addressId,
+                  onPress: _paymentId == 0
+                      ? () {}
+                      : () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return SuccessScreenProvider(
+                                  paymentId: _paymentId!,
+                                  addressId: widget.addressId,
+                                );
+                              },
+                            ),
                           );
                         },
-                      ),
-                    );
-                  },
                   width: 345.w,
                   height: 50.h,
                   borderRadius: 25.r,
-                  buttonColor: Theme.of(context).primaryColor,
+                  buttonColor: _paymentId == 0
+                      ? Colors.grey
+                      : Theme.of(context).primaryColor,
                 ),
               ),
             ),

@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
-    this.title,
+    required this.title,
     required this.onPress,
     this.assetName,
     this.width,
@@ -16,14 +16,14 @@ class CustomButton extends StatelessWidget {
     this.imageWidth,
     Key? key,
   }) : super(key: key);
-  final String? title;
+  final String title;
   final String? assetName;
   final double? width;
   final double? height;
   final double? imageWidth;
   final double? imageHeight;
   final double? borderRadius;
-  final VoidCallback onPress;
+  final VoidCallback? onPress;
   final Color? buttonColor;
   final Color? imageColor;
 
@@ -34,7 +34,7 @@ class CustomButton extends StatelessWidget {
         height: height ?? 40.h,
         width: width ?? 152.w,
         child: ElevatedButton(
-          onPressed: onPress,
+          onPressed: onPress!,
           child: Row(
             mainAxisAlignment: assetName != null
                 ? MainAxisAlignment.spaceAround
@@ -47,11 +47,12 @@ class CustomButton extends StatelessWidget {
                 width: imageWidth,
                 height: imageHeight,
               ),
-              Text(title ?? '', style: Theme.of(context).textTheme.headline2),
+              Text(title, style: Theme.of(context).textTheme.headline2),
             ],
           ),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(buttonColor!),
+            backgroundColor: MaterialStateProperty.all<Color>(
+                buttonColor ?? Theme.of(context).primaryColor),
             shape: MaterialStateProperty.all<OutlinedBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius ?? 4.w),

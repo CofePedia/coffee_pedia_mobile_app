@@ -33,9 +33,7 @@ class DeliveryInfoScreen extends StatefulWidget {
 
 class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
   int? _selectedIndex;
-  // String text = 'Hesham Mahdy';
-
-  int? _addressId;
+  int? _addressId = 0;
 
   @override
   void initState() {
@@ -65,22 +63,25 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
         ),
         child: CustomButton(
           title: 'Continue',
-          onPress: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return PaymentInfoScreenProvider(
-                    addressId: _addressId!,
+          onPress: _addressId == 0
+              ? () {}
+              : () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return PaymentInfoScreenProvider(
+                          addressId: _addressId!,
+                        );
+                      },
+                    ),
                   );
                 },
-              ),
-            );
-          },
           width: 345.w,
           height: 50.h,
           borderRadius: 25.r,
-          buttonColor: Theme.of(context).primaryColor,
+          buttonColor:
+              _addressId == 0 ? Colors.grey : Theme.of(context).primaryColor,
         ),
       ),
       body: SingleChildScrollView(
