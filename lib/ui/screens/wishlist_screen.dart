@@ -34,12 +34,12 @@ class WishlistScreen extends StatefulWidget {
 class _WishlistScreenState extends State<WishlistScreen> {
   @override
   void initState() {
-    BlocProvider.of<WishlistCubit>(context).getWishlist();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<WishlistCubit>(context).getWishlist();
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
