@@ -18,7 +18,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'address_bookٍ_screen.dart';
-import 'address_card.dart';
 
 class AccountSettingsScreen extends StatelessWidget {
   const AccountSettingsScreen({Key? key, required this.me}) : super(key: key);
@@ -162,10 +161,10 @@ class _AccountSettingsState extends State<AccountSettings> {
         children: [
           Padding(
             padding: EdgeInsets.only(
-              left: 20.w,
-              top: 60.h,
-              right: 23.w,
-              bottom: 35.5.h,
+              left: 23.w,
+              top: 68.86.h,
+              right: 170.w,
+              bottom: 30.h,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -180,7 +179,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                   ),
                 ),
                 SizedBox(
-                  width: 10.w,
+                  width: 18.w,
                 ),
                 Text(
                   'Account settings',
@@ -191,7 +190,6 @@ class _AccountSettingsState extends State<AccountSettings> {
               ],
             ),
           ),
-
           imageFile != null
               ? Container(
                   // width: 50.0.w,
@@ -213,13 +211,13 @@ class _AccountSettingsState extends State<AccountSettings> {
                     shape: BoxShape.circle,
                   ),
                 )
-              : widget.me.data!.avatar != null
+              : widget.me.data!.avatar != ''
                   ? Container(
-                      // width: 50.0.w,
-                      // height: 50.0.h,
+                      width: 60.0.w,
+                      height: 60.0.h,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          fit: BoxFit.cover,
+                          // fit: BoxFit.cover,
                           image: NetworkImage(
                             widget.me.data!.avatar!,
                           ),
@@ -234,15 +232,15 @@ class _AccountSettingsState extends State<AccountSettings> {
                         Assets.userPhote,
                       ),
                     ),
-          // SizedBox(
-          //   height: 4.h,
-          // ),
-          ElevatedButton(
-            style: ButtonStyle(
-                elevation: MaterialStateProperty.all(0.0.sp),
-                backgroundColor: MaterialStateProperty.all(Colors.transparent)),
-            onPressed: () {
-              onImageButtonPressed(ImageSource.gallery, context: context);
+          SizedBox(
+            height: 6.6.h,
+          ),
+          InkWell(
+            onTap: () {
+              onImageButtonPressed(
+                ImageSource.gallery,
+                context: context,
+              );
             },
             child: Text(
               'Add photo',
@@ -252,18 +250,15 @@ class _AccountSettingsState extends State<AccountSettings> {
                   .copyWith(fontSize: 12.sp),
             ),
           ),
-          // SizedBox(
-          //   height: 10.5.h,
-          // ),
+          SizedBox(
+            height: 10.5.h,
+          ),
           Text(
             widget.me.data!.name!,
             style: Theme.of(context)
                 .textTheme
                 .caption!
                 .copyWith(fontWeight: FontWeight.w700),
-          ),
-          SizedBox(
-            height: 4.5.h,
           ),
           Text(
             widget.me.data!.email!,
@@ -273,7 +268,8 @@ class _AccountSettingsState extends State<AccountSettings> {
             height: 24.h,
           ),
           Container(
-            height: visableEditable! ? 320.h : 225.h,
+            height: visableEditable! ? 320.h : 214.h,
+            width: 343.w,
             margin: EdgeInsets.symmetric(horizontal: 15.w),
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -291,7 +287,7 @@ class _AccountSettingsState extends State<AccountSettings> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 15.h, right: 15.w, left: 15.w),
+                  padding: EdgeInsets.only(top: 16.h, right: 15.w, left: 15.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -339,20 +335,16 @@ class _AccountSettingsState extends State<AccountSettings> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(right: 15.w, left: 15.w),
+                  padding: EdgeInsets.only(right: 15.w, left: 15.w, top: 6.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
-                                    height: 8.h,
-                                  ),
                                   Text(
                                     'First Name',
                                     style: Theme.of(context)
@@ -379,6 +371,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                                           width: 150.w,
                                           child: Text(
                                             widget.me.data!.firstName!,
+                                            maxLines: 1,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2,
@@ -388,9 +381,6 @@ class _AccountSettingsState extends State<AccountSettings> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
-                                  height: 8.h,
-                                ),
                                 Text(
                                   'Last Name',
                                   style: Theme.of(context)
@@ -417,6 +407,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                                         width: 150.w,
                                         child: Text(
                                           widget.me.data!.lastName!,
+                                          maxLines: 1,
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle2,
@@ -425,80 +416,65 @@ class _AccountSettingsState extends State<AccountSettings> {
                               ],
                             )
                           ]),
-                      SizedBox(height: 8.h),
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Email Address',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle2!
-                                  .copyWith(
-                                    color: Color(
-                                      0xff8A8A8A,
-                                    ),
-                                  ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            visableEditable!
-                                ? CustomTextFormField(
-                                    width: 250.w,
-                                    keyboardType: TextInputType.emailAddress,
-                                    textEditingController: email,
-                                    height: 40.h,
-                                    hintText: 'email',
-                                  )
-                                : Container(
-                                    width: 250.w,
-                                    child: Text(
-                                      widget.me.data!.email!,
-                                      style:
-                                          Theme.of(context).textTheme.subtitle2,
-                                    ),
-                                  ),
-                          ]),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 8.h,
-                          ),
-                          Text(
-                            'Password',
-                            style:
-                                Theme.of(context).textTheme.subtitle2!.copyWith(
-                                      color: Color(
-                                        0xff8A8A8A,
-                                      ),
-                                    ),
-                          ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          visableEditable!
-                              ? CustomTextFormField(
-                                  width: 250.w,
-                                  keyboardType: TextInputType.visiblePassword,
-                                  textEditingController: password,
-                                  height: 40.h,
-                                  hintText: 'password',
-                                )
-                              : Container(
-                                  width: 250.w,
-                                  child: Text(
-                                    '************',
-                                    style:
-                                        Theme.of(context).textTheme.subtitle2,
-                                  ),
-                                ),
-                        ],
+                      SizedBox(
+                        height: 12.h,
                       ),
-                      // SizedBox(
-                      //   height: 10.w,
-                      // ),
+                      Text(
+                        'Email Address',
+                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                              color: Color(
+                                0xff8A8A8A,
+                              ),
+                            ),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      visableEditable!
+                          ? CustomTextFormField(
+                              width: 250.w,
+                              keyboardType: TextInputType.emailAddress,
+                              textEditingController: email,
+                              height: 40.h,
+                              hintText: 'email',
+                            )
+                          : Container(
+                              child: Text(
+                                widget.me.data!.email!,
+                                maxLines: 1,
+                                style: Theme.of(context).textTheme.subtitle2,
+                              ),
+                            ),
+                      SizedBox(
+                        height: 12.h,
+                      ),
+                      Text(
+                        'Password',
+                        maxLines: 1,
+                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                              color: Color(
+                                0xff8A8A8A,
+                              ),
+                            ),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      visableEditable!
+                          ? CustomTextFormField(
+                              width: 250.w,
+                              keyboardType: TextInputType.visiblePassword,
+                              textEditingController: password,
+                              height: 40.h,
+                              hintText: 'password',
+                            )
+                          : Container(
+                              width: 250.w,
+                              child: Text(
+                                '************',
+                                style: Theme.of(context).textTheme.subtitle2,
+                              ),
+                            ),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -547,22 +523,23 @@ class _AccountSettingsState extends State<AccountSettings> {
           SizedBox(
             height: 16.h,
           ),
-          widget.me.data!.myAddresses!.length > 0
+          widget.me.data!.myAddresses![0].primary == 1 &&
+                  widget.me.data!.myAddresses!.isNotEmpty
               ? Container(
-                  //height: 50.h,
+                  height: 144.h,
                   margin: EdgeInsets.symmetric(horizontal: 15.w),
                   alignment: Alignment.center,
-                  // decoration: BoxDecoration(
-                  //   color: Colors.white,
-                  //   borderRadius: BorderRadius.circular(6.sp),
-                  //   boxShadow: [
-                  //     BoxShadow(
-                  //       color: Color.fromRGBO(0, 0, 0, 0.12),
-                  //       offset: Offset(0, 2),
-                  //       blurRadius: 11.r,
-                  //     ),
-                  //   ],
-                  // ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(6.sp),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(0, 0, 0, 0.12),
+                        offset: Offset(0, 2),
+                        blurRadius: 11.r,
+                      ),
+                    ],
+                  ),
                   child: Padding(
                     padding:
                         EdgeInsets.only(top: 19.8.h, right: 15.w, left: 15.w),
@@ -599,30 +576,108 @@ class _AccountSettingsState extends State<AccountSettings> {
                             )
                           ],
                         ),
-                        // SizedBox(
-                        //   height: 12.h,
-                        // ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.me.data!.name!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle2!
+                                  .copyWith(
+                                    fontSize: 14.sp,
+                                  ),
+                            ),
+                            Container(
+                              height: 17.h,
+                              width: 67.w,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Color(
+                                  0xffFFD008,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(
+                                    12.5.r,
+                                  ),
+                                  bottomRight: Radius.circular(
+                                    12.5.r,
+                                  ),
+                                  bottomLeft: Radius.circular(
+                                    12.5.r,
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                'Primary',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .copyWith(fontSize: 10.sp),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Expanded(
+                          child: RichText(
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: widget.me.data!.myAddresses![0]
+                                              .details ==
+                                          null
+                                      ? ''
+                                      : '${widget.me.data!.myAddresses![0].details}, ',
+                                  style: Theme.of(context).textTheme.headline4,
+                                ),
+                                TextSpan(
+                                  text:
+                                      '${widget.me.data!.myAddresses![0].area}, ',
+                                  style: Theme.of(context).textTheme.headline4,
+                                ),
+                                TextSpan(
+                                  text:
+                                      '${widget.me.data!.myAddresses![0].city}, ',
+                                  style: Theme.of(context).textTheme.headline4,
+                                ),
+                                TextSpan(
+                                  text:
+                                      '${widget.me.data!.myAddresses![0].governorate}.',
+                                  style: Theme.of(context).textTheme.headline4,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 )
               : Container(),
-          widget.me.data!.myAddresses!.length > 0
-              ?
-              //  ListView.builder(
-              //             itemCount: widget.me.data!.myAddresses!.length,
-              //             itemBuilder: (context, index) {
-              //               return AddressCard(
-              //                 address: widget.me.data!.myAddresses![index],
-              //               );
-              //             })
-              AddressCard(
-                  address: widget.me.data!.myAddresses!,
-                )
-              : Container(),
-          SizedBox(
-            height: 16.h,
-          ),
+          // widget.me.data!.myAddresses!.length > 0
+          //     ?
+          //     //  ListView.builder(
+          //     //             itemCount: widget.me.data!.myAddresses!.length,
+          //     //             itemBuilder: (context, index) {
+          //     //               return AddressCard(
+          //     //                 address: widget.me.data!.myAddresses![index],
+          //     //               );
+          //     //             })
+          //     AddressCard(
+          //         address: widget.me.data!.myAddresses!,
+          //       )
+          //     : Container(),
+          // SizedBox(
+          //   height: 16.h,
+          // ),
 
           //payment method
           // Container(
