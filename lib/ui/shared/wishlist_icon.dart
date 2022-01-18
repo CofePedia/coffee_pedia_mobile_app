@@ -1,7 +1,6 @@
 import 'package:coffepedia/business_logic/wishlist/wishlist_cubit.dart';
 import 'package:coffepedia/data/repository/wishlist_repository.dart';
 import 'package:coffepedia/data/web_services/wishlist_web_services.dart';
-import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,20 +34,25 @@ class WishlistIcon extends StatefulWidget {
 }
 
 class _WishlistIconState extends State<WishlistIcon> {
-  final bool _isFavorite = true;
+  bool _isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WishlistCubit, WishlistState>(
       builder: (context, state) {
-        return FavoriteButton(
-          isFavorite: _isFavorite,
-          iconSize: 35.h,
-          iconColor: Color(0xffE02020),
-          valueChanged: (value) {
-            BlocProvider.of<WishlistCubit>(context)
-                .getToggleProductsInWishlist(widget.productId);
+        return InkWell(
+          onTap: () {
+            setState(() {
+              _isFavorite = !_isFavorite;
+              BlocProvider.of<WishlistCubit>(context)
+                  .getToggleProductsInWishlist(widget.productId);
+            });
           },
+          child: Icon(
+            Icons.favorite,
+            size: 28.h,
+            color: _isFavorite ? Color(0xffE02020) : Colors.grey,
+          ),
         );
       },
     );

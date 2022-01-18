@@ -46,6 +46,7 @@ class WishlistWebServices {
         'product_id': productId,
       },
     );
+    print('PRODUCTID: $productId');
     print("response toggleProductInWishlist ${response.body}");
 
     if (response.statusCode == 200) {
