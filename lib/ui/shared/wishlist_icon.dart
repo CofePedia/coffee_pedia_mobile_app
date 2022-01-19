@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WishlistIconWidget extends StatelessWidget {
   final String productId;
+
   const WishlistIconWidget({required this.productId, Key? key})
       : super(key: key);
 
@@ -28,6 +29,7 @@ class WishlistIconWidget extends StatelessWidget {
 
 class WishlistIcon extends StatefulWidget {
   final String productId;
+
   const WishlistIcon({required this.productId, Key? key}) : super(key: key);
 
   @override
@@ -39,18 +41,23 @@ class _WishlistIconState extends State<WishlistIcon> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WishlistCubit, WishlistState>(
-      builder: (context, state) {
+    return BlocListener<WishlistCubit, WishlistState>(
+      listener: (context, state) {
         if (state is ToggleProductsInWishlistIsLoaded) {
+          BotToast.showText(
+            text: state.toggleProductsInWishlist!.data!.msg!,
+          );
+        }
+      },
+      child: BlocBuilder<WishlistCubit, WishlistState>(
+        builder: (context, state) {
+          // if (state is ToggleProductsInWishlistIsLoaded) {
           return InkWell(
             onTap: () {
               setState(() {
                 _isFavorite = !_isFavorite;
                 BlocProvider.of<WishlistCubit>(context)
                     .getToggleProductsInWishlist(widget.productId);
-                BotToast.showText(
-                  text: state.toggleProductsInWishlist!.data!.msg!,
-                );
               });
             },
             child: Icon(
@@ -59,14 +66,15 @@ class _WishlistIconState extends State<WishlistIcon> {
               color: _isFavorite ? Color(0xffE02020) : Colors.grey,
             ),
           );
-        } else {
-          return Icon(
-            Icons.favorite,
-            size: 28.h,
-            color: _isFavorite ? Color(0xffE02020) : Colors.grey,
-          );
-        }
-      },
+          // } else {
+          //   return Icon(
+          //     Icons.favorite,
+          //     size: 28.h,
+          //     color: _isFavorite ? Color(0xffE02020) : Colors.grey,
+          //   );
+          // }
+        },
+      ),
     );
   }
 }
