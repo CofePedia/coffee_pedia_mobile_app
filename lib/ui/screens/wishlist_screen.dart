@@ -2,7 +2,6 @@ import 'package:coffepedia/business_logic/wishlist/wishlist_cubit.dart';
 import 'package:coffepedia/data/repository/wishlist_repository.dart';
 import 'package:coffepedia/data/web_services/wishlist_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
-import 'package:coffepedia/ui/shared/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,9 +31,21 @@ class WishlistScreen extends StatefulWidget {
 }
 
 class _WishlistScreenState extends State<WishlistScreen> {
+  bool _isFavorite = true;
+
   @override
   void initState() {
     super.initState();
+  }
+
+  void toggleWishlistIcon(
+    String productId,
+  ) {
+    setState(() {
+      BlocProvider.of<WishlistCubit>(context)
+          .getToggleProductsInWishlist(productId);
+      _isFavorite = !_isFavorite;
+    });
   }
 
   @override
@@ -92,6 +103,8 @@ class _WishlistScreenState extends State<WishlistScreen> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: state.wishlist!.data!.length,
                         itemBuilder: (context, index) {
+                          print(
+                              "wishlist length: ${state.wishlist!.data!.length}");
                           final item = state.wishlist!.data![index]!;
                           return Stack(
                             fit: StackFit.loose,
@@ -193,9 +206,18 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                       )
                                     ],
                                   ),
-                                  child: WishlistIconWidget(
-                                    productId: state.wishlist!.data![index]!.id!
-                                        .toString(),
+                                  child: InkWell(
+                                    onTap: () => toggleWishlistIcon(
+                                      state.wishlist!.data![index]!.id!
+                                          .toString(),
+                                    ),
+                                    child: Icon(
+                                      Icons.favorite,
+                                      size: 28.h,
+                                      color: _isFavorite
+                                          ? Color(0xffE02020)
+                                          : Colors.grey,
+                                    ),
                                   ),
                                 ),
                               ),

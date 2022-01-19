@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/wishlist/wishlist_cubit.dart';
 import 'package:coffepedia/data/repository/wishlist_repository.dart';
 import 'package:coffepedia/data/web_services/wishlist_web_services.dart';
@@ -40,20 +41,31 @@ class _WishlistIconState extends State<WishlistIcon> {
   Widget build(BuildContext context) {
     return BlocBuilder<WishlistCubit, WishlistState>(
       builder: (context, state) {
-        return InkWell(
-          onTap: () {
-            setState(() {
-              _isFavorite = !_isFavorite;
-              BlocProvider.of<WishlistCubit>(context)
-                  .getToggleProductsInWishlist(widget.productId);
-            });
-          },
-          child: Icon(
+        if (state is ToggleProductsInWishlistIsLoaded) {
+          return InkWell(
+            onTap: () {
+              setState(() {
+                _isFavorite = !_isFavorite;
+                BlocProvider.of<WishlistCubit>(context)
+                    .getToggleProductsInWishlist(widget.productId);
+                BotToast.showText(
+                  text: state.toggleProductsInWishlist!.data!.msg!,
+                );
+              });
+            },
+            child: Icon(
+              Icons.favorite,
+              size: 28.h,
+              color: _isFavorite ? Color(0xffE02020) : Colors.grey,
+            ),
+          );
+        } else {
+          return Icon(
             Icons.favorite,
             size: 28.h,
             color: _isFavorite ? Color(0xffE02020) : Colors.grey,
-          ),
-        );
+          );
+        }
       },
     );
   }
