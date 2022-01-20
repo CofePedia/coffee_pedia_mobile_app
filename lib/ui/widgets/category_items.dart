@@ -6,20 +6,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryItemProvider extends StatelessWidget {
-  const CategoryItemProvider({Key? key}) : super(key: key);
+  final int categoriesId;
+
+  const CategoryItemProvider({required this.categoriesId, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SubCategoriesCubit(
-          SubCategoriesRepository(SubCategoriesWebServices())),
-      child: CategoryItems(),
+        SubCategoriesRepository(
+          SubCategoriesWebServices(),
+        ),
+      ),
+      child: CategoryItems(
+        categoriesId: categoriesId,
+      ),
     );
   }
 }
 
 class CategoryItems extends StatefulWidget {
-  const CategoryItems({Key? key}) : super(key: key);
+  final int categoriesId;
+
+  const CategoryItems({required this.categoriesId, Key? key}) : super(key: key);
 
   @override
   State<CategoryItems> createState() => _CategoryItemsState();
@@ -30,10 +40,13 @@ class _CategoryItemsState extends State<CategoryItems> {
 
   @override
   void initState() {
-    BlocProvider.of<SubCategoriesCubit>(context).getSubCategories();
+    BlocProvider.of<SubCategoriesCubit>(context)
+        .getSubCategories(widget.categoriesId);
 
     super.initState();
   }
+
+  int? subCategoryId;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +66,8 @@ class _CategoryItemsState extends State<CategoryItems> {
                 child: OutlinedButton(
                   onPressed: () {
                     setState(() {
+                      subCategoryId = state.subCategories!.data![index]!.id!;
+
                       _selectedIndex = index;
                     });
                   },

@@ -1,4 +1,3 @@
-
 import 'package:coffepedia/data/models/product.dart';
 import 'package:coffepedia/data/web_services/product_web_services.dart';
 
@@ -11,6 +10,4 @@ class ProductRepository {
     final product = productWebServices.getProduct();
     return product;
   }
-
-
 }

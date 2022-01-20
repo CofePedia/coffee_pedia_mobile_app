@@ -6,8 +6,9 @@ class SubCategoriesRepository {
 
   SubCategoriesRepository(this.subCategoriesWebServices);
 
-  Future<SubCategories> getSubCategories() async {
-    final subCategories = subCategoriesWebServices.getSubCategories();
+  Future<SubCategories> getSubCategories(int categoriesId) async {
+    final subCategories =
+        subCategoriesWebServices.getSubCategories(categoriesId);
     return subCategories;
   }
 }

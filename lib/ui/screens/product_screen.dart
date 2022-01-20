@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:coffepedia/business_logic/product/product_cubit.dart';
 import 'package:coffepedia/data/repository/product_repository.dart';
 import 'package:coffepedia/data/web_services/product_web_services.dart';
@@ -231,15 +232,44 @@ class _ProductScreenState extends State<ProductScreen> {
                             ),
                           ),
                           Positioned(
-                            top: 0.h,
+                            top: 20.h,
                             left: 116.h,
                             right: 116.h,
-                            child: Image.network(
-                              state.product!.data!.image!,
-                              height: 260.h,
-                              width: 142.w,
+                            child: Container(
+                              height: 200.h,
+                              child: CarouselSlider(
+                                options: CarouselOptions(
+                                  autoPlay: false,
+                                  enlargeCenterPage: true,
+                                ),
+                                items:
+                                    state.product!.data!.images!.map((image) {
+                                  return Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.w),
+                                    child: Image.network(
+                                      image!,
+                                      fit: BoxFit.fill,
+                                      // height: 260.h,
+                                      // width: 142.w,
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
                             ),
                           ),
+                          // Positioned(
+                          //   top: 0.h,
+                          //   left: 116.h,
+                          //   right: 116.h,
+                          //   child: Image.network(
+                          //     // TODO: it should be list of images with slider
+                          //
+                          //     state.product!.data!.images![0]!,
+                          //     height: 260.h,
+                          //     width: 142.w,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

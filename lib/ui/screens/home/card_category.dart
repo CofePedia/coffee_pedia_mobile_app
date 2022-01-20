@@ -59,7 +59,9 @@ class _CardCategoryState extends State<CardCategory> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return const CategoryScreenProvider();
+                          return CategoryScreenProvider(
+                            categoriesId: state.categories!.data![index]!.id!,
+                          );
                         },
                       ),
                     );

@@ -11,8 +11,8 @@ class SubCategoriesCubit extends Cubit<SubCategoriesState> {
   SubCategoriesCubit(this.subCategoriesRepository)
       : super(SubCategoriesInitial());
 
-  void getSubCategories() {
-    subCategoriesRepository.getSubCategories().then(
+  void getSubCategories(int categoriesId) {
+    subCategoriesRepository.getSubCategories(categoriesId).then(
       (value) {
         emit(SubCategoriesLoaded(value));
       },

@@ -96,8 +96,9 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                             child: Container(
                               color: Colors.red,
                               child: Image.network(
+                                // TODO: it should be image not a list of images
                                 state.featuredProducts!.data!.data![index]!
-                                    .image!,
+                                    .images![0]!,
                                 width: 85.w,
                                 height: 130.h,
                                 fit: BoxFit.fill,
