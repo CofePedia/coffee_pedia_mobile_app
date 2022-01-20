@@ -61,6 +61,8 @@ class _CardCategoryState extends State<CardCategory> {
                         builder: (context) {
                           return CategoryScreenProvider(
                             categoriesId: state.categories!.data![index]!.id!,
+                            subCategoriesId:
+                                state.categories!.data![index]!.children!,
                           );
                         },
                       ),

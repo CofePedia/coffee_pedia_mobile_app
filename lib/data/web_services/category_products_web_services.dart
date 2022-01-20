@@ -6,8 +6,9 @@ import 'package:http/http.dart' as http;
 
 class CategoryProductsWebServices {
   Future<CategoryProducts> getCategoryProducts(
-      int subCategoryId, int categoryId) async {
-    final url = Uri.parse(baseUrl + '/products?category=$categoryId');
+      {int? subCategoryId, int? categoryId}) async {
+    final url = Uri.parse(
+        baseUrl + '/products?category=$categoryId&subCategory=$subCategoryId');
     final http.Response response = await http.get(
       url,
     );

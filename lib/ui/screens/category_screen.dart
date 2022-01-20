@@ -1,4 +1,5 @@
 import 'package:coffepedia/business_logic/category_products/category_products_cubit.dart';
+import 'package:coffepedia/data/models/categories.dart';
 import 'package:coffepedia/data/repository/category_products_repository.dart';
 import 'package:coffepedia/data/web_services/category_products_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
@@ -16,8 +17,10 @@ import 'product_screen.dart';
 
 class CategoryScreenProvider extends StatelessWidget {
   final int categoriesId;
+  final List<CategoriesDataChildren?>? subCategoriesId;
 
-  const CategoryScreenProvider({required this.categoriesId, Key? key})
+  const CategoryScreenProvider(
+      {required this.categoriesId, this.subCategoriesId, Key? key})
       : super(key: key);
 
   @override
@@ -30,6 +33,7 @@ class CategoryScreenProvider extends StatelessWidget {
       ),
       child: CategoryScreen(
         categoriesId: categoriesId,
+        subCategoriesId: subCategoriesId,
       ),
     );
   }
@@ -37,8 +41,10 @@ class CategoryScreenProvider extends StatelessWidget {
 
 class CategoryScreen extends StatefulWidget {
   final int categoriesId;
+  final List<CategoriesDataChildren?>? subCategoriesId;
 
-  const CategoryScreen({required this.categoriesId, Key? key})
+  const CategoryScreen(
+      {required this.categoriesId, this.subCategoriesId, Key? key})
       : super(key: key);
 
   @override
@@ -49,7 +55,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
     BlocProvider.of<CategoryProductsCubit>(context)
-        .getCategoryProducts(2, widget.categoriesId);
+        .getCategoryProducts(subCategoryId: 2, categoryId: widget.categoriesId);
     super.initState();
   }
 
