@@ -21,5 +21,3 @@ class LoggedIn extends AuthEvent {
   @override
   String toString() => 'LoggedIn { user: $user.username.toString() }';
 }
-
-class LoggedOut extends AuthEvent {}

@@ -1,4 +1,4 @@
-import 'package:coffepedia/business_logic/auth/auth_bloc.dart';
+import 'package:coffepedia/business_logic/logout/logout_cubit.dart';
 import 'package:coffepedia/business_logic/me/me_cubit.dart';
 import 'package:coffepedia/constants/colors.dart';
 import 'package:coffepedia/data/repository/me_repository.dart';
@@ -268,9 +268,10 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        BlocProvider.of<AuthBloc>(context).add(
-                          LoggedOut(),
-                        );
+                        // BlocProvider.of<AuthBloc>(context).add(
+                        //   LoggedOut(),
+                        // );
+                        BlocProvider.of<LogoutCubit>(context).logout();
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (_) {
                           return LoginPage();
