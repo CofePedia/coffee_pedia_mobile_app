@@ -1,3 +1,4 @@
+// TODO: Check filters with backend
 class CategoryProductsDataFiltersOptions {
 /*
 {
@@ -30,39 +31,62 @@ class CategoryProductsDataFiltersOptions {
   }
 }
 
-// TODO: check filters with backend
+class CategoryProductsDataFilters {
+/*
+{
+  "name": "Brands",
+  "key": "brand",
+  "type": "multi",
+  "options": [
+    {
+      "id": 1,
+      "slug": "aaaa",
+      "name": "First Brand"
+    }
+  ]
+}
+*/
 
-// class CategoryProductsDataFilters {
-//   String? name;
-//   String? key;
-//   String? type;
-//   List<CategoryProductsDataFiltersOptions>? options;
-//
-//   CategoryProductsDataFilters({this.name, this.key, this.type, this.options});
-//
-//   CategoryProductsDataFilters.fromJson(Map<String, dynamic> json) {
-//     name = json['name'];
-//     key = json['key'];
-//     type = json['type'];
-//     if (json['options'] != null) {
-//       options = <CategoryProductsDataFiltersOptions>[];
-//       json['options'].forEach((v) {
-//         options!.add(new CategoryProductsDataFiltersOptions.fromJson(v));
-//       });
-//     }
-//   }
-//
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['name'] = this.name;
-//     data['key'] = this.key;
-//     data['type'] = this.type;
-//     if (this.options != null) {
-//       data['options'] = this.options!.map((v) => v.toJson()).toList();
-//     }
-//     return data;
-//   }
-// }
+  String? name;
+  String? key;
+  String? type;
+  List<dynamic>? options;
+
+  CategoryProductsDataFilters({
+    this.name,
+    this.key,
+    this.type,
+    this.options,
+  });
+  CategoryProductsDataFilters.fromJson(Map<String, dynamic> json) {
+    name = json['name']?.toString();
+    key = json['key']?.toString();
+    type = json['type']?.toString();
+    if (json['options'] != null) {
+      final v = json['options'];
+      final arr0 = <CategoryProductsDataFiltersOptions>[];
+      v.forEach((v) {
+        arr0.add(CategoryProductsDataFiltersOptions.fromJson(v));
+      });
+      options = arr0;
+    }
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['name'] = name;
+    data['key'] = key;
+    data['type'] = type;
+    if (options != null) {
+      final v = options;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v!.toJson());
+      });
+      data['options'] = arr0;
+    }
+    return data;
+  }
+}
 
 class CategoryProductsDataSubCategory {
 /*
@@ -132,9 +156,9 @@ class CategoryProductsDataPaginate {
 /*
 {
   "currentPage": 1,
-  "lastPage": 2,
+  "lastPage": 1,
   "perPage": 15,
-  "total": 17
+  "total": 5
 }
 */
 
@@ -216,9 +240,7 @@ class CategoryProductsDataData {
   "roast_id": 1,
   "brand_id": 1,
   "vendor_id": 0,
-  "images": [
-    "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
-  ],
+  "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
   "vendor": "",
   "overview": {
     "region": "Regions 1",
@@ -243,7 +265,7 @@ class CategoryProductsDataData {
   int? roastId;
   int? brandId;
   int? vendorId;
-  List<String?>? images;
+  String? image;
   String? vendor;
   CategoryProductsDataDataOverview? overview;
   int? price;
@@ -262,7 +284,7 @@ class CategoryProductsDataData {
     this.roastId,
     this.brandId,
     this.vendorId,
-    this.images,
+    this.image,
     this.vendor,
     this.overview,
     this.price,
@@ -281,14 +303,7 @@ class CategoryProductsDataData {
     roastId = json['roast_id']?.toInt();
     brandId = json['brand_id']?.toInt();
     vendorId = json['vendor_id']?.toInt();
-    if (json['images'] != null) {
-      final v = json['images'];
-      final arr0 = <String>[];
-      v.forEach((v) {
-        arr0.add(v.toString());
-      });
-      images = arr0;
-    }
+    image = json['image']?.toString();
     vendor = json['vendor']?.toString();
     overview = (json['overview'] != null)
         ? CategoryProductsDataDataOverview.fromJson(json['overview'])
@@ -310,14 +325,7 @@ class CategoryProductsDataData {
     data['roast_id'] = roastId;
     data['brand_id'] = brandId;
     data['vendor_id'] = vendorId;
-    if (images != null) {
-      final v = images;
-      final arr0 = [];
-      v!.forEach((v) {
-        arr0.add(v);
-      });
-      data['images'] = arr0;
-    }
+    data['image'] = image;
     data['vendor'] = vendor;
     if (overview != null) {
       data['overview'] = overview!.toJson();
@@ -345,9 +353,7 @@ class CategoryProductsData {
       "roast_id": 1,
       "brand_id": 1,
       "vendor_id": 0,
-      "images": [
-        "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
-      ],
+      "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
       "vendor": "",
       "overview": {
         "region": "Regions 1",
@@ -362,9 +368,9 @@ class CategoryProductsData {
   ],
   "paginate": {
     "currentPage": 1,
-    "lastPage": 2,
+    "lastPage": 1,
     "perPage": 15,
-    "total": 17
+    "total": 5
   },
   "category": {
     "id": 1,
@@ -399,14 +405,14 @@ class CategoryProductsData {
   CategoryProductsDataPaginate? paginate;
   CategoryProductsDataCategory? category;
   List<CategoryProductsDataSubCategory?>? subCategory;
-  // List<CategoryProductsDataFilters?>? filters;
+  List<CategoryProductsDataFilters?>? filters;
 
   CategoryProductsData({
     this.data,
     this.paginate,
     this.category,
     this.subCategory,
-    // this.filters,
+    this.filters,
   });
   CategoryProductsData.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -431,14 +437,14 @@ class CategoryProductsData {
       });
       subCategory = arr0;
     }
-    // if (json['filters'] != null) {
-    //   final v = json['filters'];
-    //   final arr0 = <CategoryProductsDataFilters>[];
-    //   v.forEach((v) {
-    //     arr0.add(CategoryProductsDataFilters.fromJson(v));
-    //   });
-    //   filters = arr0;
-    // }
+    if (json['filters'] != null) {
+      final v = json['filters'];
+      final arr0 = <CategoryProductsDataFilters>[];
+      v.forEach((v) {
+        arr0.add(CategoryProductsDataFilters.fromJson(v));
+      });
+      filters = arr0;
+    }
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -464,14 +470,14 @@ class CategoryProductsData {
       });
       data['sub_category'] = arr0;
     }
-    // if (filters != null) {
-    //   final v = filters;
-    //   final arr0 = [];
-    //   v!.forEach((v) {
-    //     arr0.add(v!.toJson());
-    //   });
-    //   data['filters'] = arr0;
-    // }
+    if (filters != null) {
+      final v = filters;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v!.toJson());
+      });
+      data['filters'] = arr0;
+    }
     return data;
   }
 }
@@ -493,9 +499,7 @@ class CategoryProducts {
         "roast_id": 1,
         "brand_id": 1,
         "vendor_id": 0,
-        "images": [
-          "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
-        ],
+        "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
         "vendor": "",
         "overview": {
           "region": "Regions 1",
@@ -510,9 +514,9 @@ class CategoryProducts {
     ],
     "paginate": {
       "currentPage": 1,
-      "lastPage": 2,
+      "lastPage": 1,
       "perPage": 15,
-      "total": 17
+      "total": 5
     },
     "category": {
       "id": 1,

@@ -10,10 +10,9 @@ class CategoryProductsCubit extends Cubit<CategoryProductsState> {
   CategoryProductsCubit(this.categoryProductsRepository)
       : super(CategoryProductsInitial());
 
-  void getCategoryProducts({int? subCategoryId, int? categoryId}) {
+  void getCategoryProducts(int subCategoryId, int categoryId) {
     categoryProductsRepository
-        .getCategoryProducts(
-            subCategoryId: subCategoryId!, categoryId: categoryId!)
+        .getCategoryProducts(subCategoryId, categoryId)
         .then(
       (value) {
         emit(CategoryProductsIsLoaded(value));

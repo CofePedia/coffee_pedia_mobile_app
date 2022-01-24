@@ -85,9 +85,7 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                             right: 22.w,
                             child: Container(
                               child: Image.network(
-                                // TODO: It should be image not a list of images
-                                state.mostRecent!.data!.data![index]!
-                                    .images![0]!,
+                                state.mostRecent!.data!.data![index]!.image!,
                                 width: 90.w,
                                 height: 101.h,
                               ),

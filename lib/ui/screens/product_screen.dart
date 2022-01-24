@@ -258,18 +258,6 @@ class _ProductScreenState extends State<ProductScreen> {
                               ),
                             ),
                           ),
-                          // Positioned(
-                          //   top: 0.h,
-                          //   left: 116.h,
-                          //   right: 116.h,
-                          //   child: Image.network(
-                          //     // TODO: it should be list of images with slider
-                          //
-                          //     state.product!.data!.images![0]!,
-                          //     height: 260.h,
-                          //     width: 142.w,
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),

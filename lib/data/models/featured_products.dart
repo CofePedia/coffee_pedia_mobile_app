@@ -4,7 +4,7 @@ class FeaturedProductsDataPaginate {
   "currentPage": 1,
   "lastPage": 5,
   "perPage": 15,
-  "total": 64
+  "total": 66
 }
 */
 
@@ -86,9 +86,7 @@ class FeaturedProductsDataData {
   "roast_id": 1,
   "brand_id": 1,
   "vendor_id": 0,
-  "images": [
-    "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
-  ],
+  "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
   "vendor": "",
   "overview": {
     "region": "Regions 1",
@@ -113,7 +111,7 @@ class FeaturedProductsDataData {
   int? roastId;
   int? brandId;
   int? vendorId;
-  List<String?>? images;
+  String? image;
   String? vendor;
   FeaturedProductsDataDataOverview? overview;
   int? price;
@@ -132,7 +130,7 @@ class FeaturedProductsDataData {
     this.roastId,
     this.brandId,
     this.vendorId,
-    this.images,
+    this.image,
     this.vendor,
     this.overview,
     this.price,
@@ -151,14 +149,7 @@ class FeaturedProductsDataData {
     roastId = json['roast_id']?.toInt();
     brandId = json['brand_id']?.toInt();
     vendorId = json['vendor_id']?.toInt();
-    if (json['images'] != null) {
-      final v = json['images'];
-      final arr0 = <String>[];
-      v.forEach((v) {
-        arr0.add(v.toString());
-      });
-      images = arr0;
-    }
+    image = json['image']?.toString();
     vendor = json['vendor']?.toString();
     overview = (json['overview'] != null)
         ? FeaturedProductsDataDataOverview.fromJson(json['overview'])
@@ -180,14 +171,7 @@ class FeaturedProductsDataData {
     data['roast_id'] = roastId;
     data['brand_id'] = brandId;
     data['vendor_id'] = vendorId;
-    if (images != null) {
-      final v = images;
-      final arr0 = [];
-      v!.forEach((v) {
-        arr0.add(v);
-      });
-      data['images'] = arr0;
-    }
+    data['image'] = image;
     data['vendor'] = vendor;
     if (overview != null) {
       data['overview'] = overview!.toJson();
@@ -215,9 +199,7 @@ class FeaturedProductsData {
       "roast_id": 1,
       "brand_id": 1,
       "vendor_id": 0,
-      "images": [
-        "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
-      ],
+      "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
       "vendor": "",
       "overview": {
         "region": "Regions 1",
@@ -234,7 +216,7 @@ class FeaturedProductsData {
     "currentPage": 1,
     "lastPage": 5,
     "perPage": 15,
-    "total": 64
+    "total": 66
   }
 }
 */
@@ -293,9 +275,7 @@ class FeaturedProducts {
         "roast_id": 1,
         "brand_id": 1,
         "vendor_id": 0,
-        "images": [
-          "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
-        ],
+        "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
         "vendor": "",
         "overview": {
           "region": "Regions 1",
@@ -312,7 +292,7 @@ class FeaturedProducts {
       "currentPage": 1,
       "lastPage": 5,
       "perPage": 15,
-      "total": 64
+      "total": 66
     }
   }
 }

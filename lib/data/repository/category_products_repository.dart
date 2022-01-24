@@ -7,9 +7,9 @@ class CategoryProductsRepository {
   CategoryProductsRepository(this.categoryProductsWebServices);
 
   Future<CategoryProducts> getCategoryProducts(
-      {int? subCategoryId, int? categoryId}) async {
+      int subCategoryId, int categoryId) async {
     final categoryProduct = categoryProductsWebServices.getCategoryProducts(
-        subCategoryId: subCategoryId!, categoryId: categoryId);
+        subCategoryId, categoryId);
     return categoryProduct;
   }
 }

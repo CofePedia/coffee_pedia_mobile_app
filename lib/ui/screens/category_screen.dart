@@ -55,7 +55,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
     BlocProvider.of<CategoryProductsCubit>(context)
-        .getCategoryProducts(subCategoryId: 2, categoryId: widget.categoriesId);
+        .getCategoryProducts(2, widget.categoriesId);
     super.initState();
   }
 
@@ -212,10 +212,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 right: 17.w,
                                 child: Container(
                                   child: Image.network(
-                                    // TODO: it should be image not a list of images
-
                                     state.categoryProducts!.data!.data![index]!
-                                        .images![0]!,
+                                        .image!,
                                     width: 75.w,
                                     height: 136.h,
                                     fit: BoxFit.cover,
