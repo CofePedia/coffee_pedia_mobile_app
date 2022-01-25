@@ -9,8 +9,8 @@ class ProductCubit extends Cubit<ProductState> {
   final ProductRepository productRepository;
 
   ProductCubit(this.productRepository) : super(ProductInitial());
-  void getProduct() {
-    productRepository.getProduct().then(
+  void getProduct(int id) {
+    productRepository.getProduct(id).then(
       (value) {
         emit(ProductLoaded(value));
       },

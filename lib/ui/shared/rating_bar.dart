@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 
 class RatingBarComponent extends StatelessWidget {
-  const RatingBarComponent({Key? key}) : super(key: key);
+  final double rate;
+  const RatingBarComponent({required this.rate, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return RatingBar.builder(
-      initialRating: 3,
-      minRating: 1,
+    return RatingBarIndicator(
+      rating: rate,
+      itemBuilder: (context, index) => SvgPicture.asset(
+        'assets/icons/star_active.svg',
+      ),
+      itemCount: 5, itemPadding: EdgeInsets.zero,
+      unratedColor: Colors.grey.shade400,
+      itemSize: 20,
+      //itemSize: 50.0,
       direction: Axis.horizontal,
-      itemCount: 5,
-      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-      itemBuilder: (context, _) =>
-          SvgPicture.asset('assets/icons/star_active.svg'),
-      onRatingUpdate: (rating) {},
     );
   }
 }

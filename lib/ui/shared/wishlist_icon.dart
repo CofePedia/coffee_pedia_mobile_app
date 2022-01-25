@@ -8,8 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WishlistIconWidget extends StatelessWidget {
   final String productId;
+  final bool isFavorite;
 
-  const WishlistIconWidget({required this.productId, Key? key})
+  const WishlistIconWidget(
+      {required this.productId, required this.isFavorite, Key? key})
       : super(key: key);
 
   @override
@@ -22,6 +24,7 @@ class WishlistIconWidget extends StatelessWidget {
       ),
       child: WishlistIcon(
         productId: productId,
+        isFavorite: isFavorite,
       ),
     );
   }
@@ -29,15 +32,17 @@ class WishlistIconWidget extends StatelessWidget {
 
 class WishlistIcon extends StatefulWidget {
   final String productId;
+  bool isFavorite;
 
-  const WishlistIcon({required this.productId, Key? key}) : super(key: key);
+  WishlistIcon({required this.productId, required this.isFavorite, Key? key})
+      : super(key: key);
 
   @override
   _WishlistIconState createState() => _WishlistIconState();
 }
 
 class _WishlistIconState extends State<WishlistIcon> {
-  bool _isFavorite = false;
+  // bool _isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +60,7 @@ class _WishlistIconState extends State<WishlistIcon> {
           return InkWell(
             onTap: () {
               setState(() {
-                _isFavorite = !_isFavorite;
+                widget.isFavorite = !widget.isFavorite;
                 BlocProvider.of<WishlistCubit>(context)
                     .getToggleProductsInWishlist(widget.productId);
               });
@@ -63,7 +68,7 @@ class _WishlistIconState extends State<WishlistIcon> {
             child: Icon(
               Icons.favorite,
               size: 28.h,
-              color: _isFavorite ? Color(0xffE02020) : Colors.grey,
+              color: widget.isFavorite ? Color(0xffE02020) : Colors.grey,
             ),
           );
           // } else {

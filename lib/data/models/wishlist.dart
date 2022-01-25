@@ -6,7 +6,7 @@ class WishlistData {
   "description_en": "Autem tenetur quia quidem laboriosam maxime",
   "brand_id": 1,
   "product_status_id": 2,
-  "vendor_id": null,
+  "vendor_id": 61,
   "flavor_id": 1,
   "roast_id": 1,
   "region_id": 1,
@@ -31,7 +31,8 @@ class WishlistData {
   "description_ar": null,
   "discount_category": null,
   "approved_date": null,
-  "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
+  "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
+  "like": true
 }
 */
 
@@ -40,7 +41,7 @@ class WishlistData {
   String? descriptionEn;
   int? brandId;
   int? productStatusId;
-  String? vendorId;
+  int? vendorId;
   int? flavorId;
   int? roastId;
   int? regionId;
@@ -66,6 +67,7 @@ class WishlistData {
   String? discountCategory;
   String? approvedDate;
   String? image;
+  bool? like;
 
   WishlistData({
     this.id,
@@ -99,6 +101,7 @@ class WishlistData {
     this.discountCategory,
     this.approvedDate,
     this.image,
+    this.like,
   });
   WishlistData.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toInt();
@@ -106,7 +109,7 @@ class WishlistData {
     descriptionEn = json['description_en']?.toString();
     brandId = json['brand_id']?.toInt();
     productStatusId = json['product_status_id']?.toInt();
-    vendorId = json['vendor_id']?.toString();
+    vendorId = json['vendor_id']?.toInt();
     flavorId = json['flavor_id']?.toInt();
     roastId = json['roast_id']?.toInt();
     regionId = json['region_id']?.toInt();
@@ -132,6 +135,7 @@ class WishlistData {
     discountCategory = json['discount_category']?.toString();
     approvedDate = json['approved_date']?.toString();
     image = json['image']?.toString();
+    like = json['like'];
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -166,6 +170,7 @@ class WishlistData {
     data['discount_category'] = discountCategory;
     data['approved_date'] = approvedDate;
     data['image'] = image;
+    data['like'] = like;
     return data;
   }
 }
@@ -180,7 +185,7 @@ class Wishlist {
       "description_en": "Autem tenetur quia quidem laboriosam maxime",
       "brand_id": 1,
       "product_status_id": 2,
-      "vendor_id": null,
+      "vendor_id": 61,
       "flavor_id": 1,
       "roast_id": 1,
       "region_id": 1,
@@ -205,7 +210,8 @@ class Wishlist {
       "description_ar": null,
       "discount_category": null,
       "approved_date": null,
-      "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
+      "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
+      "like": true
     }
   ]
 }

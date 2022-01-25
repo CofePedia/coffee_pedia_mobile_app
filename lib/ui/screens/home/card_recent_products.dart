@@ -100,8 +100,10 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                                 SizedBox(
                                   width: 6.14.w,
                                 ),
-                                Text(state.mostRecent!.data!.data![index]!.rate!
-                                    .toString()),
+                                Text(
+                                  state.mostRecent!.data!.data![index]!.rate!
+                                      .toString(),
+                                ),
                               ],
                             ),
                           ),

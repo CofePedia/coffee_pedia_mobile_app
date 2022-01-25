@@ -190,7 +190,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return ProductProvider();
+                                return ProductProvider(
+                                  id: state.categoryProducts!.data!
+                                      .data![index]!.id!,
+                                );
                               },
                             ),
                           );
@@ -353,6 +356,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     productId: state.categoryProducts!.data!
                                         .data![index]!.id!
                                         .toString(),
+                                    isFavorite: state.categoryProducts!.data!
+                                        .data![index]!.inWishlist!,
                                   ),
                                 ),
                               ),

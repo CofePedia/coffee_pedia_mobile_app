@@ -33,21 +33,21 @@ class WishlistScreen extends StatefulWidget {
 
 class _WishlistScreenState extends State<WishlistScreen> {
   bool _isFavorite = true;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void toggleWishlistIcon(
-    String productId,
-  ) {
-    setState(() {
-      BlocProvider.of<WishlistCubit>(context)
-          .getToggleProductsInWishlist(productId);
-      _isFavorite = !_isFavorite;
-    });
-  }
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
+  //
+  // void toggleWishlistIcon(
+  //   String productId,
+  // ) {
+  //   setState(() {
+  //     BlocProvider.of<WishlistCubit>(context)
+  //         .getToggleProductsInWishlist(productId);
+  //     _isFavorite = !_isFavorite;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +95,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
                 BlocBuilder<WishlistCubit, WishlistState>(
                   builder: (context, state) {
                     if (state is WishlistIsLoaded) {
-                      print("wishlist length: ${state.wishlist!.data!.length}");
                       return Container(
                         width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -216,11 +215,25 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                         )
                                       ],
                                     ),
+                                    // child: WishlistIconWidget(
+                                    //   isFavorite:
+                                    //       state.wishlist!.data![index]!.like!,
+                                    //   productId: state
+                                    //       .wishlist!.data![index]!.id!
+                                    //       .toString(),
+                                    // ),
                                     child: InkWell(
-                                      onTap: () => toggleWishlistIcon(
-                                        state.wishlist!.data![index]!.id!
-                                            .toString(),
-                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          BlocProvider.of<WishlistCubit>(
+                                                  context)
+                                              .getToggleProductsInWishlist(state
+                                                  .wishlist!.data![index]!.id!
+                                                  .toString());
+                                          _isFavorite = state
+                                              .wishlist!.data![index]!.like!;
+                                        });
+                                      },
                                       child: Icon(
                                         Icons.favorite,
                                         size: 28.h,
