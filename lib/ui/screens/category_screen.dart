@@ -119,7 +119,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           text: TextSpan(
                             children: <TextSpan>[
                               TextSpan(
-                                text: 'Coffee ',
+                                text:
+                                    '${state.categoryProducts!.data!.category!.name} ',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline1!
@@ -220,29 +221,34 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   ),
                                 ),
                               ),
-                              Positioned(
-                                top: 30.h,
-                                left: 20.w,
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(Assets.iconsStarActive),
-                                    SizedBox(
-                                      width: 5.w,
-                                    ),
-                                    Text(
-                                      state.categoryProducts!.data!
-                                          .data![index]!.rate!
-                                          .toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(
-                                            fontWeight: FontWeight.w700,
+                              state.categoryProducts!.data!.data![index]!
+                                          .rate! !=
+                                      0
+                                  ? Positioned(
+                                      top: 30.h,
+                                      left: 20.w,
+                                      child: Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                              Assets.iconsStarActive),
+                                          SizedBox(
+                                            width: 5.w,
                                           ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                                          Text(
+                                            state.categoryProducts!.data!
+                                                .data![index]!.rate!
+                                                .toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : SizedBox.shrink(),
                               Positioned(
                                 top: 152.h,
                                 left: 12.w,
@@ -273,6 +279,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         ),
                                         child: Text(
                                           '${state.categoryProducts!.data!.data![index]!.discount}% Off',
+                                          // state.categoryProducts!.data!
+                                          //     .filters![2]!.optionsSingle![2]
+                                          //     .toString(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1,

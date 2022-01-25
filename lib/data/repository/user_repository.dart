@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:coffepedia/data/models/login_data_user.dart';
-import 'package:coffepedia/data/models/logout.dart';
 import 'package:coffepedia/data/models/signup_data_user.dart';
 import 'package:coffepedia/data/web_services/auth_web_services.dart';
 import 'package:coffepedia/database/database_provider.dart';
@@ -35,18 +34,13 @@ class UserRepository {
     return signUpUserData;
   }
 
-  Future<Logout> logout() async {
-    final userLogout = await authWebServices.logout();
-    return userLogout;
-  }
-
   Future<void> persistToken({required LoginData user}) async {
     await userDao.createUser(user);
   }
 
-  Future<void> deleteToken({required int id}) async {
-    await userDao.deleteUser(id);
-  }
+  // Future<void> deleteToken({required int id}) async {
+  //   await userDao.deleteUser(id);
+  // }
 
   Future<bool> hasToken(int id) async {
     bool result = await userDao.checkSavedToken(id);

@@ -34,7 +34,7 @@ class LoginDataUser {
   String? status;
   String? avatar;
   String? name;
-  List<MyAddressesData>? myAddresses;
+  dynamic myAddresses;
 
   LoginDataUser(
       {this.id,
@@ -67,14 +67,15 @@ class LoginDataUser {
     status = json['status']?.toString();
     avatar = json['avatar']?.toString();
     name = json['name']?.toString();
-    if (json['address'] != null) {
-      final v = json['address'];
-      final arr0 = <MyAddressesData>[];
-      v.forEach((v) {
-        arr0.add(MyAddressesData.fromJson(v));
-      });
-      myAddresses = arr0;
-    }
+    // if (json['address'] != null) {
+    //   myAddresses = MyAddressesData.fromJson(json['address']);
+    // } else {
+    //   myAddresses = 0;
+    // }
+
+    myAddresses = (json['address'] != null)
+        ? MyAddressesData.fromJson(json['address'])
+        : 0;
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -93,12 +94,7 @@ class LoginDataUser {
     data['avatar'] = avatar;
     data['name'] = name;
     if (myAddresses != null) {
-      final v = myAddresses;
-      final arr0 = [];
-      v!.forEach((v) {
-        arr0.add(v.toJson());
-      });
-      data['address'] = arr0;
+      data['address'] = myAddresses!.toJson();
     }
     return data;
   }

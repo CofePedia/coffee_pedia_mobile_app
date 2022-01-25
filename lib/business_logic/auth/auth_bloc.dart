@@ -9,7 +9,6 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserRepository userRepository;
-
   AuthBloc(this.userRepository) : super(AuthInitial());
   @override
   @override
@@ -18,19 +17,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async* {
     if (event is AppStarted) {
       final bool hasToken = await userRepository.hasToken(0);
-
       if (hasToken) {
         yield AuthenticationAuthenticated();
       } else {
         yield AuthenticationUnauthenticated();
       }
     }
-
     if (event is LoggedIn) {
       yield AuthenticationLoading();
-
       await userRepository.persistToken(user: event.user!);
       yield AuthenticationAuthenticated();
     }
+    // if (event is LoggedOut) {
+    //   yield AuthenticationLoading();
+    //   await userRepository.deleteToken(id: 0);
+    //   yield AuthenticationUnauthenticated();
+    // }
   }
 }

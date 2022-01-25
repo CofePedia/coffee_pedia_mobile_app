@@ -1,4 +1,3 @@
-// TODO: Check filters with backend
 class CategoryProductsDataFiltersOptions {
 /*
 {
@@ -31,6 +30,32 @@ class CategoryProductsDataFiltersOptions {
   }
 }
 
+class CategoryProductsDataFiltersOptionsByPrice {
+/*
+{
+  "id": 1,
+  "slug": "aaaa",
+  "name": "First Brand"
+}
+*/
+
+  int? min;
+  int? max;
+
+  CategoryProductsDataFiltersOptionsByPrice({this.max, this.min});
+  CategoryProductsDataFiltersOptionsByPrice.fromJson(
+      Map<String, dynamic> json) {
+    min = json['min']?.toInt();
+    max = json['max']?.toInt();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['min'] = min;
+    data['max'] = max;
+    return data;
+  }
+}
+
 class CategoryProductsDataFilters {
 /*
 {
@@ -50,25 +75,45 @@ class CategoryProductsDataFilters {
   String? name;
   String? key;
   String? type;
-  List<dynamic>? options;
+  List<CategoryProductsDataFiltersOptions>? optionsMulti;
+  CategoryProductsDataFiltersOptionsByPrice? optionsRange;
+  List<int>? optionsSingle;
 
   CategoryProductsDataFilters({
     this.name,
     this.key,
     this.type,
-    this.options,
+    this.optionsMulti,
   });
   CategoryProductsDataFilters.fromJson(Map<String, dynamic> json) {
     name = json['name']?.toString();
     key = json['key']?.toString();
     type = json['type']?.toString();
-    if (json['options'] != null) {
-      final v = json['options'];
-      final arr0 = <CategoryProductsDataFiltersOptions>[];
-      v.forEach((v) {
-        arr0.add(CategoryProductsDataFiltersOptions.fromJson(v));
-      });
-      options = arr0;
+    if (type == 'multi') {
+      if (json['options'] != null) {
+        final v = json['options'];
+        final arr0 = <CategoryProductsDataFiltersOptions>[];
+        v.forEach((v) {
+          arr0.add(CategoryProductsDataFiltersOptions.fromJson(v));
+        });
+        this.optionsMulti = arr0;
+      }
+    }
+    if (type == 'range') {
+      optionsRange = (json['options'] != null)
+          ? CategoryProductsDataFiltersOptionsByPrice.fromJson(json['options'])
+          : null;
+    }
+
+    if (type == 'single') {
+      if (json['options'] != null) {
+        final v = json['options'];
+        final arr0 = <int>[];
+        v.forEach((v) {
+          arr0.add(v.toInt());
+        });
+        optionsSingle = arr0;
+      }
     }
   }
   Map<String, dynamic> toJson() {
@@ -76,13 +121,30 @@ class CategoryProductsDataFilters {
     data['name'] = name;
     data['key'] = key;
     data['type'] = type;
-    if (options != null) {
-      final v = options;
-      final arr0 = [];
-      v!.forEach((v) {
-        arr0.add(v!.toJson());
-      });
-      data['options'] = arr0;
+    if (type == 'multi') {
+      if (this.optionsMulti != null) {
+        final v = this.optionsMulti;
+        final arr0 = [];
+        v!.forEach((v) {
+          arr0.add(v.toJson());
+        });
+        data['data'] = arr0;
+      }
+    }
+    if (type == 'range') {
+      if (optionsRange != null) {
+        data['options'] = optionsRange!.toJson();
+      }
+    }
+    if (type == 'single') {
+      if (this.optionsSingle != null) {
+        final v = this.optionsSingle;
+        final arr0 = [];
+        v!.forEach((v) {
+          arr0.add(v.toInt());
+        });
+        data['data'] = arr0;
+      }
     }
     return data;
   }
@@ -295,7 +357,8 @@ class CategoryProductsDataData {
     id = json['id']?.toInt();
     description = json['description']?.toString();
     name = json['name']?.toString();
-    rate = json['rate']?.toInt();
+    // json['rate']?.toInt() ?
+    rate = json['rate'] != null ? json['rate']?.toInt() : 0;
     discount = json['discount']?.toInt();
     priceBeforeDiscount = json['price_before_discount']?.toInt();
     flavorId = json['flavor_id']?.toInt();

@@ -13,3 +13,8 @@ class MeIsLoaded extends MeState {
   final MeModel? me;
   MeIsLoaded(this.me);
 }
+
+class IsLogout extends MeState {
+  final Logout? logout;
+  IsLogout(this.logout);
+}
