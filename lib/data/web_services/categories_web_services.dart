@@ -10,7 +10,7 @@ class CategoriesWebServices {
     final http.Response response = await http.get(
       url,
     );
-    print("response ${response.body}");
+    print("response categories ${response.body}");
 
     if (response.statusCode == 200) {
       return Categories.fromJson(

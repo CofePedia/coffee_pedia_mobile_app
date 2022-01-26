@@ -2,18 +2,37 @@ import 'dart:convert';
 
 import 'package:coffepedia/constants/strings.dart';
 import 'package:coffepedia/data/models/category_products.dart';
+import 'package:coffepedia/data/models/gettoken_database.dart';
+import 'package:coffepedia/database/database_provider.dart';
 import 'package:http/http.dart' as http;
 
 class CategoryProductsWebServices {
-  Future<CategoryProducts> getCategoryProducts(
-      int subCategoryId, int categoryId) async {
-    // TODO: add subCategoryId
-    final url = Uri.parse(baseUrl + '/products?category=$categoryId');
-    final http.Response response = await http.get(
-      url,
-    );
-    print("response category products ${response.body}");
+  final userDao = UserDao();
 
+  Future<CategoryProducts> getCategoryProducts(
+    int subCategoryId,
+    int categoryId,
+  ) async {
+    final queryParameters = {
+      'category': categoryId.toString(),
+      'brand[]': ["2", '3'],
+    };
+
+    if (subCategoryId != 0) {
+      queryParameters.addAll({
+        'subCategory': subCategoryId.toString(),
+      });
+    }
+    final uri = Uri.https(getBaseUrl, '/products', queryParameters);
+
+    GetTokenDatabase? token = await userDao.getUserToken();
+    print("token product " + token!.getToken!);
+
+    final http.Response response = await http.get(
+      uri,
+      headers: {'Authorization': 'Bearer ' + token.getToken!},
+    );
+    print("response categoryProducts ${response.body}");
     if (response.statusCode == 200) {
       return CategoryProducts.fromJson(
         json.decode(response.body),

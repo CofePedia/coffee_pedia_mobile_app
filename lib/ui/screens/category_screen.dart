@@ -17,10 +17,10 @@ import 'product_screen.dart';
 
 class CategoryScreenProvider extends StatelessWidget {
   final int categoriesId;
-  final List<CategoriesDataChildren?>? subCategoriesId;
+  final List<CategoriesDataChildren?>? subCategories;
 
   const CategoryScreenProvider(
-      {required this.categoriesId, this.subCategoriesId, Key? key})
+      {required this.categoriesId, this.subCategories, Key? key})
       : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class CategoryScreenProvider extends StatelessWidget {
       ),
       child: CategoryScreen(
         categoriesId: categoriesId,
-        subCategoriesId: subCategoriesId,
+        subCategories: subCategories!,
       ),
     );
   }
@@ -41,10 +41,10 @@ class CategoryScreenProvider extends StatelessWidget {
 
 class CategoryScreen extends StatefulWidget {
   final int categoriesId;
-  final List<CategoriesDataChildren?>? subCategoriesId;
+  final List<CategoriesDataChildren?>? subCategories;
 
   const CategoryScreen(
-      {required this.categoriesId, this.subCategoriesId, Key? key})
+      {required this.categoriesId, this.subCategories, Key? key})
       : super(key: key);
 
   @override
@@ -55,7 +55,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
     BlocProvider.of<CategoryProductsCubit>(context)
-        .getCategoryProducts(2, widget.categoriesId);
+        .getCategoryProducts(0, widget.categoriesId);
+    // print('AmrSubCategoryId ${widget.subCategoryId}');
     super.initState();
   }
 
@@ -105,8 +106,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   SizedBox(
                     height: 15.h,
                   ),
-                  CategoryItemProvider(
+                  CategoryItems(
                     categoriesId: widget.categoriesId,
+                    subCategories: widget.subCategories,
                   ),
                   Padding(
                     padding:
@@ -155,7 +157,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               ),
                               context: context,
                               isScrollControlled: true,
-                              builder: (context) => FiltersScreen(),
+                              builder: (context) => FiltersScreen(
+                                  productFilters:
+                                      state.categoryProducts!.data!.filters!),
                             );
                           },
                           height: 40.h,

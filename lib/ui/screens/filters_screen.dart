@@ -1,31 +1,32 @@
+import 'package:coffepedia/data/models/category_products.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:coffepedia/ui/widgets/filters_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FiltersScreen extends StatefulWidget {
-  const FiltersScreen({Key? key}) : super(key: key);
+  final List<CategoryProductsDataFilters?>? productFilters;
+  const FiltersScreen({required this.productFilters, Key? key})
+      : super(key: key);
 
   @override
   _FiltersScreenState createState() => _FiltersScreenState();
 }
 
 class _FiltersScreenState extends State<FiltersScreen> {
-  bool? _isOpen = false;
+  List<bool>? _isOpen;
+  RangeValues _currentRangeValues = const RangeValues(40, 80);
 
-  final List<String> componentsName = [
-    'Brand',
-    'Price',
-    'Rating',
-    'Coffee Flavor',
-    'Coffee Roast',
-    'Coffee Region',
-  ];
+  @override
+  void initState() {
+    _isOpen = List.filled(widget.productFilters!.length, false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 700.h,
+      height: 750.h,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: Color(0xffffffff),
@@ -63,116 +64,92 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 child: ExpansionPanelList(
                   dividerColor: Color(0xff979797),
                   elevation: 0,
-                  children: [
-                    ExpansionPanel(
+                  expandedHeaderPadding: EdgeInsets.zero,
+                  children: List.generate(
+                    widget.productFilters!.length,
+                    (filterIndex) => ExpansionPanel(
                       canTapOnHeader: true,
                       headerBuilder: (context, isOpen) {
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: 30.h),
                           child: Text(
-                            componentsName[0],
+                            widget.productFilters![filterIndex]!.name!,
                             style: Theme.of(context).textTheme.caption,
                           ),
                         );
                       },
                       body: Container(
                         width: MediaQuery.of(context).size.width,
-                        child: Wrap(
-                          spacing: 4.w,
-                          children: [
-                            FiltersButtons(
-                              title: 'Lavazza',
-                            ),
-                            FiltersButtons(
-                              title: 'Stumptown Coffee Roasters',
-                            ),
-                            FiltersButtons(
-                              title: 'Amazon Fresh',
-                            ),
-                            FiltersButtons(
-                              title: 'Starbucks',
-                            ),
-                            FiltersButtons(
-                              title: 'SAN FRANCISCO BAY',
-                            ),
-                          ],
-                        ),
+                        child:
+                            widget.productFilters![filterIndex]!.type == 'multi'
+                                ? Wrap(
+                                    spacing: 4.w,
+                                    children: List.generate(
+                                      widget.productFilters![filterIndex]!
+                                          .optionsMulti!.length,
+                                      (multiIndex) => FiltersButtons(
+                                        title: widget
+                                            .productFilters![filterIndex]!
+                                            .optionsMulti![multiIndex]
+                                            .name!,
+                                      ),
+                                    ),
+                                  )
+                                : widget.productFilters![filterIndex]!.type ==
+                                        'range'
+                                    ? Column(
+                                        children: [
+                                          RangeSlider(
+                                            activeColor:
+                                                Theme.of(context).primaryColor,
+                                            values: _currentRangeValues,
+                                            max: widget
+                                                .productFilters![filterIndex]!
+                                                .optionsRange!
+                                                .max!
+                                                .toDouble(),
+                                            min: widget
+                                                .productFilters![filterIndex]!
+                                                .optionsRange!
+                                                .min!
+                                                .toDouble(),
+                                            divisions: 5,
+                                            // labels: RangeLabels(
+                                            //   _currentRangeValues.start
+                                            //       .round()
+                                            //       .toString(),
+                                            //   _currentRangeValues.end
+                                            //       .round()
+                                            //       .toString(),
+                                            // ),
+                                            onChanged: (RangeValues values) {
+                                              setState(() {
+                                                _currentRangeValues = values;
+                                              });
+                                            },
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Text(
+                                                'Lower Price: ${_currentRangeValues.start.round().toString()}',
+                                              ),
+                                              Text(
+                                                'Upper Price: ${_currentRangeValues.end.round().toString()}',
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                    : SizedBox.shrink(),
                       ),
-                      isExpanded: _isOpen!,
+                      isExpanded: _isOpen![filterIndex],
                     ),
-                    ExpansionPanel(
-                      canTapOnHeader: true,
-                      headerBuilder: (context, isOpen) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 30.h),
-                          child: Text(
-                            componentsName[1],
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        );
-                      },
-                      body: Text(''),
-                      isExpanded: false,
-                    ),
-                    ExpansionPanel(
-                      canTapOnHeader: true,
-                      headerBuilder: (context, isOpen) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 30.h),
-                          child: Text(
-                            componentsName[2],
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        );
-                      },
-                      body: Text(''),
-                      isExpanded: false,
-                    ),
-                    ExpansionPanel(
-                      canTapOnHeader: true,
-                      headerBuilder: (context, isOpen) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 30.h),
-                          child: Text(
-                            componentsName[3],
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        );
-                      },
-                      body: Text(''),
-                      isExpanded: false,
-                    ),
-                    ExpansionPanel(
-                      canTapOnHeader: true,
-                      headerBuilder: (context, isOpen) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 30.h),
-                          child: Text(
-                            componentsName[4],
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        );
-                      },
-                      body: Text(''),
-                      isExpanded: false,
-                    ),
-                    ExpansionPanel(
-                      canTapOnHeader: true,
-                      headerBuilder: (context, isOpen) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 30.h),
-                          child: Text(
-                            componentsName[5],
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        );
-                      },
-                      body: Text(''),
-                      isExpanded: false,
-                    ),
-                  ],
-                  expansionCallback: (i, isOpen) =>
-                      setState(() => _isOpen = !isOpen),
+                  ),
+                  expansionCallback: (i, isOpen) => setState(
+                    () => _isOpen![i] = !isOpen,
+                  ),
                 ),
               ),
             ],

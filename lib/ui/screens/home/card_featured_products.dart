@@ -36,6 +36,11 @@ class CardFeaturedProducts extends StatefulWidget {
 
 class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     BlocProvider.of<FeaturedProductsCubit>(context).getFeaturedProducts();
 

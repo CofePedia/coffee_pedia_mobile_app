@@ -197,6 +197,14 @@ class _ProductScreenState extends State<ProductScreen> {
                           IconButton(
                             onPressed: () {
                               Navigator.pop(context);
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) {
+                              //       return HomePage(currentIndex: 0);
+                              //     },
+                              //   ),
+                              // );
                             },
                             icon: Icon(
                               Icons.chevron_left,
