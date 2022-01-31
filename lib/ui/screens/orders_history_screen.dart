@@ -107,12 +107,16 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                       width: 67.w,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
-                                        // TODO: Ask Nada to add statusColor
-                                        // color: Color(
-                                        //   int.parse(state.orderHistory!
-                                        //       .data![index]!.statusColor!),
-                                        // ),
+                                        color: state.orderHistory!.data![index]!
+                                                    .statusColor !=
+                                                null
+                                            ? Color(
+                                                int.parse(state
+                                                    .orderHistory!
+                                                    .data![index]!
+                                                    .statusColor!),
+                                              )
+                                            : Theme.of(context).primaryColor,
                                         borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(12.5.r),
                                           bottomRight: Radius.circular(12.5.r),

@@ -61,9 +61,9 @@ class _CardCategoryState extends State<CardCategory> {
                         builder: (context) {
                           return CategoryScreenProvider(
                             categoriesId: state.categories!.data![index]!.id!,
-                            // TODO: index of children
                             subCategories:
                                 state.categories!.data![index]!.children,
+                            multiMap: {},
                           );
                         },
                       ),

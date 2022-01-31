@@ -151,7 +151,6 @@ class _ProductScreenState extends State<ProductScreen> {
                         isScrollControlled: true,
                         builder: (context) => CheckoutPopUp(
                           title: state.product!.data!.name,
-                          // TODO: it should be image not a list of images
                           image: state.product!.data!.images![0],
                           totalPrice: state.product!.data!.price.toString(),
                         ),

@@ -18,9 +18,13 @@ import 'product_screen.dart';
 class CategoryScreenProvider extends StatelessWidget {
   final int categoriesId;
   final List<CategoriesDataChildren?>? subCategories;
+  final Map<String, List<String?>> multiMap;
 
   const CategoryScreenProvider(
-      {required this.categoriesId, this.subCategories, Key? key})
+      {required this.categoriesId,
+      required this.subCategories,
+      required this.multiMap,
+      Key? key})
       : super(key: key);
 
   @override
@@ -34,6 +38,7 @@ class CategoryScreenProvider extends StatelessWidget {
       child: CategoryScreen(
         categoriesId: categoriesId,
         subCategories: subCategories!,
+        multiMap: multiMap,
       ),
     );
   }
@@ -42,9 +47,13 @@ class CategoryScreenProvider extends StatelessWidget {
 class CategoryScreen extends StatefulWidget {
   final int categoriesId;
   final List<CategoriesDataChildren?>? subCategories;
+  final Map<String, List<String?>> multiMap;
 
   const CategoryScreen(
-      {required this.categoriesId, this.subCategories, Key? key})
+      {required this.categoriesId,
+      this.subCategories,
+      required this.multiMap,
+      Key? key})
       : super(key: key);
 
   @override
@@ -55,8 +64,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
     BlocProvider.of<CategoryProductsCubit>(context)
-        .getCategoryProducts(0, widget.categoriesId);
-    // print('AmrSubCategoryId ${widget.subCategoryId}');
+        .getCategoryProducts(0, widget.categoriesId, widget.multiMap);
     super.initState();
   }
 
@@ -157,9 +165,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               ),
                               context: context,
                               isScrollControlled: true,
-                              builder: (context) => FiltersScreen(
-                                  productFilters:
-                                      state.categoryProducts!.data!.filters!),
+                              builder: (context) => FiltersScreenProvider(
+                                productFilters:
+                                    state.categoryProducts!.data!.filters!,
+                                categoriesId: widget.categoriesId,
+                                subCategories: widget.subCategories,
+                              ),
                             );
                           },
                           height: 40.h,

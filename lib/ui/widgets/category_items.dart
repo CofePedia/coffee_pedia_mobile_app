@@ -42,9 +42,7 @@ class _CategoryItemsState extends State<CategoryItems> {
 
                 BlocProvider.of<CategoryProductsCubit>(context)
                     .getCategoryProducts(
-                  _selectedSubCategory!,
-                  widget.categoriesId,
-                );
+                        _selectedSubCategory!, widget.categoriesId, {});
               });
               print('AmrSelectedSubCategoryId2 $_selectedSubCategory');
             },

@@ -12,11 +12,17 @@ class CategoryProductsWebServices {
   Future<CategoryProducts> getCategoryProducts(
     int subCategoryId,
     int categoryId,
+    Map<String, List<String?>> multiMap,
+    // Map<String, String> rangeMap,
   ) async {
-    final queryParameters = {
+    final Map<String, dynamic> queryParameters = {
       'category': categoryId.toString(),
-      'brand[]': ["2", '3'],
+      // 'brand[]': ["2", '3'],
     };
+
+    if (multiMap.isNotEmpty) {
+      queryParameters.addAll(multiMap);
+    }
 
     if (subCategoryId != 0) {
       queryParameters.addAll({
@@ -24,7 +30,7 @@ class CategoryProductsWebServices {
       });
     }
     final uri = Uri.https(getBaseUrl, '/products', queryParameters);
-
+    print('queryParameters $queryParameters');
     GetTokenDatabase? token = await userDao.getUserToken();
     print("token product " + token!.getToken!);
 
@@ -38,7 +44,8 @@ class CategoryProductsWebServices {
         json.decode(response.body),
       );
     } else {
-      print('response exception ${json.decode(response.body).toString()}');
+      print(
+          'response category product exception ${json.decode(response.body).toString()}');
       throw Exception(
         json.decode(response.body),
       );
