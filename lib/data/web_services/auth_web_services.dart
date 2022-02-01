@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:coffepedia/constants/strings.dart';
-import 'package:coffepedia/data/models/gettoken_database.dart';
 import 'package:coffepedia/data/models/login_data_user.dart';
-import 'package:coffepedia/data/models/logout.dart';
 import 'package:coffepedia/data/models/signup_data_user.dart';
 import 'package:coffepedia/database/database_provider.dart';
 import 'package:http/http.dart' as http;
@@ -53,30 +51,6 @@ class AuthWebServices {
 
     if (response.statusCode == 201) {
       return Signup.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(json.decode(response.body).toString());
-      throw Exception(
-        json.decode(response.body),
-      );
-    }
-  }
-
-  Future<Logout> logout() async {
-    final url = Uri.parse(baseUrl + '/auth/logout');
-    GetTokenDatabase? token = await userDao.getUserToken();
-
-    print("token logout" + token!.getToken!);
-
-    final http.Response response = await http.post(
-      url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
-    );
-    print("response logout ${response.body}");
-
-    if (response.statusCode == 200) {
-      return Logout.fromJson(
         json.decode(response.body),
       );
     } else {

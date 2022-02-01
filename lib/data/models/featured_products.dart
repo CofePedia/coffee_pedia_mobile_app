@@ -7,7 +7,7 @@ class FeaturedProductsDataPaginate {
   "currentPage": 1,
   "lastPage": 5,
   "perPage": 15,
-  "total": 64
+  "total": 66
 }
 */
 
@@ -41,10 +41,10 @@ class FeaturedProductsDataPaginate {
 class FeaturedProductsDataDataOverview {
 /*
 {
-  "region": "",
-  "brand": "",
-  "roast": "",
-  "flavor": ""
+  "region": "Regions 1",
+  "brand": "First Brand",
+  "roast": "Roasts 1",
+  "flavor": "Flavor 1"
 }
 */
 
@@ -75,6 +75,83 @@ class FeaturedProductsDataDataOverview {
   }
 }
 
+class FeaturedProductsDataDataVendor {
+/*
+{
+  "id": 61,
+  "first_name": "admin",
+  "last_name": "Admin",
+  "logo": "https://api-staging.coffepidia.com/logo/61ee87df8718d.jpg",
+  "name": "admin Admin",
+  "feature": null,
+  "company_name": "my comamy",
+  "comapany_phone_number": "01151987369",
+  "cover_photo": "",
+  "description": null,
+  "address": "Address English",
+  "map": null
+}
+*/
+
+  int? id;
+  String? firstName;
+  String? lastName;
+  String? logo;
+  String? name;
+  String? feature;
+  String? companyName;
+  String? comapanyPhoneNumber;
+  String? coverPhoto;
+  String? description;
+  String? address;
+  String? map;
+
+  FeaturedProductsDataDataVendor({
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.logo,
+    this.name,
+    this.feature,
+    this.companyName,
+    this.comapanyPhoneNumber,
+    this.coverPhoto,
+    this.description,
+    this.address,
+    this.map,
+  });
+  FeaturedProductsDataDataVendor.fromJson(Map<String, dynamic> json) {
+    id = json['id']?.toInt();
+    firstName = json['first_name']?.toString();
+    lastName = json['last_name']?.toString();
+    logo = json['logo']?.toString();
+    name = json['name']?.toString();
+    feature = json['feature']?.toString();
+    companyName = json['company_name']?.toString();
+    comapanyPhoneNumber = json['comapany_phone_number']?.toString();
+    coverPhoto = json['cover_photo']?.toString();
+    description = json['description']?.toString();
+    address = json['address']?.toString();
+    map = json['map']?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['logo'] = logo;
+    data['name'] = name;
+    data['feature'] = feature;
+    data['company_name'] = companyName;
+    data['comapany_phone_number'] = comapanyPhoneNumber;
+    data['cover_photo'] = coverPhoto;
+    data['description'] = description;
+    data['address'] = address;
+    data['map'] = map;
+    return data;
+  }
+}
+
 class FeaturedProductsDataData {
 /*
 {
@@ -84,24 +161,35 @@ class FeaturedProductsDataData {
   "rate": 5,
   "discount": 50,
   "price_before_discount": 615,
-  "flavor_id": 0,
-  "region_id": 0,
-  "roast_id": 0,
-  "brand_id": 0,
-  "vendor_id": 0,
-  "images": [
-    "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
-  ],
+  "flavor_id": 1,
+  "region_id": 1,
+  "roast_id": 1,
+  "brand_id": 1,
+  "vendor_id": 61,
   "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
-  "vendor": "",
+  "vendor": {
+    "id": 61,
+    "first_name": "admin",
+    "last_name": "Admin",
+    "logo": "https://api-staging.coffepidia.com/logo/61ee87df8718d.jpg",
+    "name": "admin Admin",
+    "feature": null,
+    "company_name": "my comamy",
+    "comapany_phone_number": "01151987369",
+    "cover_photo": "",
+    "description": null,
+    "address": "Address English",
+    "map": null
+  },
   "overview": {
-    "region": "",
-    "brand": "",
-    "roast": "",
-    "flavor": ""
+    "region": "Regions 1",
+    "brand": "First Brand",
+    "roast": "Roasts 1",
+    "flavor": "Flavor 1"
   },
   "price": 415,
-  "stock": 19
+  "stock": 19,
+  "in_wishlist": false
 }
 */
 
@@ -116,12 +204,12 @@ class FeaturedProductsDataData {
   int? roastId;
   int? brandId;
   int? vendorId;
-  List<String?>? images;
   String? image;
-  String? vendor;
+  FeaturedProductsDataDataVendor? vendor;
   FeaturedProductsDataDataOverview? overview;
   int? price;
   int? stock;
+  bool? inWishlist;
 
   FeaturedProductsDataData({
     this.id,
@@ -135,12 +223,12 @@ class FeaturedProductsDataData {
     this.roastId,
     this.brandId,
     this.vendorId,
-    this.images,
     this.image,
     this.vendor,
     this.overview,
     this.price,
     this.stock,
+    this.inWishlist,
   });
   FeaturedProductsDataData.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toInt();
@@ -154,21 +242,16 @@ class FeaturedProductsDataData {
     roastId = json['roast_id']?.toInt();
     brandId = json['brand_id']?.toInt();
     vendorId = json['vendor_id']?.toInt();
-    if (json['images'] != null) {
-      final v = json['images'];
-      final arr0 = <String>[];
-      v.forEach((v) {
-        arr0.add(v.toString());
-      });
-      images = arr0;
-    }
     image = json['image']?.toString();
-    vendor = json['vendor']?.toString();
+    vendor = (json['vendor'] != null)
+        ? FeaturedProductsDataDataVendor.fromJson(json['vendor'])
+        : null;
     overview = (json['overview'] != null)
         ? FeaturedProductsDataDataOverview.fromJson(json['overview'])
         : null;
     price = json['price']?.toInt();
     stock = json['stock']?.toInt();
+    inWishlist = json['in_wishlist'];
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -183,21 +266,16 @@ class FeaturedProductsDataData {
     data['roast_id'] = roastId;
     data['brand_id'] = brandId;
     data['vendor_id'] = vendorId;
-    if (images != null) {
-      final v = images;
-      final arr0 = [];
-      v!.forEach((v) {
-        arr0.add(v);
-      });
-      data['images'] = arr0;
-    }
     data['image'] = image;
-    data['vendor'] = vendor;
+    if (vendor != null) {
+      data['vendor'] = vendor!.toJson();
+    }
     if (overview != null) {
       data['overview'] = overview!.toJson();
     }
     data['price'] = price;
     data['stock'] = stock;
+    data['in_wishlist'] = inWishlist;
     return data;
   }
 }
@@ -213,31 +291,42 @@ class FeaturedProductsData {
       "rate": 5,
       "discount": 50,
       "price_before_discount": 615,
-      "flavor_id": 0,
-      "region_id": 0,
-      "roast_id": 0,
-      "brand_id": 0,
-      "vendor_id": 0,
-      "images": [
-        "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
-      ],
+      "flavor_id": 1,
+      "region_id": 1,
+      "roast_id": 1,
+      "brand_id": 1,
+      "vendor_id": 61,
       "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
-      "vendor": "",
+      "vendor": {
+        "id": 61,
+        "first_name": "admin",
+        "last_name": "Admin",
+        "logo": "https://api-staging.coffepidia.com/logo/61ee87df8718d.jpg",
+        "name": "admin Admin",
+        "feature": null,
+        "company_name": "my comamy",
+        "comapany_phone_number": "01151987369",
+        "cover_photo": "",
+        "description": null,
+        "address": "Address English",
+        "map": null
+      },
       "overview": {
-        "region": "",
-        "brand": "",
-        "roast": "",
-        "flavor": ""
+        "region": "Regions 1",
+        "brand": "First Brand",
+        "roast": "Roasts 1",
+        "flavor": "Flavor 1"
       },
       "price": 415,
-      "stock": 19
+      "stock": 19,
+      "in_wishlist": false
     }
   ],
   "paginate": {
     "currentPage": 1,
     "lastPage": 5,
     "perPage": 15,
-    "total": 64
+    "total": 66
   }
 }
 */
@@ -291,31 +380,42 @@ class FeaturedProducts {
         "rate": 5,
         "discount": 50,
         "price_before_discount": 615,
-        "flavor_id": 0,
-        "region_id": 0,
-        "roast_id": 0,
-        "brand_id": 0,
-        "vendor_id": 0,
-        "images": [
-          "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
-        ],
+        "flavor_id": 1,
+        "region_id": 1,
+        "roast_id": 1,
+        "brand_id": 1,
+        "vendor_id": 61,
         "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
-        "vendor": "",
+        "vendor": {
+          "id": 61,
+          "first_name": "admin",
+          "last_name": "Admin",
+          "logo": "https://api-staging.coffepidia.com/logo/61ee87df8718d.jpg",
+          "name": "admin Admin",
+          "feature": null,
+          "company_name": "my comamy",
+          "comapany_phone_number": "01151987369",
+          "cover_photo": "",
+          "description": null,
+          "address": "Address English",
+          "map": null
+        },
         "overview": {
-          "region": "",
-          "brand": "",
-          "roast": "",
-          "flavor": ""
+          "region": "Regions 1",
+          "brand": "First Brand",
+          "roast": "Roasts 1",
+          "flavor": "Flavor 1"
         },
         "price": 415,
-        "stock": 19
+        "stock": 19,
+        "in_wishlist": false
       }
     ],
     "paginate": {
       "currentPage": 1,
       "lastPage": 5,
       "perPage": 15,
-      "total": 64
+      "total": 66
     }
   }
 }

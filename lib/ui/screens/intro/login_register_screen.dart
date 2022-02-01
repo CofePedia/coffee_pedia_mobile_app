@@ -179,102 +179,102 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                               ),
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                width: 156.w,
-                                height: 40.h,
-                                child: ElevatedButton.icon(
-                                  onPressed: () {},
-                                  icon: SvgPicture.asset(
-                                    Assets.iconsFacebookSquare,
-                                    width: 19.3.w,
-                                    height: 19.3.h,
-                                  ),
-                                  label: Text(
-                                    "With Facebook",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline2!
-                                        .copyWith(fontSize: 12.sp),
-                                  ),
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(kDarkBlue),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.r),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: 156.w,
-                                height: 40.h,
-                                child: ElevatedButton.icon(
-                                  onPressed: () {},
-                                  icon: SvgPicture.asset(
-                                    Assets.iconsGoogle,
-                                    width: 19.3.w,
-                                    height: 19.3.h,
-                                  ),
-                                  label: Text(
-                                    "With Google",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline2!
-                                        .copyWith(fontSize: 12.sp),
-                                  ),
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(kBlue),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.r),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 24.h,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Divider(
-                                    color: kLightGrey,
-                                    thickness: 0.5.h,
-                                  ),
-                                ),
-                                Container(
-                                  width: 89.w,
-                                  child: Text(
-                                    isLogin ? "Or login with" : "Or",
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline2!
-                                        .copyWith(color: kLightBlack),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Divider(
-                                    color: kLightGrey,
-                                    thickness: 0.5.h,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Container(
+                          //       width: 156.w,
+                          //       height: 40.h,
+                          //       child: ElevatedButton.icon(
+                          //         onPressed: () {},
+                          //         icon: SvgPicture.asset(
+                          //           Assets.iconsFacebookSquare,
+                          //           width: 19.3.w,
+                          //           height: 19.3.h,
+                          //         ),
+                          //         label: Text(
+                          //           "With Facebook",
+                          //           style: Theme.of(context)
+                          //               .textTheme
+                          //               .headline2!
+                          //               .copyWith(fontSize: 12.sp),
+                          //         ),
+                          //         style: ButtonStyle(
+                          //           backgroundColor:
+                          //               MaterialStateProperty.all(kDarkBlue),
+                          //           shape: MaterialStateProperty.all(
+                          //             RoundedRectangleBorder(
+                          //               borderRadius:
+                          //                   BorderRadius.circular(20.r),
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     Container(
+                          //       width: 156.w,
+                          //       height: 40.h,
+                          //       child: ElevatedButton.icon(
+                          //         onPressed: () {},
+                          //         icon: SvgPicture.asset(
+                          //           Assets.iconsGoogle,
+                          //           width: 19.3.w,
+                          //           height: 19.3.h,
+                          //         ),
+                          //         label: Text(
+                          //           "With Google",
+                          //           style: Theme.of(context)
+                          //               .textTheme
+                          //               .headline2!
+                          //               .copyWith(fontSize: 12.sp),
+                          //         ),
+                          //         style: ButtonStyle(
+                          //           backgroundColor:
+                          //               MaterialStateProperty.all(kBlue),
+                          //           shape: MaterialStateProperty.all(
+                          //             RoundedRectangleBorder(
+                          //               borderRadius:
+                          //                   BorderRadius.circular(20.r),
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          // Padding(
+                          //   padding: EdgeInsets.symmetric(
+                          //     vertical: 24.h,
+                          //   ),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: [
+                          //       Expanded(
+                          //         child: Divider(
+                          //           color: kLightGrey,
+                          //           thickness: 0.5.h,
+                          //         ),
+                          //       ),
+                          //       Container(
+                          //         width: 89.w,
+                          //         child: Text(
+                          //           isLogin ? "Or login with" : "Or",
+                          //           textAlign: TextAlign.center,
+                          //           style: Theme.of(context)
+                          //               .textTheme
+                          //               .headline2!
+                          //               .copyWith(color: kLightBlack),
+                          //         ),
+                          //       ),
+                          //       Expanded(
+                          //         child: Divider(
+                          //           color: kLightGrey,
+                          //           thickness: 0.5.h,
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           isLogin
                               ? SizedBox.shrink()
                               : Row(

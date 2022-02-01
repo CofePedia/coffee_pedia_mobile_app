@@ -523,7 +523,7 @@ class _AccountSettingsState extends State<AccountSettings> {
           SizedBox(
             height: 16.h,
           ),
-          widget.me.data!.myAddresses!.isNotEmpty
+          widget.me.data!.myAddresses! != 0
               ? Container(
                   height: 144.h,
                   margin: EdgeInsets.symmetric(horizontal: 15.w),
@@ -630,26 +630,25 @@ class _AccountSettingsState extends State<AccountSettings> {
                             text: TextSpan(
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: widget.me.data!.myAddresses![0]
-                                              .details ==
+                                  text: widget.me.data!.myAddresses!.details ==
                                           null
                                       ? ''
-                                      : '${widget.me.data!.myAddresses![0].details}, ',
+                                      : '${widget.me.data!.myAddresses!.details}, ',
                                   style: Theme.of(context).textTheme.headline4,
                                 ),
                                 TextSpan(
                                   text:
-                                      '${widget.me.data!.myAddresses![0].area}, ',
+                                      '${widget.me.data!.myAddresses!.area}, ',
                                   style: Theme.of(context).textTheme.headline4,
                                 ),
                                 TextSpan(
                                   text:
-                                      '${widget.me.data!.myAddresses![0].city}, ',
+                                      '${widget.me.data!.myAddresses!.city}, ',
                                   style: Theme.of(context).textTheme.headline4,
                                 ),
                                 TextSpan(
                                   text:
-                                      '${widget.me.data!.myAddresses![0].governorate}.',
+                                      '${widget.me.data!.myAddresses!.governorate}.',
                                   style: Theme.of(context).textTheme.headline4,
                                 ),
                               ],

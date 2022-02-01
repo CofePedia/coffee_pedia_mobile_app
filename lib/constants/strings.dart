@@ -1,3 +1,4 @@
 const baseUrl = "https://api-staging.coffepidia.com/";
-const homeScreen = '/';
+const getBaseUrl = 'api-staging.coffepidia.com';
 
+const homeScreen = '/';

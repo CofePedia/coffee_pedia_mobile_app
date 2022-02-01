@@ -1,10 +1,12 @@
-import 'package:coffepedia/business_logic/featured_products/featured_products_cubit.dart';
-import 'package:coffepedia/data/repository/featured_products_repository.dart';
-import 'package:coffepedia/data/web_services/featured_products_web_services.dart';
+import 'package:coffepedia/business_logic/category_products/category_products_cubit.dart';
+import 'package:coffepedia/data/models/categories.dart';
+import 'package:coffepedia/data/repository/category_products_repository.dart';
+import 'package:coffepedia/data/web_services/category_products_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/filters_screen.dart';
 import 'package:coffepedia/ui/screens/home/search_bar.dart';
 import 'package:coffepedia/ui/shared/custom_outline_button.dart';
+import 'package:coffepedia/ui/shared/wishlist_icon.dart';
 import 'package:coffepedia/ui/widgets/category_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,23 +16,45 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'product_screen.dart';
 
 class CategoryScreenProvider extends StatelessWidget {
-  const CategoryScreenProvider({Key? key}) : super(key: key);
+  final int categoriesId;
+  final List<CategoriesDataChildren?>? subCategories;
+  final Map<String, List<String?>> multiMap;
+
+  const CategoryScreenProvider(
+      {required this.categoriesId,
+      required this.subCategories,
+      required this.multiMap,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FeaturedProductsCubit(
-        FeaturedProductsRepository(
-          FeaturedProductsWebServices(),
+      create: (context) => CategoryProductsCubit(
+        CategoryProductsRepository(
+          CategoryProductsWebServices(),
         ),
       ),
-      child: CategoryScreen(),
+      child: CategoryScreen(
+        categoriesId: categoriesId,
+        subCategories: subCategories!,
+        multiMap: multiMap,
+      ),
     );
   }
 }
 
 class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({Key? key}) : super(key: key);
+  final int categoriesId;
+  final List<CategoriesDataChildren?>? subCategories;
+  final Map<String, List<String?>> multiMap;
+
+  const CategoryScreen(
+      {required this.categoriesId,
+      this.subCategories,
+      required this.multiMap,
+      Key? key})
+      : super(key: key);
 
   @override
   _CategoryScreenState createState() => _CategoryScreenState();
@@ -39,15 +63,16 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
-    BlocProvider.of<FeaturedProductsCubit>(context).getFeaturedProducts();
+    BlocProvider.of<CategoryProductsCubit>(context)
+        .getCategoryProducts(0, widget.categoriesId, widget.multiMap);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FeaturedProductsCubit, FeaturedProductsState>(
+    return BlocBuilder<CategoryProductsCubit, CategoryProductsState>(
       builder: (context, state) {
-        if (state is FeaturedProductsIsLoaded) {
+        if (state is CategoryProductsIsLoaded) {
           return Scaffold(
             body: SingleChildScrollView(
               child: Column(
@@ -89,7 +114,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   SizedBox(
                     height: 15.h,
                   ),
-                  CategoryItemProvider(),
+                  CategoryItems(
+                    categoriesId: widget.categoriesId,
+                    subCategories: widget.subCategories,
+                  ),
                   Padding(
                     padding:
                         EdgeInsets.only(top: 31.h, right: 15.w, left: 15.w),
@@ -101,7 +129,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           text: TextSpan(
                             children: <TextSpan>[
                               TextSpan(
-                                text: 'Coffee ',
+                                text:
+                                    '${state.categoryProducts!.data!.category!.name} ',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline1!
@@ -110,7 +139,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     ),
                               ),
                               TextSpan(
-                                text: '(156 Item)',
+                                text:
+                                    '(${state.categoryProducts!.data!.paginate!.total} Item)',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline1!
@@ -135,7 +165,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               ),
                               context: context,
                               isScrollControlled: true,
-                              builder: (context) => FiltersScreen(),
+                              builder: (context) => FiltersScreenProvider(
+                                productFilters:
+                                    state.categoryProducts!.data!.filters!,
+                                categoriesId: widget.categoriesId,
+                                subCategories: widget.subCategories,
+                              ),
                             );
                           },
                           height: 40.h,
@@ -163,14 +198,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       ),
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: state.featuredProducts!.data!.data!.length,
+                      itemCount: state.categoryProducts!.data!.data!.length,
                       itemBuilder: (context, index) => InkWell(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return ProductProvider();
+                                return ProductProvider(
+                                  id: state.categoryProducts!.data!
+                                      .data![index]!.id!,
+                                );
                               },
                             ),
                           );
@@ -193,7 +231,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 right: 17.w,
                                 child: Container(
                                   child: Image.network(
-                                    state.featuredProducts!.data!.data![index]!
+                                    state.categoryProducts!.data!.data![index]!
                                         .image!,
                                     width: 75.w,
                                     height: 136.h,
@@ -201,29 +239,34 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   ),
                                 ),
                               ),
-                              Positioned(
-                                top: 30.h,
-                                left: 20.w,
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(Assets.iconsStarActive),
-                                    SizedBox(
-                                      width: 5.w,
-                                    ),
-                                    Text(
-                                      state.featuredProducts!.data!
-                                          .data![index]!.rate!
-                                          .toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(
-                                            fontWeight: FontWeight.w700,
+                              state.categoryProducts!.data!.data![index]!
+                                          .rate! !=
+                                      0
+                                  ? Positioned(
+                                      top: 30.h,
+                                      left: 20.w,
+                                      child: Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                              Assets.iconsStarActive),
+                                          SizedBox(
+                                            width: 5.w,
                                           ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                                          Text(
+                                            state.categoryProducts!.data!
+                                                .data![index]!.rate!
+                                                .toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : SizedBox.shrink(),
                               Positioned(
                                 top: 152.h,
                                 left: 12.w,
@@ -253,7 +296,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           ),
                                         ),
                                         child: Text(
-                                          '${state.featuredProducts!.data!.data![index]!.discount}% Off',
+                                          '${state.categoryProducts!.data!.data![index]!.discount}% Off',
+                                          // state.categoryProducts!.data!
+                                          //     .filters![2]!.optionsSingle![2]
+                                          //     .toString(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1,
@@ -265,7 +311,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       Container(
                                         width: 140.w,
                                         child: Text(
-                                          state.featuredProducts!.data!
+                                          state.categoryProducts!.data!
                                               .data![index]!.name!,
                                           maxLines: 3,
                                           overflow: TextOverflow.ellipsis,
@@ -281,7 +327,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         height: 12.h,
                                       ),
                                       Text(
-                                        'EGP ${state.featuredProducts!.data!.data![index]!.priceBeforeDiscount!}',
+                                        'EGP ${state.categoryProducts!.data!.data![index]!.priceBeforeDiscount!}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText2!
@@ -295,7 +341,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         height: 8.h,
                                       ),
                                       Text(
-                                        'EGP ${state.featuredProducts!.data!.data![index]!.price!}',
+                                        'EGP ${state.categoryProducts!.data!.data![index]!.price!}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1,
@@ -321,11 +367,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       )
                                     ],
                                   ),
-                                  // child: WishlistIconWidget(
-                                  //   productId: state.featuredProducts!.data!
-                                  //       .data![index]!.id!
-                                  //       .toString(),
-                                  // ),
+                                  child: WishlistIconWidget(
+                                    productId: state.categoryProducts!.data!
+                                        .data![index]!.id!
+                                        .toString(),
+                                    isFavorite: state.categoryProducts!.data!
+                                        .data![index]!.inWishlist!,
+                                  ),
                                 ),
                               ),
                             ],

@@ -37,12 +37,13 @@ class CardFeaturedProducts extends StatefulWidget {
 class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
   @override
   void initState() {
-    BlocProvider.of<FeaturedProductsCubit>(context).getFeaturedProducts();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<FeaturedProductsCubit>(context).getFeaturedProducts();
+
     return BlocBuilder<FeaturedProductsCubit, FeaturedProductsState>(
       builder: (context, state) {
         if (state is FeaturedProductsIsLoaded) {
@@ -63,7 +64,10 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return ProductProvider();
+                            return ProductProvider(
+                              id: state
+                                  .featuredProducts!.data!.data![index]!.id!,
+                            );
                           },
                         ),
                       );
@@ -94,7 +98,6 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                           Positioned(
                             right: 17.w,
                             child: Container(
-                              color: Colors.red,
                               child: Image.network(
                                 state.featuredProducts!.data!.data![index]!
                                     .image!,
@@ -204,6 +207,8 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                 productId: state
                                     .featuredProducts!.data!.data![index]!.id!
                                     .toString(),
+                                isFavorite: state.featuredProducts!.data!
+                                    .data![index]!.inWishlist!,
                               ),
                             ),
                           ),

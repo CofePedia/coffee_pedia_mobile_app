@@ -1,8 +1,8 @@
-import 'package:coffepedia/business_logic/logout/logout_cubit.dart';
 import 'package:coffepedia/business_logic/me/me_cubit.dart';
 import 'package:coffepedia/constants/colors.dart';
 import 'package:coffepedia/data/repository/me_repository.dart';
 import 'package:coffepedia/data/web_services/me_web_services.dart';
+import 'package:coffepedia/database/database_provider.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/account_settings_screen.dart';
 import 'package:coffepedia/ui/screens/address_bookٍ_screen.dart';
@@ -47,6 +47,8 @@ class _ProfileScreenState extends State<_ProfileScreen> {
     // BlocProvider.of<MeCubit>(context).getMe();
     super.initState();
   }
+
+  final userDao = UserDao();
 
   @override
   Widget build(BuildContext context) {
@@ -271,7 +273,8 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         // BlocProvider.of<AuthBloc>(context).add(
                         //   LoggedOut(),
                         // );
-                        BlocProvider.of<LogoutCubit>(context).logout();
+                        BlocProvider.of<MeCubit>(context).logout();
+                        userDao.deleteUser();
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (_) {
                           return LoginPage();

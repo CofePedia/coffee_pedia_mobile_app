@@ -107,10 +107,16 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                       width: 67.w,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        color: Color(
-                                          int.parse(state.orderHistory!
-                                              .data![index]!.statusColor!),
-                                        ),
+                                        color: state.orderHistory!.data![index]!
+                                                    .statusColor !=
+                                                null
+                                            ? Color(
+                                                int.parse(state
+                                                    .orderHistory!
+                                                    .data![index]!
+                                                    .statusColor!),
+                                              )
+                                            : Theme.of(context).primaryColor,
                                         borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(12.5.r),
                                           bottomRight: Radius.circular(12.5.r),
@@ -201,8 +207,9 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                     borderRadius: BorderRadius.circular(7.sp),
                                   ),
                                   child: Image.network(
+                                    // TODO: Ask Nada to make it image not list of images
                                     state.orderHistory!.data![index]!
-                                        .items![itemsIndex]!.image!,
+                                        .items![itemsIndex]!.images![0]!,
                                     fit: BoxFit.cover,
                                     height: 48.h,
                                     width: 26.w,

@@ -52,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // TODO: every section should have its own data
       body: BlocBuilder<HomeAdsCubit, HomeAdsState>(
         builder: (context, state) {
           if (state is HomeAdsLoaded) {

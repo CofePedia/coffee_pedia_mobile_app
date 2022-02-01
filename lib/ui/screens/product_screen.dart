@@ -1,20 +1,21 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:coffepedia/business_logic/product/product_cubit.dart';
 import 'package:coffepedia/data/repository/product_repository.dart';
 import 'package:coffepedia/data/web_services/product_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
-import 'package:coffepedia/ui/shared/custom_outline_button.dart';
+import 'package:coffepedia/ui/shared/rating_bar.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../checkout_popup.dart';
 
 class ProductProvider extends StatelessWidget {
-  const ProductProvider({Key? key}) : super(key: key);
+  final int id;
+  const ProductProvider({required this.id, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +25,17 @@ class ProductProvider extends StatelessWidget {
           ProductWebServices(),
         ),
       ),
-      child: ProductScreen(),
+      child: ProductScreen(
+        id: id,
+      ),
     );
   }
 }
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({Key? key}) : super(key: key);
+  final int id;
+
+  const ProductScreen({required this.id, Key? key}) : super(key: key);
 
   @override
   _ProductScreenState createState() => _ProductScreenState();
@@ -38,16 +43,16 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   int counter = 1;
-  int _selectedIndex = 0;
-  final List<String> weight = [
-    '12 Ounce (Pack of 6)',
-    '18 Ounce (Pack of 3)',
-    '18 Ounce (Pack of 6)',
-  ];
+  // int _selectedIndex = 0;
+  // final List<String> weight = [
+  //   '12 Ounce (Pack of 6)',
+  //   '18 Ounce (Pack of 3)',
+  //   '18 Ounce (Pack of 6)',
+  // ];
   final List<String> overview = ['region', 'Brand', 'roast', 'flavor'];
   @override
   void initState() {
-    BlocProvider.of<ProductCubit>(context).getProduct();
+    BlocProvider.of<ProductCubit>(context).getProduct(widget.id);
     super.initState();
   }
 
@@ -146,7 +151,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         isScrollControlled: true,
                         builder: (context) => CheckoutPopUp(
                           title: state.product!.data!.name,
-                          image: state.product!.data!.image,
+                          image: state.product!.data!.images![0],
                           totalPrice: state.product!.data!.price.toString(),
                         ),
                       );
@@ -191,6 +196,14 @@ class _ProductScreenState extends State<ProductScreen> {
                           IconButton(
                             onPressed: () {
                               Navigator.pop(context);
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) {
+                              //       return HomePage(currentIndex: 0);
+                              //     },
+                              //   ),
+                              // );
                             },
                             icon: Icon(
                               Icons.chevron_left,
@@ -231,13 +244,26 @@ class _ProductScreenState extends State<ProductScreen> {
                             ),
                           ),
                           Positioned(
-                            top: 0.h,
-                            left: 116.h,
-                            right: 116.h,
-                            child: Image.network(
-                              state.product!.data!.image!,
-                              height: 260.h,
-                              width: 142.w,
+                            top: 10.h,
+                            left: 100.h,
+                            right: 100.h,
+                            child: Container(
+                              height: 220.h,
+                              child: CarouselSlider(
+                                options: CarouselOptions(
+                                  autoPlay: false,
+                                  enlargeCenterPage: true,
+                                ),
+                                items:
+                                    state.product!.data!.images!.map((image) {
+                                  return Image.network(
+                                    image!,
+                                    fit: BoxFit.fill,
+                                    // height: 260.h,
+                                    // width: 142.w,
+                                  );
+                                }).toList(),
+                              ),
                             ),
                           ),
                         ],
@@ -294,6 +320,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                   child: WishlistIconWidget(
                                     productId:
                                         state.product!.data!.id.toString(),
+                                    isFavorite:
+                                        state.product!.data!.inWishlist!,
                                   ),
                                 ),
                               ],
@@ -309,24 +337,15 @@ class _ProductScreenState extends State<ProductScreen> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(
-                                top: 15.h, right: 12.w, left: 12.w),
+                              top: 15.h,
+                              right: 12.w,
+                              left: 12.w,
+                            ),
                             child: Container(
                               height: 12.h,
-                              width: 200.w,
-                              child: RatingBar.builder(
-                                itemSize: 13.h,
-                                initialRating: 4,
-                                minRating: 1,
-                                direction: Axis.horizontal,
-                                itemCount: state.product!.data!.rate!,
-                                itemPadding:
-                                    EdgeInsets.symmetric(horizontal: 4.0.w),
-                                itemBuilder: (context, _) => SvgPicture.asset(
-                                  'assets/icons/star_active.svg',
-                                ),
-                                onRatingUpdate: (rating) {
-                                  print('rating_bar: $rating');
-                                },
+                              //width: 200.w,
+                              child: RatingBarComponent(
+                                rate: state.product!.data!.rate!.toDouble(),
                               ),
                             ),
                           ),
@@ -352,41 +371,41 @@ class _ProductScreenState extends State<ProductScreen> {
                               style: Theme.of(context).textTheme.subtitle1,
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: 15.h, right: 12.w, left: 12.w),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 50.h,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: weight.length,
-                                itemBuilder: (context, index) => Padding(
-                                  padding: EdgeInsets.only(left: 6.w),
-                                  child: CustomOutlineButton(
-                                    title: weight[index],
-                                    height: 40.h,
-                                    width: 160.w,
-                                    onPress: () {
-                                      setState(() {
-                                        _selectedIndex = index;
-                                      });
-                                    },
-                                    shadowColor: BoxShadow(
-                                      color: _selectedIndex == index
-                                          ? Color.fromARGB(41, 16, 124, 192)
-                                          : Colors.transparent,
-                                      blurRadius: 7.r,
-                                    ),
-                                    borderRadius: 4.r,
-                                    borderColor: _selectedIndex == index
-                                        ? Theme.of(context).primaryColor
-                                        : Color(0xffE3E3E3),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: EdgeInsets.only(
+                          //       top: 15.h, right: 12.w, left: 12.w),
+                          //   child: Container(
+                          //     width: MediaQuery.of(context).size.width,
+                          //     height: 50.h,
+                          //     child: ListView.builder(
+                          //       scrollDirection: Axis.horizontal,
+                          //       itemCount: weight.length,
+                          //       itemBuilder: (context, index) => Padding(
+                          //         padding: EdgeInsets.only(left: 6.w),
+                          //         child: CustomOutlineButton(
+                          //           title: weight[index],
+                          //           height: 40.h,
+                          //           width: 160.w,
+                          //           onPress: () {
+                          //             setState(() {
+                          //               _selectedIndex = index;
+                          //             });
+                          //           },
+                          //           shadowColor: BoxShadow(
+                          //             color: _selectedIndex == index
+                          //                 ? Color.fromARGB(41, 16, 124, 192)
+                          //                 : Colors.transparent,
+                          //             blurRadius: 7.r,
+                          //           ),
+                          //           borderRadius: 4.r,
+                          //           borderColor: _selectedIndex == index
+                          //               ? Theme.of(context).primaryColor
+                          //               : Color(0xffE3E3E3),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                           Padding(
                             padding: EdgeInsets.only(
                                 top: 24.h, right: 15.w, left: 15.w),
@@ -423,9 +442,9 @@ class _ProductScreenState extends State<ProductScreen> {
                             padding: EdgeInsets.only(top: 15.h),
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 15.w),
-                              child: GridView.builder(
+                              child: GridView(
                                 padding: EdgeInsets.zero,
-                                itemCount: 4,
+                                // itemCount: 4,
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 gridDelegate:
@@ -434,27 +453,121 @@ class _ProductScreenState extends State<ProductScreen> {
                                   mainAxisSpacing: 8.h,
                                   childAspectRatio: 130.w / 30.h,
                                 ),
-                                itemBuilder: (context, index) => Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Brand',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle2!
-                                          .copyWith(
-                                            color: Color(
-                                              0xff8A8A8A,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Brand',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                              color: Color(
+                                                0xff8A8A8A,
+                                              ),
                                             ),
-                                          ),
-                                    ),
-                                    Text(
-                                      'Starbucks',
-                                      style:
-                                          Theme.of(context).textTheme.subtitle2,
-                                    ),
-                                  ],
-                                ),
+                                      ),
+                                      Text(
+                                        state.product!.data!.overview!.brand!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2,
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Flavor',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                              color: Color(
+                                                0xff8A8A8A,
+                                              ),
+                                            ),
+                                      ),
+                                      Text(
+                                        state.product!.data!.overview!.flavor!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2,
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Region',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                              color: Color(
+                                                0xff8A8A8A,
+                                              ),
+                                            ),
+                                      ),
+                                      Text(
+                                        state.product!.data!.overview!.region!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2,
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Roast',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                              color: Color(
+                                                0xff8A8A8A,
+                                              ),
+                                            ),
+                                      ),
+                                      Text(
+                                        state.product!.data!.overview!.roast!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                                // itemBuilder: (context, index) => Column(
+                                //   crossAxisAlignment: CrossAxisAlignment.start,
+                                //   children: [
+                                //     Text(
+                                //       'Brand',
+                                //       style: Theme.of(context)
+                                //           .textTheme
+                                //           .subtitle2!
+                                //           .copyWith(
+                                //             color: Color(
+                                //               0xff8A8A8A,
+                                //             ),
+                                //           ),
+                                //     ),
+                                //     Text(
+                                //       'Starbucks',
+                                //       style:
+                                //           Theme.of(context).textTheme.subtitle2,
+                                //     ),
+                                //   ],
+                                // ),
                               ),
                             ),
                           ),
@@ -477,7 +590,11 @@ class _ProductScreenState extends State<ProductScreen> {
                           Padding(
                             padding: EdgeInsets.only(top: 8.h),
                             child: ListTile(
-                              leading: Image.asset(Assets.imagesPartnerLogo),
+                              leading: CircleAvatar(
+                                radius: 25.sp,
+                                foregroundImage: NetworkImage(
+                                    state.product!.data!.vendor!.logo!),
+                              ),
                               title: Text(
                                 'Seller name',
                                 style: Theme.of(context)
@@ -490,7 +607,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                     ),
                               ),
                               subtitle: Text(
-                                'D.Cappuccino Café',
+                                state.product!.data!.vendor!.name ?? '',
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle2!
