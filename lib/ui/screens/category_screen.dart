@@ -19,11 +19,15 @@ class CategoryScreenProvider extends StatelessWidget {
   final int categoriesId;
   final List<CategoriesDataChildren?>? subCategories;
   final Map<String, List<String?>> multiMap;
+  final Map<String, String?>? rangeMap;
+  final Map<String, String?>? singleMap;
 
   const CategoryScreenProvider(
       {required this.categoriesId,
       required this.subCategories,
       required this.multiMap,
+      required this.rangeMap,
+      required this.singleMap,
       Key? key})
       : super(key: key);
 
@@ -39,6 +43,8 @@ class CategoryScreenProvider extends StatelessWidget {
         categoriesId: categoriesId,
         subCategories: subCategories!,
         multiMap: multiMap,
+        rangeMap: rangeMap,
+        singleMap: singleMap,
       ),
     );
   }
@@ -48,11 +54,15 @@ class CategoryScreen extends StatefulWidget {
   final int categoriesId;
   final List<CategoriesDataChildren?>? subCategories;
   final Map<String, List<String?>> multiMap;
+  final Map<String, String?>? rangeMap;
+  final Map<String, String?>? singleMap;
 
   const CategoryScreen(
       {required this.categoriesId,
       this.subCategories,
       required this.multiMap,
+      required this.rangeMap,
+      required this.singleMap,
       Key? key})
       : super(key: key);
 
@@ -63,11 +73,17 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
-    BlocProvider.of<CategoryProductsCubit>(context)
-        .getCategoryProducts(0, widget.categoriesId, widget.multiMap);
+    BlocProvider.of<CategoryProductsCubit>(context).getCategoryProducts(
+      subCategoryId: -1,
+      categoryId: widget.categoriesId,
+      multiMap: widget.multiMap,
+      rangeMap: widget.rangeMap,
+      singleMap: widget.singleMap,
+    );
     super.initState();
   }
 
+  bool hasData = false;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryProductsCubit, CategoryProductsState>(
@@ -95,7 +111,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            Navigator.of(context).pop();
+                            Navigator.pop(context, hasData = true);
                           },
                           icon: Icon(
                             Icons.chevron_left,
@@ -213,6 +229,24 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ),
                           );
                         },
+                        // onTap: () async {
+                        //   final hasData = await Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) {
+                        //         return ProductProvider(
+                        //           id: state.categoryProducts!.data!
+                        //               .data![index]!.id!,
+                        //         );
+                        //       },
+                        //     ),
+                        //   );
+                        //   if (hasData == true) {
+                        //     BlocProvider.of<CategoryProductsCubit>(context)
+                        //         .getCategoryProducts(
+                        //             0, widget.categoriesId, widget.multiMap);
+                        //   }
+                        // },
                         child: Container(
                           height: 305.h,
                           width: 164.5.w,

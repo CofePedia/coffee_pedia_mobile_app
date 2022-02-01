@@ -54,8 +54,8 @@ class _CardCategoryState extends State<CardCategory> {
               padding: EdgeInsets.only(left: 10.w, right: 10.w),
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {
-                    Navigator.push(
+                  onTap: () async {
+                    final hasData = await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) {
@@ -64,10 +64,15 @@ class _CardCategoryState extends State<CardCategory> {
                             subCategories:
                                 state.categories!.data![index]!.children,
                             multiMap: {},
+                            rangeMap: {},
+                            singleMap: {},
                           );
                         },
                       ),
                     );
+                    if (hasData == true) {
+                      BlocProvider.of<CategoriesCubit>(context).getCategories();
+                    }
                   },
                   child: Container(
                     width: 150.w,

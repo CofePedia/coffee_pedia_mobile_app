@@ -60,12 +60,32 @@ class _FiltersScreenState extends State<FiltersScreen> {
   int? radioRate;
   int? selectedRate;
   final result = {};
-  final map = <String, List<String?>>{};
+  final multiMap = <String, List<String?>>{};
+  final singleMap = <String, String?>{};
+  final rangeMap = <String, String?>{};
 
   @override
   void initState() {
     _isOpen = List.filled(widget.productFilters!.length, false);
     super.initState();
+  }
+
+  void addValueToSingleMap<K, V>(Map<K, V> singleMap, K key, V value) {
+    singleMap.update(
+      key,
+      (list) => value,
+      ifAbsent: () => value,
+    );
+    print("singleMap $singleMap");
+  }
+
+  void addValueToRangeMap<K, V>(Map<K, V> rangeMap, K key, V value) {
+    rangeMap.update(
+      key,
+      (list) => value,
+      ifAbsent: () => value,
+    );
+    print("rangeMap $rangeMap");
   }
 
   @override
@@ -134,7 +154,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                       .optionsMulti!,
                                   multiKey:
                                       widget.productFilters![filterIndex]!.key!,
-                                  map: map,
+                                  multiMap: multiMap,
                                 )
                               : widget.productFilters![filterIndex]!.type ==
                                       'range'
@@ -144,18 +164,25 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                           activeColor:
                                               Theme.of(context).primaryColor,
                                           values: _currentRangeValues,
-                                          max: 80,
-                                          // widget
+                                          // values: RangeValues(
+                                          //   widget.productFilters![filterIndex]!
+                                          //       .optionsRange!.min!
+                                          //       .toDouble(),
+                                          //   widget.productFilters![filterIndex]!
+                                          //       .optionsRange!.max!
+                                          //       .toDouble(),
+                                          // ),
+                                          // max: widget
                                           //     .productFilters![filterIndex]!
                                           //     .optionsRange!
                                           //     .max!
                                           //     .toDouble(),
-                                          min: 20,
-                                          // widget
+                                          // min: widget
                                           //     .productFilters![filterIndex]!
                                           //     .optionsRange!
                                           //     .min!
                                           //     .toDouble(),
+                                          max: 80, min: 20,
                                           divisions: 5,
                                           labels: RangeLabels(
                                             _currentRangeValues.start
@@ -168,6 +195,20 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                           onChanged: (RangeValues values) {
                                             setState(() {
                                               _currentRangeValues = values;
+                                              addValueToRangeMap(
+                                                rangeMap,
+                                                'from_price',
+                                                _currentRangeValues.start
+                                                    .round()
+                                                    .toString(),
+                                              );
+                                              addValueToRangeMap(
+                                                rangeMap,
+                                                'to_price',
+                                                _currentRangeValues.end
+                                                    .round()
+                                                    .toString(),
+                                              );
                                             });
                                           },
                                         ),
@@ -176,10 +217,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                               MainAxisAlignment.spaceAround,
                                           children: [
                                             Text(
-                                              'Lower Price: ${_currentRangeValues.start.round().toString()}',
+                                              'From price: ${_currentRangeValues.start.round().toString()}',
                                             ),
                                             Text(
-                                              'Upper Price: ${_currentRangeValues.end.round().toString()}',
+                                              'To price: ${_currentRangeValues.end.round().toString()}',
                                             ),
                                           ],
                                         ),
@@ -204,6 +245,14 @@ class _FiltersScreenState extends State<FiltersScreen> {
                                                       .productFilters![
                                                           filterIndex]!
                                                       .optionsSingle![index];
+                                                  addValueToSingleMap(
+                                                    singleMap,
+                                                    widget
+                                                        .productFilters![
+                                                            filterIndex]!
+                                                        .key!,
+                                                    selectedRate.toString(),
+                                                  );
                                                 });
                                               },
                                               child: Container(
@@ -283,7 +332,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
                               return CategoryScreenProvider(
                                 subCategories: widget.subCategories,
                                 categoriesId: widget.categoriesId,
-                                multiMap: map,
+                                multiMap: multiMap,
+                                singleMap: singleMap,
+                                rangeMap: rangeMap,
                               );
                             },
                           ),
@@ -299,7 +350,17 @@ class _FiltersScreenState extends State<FiltersScreen> {
                       imageColor: Colors.transparent,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        setState(() {
+                          multiMap.clear();
+                          rangeMap.clear();
+                          singleMap.clear();
+                          radioRate = -1;
+                        });
+                        print("multiMap $multiMap");
+                        print("rangeMap $rangeMap");
+                        print("singleMap $singleMap");
+                      },
                       child: Text(
                         'Clear all',
                         style: Theme.of(context).textTheme.headline2!.copyWith(

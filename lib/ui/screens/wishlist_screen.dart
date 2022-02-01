@@ -227,9 +227,10 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                         setState(() {
                                           BlocProvider.of<WishlistCubit>(
                                                   context)
-                                              .getToggleProductsInWishlist(state
-                                                  .wishlist!.data![index]!.id!
-                                                  .toString());
+                                              .getToggleProductsInWishlist(
+                                            state.wishlist!.data![index]!.id!
+                                                .toString(),
+                                          );
                                           _isFavorite = state
                                               .wishlist!.data![index]!.like!;
                                         });

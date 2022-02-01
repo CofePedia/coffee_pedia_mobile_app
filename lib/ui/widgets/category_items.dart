@@ -37,14 +37,18 @@ class _CategoryItemsState extends State<CategoryItems> {
             onPressed: () {
               setState(() {
                 _selectedSubCategory == widget.subCategories![index]!.id!
-                    ? _selectedSubCategory = 0
+                    ? _selectedSubCategory = -1
                     : _selectedSubCategory = widget.subCategories![index]!.id!;
-
                 BlocProvider.of<CategoryProductsCubit>(context)
                     .getCategoryProducts(
-                        _selectedSubCategory!, widget.categoriesId, {});
+                  subCategoryId: _selectedSubCategory!,
+                  categoryId: widget.categoriesId,
+                  multiMap: {},
+                  rangeMap: {},
+                  singleMap: {},
+                );
               });
-              print('AmrSelectedSubCategoryId2 $_selectedSubCategory');
+              print('selectedSubCategory $_selectedSubCategory');
             },
             style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsetsGeometry>(

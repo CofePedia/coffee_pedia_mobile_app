@@ -59,6 +59,8 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 6.w),
                   child: InkWell(
+                    // onTap: () async {
+                    //   final hasData = await Navigator.push(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -71,6 +73,10 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                           },
                         ),
                       );
+                      // if (hasData == true) {
+                      //   BlocProvider.of<FeaturedProductsCubit>(context)
+                      //       .getFeaturedProducts();
+                      // }
                     },
                     child: Container(
                       height: 262.h,
