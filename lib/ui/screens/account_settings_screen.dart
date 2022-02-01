@@ -523,8 +523,7 @@ class _AccountSettingsState extends State<AccountSettings> {
           SizedBox(
             height: 16.h,
           ),
-          widget.me.data!.myAddresses![0].primary == 1 &&
-                  widget.me.data!.myAddresses!.isNotEmpty
+          widget.me.data!.myAddresses!.isNotEmpty
               ? Container(
                   height: 144.h,
                   margin: EdgeInsets.symmetric(horizontal: 15.w),

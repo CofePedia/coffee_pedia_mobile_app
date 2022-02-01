@@ -6,8 +6,8 @@ class BasketDataItemsOverview {
 {
   "region": "Regions 1",
   "brand": "First Brand",
-  "roast": "Roasts 1",
-  "flavor": "Flavor 1"
+  "roast": "Roast 2",
+  "flavor": "Flavor 2"
 }
 */
 
@@ -41,29 +41,29 @@ class BasketDataItemsOverview {
 class BasketDataItems {
 /*
 {
-  "id": 1,
-  "description": "Autem tenetur quia quidem laboriosam maxime",
-  "name": "Autem provident officia sunt praesentium id nostrum rerum atque id dolorum ut culpa mollit",
-  "rate": 5,
-  "discount": 50,
-  "price_before_discount": 615,
-  "flavor_id": 1,
+  "id": 2,
+  "description": "<p>Quia sunt officiis repellendus Deserunt obcaecati sunt sit aute iusto veritatis beatae suscipit omnis corrupti consequatur dolorum autem est sint</p>",
+  "name": "Consectetur minus aspernatur ad sequi deserunt id earum id nisi aut eu sunt qui eligendi molestiae",
+  "rate": 3,
+  "discount": null,
+  "price_before_discount": 800,
+  "flavor_id": 2,
   "region_id": 1,
-  "roast_id": 1,
+  "roast_id": 2,
   "brand_id": 1,
   "vendor_id": "",
   "vendor": "",
   "images": [
-    "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
+    "http://adphp.coffepidia.com/files/makteb.jpg"
   ],
-  "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
+  "image": "http://adphp.coffepidia.com/files/makteb.jpg",
   "overview": {
     "region": "Regions 1",
     "brand": "First Brand",
-    "roast": "Roasts 1",
-    "flavor": "Flavor 1"
+    "roast": "Roast 2",
+    "flavor": "Flavor 2"
   },
-  "price": 415,
+  "price": 800,
   "stock": 19,
   "quantity": 5
 }
@@ -73,7 +73,7 @@ class BasketDataItems {
   String? description;
   String? name;
   int? rate;
-  int? discount;
+  String? discount;
   int? priceBeforeDiscount;
   int? flavorId;
   int? regionId;
@@ -113,7 +113,7 @@ class BasketDataItems {
     description = json['description']?.toString();
     name = json['name']?.toString();
     rate = json['rate']?.toInt();
-    discount = json['discount']?.toInt();
+    discount = json['discount']?.toString();
     priceBeforeDiscount = json['price_before_discount']?.toInt();
     flavorId = json['flavor_id']?.toInt();
     regionId = json['region_id']?.toInt();
@@ -175,44 +175,53 @@ class BasketData {
 {
   "items": [
     {
-      "id": 1,
-      "description": "Autem tenetur quia quidem laboriosam maxime",
-      "name": "Autem provident officia sunt praesentium id nostrum rerum atque id dolorum ut culpa mollit",
-      "rate": 5,
-      "discount": 50,
-      "price_before_discount": 615,
-      "flavor_id": 1,
+      "id": 2,
+      "description": "<p>Quia sunt officiis repellendus Deserunt obcaecati sunt sit aute iusto veritatis beatae suscipit omnis corrupti consequatur dolorum autem est sint</p>",
+      "name": "Consectetur minus aspernatur ad sequi deserunt id earum id nisi aut eu sunt qui eligendi molestiae",
+      "rate": 3,
+      "discount": null,
+      "price_before_discount": 800,
+      "flavor_id": 2,
       "region_id": 1,
-      "roast_id": 1,
+      "roast_id": 2,
       "brand_id": 1,
       "vendor_id": "",
       "vendor": "",
       "images": [
-        "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
+        "http://adphp.coffepidia.com/files/makteb.jpg"
       ],
-      "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
+      "image": "http://adphp.coffepidia.com/files/makteb.jpg",
       "overview": {
         "region": "Regions 1",
         "brand": "First Brand",
-        "roast": "Roasts 1",
-        "flavor": "Flavor 1"
+        "roast": "Roast 2",
+        "flavor": "Flavor 2"
       },
-      "price": 415,
+      "price": 800,
       "stock": 19,
       "quantity": 5
     }
   ],
-  "total": 3075,
-  "totalItems": 5
+  "sub_total": 8950,
+  "discount": 0,
+  "delivery_charge": 0,
+  "total": 8950,
+  "totalItems": 10
 }
 */
 
   List<BasketDataItems?>? items;
+  int? subTotal;
+  int? discount;
+  int? deliveryCharge;
   int? total;
   int? totalItems;
 
   BasketData({
     this.items,
+    this.subTotal,
+    this.discount,
+    this.deliveryCharge,
     this.total,
     this.totalItems,
   });
@@ -225,6 +234,9 @@ class BasketData {
       });
       items = arr0;
     }
+    subTotal = json['sub_total']?.toInt();
+    discount = json['discount']?.toInt();
+    deliveryCharge = json['delivery_charge']?.toInt();
     total = json['total']?.toInt();
     totalItems = json['totalItems']?.toInt();
   }
@@ -238,6 +250,9 @@ class BasketData {
       });
       data['items'] = arr0;
     }
+    data['sub_total'] = subTotal;
+    data['discount'] = discount;
+    data['delivery_charge'] = deliveryCharge;
     data['total'] = total;
     data['totalItems'] = totalItems;
     return data;
@@ -250,35 +265,38 @@ class Basket {
   "data": {
     "items": [
       {
-        "id": 1,
-        "description": "Autem tenetur quia quidem laboriosam maxime",
-        "name": "Autem provident officia sunt praesentium id nostrum rerum atque id dolorum ut culpa mollit",
-        "rate": 5,
-        "discount": 50,
-        "price_before_discount": 615,
-        "flavor_id": 1,
+        "id": 2,
+        "description": "<p>Quia sunt officiis repellendus Deserunt obcaecati sunt sit aute iusto veritatis beatae suscipit omnis corrupti consequatur dolorum autem est sint</p>",
+        "name": "Consectetur minus aspernatur ad sequi deserunt id earum id nisi aut eu sunt qui eligendi molestiae",
+        "rate": 3,
+        "discount": null,
+        "price_before_discount": 800,
+        "flavor_id": 2,
         "region_id": 1,
-        "roast_id": 1,
+        "roast_id": 2,
         "brand_id": 1,
         "vendor_id": "",
         "vendor": "",
         "images": [
-          "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png"
+          "http://adphp.coffepidia.com/files/makteb.jpg"
         ],
-        "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
+        "image": "http://adphp.coffepidia.com/files/makteb.jpg",
         "overview": {
           "region": "Regions 1",
           "brand": "First Brand",
-          "roast": "Roasts 1",
-          "flavor": "Flavor 1"
+          "roast": "Roast 2",
+          "flavor": "Flavor 2"
         },
-        "price": 415,
+        "price": 800,
         "stock": 19,
         "quantity": 5
       }
     ],
-    "total": 3075,
-    "totalItems": 5
+    "sub_total": 8950,
+    "discount": 0,
+    "delivery_charge": 0,
+    "total": 8950,
+    "totalItems": 10
   }
 }
 */
