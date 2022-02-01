@@ -32,13 +32,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await userRepository.persistToken(user: event.user!);
       yield AuthenticationAuthenticated();
     }
-
-    if (event is LoggedOut) {
-      yield AuthenticationLoading();
-
-      await userRepository.deleteToken(id: 0);
-
-      yield AuthenticationUnauthenticated();
-    }
   }
 }

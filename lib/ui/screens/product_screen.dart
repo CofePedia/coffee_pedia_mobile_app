@@ -318,7 +318,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                 initialRating: 4,
                                 minRating: 1,
                                 direction: Axis.horizontal,
-                                itemCount: 5,
+                                itemCount: state.product!.data!.rate!,
                                 itemPadding:
                                     EdgeInsets.symmetric(horizontal: 4.0.w),
                                 itemBuilder: (context, _) => SvgPicture.asset(
