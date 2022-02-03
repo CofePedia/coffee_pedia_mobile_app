@@ -288,6 +288,13 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                                       ),
                                       TextSpan(
                                         text:
+                                            '${state.myAddresses!.data![index]!.street!}, ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline4,
+                                      ),
+                                      TextSpan(
+                                        text:
                                             '${state.myAddresses!.data![index]!.area!}, ',
                                         style: Theme.of(context)
                                             .textTheme

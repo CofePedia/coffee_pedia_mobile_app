@@ -558,7 +558,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      return const AddressBookScreen();
+                                      return const AddressBookScreenProvider();
                                     },
                                   ),
                                 );

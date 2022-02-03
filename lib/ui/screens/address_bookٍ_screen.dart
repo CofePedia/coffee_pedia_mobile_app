@@ -1,6 +1,27 @@
+import 'package:coffepedia/business_logic/address/address_cubit.dart';
+import 'package:coffepedia/constants/colors.dart';
+import 'package:coffepedia/data/repository/address_repository.dart';
+import 'package:coffepedia/data/web_services/address_web_services.dart';
 import 'package:coffepedia/ui/screens/address_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class AddressBookScreenProvider extends StatelessWidget {
+  const AddressBookScreenProvider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AddressCubit(
+        AddressRepository(
+          AddressWebServices(),
+        ),
+      ),
+      child: AddressBookScreen(),
+    );
+  }
+}
 
 class AddressBookScreen extends StatefulWidget {
   const AddressBookScreen({Key? key}) : super(key: key);
@@ -10,16 +31,26 @@ class AddressBookScreen extends StatefulWidget {
 }
 
 class _AddressBookScreenState extends State<AddressBookScreen> {
-  List<String> title = [
-    'Hesham Mahdy',
-    'Hesham Shorouk City',
-  ];
-  List<String> description = [
-    'Walk Of Cairo 6 October City, Giza Governorate, Egypt 12588 - 6th of October City',
-    'El-Shorouk City, km 37 Cairo - Suez Rd P.O Box. 51 El-Shorouk City - Behind City Hall, El-Shorouk, Cairo',
-  ];
+  // List<String> title = [
+  //   'Hesham Mahdy',
+  //   'Hesham Shorouk City',
+  // ];
+  // List<String> description = [
+  //   'Walk Of Cairo 6 October City, Giza Governorate, Egypt 12588 - 6th of October City',
+  //   'El-Shorouk City, km 37 Cairo - Suez Rd P.O Box. 51 El-Shorouk City - Behind City Hall, El-Shorouk, Cairo',
+  // ];
   int _selectedIndex = 0;
-  String text = 'Hesham Mahdy';
+  // String text = 'Hesham Mahdy';
+  // int? _addressId = 0;
+
+  @override
+  void initState() {
+    BlocProvider.of<AddressCubit>(context).getMyAddresses();
+    super.initState();
+  }
+
+  String _value = "primary";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,128 +84,212 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                 ],
               ),
             ),
-            Container(
-              height: 280.h,
-              width: MediaQuery.of(context).size.width,
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                itemCount: title.length,
-                itemBuilder: (context, index) => Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-                  child: Container(
-                    height: 111.h,
-                    width: 343.w,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(6.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: _selectedIndex == index
-                              ? Color.fromRGBO(16, 124, 192, 0.41)
-                              : Colors.transparent,
-                          blurRadius: 7.r,
-                        ),
-                      ],
-                    ),
-                    child: OutlinedButton(
-                      onPressed: () {
-                        setState(() {
-                          text = title[index];
-                          _selectedIndex = index;
-                        });
-                      },
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                          EdgeInsets.zero,
-                        ),
-                        side: MaterialStateProperty.all<BorderSide>(
-                          BorderSide(
-                            color: _selectedIndex == index
-                                ? Theme.of(context).primaryColor
-                                : Color(0xffE3E3E3),
-                          ),
-                        ),
-                        shape: MaterialStateProperty.all<OutlinedBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6.r),
-                          ),
-                        ),
-                      ),
-                      child: RadioListTile(
-                        activeColor: Theme.of(context).primaryColor,
-                        groupValue: _selectedIndex,
-                        value: index,
-                        onChanged: (dynamic value) {
-                          setState(() {
-                            _selectedIndex = value;
-                          });
-                        },
-                        contentPadding: EdgeInsets.all(15),
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              title[index],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle2!
-                                  .copyWith(
-                                    fontSize: 14.sp,
-                                  ),
-                            ),
-                            title[index] == title[0]
-                                ? Container(
-                                    height: 17.h,
-                                    width: 67.w,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: Color(
-                                        0xffFFD008,
-                                      ),
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(
-                                          12.5.r,
-                                        ),
-                                        bottomRight: Radius.circular(
-                                          12.5.r,
-                                        ),
-                                        bottomLeft: Radius.circular(
-                                          12.5.r,
-                                        ),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      'Primary',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline1!
-                                          .copyWith(fontSize: 10.sp),
-                                    ),
-                                  )
-                                : InkWell(
-                                    onTap: () {},
-                                    child: Icon(
-                                      Icons.more_vert,
-                                      color: Theme.of(context).primaryColor,
-                                      size: 30.h,
-                                    ),
-                                  ),
-                          ],
-                        ),
-                        subtitle: Column(
-                          children: [
-                            Text(
-                              description[index],
-                              style: Theme.of(context).textTheme.headline4,
+            BlocBuilder<AddressCubit, AddressState>(
+              builder: (context, state) {
+                if (state is MyAddressesIsLoaded) {
+                  return ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    itemCount: state.myAddresses!.data!.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.w, vertical: 12.h),
+                      child: Container(
+                        height: 111.h,
+                        width: 343.w,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(6.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: _selectedIndex == index
+                                  ? Color.fromRGBO(16, 124, 192, 0.41)
+                                  : Colors.transparent,
+                              blurRadius: 7.r,
                             ),
                           ],
                         ),
+                        child: OutlinedButton(
+                          onPressed: () {
+                            setState(() {
+                              _selectedIndex = index;
+                            });
+                          },
+                          style: ButtonStyle(
+                            padding:
+                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              EdgeInsets.zero,
+                            ),
+                            side: MaterialStateProperty.all<BorderSide>(
+                              BorderSide(
+                                color: _selectedIndex == index
+                                    ? Theme.of(context).primaryColor
+                                    : Color(0xffE3E3E3),
+                              ),
+                            ),
+                            shape: MaterialStateProperty.all<OutlinedBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6.r),
+                              ),
+                            ),
+                          ),
+                          child: RadioListTile(
+                            activeColor: Theme.of(context).primaryColor,
+                            groupValue: _selectedIndex,
+                            value: index,
+                            onChanged: (dynamic value) {
+                              setState(() {
+                                _selectedIndex = value;
+                                // _addressId =
+                                // state.myAddresses!.data![index]!.id!;
+                              });
+                            },
+                            contentPadding: EdgeInsets.all(15),
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  state.myAddresses!.data![index]!.name!,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle2!
+                                      .copyWith(
+                                        fontSize: 14.sp,
+                                      ),
+                                ),
+                                state.myAddresses!.data![index]!.primary == 1 ||
+                                        _value == "1"
+                                    ? Container(
+                                        height: 17.h,
+                                        width: 67.w,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: Color(
+                                            0xffFFD008,
+                                          ),
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(
+                                              12.5.r,
+                                            ),
+                                            bottomRight: Radius.circular(
+                                              12.5.r,
+                                            ),
+                                            bottomLeft: Radius.circular(
+                                              12.5.r,
+                                            ),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          'Primary',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline1!
+                                              .copyWith(fontSize: 10.sp),
+                                        ),
+                                      )
+                                    : PopupMenuButton(
+                                        itemBuilder: (context) => [
+                                          PopupMenuItem(
+                                            child: Text(
+                                              "Primary",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline4,
+                                            ),
+                                            value: 1,
+                                          ),
+                                          PopupMenuItem(
+                                            child: Text(
+                                              "Edit",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline4,
+                                            ),
+                                            value: 2,
+                                          ),
+                                          PopupMenuItem(
+                                            child: Text(
+                                              "Delete",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline4,
+                                            ),
+                                            value: 3,
+                                          )
+                                        ],
+                                        onSelected: (value) {
+                                          setState(() {
+                                            _value = value.toString();
+                                          });
+                                          print(_value);
+                                        },
+                                        child: Icon(
+                                          Icons.more_vert,
+                                          color: kBlue,
+                                          size: 25.h,
+                                        ),
+                                      ),
+                                // : InkWell(
+                                //     onTap: () {},
+                                //     child: Icon(
+                                //       Icons.more_vert,
+                                //       color: Theme.of(context).primaryColor,
+                                //       size: 30.h,
+                                //     ),
+                                //   ),
+                              ],
+                            ),
+                            subtitle: RichText(
+                              text: TextSpan(
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: state.myAddresses!.data![index]!
+                                                .details! ==
+                                            ''
+                                        ? ''
+                                        : '${state.myAddresses!.data![index]!.details!}, ',
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        '${state.myAddresses!.data![index]!.street!}, ',
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        '${state.myAddresses!.data![index]!.area!}, ',
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        '${state.myAddresses!.data![index]!.city!}, ',
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        '${state.myAddresses!.data![index]!.governorate!}.',
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
             ),
             GestureDetector(
               onTap: () {

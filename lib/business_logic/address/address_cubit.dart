@@ -2,8 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:coffepedia/data/models/add_address.dart';
 import 'package:coffepedia/data/models/areas.dart';
 import 'package:coffepedia/data/models/cities.dart';
+import 'package:coffepedia/data/models/delete_address.dart';
 import 'package:coffepedia/data/models/governorates.dart';
 import 'package:coffepedia/data/models/my_addresses.dart';
+import 'package:coffepedia/data/models/update_address.dart';
 import 'package:coffepedia/data/repository/address_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -67,6 +69,42 @@ class AddressCubit extends Cubit<AddressState> {
         emit(
           MyAddressesIsLoaded(myAddresses),
         );
+      },
+    );
+  }
+
+  void postUpdateAddress({
+    String? governorateId,
+    String? cityId,
+    String? name,
+    String? areaId,
+    String? street,
+    String? details,
+    int? primary,
+    int? addressId,
+  }) {
+    addressRepository
+        .postUpdateAddress(
+      governorateId: governorateId,
+      cityId: cityId,
+      name: name,
+      areaId: areaId,
+      street: street,
+      details: details,
+      primary: primary,
+      addressId: addressId,
+    )
+        .then(
+      (value) {
+        emit(UpdateAddressIsPressed(value));
+      },
+    );
+  }
+
+  void postDeleteAddress(int addressId) {
+    addressRepository.postDeleteAddress(addressId).then(
+      (value) {
+        emit(DeleteAddressIsPressed(value));
       },
     );
   }

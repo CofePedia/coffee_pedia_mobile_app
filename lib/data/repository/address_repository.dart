@@ -1,8 +1,10 @@
 import 'package:coffepedia/data/models/add_address.dart';
 import 'package:coffepedia/data/models/areas.dart';
 import 'package:coffepedia/data/models/cities.dart';
+import 'package:coffepedia/data/models/delete_address.dart';
 import 'package:coffepedia/data/models/governorates.dart';
 import 'package:coffepedia/data/models/my_addresses.dart';
+import 'package:coffepedia/data/models/update_address.dart';
 import 'package:coffepedia/data/web_services/address_web_services.dart';
 
 class AddressRepository {
@@ -48,5 +50,36 @@ class AddressRepository {
   Future<MyAddresses> getMyAddresses() async {
     final myAddresses = addressWebServices.getMyAddresses();
     return myAddresses;
+  }
+
+  Future<UpdateAddress> postUpdateAddress({
+    String? governorateId,
+    String? cityId,
+    String? name,
+    String? areaId,
+    String? street,
+    String? details,
+    int? primary,
+    int? addressId,
+  }) async {
+    final updateAddress = await addressWebServices.postUpdateAddress(
+        governorateId: governorateId,
+        cityId: cityId,
+        name: name,
+        areaId: areaId,
+        street: street,
+        details: details,
+        addressId: addressId,
+        primary: primary);
+
+    return updateAddress;
+  }
+
+  Future<DeleteAddress> postDeleteAddress(
+    int addressId,
+  ) async {
+    final deleteAddress = await addressWebServices.postDeleteAddress(addressId);
+
+    return deleteAddress;
   }
 }

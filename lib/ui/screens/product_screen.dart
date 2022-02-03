@@ -50,7 +50,7 @@ class _ProductScreenState extends State<ProductScreen> {
   //   '18 Ounce (Pack of 3)',
   //   '18 Ounce (Pack of 6)',
   // ];
-  final List<String> overview = ['region', 'Brand', 'roast', 'flavor'];
+  // final List<String> overview = ['region', 'Brand', 'roast', 'flavor'];
   @override
   void initState() {
     BlocProvider.of<ProductCubit>(context).getProduct(widget.id);
@@ -447,13 +447,14 @@ class _ProductScreenState extends State<ProductScreen> {
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ),
+                          // TODO: it needs to be handled from backend first
                           Padding(
                             padding: EdgeInsets.only(top: 15.h),
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 15.w),
                               child: GridView.builder(
                                 padding: EdgeInsets.zero,
-                                itemCount: 3,
+                                itemCount: 4,
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 gridDelegate:
