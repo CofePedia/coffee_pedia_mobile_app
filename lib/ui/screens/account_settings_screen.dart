@@ -631,7 +631,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                               children: <TextSpan>[
                                 TextSpan(
                                   text: widget.me.data!.myAddresses!.details ==
-                                          null
+                                          ''
                                       ? ''
                                       : '${widget.me.data!.myAddresses!.details}, ',
                                   style: Theme.of(context).textTheme.headline4,

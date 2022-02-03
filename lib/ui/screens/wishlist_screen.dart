@@ -144,27 +144,30 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                     height: 118.h,
                                   ),
                                 ),
-                                Positioned(
-                                  top: 29.h,
-                                  left: 12.w,
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset(Assets.iconsStarActive),
-                                      SizedBox(
-                                        width: 5.w,
-                                      ),
-                                      Text(
-                                        item.rate!.toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                              fontWeight: FontWeight.w700,
+                                item.rate == 0
+                                    ? SizedBox.shrink()
+                                    : Positioned(
+                                        top: 29.h,
+                                        left: 12.w,
+                                        child: Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                                Assets.iconsStarActive),
+                                            SizedBox(
+                                              width: 5.w,
                                             ),
+                                            Text(
+                                              item.rate!.toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2!
+                                                  .copyWith(
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                ),
                                 Positioned(
                                   top: 171.h,
                                   left: 12.w,

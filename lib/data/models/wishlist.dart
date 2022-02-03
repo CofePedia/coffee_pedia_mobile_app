@@ -120,13 +120,13 @@ class WishlistData {
     totalStock = json['total_stock']?.toInt();
     inStock = json['in_stock']?.toInt();
     sold = json['sold']?.toInt();
-    rate = json['rate']?.toInt();
+    rate = json['rate'] == null ? 0 : json['rate'].toInt();
     eanNumber = json['ean_number']?.toString();
     deletedAt = json['deleted_at']?.toString();
     createdAt = json['created_at']?.toString();
     updatedAt = json['updated_at']?.toString();
     priceBeforeDiscount = json['price_before_discount']?.toInt();
-    discount = json['discount']?.toInt();
+    discount = json['discount'] == null ? 0 : json['discount'].toInt();
     priceAfterDiscount = json['price_after_discount']?.toInt();
     categoryId = json['category_id']?.toInt();
     subCategoryId = json['sub_category_id']?.toInt();

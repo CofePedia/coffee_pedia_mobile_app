@@ -19,30 +19,35 @@ class FiltersButtons extends StatefulWidget {
 
 class _FiltersButtonsState extends State<FiltersButtons> {
   List<bool>? selected;
-  @override
-  void initState() {
-    selected = List.filled(widget.multiFilter!.length, false);
-    super.initState();
-  }
 
   void addValueToMultiMap<K, V>(
       Map<K, List<V>> map, K key, V value, isSelected) {
-    map.update(
-      key,
-      (list) {
-        if (isSelected == true) {
+    if (isSelected == true) {
+      map.update(
+        key,
+        (list) {
           return list..add(value);
-        } else {
+        },
+        ifAbsent: () => [value],
+      );
+      print(map);
+    } else {
+      map.update(
+        key,
+        (list) {
           return list..remove(value);
-        }
-      },
-      ifAbsent: () => [value],
-    );
-    print(map);
+        },
+      );
+      map.removeWhere((removeKey, value) => removeKey == key && value.isEmpty);
+      print(map);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.multiMap.isEmpty)
+      selected = List.filled(widget.multiFilter!.length, false);
+
     return Wrap(
       spacing: 4.w,
       children: List.generate(
@@ -50,12 +55,11 @@ class _FiltersButtonsState extends State<FiltersButtons> {
         (index) => FilterChip(
           label: Text(
             widget.multiFilter![index].name!,
-            style: TextStyle(
-              color: selected![index]
-                  ? Theme.of(context).primaryColor
-                  : Color(0xff231F20),
-              fontSize: 13.sp,
-            ),
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                color: selected![index]
+                    ? Theme.of(context).primaryColor
+                    : Color(0xff231F20),
+                fontSize: 13.sp),
           ),
           selected: selected![index],
           side: BorderSide(

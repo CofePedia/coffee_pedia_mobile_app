@@ -2,12 +2,14 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/home_ads/home_ads_cubit.dart';
 import 'package:coffepedia/data/repository/home_ads_repository.dart';
 import 'package:coffepedia/data/web_services/home_ads_web_services.dart';
+import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/home/ads.dart';
 import 'package:coffepedia/ui/screens/home/brands_icons.dart';
 import 'package:coffepedia/ui/screens/home/card_recent_products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'home/ad_banner.dart';
 import 'home/ad_slider.dart';
@@ -70,18 +72,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         bottom: 9.h,
                         top: 53.h,
                       ),
-                      height: 105.h,
+                      height: 150.h,
                       width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color(0xffFFD008),
-                            Color(0xffFFE77E),
-                          ],
-                        ),
-                      ),
-                      child: SearchBar(
-                        width: 345.w,
+                      color: Theme.of(context).primaryColor,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SvgPicture.asset(
+                            Assets.iconsHomeLogo,
+                            height: 40.h,
+                            width: 151.w,
+                          ),
+                          SizedBox(
+                            height: 4.h,
+                          ),
+                          Expanded(
+                            child: SearchBar(
+                              width: 345.w,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(

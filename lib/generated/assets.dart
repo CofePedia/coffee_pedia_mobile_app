@@ -29,11 +29,13 @@ class Assets {
   static const String mapIcon = 'assets/icons/map_icon.svg';
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsLogoHor = 'assets/icons/LogoHor.svg';
+  static const String locationPin = 'assets/icons/location_pin.svg';
+  static const String iconsHomeLogo = 'assets/icons/home_logo.svg';
+
   static const String iconsMinus = 'assets/icons/minus.svg';
   static const String iconsMore = 'assets/icons/More.svg';
   static const String iconsProfile = 'assets/icons/Profile.svg';
   static const String iconsSearch = 'assets/icons/Search.svg';
-  static const String locationPin = 'assets/icons/location_pin.svg';
 
   static const String iconsShoppingBasket = 'assets/icons/ShoppingBasket.svg';
   static const String iconsStarActive = 'assets/icons/star_active.svg';

@@ -5,6 +5,7 @@ import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -33,7 +34,9 @@ class _SplashScreenState extends State<SplashScreen> {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return HomePage(currentIndex: 0,);
+                return HomePage(
+                  currentIndex: 0,
+                );
               },
             ),
           );
@@ -56,12 +59,23 @@ class _SplashScreenState extends State<SplashScreen> {
               fit: BoxFit.fill,
             ),
           ),
-          child: Center(
-            child: Image.asset(
-              Assets.iconsCoffePediaLogo,
-              width: 199.w,
-              height: 174.h,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                Assets.assetsIconsCoffePediaLogo,
+                width: 199.w,
+                height: 174.h,
+              ),
+              SizedBox(
+                height: 105.h,
+              ),
+              Center(
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+            ],
           ),
         ),
       ),

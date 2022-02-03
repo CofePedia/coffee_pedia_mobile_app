@@ -284,31 +284,34 @@ class _ProductScreenState extends State<ProductScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                  height: 17.h,
-                                  width: 55.w,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffFFD008),
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(
-                                        12.5.r,
+                                state.product!.data!.discount == 0
+                                    ? SizedBox.shrink()
+                                    : Container(
+                                        height: 17.h,
+                                        width: 55.w,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xffFFD008),
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(
+                                              12.5.r,
+                                            ),
+                                            bottomRight: Radius.circular(
+                                              12.5.r,
+                                            ),
+                                            bottomLeft: Radius.circular(
+                                              12.5.r,
+                                            ),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          '${state.product!.data!.discount}% Off',
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
+                                        ),
                                       ),
-                                      bottomRight: Radius.circular(
-                                        12.5.r,
-                                      ),
-                                      bottomLeft: Radius.circular(
-                                        12.5.r,
-                                      ),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    '${state.product!.data!.discount}% Off',
-                                    textAlign: TextAlign.center,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1,
-                                  ),
-                                ),
                                 Container(
                                   height: 38.h,
                                   width: 38.w,
@@ -599,7 +602,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               leading: CircleAvatar(
                                 radius: 25.sp,
                                 foregroundImage: NetworkImage(
-                                    state.product!.data!.vendor!.logo!),
+                                    state.product!.data!.vendor!.coverPhoto!),
                               ),
                               title: Text(
                                 'Seller name',
@@ -613,7 +616,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                     ),
                               ),
                               subtitle: Text(
-                                state.product!.data!.vendor!.name ?? '',
+                                state.product!.data!.vendor!.companyName ?? '',
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle2!

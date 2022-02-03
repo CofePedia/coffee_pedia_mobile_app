@@ -97,16 +97,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   Container(
                     height: 105.h,
                     width: MediaQuery.of(context).size.width,
+                    color: Theme.of(context).primaryColor,
                     padding:
                         EdgeInsets.only(top: 53.h, bottom: 9.h, right: 15.w),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0xffFFD008),
-                          Color(0xffFFE77E),
-                        ],
-                      ),
-                    ),
+                    // decoration: BoxDecoration(
+                    //   gradient: LinearGradient(
+                    //     colors: [
+                    //       Color(0xffFFD008),
+                    //       Color(0xffFFE77E),
+                    //     ],
+                    //   ),
+                    // ),
                     child: Row(
                       children: [
                         IconButton(
@@ -116,6 +117,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           icon: Icon(
                             Icons.chevron_left,
                             size: 22.w,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                           color: Color(0xff000000),
                         ),
@@ -311,34 +313,41 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        height: 17.h,
-                                        width: 55.w,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffFFD008),
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(
-                                              12.5.r,
+                                      state.categoryProducts!.data!
+                                                  .data![index]!.discount ==
+                                              0
+                                          ? SizedBox(
+                                              height: 17.h,
+                                              width: 55.w,
+                                            )
+                                          : Container(
+                                              height: 17.h,
+                                              width: 55.w,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffFFD008),
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(
+                                                    12.5.r,
+                                                  ),
+                                                  bottomRight: Radius.circular(
+                                                    12.5.r,
+                                                  ),
+                                                  bottomLeft: Radius.circular(
+                                                    12.5.r,
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                '${state.categoryProducts!.data!.data![index]!.discount}% Off',
+                                                // state.categoryProducts!.data!
+                                                //     .filters![2]!.optionsSingle![2]
+                                                //     .toString(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1,
+                                              ),
                                             ),
-                                            bottomRight: Radius.circular(
-                                              12.5.r,
-                                            ),
-                                            bottomLeft: Radius.circular(
-                                              12.5.r,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          '${state.categoryProducts!.data!.data![index]!.discount}% Off',
-                                          // state.categoryProducts!.data!
-                                          //     .filters![2]!.optionsSingle![2]
-                                          //     .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
-                                      ),
                                       SizedBox(
                                         height: 15.h,
                                       ),

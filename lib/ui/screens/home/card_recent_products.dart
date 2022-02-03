@@ -91,22 +91,25 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                               ),
                             ),
                           ),
-                          Positioned(
-                            top: 33.h,
-                            left: 12.w,
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(Assets.iconsStarActive),
-                                SizedBox(
-                                  width: 6.14.w,
+                          state.mostRecent!.data!.data![index]!.rate! == 0
+                              ? SizedBox.shrink()
+                              : Positioned(
+                                  top: 33.h,
+                                  left: 12.w,
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(Assets.iconsStarActive),
+                                      SizedBox(
+                                        width: 6.14.w,
+                                      ),
+                                      Text(
+                                        state.mostRecent!.data!.data![index]!
+                                            .rate!
+                                            .toString(),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Text(
-                                  state.mostRecent!.data!.data![index]!.rate!
-                                      .toString(),
-                                ),
-                              ],
-                            ),
-                          ),
                           Positioned(
                             top: 123.h,
                             left: 12.w,
