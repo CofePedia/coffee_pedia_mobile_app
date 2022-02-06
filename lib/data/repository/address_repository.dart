@@ -59,8 +59,8 @@ class AddressRepository {
     String? areaId,
     String? street,
     String? details,
-    int? primary,
-    int? addressId,
+    String? primary,
+    String? addressId,
   }) async {
     final updateAddress = await addressWebServices.postUpdateAddress(
         governorateId: governorateId,

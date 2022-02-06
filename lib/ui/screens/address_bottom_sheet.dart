@@ -48,6 +48,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
   int? _selectedCity;
   int? _cityId = 0;
   int? _selectedArea;
+  String? addressPath;
 
   @override
   void initState() {
@@ -88,8 +89,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
         if (state is AddAddressIsPressed) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => DeliveryInfoScreenProvider(),
-            ),
+                builder: (context) => DeliveryInfoScreenProvider()),
           );
         }
       },

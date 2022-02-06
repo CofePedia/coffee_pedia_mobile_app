@@ -31,25 +31,14 @@ class AddressBookScreen extends StatefulWidget {
 }
 
 class _AddressBookScreenState extends State<AddressBookScreen> {
-  // List<String> title = [
-  //   'Hesham Mahdy',
-  //   'Hesham Shorouk City',
-  // ];
-  // List<String> description = [
-  //   'Walk Of Cairo 6 October City, Giza Governorate, Egypt 12588 - 6th of October City',
-  //   'El-Shorouk City, km 37 Cairo - Suez Rd P.O Box. 51 El-Shorouk City - Behind City Hall, El-Shorouk, Cairo',
-  // ];
-  int _selectedIndex = 0;
-  // String text = 'Hesham Mahdy';
-  // int? _addressId = 0;
-
   @override
   void initState() {
     BlocProvider.of<AddressCubit>(context).getMyAddresses();
+
     super.initState();
   }
 
-  String _value = "primary";
+  String _value = "0";
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +76,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
             BlocBuilder<AddressCubit, AddressState>(
               builder: (context, state) {
                 if (state is MyAddressesIsLoaded) {
+                  print(123);
                   return ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -101,190 +91,396 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(6.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: _selectedIndex == index
-                                  ? Color.fromRGBO(16, 124, 192, 0.41)
-                                  : Colors.transparent,
-                              blurRadius: 7.r,
-                            ),
-                          ],
-                        ),
-                        child: OutlinedButton(
-                          onPressed: () {
-                            setState(() {
-                              _selectedIndex = index;
-                            });
-                          },
-                          style: ButtonStyle(
-                            padding:
-                                MaterialStateProperty.all<EdgeInsetsGeometry>(
-                              EdgeInsets.zero,
-                            ),
-                            side: MaterialStateProperty.all<BorderSide>(
-                              BorderSide(
-                                color: _selectedIndex == index
-                                    ? Theme.of(context).primaryColor
-                                    : Color(0xffE3E3E3),
-                              ),
-                            ),
-                            shape: MaterialStateProperty.all<OutlinedBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6.r),
-                              ),
-                            ),
+                          border: Border.all(
+                            color: Colors.grey.shade300,
                           ),
-                          child: RadioListTile(
-                            activeColor: Theme.of(context).primaryColor,
-                            groupValue: _selectedIndex,
-                            value: index,
-                            onChanged: (dynamic value) {
-                              setState(() {
-                                _selectedIndex = value;
-                                // _addressId =
-                                // state.myAddresses!.data![index]!.id!;
-                              });
-                            },
-                            contentPadding: EdgeInsets.all(15),
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  state.myAddresses!.data![index]!.name!,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                        fontSize: 14.sp,
-                                      ),
-                                ),
-                                state.myAddresses!.data![index]!.primary == 1 ||
-                                        _value == "1"
-                                    ? Container(
-                                        height: 17.h,
-                                        width: 67.w,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          color: Color(
-                                            0xffFFD008,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(15.h),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    state.myAddresses!.data![index]!.name!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2!
+                                        .copyWith(
+                                          fontSize: 14.sp,
+                                        ),
+                                  ),
+                                  state.myAddresses!.data![index]!.primary == 1
+                                      ? Container(
+                                          height: 17.h,
+                                          width: 67.w,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            color: Color(
+                                              0xffFFD008,
+                                            ),
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(
+                                                12.5.r,
+                                              ),
+                                              bottomRight: Radius.circular(
+                                                12.5.r,
+                                              ),
+                                              bottomLeft: Radius.circular(
+                                                12.5.r,
+                                              ),
+                                            ),
                                           ),
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(
-                                              12.5.r,
+                                          child: Text(
+                                            'Primary',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline1!
+                                                .copyWith(fontSize: 10.sp),
+                                          ),
+                                        )
+                                      : PopupMenuButton(
+                                          itemBuilder: (context) => [
+                                            PopupMenuItem(
+                                              child: Text(
+                                                "Primary",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline4,
+                                              ),
+                                              value: 1,
+                                              onTap: () {
+                                                setState(() {
+                                                  BlocProvider.of<AddressCubit>(
+                                                          context)
+                                                      .postUpdateAddress(
+                                                    primary: _value.toString(),
+                                                    addressId: state
+                                                        .myAddresses!
+                                                        .data![index]!
+                                                        .id!
+                                                        .toString(),
+                                                    name: state.myAddresses!
+                                                        .data![index]!.name!
+                                                        .toString(),
+                                                    details: state.myAddresses!
+                                                        .data![index]!.details!
+                                                        .toString(),
+                                                    street: state.myAddresses!
+                                                        .data![index]!.street!
+                                                        .toString(),
+                                                    areaId: state.myAddresses!
+                                                        .data![index]!.areaId!
+                                                        .toString(),
+                                                    cityId: state.myAddresses!
+                                                        .data![index]!.cityId!
+                                                        .toString(),
+                                                    governorateId: state
+                                                        .myAddresses!
+                                                        .data![index]!
+                                                        .governorateId!
+                                                        .toString(),
+                                                  );
+                                                });
+                                              },
                                             ),
-                                            bottomRight: Radius.circular(
-                                              12.5.r,
+                                            PopupMenuItem(
+                                              child: Text(
+                                                "Edit",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline4,
+                                              ),
+                                              value: 2,
                                             ),
-                                            bottomLeft: Radius.circular(
-                                              12.5.r,
+                                            PopupMenuItem(
+                                              child: Text(
+                                                "Delete",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline4,
+                                              ),
+                                              value: 3,
                                             ),
+                                          ],
+                                          onSelected: (value) {
+                                            setState(() {
+                                              _value = value.toString();
+                                            });
+                                            print(_value);
+                                          },
+                                          child: Icon(
+                                            Icons.more_vert,
+                                            color: kBlue,
+                                            size: 25.h,
                                           ),
                                         ),
-                                        child: Text(
-                                          'Primary',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline1!
-                                              .copyWith(fontSize: 10.sp),
-                                        ),
-                                      )
-                                    : PopupMenuButton(
-                                        itemBuilder: (context) => [
-                                          PopupMenuItem(
-                                            child: Text(
-                                              "Primary",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline4,
-                                            ),
-                                            value: 1,
-                                          ),
-                                          PopupMenuItem(
-                                            child: Text(
-                                              "Edit",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline4,
-                                            ),
-                                            value: 2,
-                                          ),
-                                          PopupMenuItem(
-                                            child: Text(
-                                              "Delete",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline4,
-                                            ),
-                                            value: 3,
-                                          )
-                                        ],
-                                        onSelected: (value) {
-                                          setState(() {
-                                            _value = value.toString();
-                                          });
-                                          print(_value);
-                                        },
-                                        child: Icon(
-                                          Icons.more_vert,
-                                          color: kBlue,
-                                          size: 25.h,
-                                        ),
-                                      ),
-                                // : InkWell(
-                                //     onTap: () {},
-                                //     child: Icon(
-                                //       Icons.more_vert,
-                                //       color: Theme.of(context).primaryColor,
-                                //       size: 30.h,
-                                //     ),
-                                //   ),
-                              ],
-                            ),
-                            subtitle: RichText(
-                              text: TextSpan(
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: state.myAddresses!.data![index]!
-                                                .details! ==
-                                            ''
-                                        ? ''
-                                        : '${state.myAddresses!.data![index]!.details!}, ',
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${state.myAddresses!.data![index]!.street!}, ',
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${state.myAddresses!.data![index]!.area!}, ',
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${state.myAddresses!.data![index]!.city!}, ',
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '${state.myAddresses!.data![index]!.governorate!}.',
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
-                                  ),
+                                  // : InkWell(
+                                  //     onTap: () {},
+                                  //     child: Icon(
+                                  //       Icons.more_vert,
+                                  //       color: Theme.of(context).primaryColor,
+                                  //       size: 30.h,
+                                  //     ),
+                                  //   ),
                                 ],
                               ),
-                            ),
+                              RichText(
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                                text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: state.myAddresses!.data![index]!
+                                                  .details! ==
+                                              ''
+                                          ? ''
+                                          : '${state.myAddresses!.data![index]!.details!}, ',
+                                      style:
+                                          Theme.of(context).textTheme.headline4,
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          '${state.myAddresses!.data![index]!.street!}, ',
+                                      style:
+                                          Theme.of(context).textTheme.headline4,
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          '${state.myAddresses!.data![index]!.area!}, ',
+                                      style:
+                                          Theme.of(context).textTheme.headline4,
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          '${state.myAddresses!.data![index]!.city!}, ',
+                                      style:
+                                          Theme.of(context).textTheme.headline4,
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          '${state.myAddresses!.data![index]!.governorate!}.',
+                                      style:
+                                          Theme.of(context).textTheme.headline4,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                        // child: OutlinedButton(
+                        //   onPressed: () {
+                        //     setState(() {
+                        //       _selectedIndex = index;
+                        //     });
+                        //   },
+                        //   style: ButtonStyle(
+                        //     padding:
+                        //         MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        //       EdgeInsets.zero,
+                        //     ),
+                        //     side: MaterialStateProperty.all<BorderSide>(
+                        //       BorderSide(
+                        //         color: _selectedIndex == index
+                        //             ? Theme.of(context).primaryColor
+                        //             : Color(0xffE3E3E3),
+                        //       ),
+                        //     ),
+                        //     shape: MaterialStateProperty.all<OutlinedBorder>(
+                        //       RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.circular(6.r),
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   child: RadioListTile(
+                        //     activeColor: Theme.of(context).primaryColor,
+                        //     groupValue: _selectedIndex,
+                        //     value: index,
+                        //     onChanged: (dynamic value) {
+                        //       setState(() {
+                        //         _selectedIndex = value;
+                        //       });
+                        //     },
+                        //     contentPadding: EdgeInsets.all(15),
+                        //     title: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //       children: [
+                        //         Text(
+                        //           state.myAddresses!.data![index]!.name!,
+                        //           style: Theme.of(context)
+                        //               .textTheme
+                        //               .subtitle2!
+                        //               .copyWith(
+                        //                 fontSize: 14.sp,
+                        //               ),
+                        //         ),
+                        //         state.myAddresses!.data![index]!.primary == 1
+                        //             ? Container(
+                        //                 height: 17.h,
+                        //                 width: 67.w,
+                        //                 alignment: Alignment.center,
+                        //                 decoration: BoxDecoration(
+                        //                   color: Color(
+                        //                     0xffFFD008,
+                        //                   ),
+                        //                   borderRadius: BorderRadius.only(
+                        //                     topLeft: Radius.circular(
+                        //                       12.5.r,
+                        //                     ),
+                        //                     bottomRight: Radius.circular(
+                        //                       12.5.r,
+                        //                     ),
+                        //                     bottomLeft: Radius.circular(
+                        //                       12.5.r,
+                        //                     ),
+                        //                   ),
+                        //                 ),
+                        //                 child: Text(
+                        //                   'Primary',
+                        //                   style: Theme.of(context)
+                        //                       .textTheme
+                        //                       .headline1!
+                        //                       .copyWith(fontSize: 10.sp),
+                        //                 ),
+                        //               )
+                        //             : PopupMenuButton(
+                        //                 itemBuilder: (context) => [
+                        //                   PopupMenuItem(
+                        //                     child: Text(
+                        //                       "Primary",
+                        //                       style: Theme.of(context)
+                        //                           .textTheme
+                        //                           .headline4,
+                        //                     ),
+                        //                     value: 1,
+                        //                     onTap: () {
+                        //                       setState(() {
+                        //                         BlocProvider.of<AddressCubit>(
+                        //                                 context)
+                        //                             .postUpdateAddress(
+                        //                           primary: _value.toString(),
+                        //                           addressId: state.myAddresses!
+                        //                               .data![index]!.id!
+                        //                               .toString(),
+                        //                           name: state.myAddresses!
+                        //                               .data![index]!.name!
+                        //                               .toString(),
+                        //                           details: state.myAddresses!
+                        //                               .data![index]!.details!
+                        //                               .toString(),
+                        //                           street: state.myAddresses!
+                        //                               .data![index]!.street!
+                        //                               .toString(),
+                        //                           areaId: state.myAddresses!
+                        //                               .data![index]!.areaId!
+                        //                               .toString(),
+                        //                           cityId: state.myAddresses!
+                        //                               .data![index]!.cityId!
+                        //                               .toString(),
+                        //                           governorateId: state
+                        //                               .myAddresses!
+                        //                               .data![index]!
+                        //                               .governorateId!
+                        //                               .toString(),
+                        //                         );
+                        //                         BlocProvider.of<AddressCubit>(
+                        //                                 context)
+                        //                             .getMyAddresses();
+                        //                       });
+                        //                     },
+                        //                   ),
+                        //                   PopupMenuItem(
+                        //                     child: Text(
+                        //                       "Edit",
+                        //                       style: Theme.of(context)
+                        //                           .textTheme
+                        //                           .headline4,
+                        //                     ),
+                        //                     value: 2,
+                        //                   ),
+                        //                   PopupMenuItem(
+                        //                     child: Text(
+                        //                       "Delete",
+                        //                       style: Theme.of(context)
+                        //                           .textTheme
+                        //                           .headline4,
+                        //                     ),
+                        //                     value: 3,
+                        //                   ),
+                        //                 ],
+                        //                 onSelected: (value) {
+                        //                   setState(() {
+                        //                     _value = value.toString();
+                        //                   });
+                        //                   print(_value);
+                        //                 },
+                        //                 child: Icon(
+                        //                   Icons.more_vert,
+                        //                   color: kBlue,
+                        //                   size: 25.h,
+                        //                 ),
+                        //               ),
+                        //         // : InkWell(
+                        //         //     onTap: () {},
+                        //         //     child: Icon(
+                        //         //       Icons.more_vert,
+                        //         //       color: Theme.of(context).primaryColor,
+                        //         //       size: 30.h,
+                        //         //     ),
+                        //         //   ),
+                        //       ],
+                        //     ),
+                        //     subtitle: RichText(
+                        //       text: TextSpan(
+                        //         children: <TextSpan>[
+                        //           TextSpan(
+                        //             text: state.myAddresses!.data![index]!
+                        //                         .details! ==
+                        //                     ''
+                        //                 ? ''
+                        //                 : '${state.myAddresses!.data![index]!.details!}, ',
+                        //             style:
+                        //                 Theme.of(context).textTheme.headline4,
+                        //           ),
+                        //           TextSpan(
+                        //             text:
+                        //                 '${state.myAddresses!.data![index]!.street!}, ',
+                        //             style:
+                        //                 Theme.of(context).textTheme.headline4,
+                        //           ),
+                        //           TextSpan(
+                        //             text:
+                        //                 '${state.myAddresses!.data![index]!.area!}, ',
+                        //             style:
+                        //                 Theme.of(context).textTheme.headline4,
+                        //           ),
+                        //           TextSpan(
+                        //             text:
+                        //                 '${state.myAddresses!.data![index]!.city!}, ',
+                        //             style:
+                        //                 Theme.of(context).textTheme.headline4,
+                        //           ),
+                        //           TextSpan(
+                        //             text:
+                        //                 '${state.myAddresses!.data![index]!.governorate!}.',
+                        //             style:
+                        //                 Theme.of(context).textTheme.headline4,
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ),
                     ),
                   );
                 } else {
+                  print(456);
                   return Center(
                     child: CircularProgressIndicator(),
                   );

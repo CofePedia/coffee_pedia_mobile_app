@@ -18,7 +18,6 @@ class CategoryProductsWebServices {
   }) async {
     final Map<String, dynamic> queryParameters = {
       'category': categoryId.toString(),
-      // 'brand[]': ["2", '3'],
     };
 
     if (multiMap!.isNotEmpty) {

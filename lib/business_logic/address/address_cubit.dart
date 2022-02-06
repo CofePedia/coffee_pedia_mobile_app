@@ -80,8 +80,8 @@ class AddressCubit extends Cubit<AddressState> {
     String? areaId,
     String? street,
     String? details,
-    int? primary,
-    int? addressId,
+    String? primary,
+    String? addressId,
   }) {
     addressRepository
         .postUpdateAddress(

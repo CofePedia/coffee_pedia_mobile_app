@@ -145,28 +145,57 @@ class AddressWebServices {
     String? areaId,
     String? street,
     String? details,
-    int? primary,
-    int? addressId,
+    String? primary,
+    String? addressId,
   }) async {
+    final Map<String, dynamic> queryParameters = {
+      'address_id': addressId,
+    };
+
+    if (name!.length != 0) {
+      queryParameters.addAll({
+        'name': name,
+      });
+    }
+    if (governorateId!.isNotEmpty) {
+      queryParameters.addAll({
+        'governorate_id': governorateId,
+      });
+    }
+    if (cityId!.isNotEmpty) {
+      queryParameters.addAll({
+        'city_id': cityId,
+      });
+    }
+    if (areaId!.isNotEmpty) {
+      queryParameters.addAll({
+        'area_id': areaId,
+      });
+    }
+    if (street!.isNotEmpty) {
+      queryParameters.addAll({
+        'street': street,
+      });
+    }
+    if (details!.isNotEmpty) {
+      queryParameters.addAll({
+        'details': details,
+      });
+    }
+    if (primary! != '-1') {
+      queryParameters.addAll({
+        'primary': primary,
+      });
+    }
+
     final url = Uri.parse(baseUrl + 'updateAddress');
     GetTokenDatabase? token = await userDao.getUserToken();
 
     print("token updateAddress = " + token!.getToken!);
 
-    final http.Response response = await http.post(
-      url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
-      body: {
-        'governorate_id': governorateId,
-        'city_id': cityId,
-        'name': name,
-        'area_id': areaId,
-        'street': street,
-        'details': details,
-        'primary': primary,
-        'address_id': addressId,
-      },
-    );
+    final http.Response response = await http.post(url,
+        headers: {'Authorization': 'Bearer ' + token.getToken!},
+        body: queryParameters);
     print("response updateAddress ${response.body}");
 
     if (response.statusCode == 200) {
