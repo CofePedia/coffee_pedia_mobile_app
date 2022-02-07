@@ -211,7 +211,7 @@ class AddressWebServices {
   }
 
   Future<DeleteAddress> postDeleteAddress(
-    int addressId,
+    String addressId,
   ) async {
     final url = Uri.parse(baseUrl + 'deleteAddress');
     GetTokenDatabase? token = await userDao.getUserToken();

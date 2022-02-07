@@ -179,7 +179,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                         width: 135.w,
                                         height: 54.h,
                                         child: Text(
-                                          item.titleEn!,
+                                          item.name!,
                                           maxLines: 3,
                                           style: Theme.of(context)
                                               .textTheme
@@ -193,7 +193,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                         height: 32.h,
                                       ),
                                       Text(
-                                        'EGP ${item.priceAfterDiscount!}',
+                                        'EGP ${item.price!}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1,
@@ -234,8 +234,8 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                             state.wishlist!.data![index]!.id!
                                                 .toString(),
                                           );
-                                          _isFavorite = state
-                                              .wishlist!.data![index]!.like!;
+                                          _isFavorite = state.wishlist!
+                                              .data![index]!.inWishlist!;
                                         });
                                       },
                                       child: Icon(

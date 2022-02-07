@@ -190,7 +190,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return const AddressBookScreenProvider();
+                                    return AddressBookScreenProvider();
                                   },
                                 ),
                               );

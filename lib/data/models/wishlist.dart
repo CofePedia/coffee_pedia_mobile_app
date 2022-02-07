@@ -1,176 +1,331 @@
-class WishlistData {
+class WishlistDataSubCategory {
 /*
 {
-  "id": 1,
-  "title_en": "Autem provident officia sunt praesentium id nostrum rerum atque id dolorum ut culpa mollit",
-  "description_en": "Autem tenetur quia quidem laboriosam maxime",
-  "brand_id": 1,
-  "product_status_id": 2,
-  "vendor_id": 61,
-  "flavor_id": 1,
-  "roast_id": 1,
-  "region_id": 1,
-  "item_form_id": 1,
-  "added_by": 1,
-  "approved_by": null,
-  "views": 1,
-  "total_stock": 20,
-  "in_stock": 19,
-  "sold": 27,
-  "rate": 5,
-  "ean_number": "20",
-  "deleted_at": null,
-  "created_at": "2021-11-03T22:00:00.000000Z",
-  "updated_at": "2022-01-05T13:44:29.000000Z",
-  "price_before_discount": 615,
-  "discount": 50,
-  "price_after_discount": 415,
-  "category_id": 1,
-  "sub_category_id": 2,
-  "title_ar": null,
-  "description_ar": null,
-  "discount_category": null,
-  "approved_date": null,
-  "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
-  "like": true
+  "id": 2,
+  "order": 1,
+  "slug": "men",
+  "icon": "http://adphp.coffepidia.com/files/manager-312603_960_720.png",
+  "name": "Men"
 }
 */
 
   int? id;
-  String? titleEn;
-  String? descriptionEn;
-  int? brandId;
-  int? productStatusId;
-  int? vendorId;
-  int? flavorId;
-  int? roastId;
-  int? regionId;
-  int? itemFormId;
-  int? addedBy;
-  String? approvedBy;
-  int? views;
-  int? totalStock;
-  int? inStock;
-  int? sold;
-  int? rate;
-  String? eanNumber;
-  String? deletedAt;
-  String? createdAt;
-  String? updatedAt;
-  int? priceBeforeDiscount;
-  int? discount;
-  int? priceAfterDiscount;
-  int? categoryId;
-  int? subCategoryId;
-  String? titleAr;
-  String? descriptionAr;
-  String? discountCategory;
-  String? approvedDate;
-  String? image;
-  bool? like;
+  int? order;
+  String? slug;
+  String? icon;
+  String? name;
 
-  WishlistData({
+  WishlistDataSubCategory({
     this.id,
-    this.titleEn,
-    this.descriptionEn,
-    this.brandId,
-    this.productStatusId,
-    this.vendorId,
-    this.flavorId,
-    this.roastId,
-    this.regionId,
-    this.itemFormId,
-    this.addedBy,
-    this.approvedBy,
-    this.views,
-    this.totalStock,
-    this.inStock,
-    this.sold,
-    this.rate,
-    this.eanNumber,
-    this.deletedAt,
-    this.createdAt,
-    this.updatedAt,
-    this.priceBeforeDiscount,
-    this.discount,
-    this.priceAfterDiscount,
-    this.categoryId,
-    this.subCategoryId,
-    this.titleAr,
-    this.descriptionAr,
-    this.discountCategory,
-    this.approvedDate,
-    this.image,
-    this.like,
+    this.order,
+    this.slug,
+    this.icon,
+    this.name,
   });
-  WishlistData.fromJson(Map<String, dynamic> json) {
+  WishlistDataSubCategory.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toInt();
-    titleEn = json['title_en']?.toString();
-    descriptionEn = json['description_en']?.toString();
-    brandId = json['brand_id']?.toInt();
-    productStatusId = json['product_status_id']?.toInt();
-    vendorId = json['vendor_id']?.toInt();
-    flavorId = json['flavor_id']?.toInt();
-    roastId = json['roast_id']?.toInt();
-    regionId = json['region_id']?.toInt();
-    itemFormId = json['item_form_id']?.toInt();
-    addedBy = json['added_by']?.toInt();
-    approvedBy = json['approved_by']?.toString();
-    views = json['views']?.toInt();
-    totalStock = json['total_stock']?.toInt();
-    inStock = json['in_stock']?.toInt();
-    sold = json['sold']?.toInt();
-    rate = json['rate'] == null ? 0 : json['rate'].toInt();
-    eanNumber = json['ean_number']?.toString();
-    deletedAt = json['deleted_at']?.toString();
-    createdAt = json['created_at']?.toString();
-    updatedAt = json['updated_at']?.toString();
-    priceBeforeDiscount = json['price_before_discount']?.toInt();
-    discount = json['discount'] == null ? 0 : json['discount'].toInt();
-    priceAfterDiscount = json['price_after_discount']?.toInt();
-    categoryId = json['category_id']?.toInt();
-    subCategoryId = json['sub_category_id']?.toInt();
-    titleAr = json['title_ar']?.toString();
-    descriptionAr = json['description_ar']?.toString();
-    discountCategory = json['discount_category']?.toString();
-    approvedDate = json['approved_date']?.toString();
-    image = json['image']?.toString();
-    like = json['like'];
+    order = json['order']?.toInt();
+    slug = json['slug']?.toString();
+    icon = json['icon']?.toString();
+    name = json['name']?.toString();
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['id'] = id;
-    data['title_en'] = titleEn;
-    data['description_en'] = descriptionEn;
-    data['brand_id'] = brandId;
-    data['product_status_id'] = productStatusId;
-    data['vendor_id'] = vendorId;
-    data['flavor_id'] = flavorId;
-    data['roast_id'] = roastId;
-    data['region_id'] = regionId;
-    data['item_form_id'] = itemFormId;
-    data['added_by'] = addedBy;
-    data['approved_by'] = approvedBy;
-    data['views'] = views;
-    data['total_stock'] = totalStock;
-    data['in_stock'] = inStock;
-    data['sold'] = sold;
+    data['order'] = order;
+    data['slug'] = slug;
+    data['icon'] = icon;
+    data['name'] = name;
+    return data;
+  }
+}
+
+class WishlistDataCategory {
+/*
+{
+  "id": 1,
+  "order": 1,
+  "slug": "fashoin",
+  "icon": "http://adphp.coffepidia.com/files/fashoin.png",
+  "name": "Fashoin"
+}
+*/
+
+  int? id;
+  int? order;
+  String? slug;
+  String? icon;
+  String? name;
+
+  WishlistDataCategory({
+    this.id,
+    this.order,
+    this.slug,
+    this.icon,
+    this.name,
+  });
+  WishlistDataCategory.fromJson(Map<String, dynamic> json) {
+    id = json['id']?.toInt();
+    order = json['order']?.toInt();
+    slug = json['slug']?.toString();
+    icon = json['icon']?.toString();
+    name = json['name']?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['order'] = order;
+    data['slug'] = slug;
+    data['icon'] = icon;
+    data['name'] = name;
+    return data;
+  }
+}
+
+class WishlistDataOverview {
+/*
+{
+  "region": "Regions 1",
+  "brand": "First Brand",
+  "roast": "Roasts 1",
+  "flavor": "zczxcC"
+}
+*/
+
+  String? region;
+  String? brand;
+  String? roast;
+  String? flavor;
+
+  WishlistDataOverview({
+    this.region,
+    this.brand,
+    this.roast,
+    this.flavor,
+  });
+  WishlistDataOverview.fromJson(Map<String, dynamic> json) {
+    region = json['region']?.toString();
+    brand = json['brand']?.toString();
+    roast = json['roast']?.toString();
+    flavor = json['flavor']?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['region'] = region;
+    data['brand'] = brand;
+    data['roast'] = roast;
+    data['flavor'] = flavor;
+    return data;
+  }
+}
+
+class WishlistDataVendor {
+/*
+{
+  "id": 60,
+  "logo": "https://api-staging.coffepidia.com/saved_images/logo/C3LkC99dd6986PV7gWVPmLVYQ0IhkrOKXg7E2lD6.jpg",
+  "feature": null,
+  "company_name": null,
+  "cover_photo": "https://api-staging.coffepidia.com/saved_images/cover_photo/jdX3LnB38z1og51AAAnoXLt7hYmX9FyxX5vsKUzf.png",
+  "description": null,
+  "address": null,
+  "map": null
+}
+*/
+
+  int? id;
+  String? logo;
+  String? feature;
+  String? companyName;
+  String? coverPhoto;
+  String? description;
+  String? address;
+  String? map;
+
+  WishlistDataVendor({
+    this.id,
+    this.logo,
+    this.feature,
+    this.companyName,
+    this.coverPhoto,
+    this.description,
+    this.address,
+    this.map,
+  });
+  WishlistDataVendor.fromJson(Map<String, dynamic> json) {
+    id = json['id']?.toInt();
+    logo = json['logo']?.toString();
+    feature = json['feature']?.toString();
+    companyName = json['company_name']?.toString();
+    coverPhoto = json['cover_photo']?.toString();
+    description = json['description']?.toString();
+    address = json['address']?.toString();
+    map = json['map']?.toString();
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['logo'] = logo;
+    data['feature'] = feature;
+    data['company_name'] = companyName;
+    data['cover_photo'] = coverPhoto;
+    data['description'] = description;
+    data['address'] = address;
+    data['map'] = map;
+    return data;
+  }
+}
+
+class WishlistData {
+/*
+{
+  "id": 1,
+  "description": "<p>Autem tenetur quia quidem laboriosam maxime</p>",
+  "name": "Autem provident officia sunt praesentium id nostrum rerum atque id dolorum ut culpa mollit",
+  "rate": 5,
+  "discount": 50,
+  "price_before_discount": 615,
+  "flavor_id": 3,
+  "region_id": 1,
+  "roast_id": 1,
+  "brand_id": 1,
+  "vendor_id": 60,
+  "image": "https://api-staging.coffepidia.com/saved_images/products/JqqFLKZ6x3vvRy0YfT5745OdLbc3LCq9sR1Ishr5.jpg",
+  "vendor": {
+    "id": 60,
+    "logo": "https://api-staging.coffepidia.com/saved_images/logo/C3LkC99dd6986PV7gWVPmLVYQ0IhkrOKXg7E2lD6.jpg",
+    "feature": null,
+    "company_name": null,
+    "cover_photo": "https://api-staging.coffepidia.com/saved_images/cover_photo/jdX3LnB38z1og51AAAnoXLt7hYmX9FyxX5vsKUzf.png",
+    "description": null,
+    "address": null,
+    "map": null
+  },
+  "overview": {
+    "region": "Regions 1",
+    "brand": "First Brand",
+    "roast": "Roasts 1",
+    "flavor": "zczxcC"
+  },
+  "price": 565,
+  "stock": 19,
+  "in_wishlist": true,
+  "category": {
+    "id": 1,
+    "order": 1,
+    "slug": "fashoin",
+    "icon": "http://adphp.coffepidia.com/files/fashoin.png",
+    "name": "Fashoin"
+  },
+  "sub_category": {
+    "id": 2,
+    "order": 1,
+    "slug": "men",
+    "icon": "http://adphp.coffepidia.com/files/manager-312603_960_720.png",
+    "name": "Men"
+  }
+}
+*/
+
+  int? id;
+  String? description;
+  String? name;
+  int? rate;
+  int? discount;
+  int? priceBeforeDiscount;
+  int? flavorId;
+  int? regionId;
+  int? roastId;
+  int? brandId;
+  int? vendorId;
+  String? image;
+  WishlistDataVendor? vendor;
+  WishlistDataOverview? overview;
+  int? price;
+  int? stock;
+  bool? inWishlist;
+  WishlistDataCategory? category;
+  WishlistDataSubCategory? subCategory;
+
+  WishlistData({
+    this.id,
+    this.description,
+    this.name,
+    this.rate,
+    this.discount,
+    this.priceBeforeDiscount,
+    this.flavorId,
+    this.regionId,
+    this.roastId,
+    this.brandId,
+    this.vendorId,
+    this.image,
+    this.vendor,
+    this.overview,
+    this.price,
+    this.stock,
+    this.inWishlist,
+    this.category,
+    this.subCategory,
+  });
+  WishlistData.fromJson(Map<String, dynamic> json) {
+    id = json['id']?.toInt();
+    description = json['description']?.toString();
+    name = json['name']?.toString();
+    rate = json['rate'] == null ? 0 : json['rate'].toInt();
+    discount = json['discount'] == null ? 0 : json['discount'].toInt();
+    priceBeforeDiscount = json['price_before_discount']?.toInt();
+    flavorId = json['flavor_id']?.toInt();
+    regionId = json['region_id']?.toInt();
+    roastId = json['roast_id']?.toInt();
+    brandId = json['brand_id']?.toInt();
+    vendorId = json['vendor_id']?.toInt();
+    image = json['image']?.toString();
+    vendor = (json['vendor'] != null)
+        ? WishlistDataVendor.fromJson(json['vendor'])
+        : null;
+    overview = (json['overview'] != null)
+        ? WishlistDataOverview.fromJson(json['overview'])
+        : null;
+    price = json['price']?.toInt();
+    stock = json['stock']?.toInt();
+    inWishlist = json['in_wishlist'];
+    category = (json['category'] != null)
+        ? WishlistDataCategory.fromJson(json['category'])
+        : null;
+    subCategory = (json['sub_category'] != null)
+        ? WishlistDataSubCategory.fromJson(json['sub_category'])
+        : null;
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['description'] = description;
+    data['name'] = name;
     data['rate'] = rate;
-    data['ean_number'] = eanNumber;
-    data['deleted_at'] = deletedAt;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
-    data['price_before_discount'] = priceBeforeDiscount;
     data['discount'] = discount;
-    data['price_after_discount'] = priceAfterDiscount;
-    data['category_id'] = categoryId;
-    data['sub_category_id'] = subCategoryId;
-    data['title_ar'] = titleAr;
-    data['description_ar'] = descriptionAr;
-    data['discount_category'] = discountCategory;
-    data['approved_date'] = approvedDate;
+    data['price_before_discount'] = priceBeforeDiscount;
+    data['flavor_id'] = flavorId;
+    data['region_id'] = regionId;
+    data['roast_id'] = roastId;
+    data['brand_id'] = brandId;
+    data['vendor_id'] = vendorId;
     data['image'] = image;
-    data['like'] = like;
+    if (vendor != null) {
+      data['vendor'] = vendor!.toJson();
+    }
+    if (overview != null) {
+      data['overview'] = overview!.toJson();
+    }
+    data['price'] = price;
+    data['stock'] = stock;
+    data['in_wishlist'] = inWishlist;
+    if (category != null) {
+      data['category'] = category!.toJson();
+    }
+    if (subCategory != null) {
+      data['sub_category'] = subCategory!.toJson();
+    }
     return data;
   }
 }
@@ -181,37 +336,50 @@ class Wishlist {
   "data": [
     {
       "id": 1,
-      "title_en": "Autem provident officia sunt praesentium id nostrum rerum atque id dolorum ut culpa mollit",
-      "description_en": "Autem tenetur quia quidem laboriosam maxime",
-      "brand_id": 1,
-      "product_status_id": 2,
-      "vendor_id": 61,
-      "flavor_id": 1,
-      "roast_id": 1,
-      "region_id": 1,
-      "item_form_id": 1,
-      "added_by": 1,
-      "approved_by": null,
-      "views": 1,
-      "total_stock": 20,
-      "in_stock": 19,
-      "sold": 27,
+      "description": "<p>Autem tenetur quia quidem laboriosam maxime</p>",
+      "name": "Autem provident officia sunt praesentium id nostrum rerum atque id dolorum ut culpa mollit",
       "rate": 5,
-      "ean_number": "20",
-      "deleted_at": null,
-      "created_at": "2021-11-03T22:00:00.000000Z",
-      "updated_at": "2022-01-05T13:44:29.000000Z",
-      "price_before_discount": 615,
       "discount": 50,
-      "price_after_discount": 415,
-      "category_id": 1,
-      "sub_category_id": 2,
-      "title_ar": null,
-      "description_ar": null,
-      "discount_category": null,
-      "approved_date": null,
-      "image": "http://adphp.coffepidia.com/files/svg-png-icon-free-elevator-icon-11562964343ddllauum1a.png",
-      "like": true
+      "price_before_discount": 615,
+      "flavor_id": 3,
+      "region_id": 1,
+      "roast_id": 1,
+      "brand_id": 1,
+      "vendor_id": 60,
+      "image": "https://api-staging.coffepidia.com/saved_images/products/JqqFLKZ6x3vvRy0YfT5745OdLbc3LCq9sR1Ishr5.jpg",
+      "vendor": {
+        "id": 60,
+        "logo": "https://api-staging.coffepidia.com/saved_images/logo/C3LkC99dd6986PV7gWVPmLVYQ0IhkrOKXg7E2lD6.jpg",
+        "feature": null,
+        "company_name": null,
+        "cover_photo": "https://api-staging.coffepidia.com/saved_images/cover_photo/jdX3LnB38z1og51AAAnoXLt7hYmX9FyxX5vsKUzf.png",
+        "description": null,
+        "address": null,
+        "map": null
+      },
+      "overview": {
+        "region": "Regions 1",
+        "brand": "First Brand",
+        "roast": "Roasts 1",
+        "flavor": "zczxcC"
+      },
+      "price": 565,
+      "stock": 19,
+      "in_wishlist": true,
+      "category": {
+        "id": 1,
+        "order": 1,
+        "slug": "fashoin",
+        "icon": "http://adphp.coffepidia.com/files/fashoin.png",
+        "name": "Fashoin"
+      },
+      "sub_category": {
+        "id": 2,
+        "order": 1,
+        "slug": "men",
+        "icon": "http://adphp.coffepidia.com/files/manager-312603_960_720.png",
+        "name": "Men"
+      }
     }
   ]
 }

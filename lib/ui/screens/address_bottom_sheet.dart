@@ -1,7 +1,6 @@
 import 'package:coffepedia/business_logic/address/address_cubit.dart';
 import 'package:coffepedia/data/repository/address_repository.dart';
 import 'package:coffepedia/data/web_services/address_web_services.dart';
-import 'package:coffepedia/ui/delivery_info_screen.dart';
 import 'package:coffepedia/ui/shared/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +10,9 @@ import '../area_address_widget.dart';
 import '../city_address_widget.dart';
 
 class AddAddressSheetProvider extends StatelessWidget {
-  const AddAddressSheetProvider({Key? key}) : super(key: key);
+  final Widget addressPath;
+  AddAddressSheetProvider({required this.addressPath, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +22,18 @@ class AddAddressSheetProvider extends StatelessWidget {
           AddressWebServices(),
         ),
       ),
-      child: AddAddressSheet(),
+      child: AddAddressSheet(
+        addressPath: addressPath,
+      ),
     );
   }
 }
 
 class AddAddressSheet extends StatefulWidget {
-  const AddAddressSheet({Key? key}) : super(key: key);
+  final Widget addressPath;
+
+  const AddAddressSheet({required this.addressPath, Key? key})
+      : super(key: key);
 
   @override
   State<AddAddressSheet> createState() => _AddAddressSheetState();
@@ -48,7 +54,6 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
   int? _selectedCity;
   int? _cityId = 0;
   int? _selectedArea;
-  String? addressPath;
 
   @override
   void initState() {
@@ -82,15 +87,24 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
     });
   }
 
+  bool hasData = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<AddressCubit, AddressState>(
       listener: (context, state) {
         if (state is AddAddressIsPressed) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-                builder: (context) => DeliveryInfoScreenProvider()),
+          // Navigator.of(context).pop(hasData = true);
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => widget.addressPath),
           );
+          // Navigator.(
+          //     context, AddressBookScreenProvider.routeName);
+          // Navigator.pushNamedAndRemoveUntil(
+          //     context, AddressBookScreenProvider.routeName, (route) => true);
+          // Navigator.restorablePopAndPushNamed(
+          //     context, AddressBookScreenProvider.routeName);
+          print('amr is pressed');
         }
       },
       child: Container(

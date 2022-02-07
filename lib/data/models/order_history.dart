@@ -1,81 +1,9 @@
-class OrderHistoryDataAddress {
-/*
-{
-  "id": 95,
-  "street": "mosha",
-  "details": "this is a details",
-  "primary": 0,
-  "city": "Doki",
-  "city_id": 2,
-  "area": "Mesa7a",
-  "area_id": 3,
-  "governorate": "Cairo",
-  "governorate_id": 1,
-  "name": "Abeer"
-}
-*/
-
-  int? id;
-  String? street;
-  String? details;
-  int? primary;
-  String? city;
-  int? cityId;
-  String? area;
-  int? areaId;
-  String? governorate;
-  int? governorateId;
-  String? name;
-
-  OrderHistoryDataAddress({
-    this.id,
-    this.street,
-    this.details,
-    this.primary,
-    this.city,
-    this.cityId,
-    this.area,
-    this.areaId,
-    this.governorate,
-    this.governorateId,
-    this.name,
-  });
-  OrderHistoryDataAddress.fromJson(Map<String, dynamic> json) {
-    id = json['id']?.toInt();
-    street = json['street']?.toString();
-    details = json['details']?.toString();
-    primary = json['primary']?.toInt();
-    city = json['city']?.toString();
-    cityId = json['city_id']?.toInt();
-    area = json['area']?.toString();
-    areaId = json['area_id']?.toInt();
-    governorate = json['governorate']?.toString();
-    governorateId = json['governorate_id']?.toInt();
-    name = json['name']?.toString();
-  }
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['id'] = id;
-    data['street'] = street;
-    data['details'] = details;
-    data['primary'] = primary;
-    data['city'] = city;
-    data['city_id'] = cityId;
-    data['area'] = area;
-    data['area_id'] = areaId;
-    data['governorate'] = governorate;
-    data['governorate_id'] = governorateId;
-    data['name'] = name;
-    return data;
-  }
-}
-
 class OrderHistoryDataItemsOverview {
 /*
 {
   "region": "Regions 1",
   "brand": "First Brand",
-  "roast": "Roasts 1",
+  "roast": "Roast 2",
   "flavor": "Flavor 2"
 }
 */
@@ -183,19 +111,19 @@ class OrderHistoryDataItemsVendor {
 class OrderHistoryDataItems {
 /*
 {
-  "id": 123,
-  "description": "<p>Discription English. dd dd dd .</p>",
-  "name": "Title for our new vendor",
-  "rate": null,
-  "discount": 20,
-  "price_before_discount": 120,
+  "id": 2,
+  "description": "<p>Quia sunt officiis repellendus Deserunt obcaecati sunt sit aute iusto veritatis beatae suscipit omnis corrupti consequatur dolorum autem est sint</p>",
+  "name": "Consectetur minus aspernatur ad sequi deserunt id earum id nisi aut eu sunt qui eligendi molestiae",
+  "rate": 3,
+  "discount": 0,
+  "price_before_discount": 800,
   "flavor_id": 0,
   "region_id": 0,
   "roast_id": 0,
   "brand_id": 0,
   "vendor_id": 0,
   "images": [
-    "https://api-staging.coffepidia.com/saved_images/products/61ee6e446bbec.png"
+    "https://api-staging.coffepidia.com/saved_images/products/makteb.jpg"
   ],
   "vendor": {
     "id": 61,
@@ -212,10 +140,10 @@ class OrderHistoryDataItems {
   "overview": {
     "region": "Regions 1",
     "brand": "First Brand",
-    "roast": "Roasts 1",
+    "roast": "Roast 2",
     "flavor": "Flavor 2"
   },
-  "stock": 121,
+  "stock": 73,
   "price": 487,
   "quantity": 5,
   "cost": 4000,
@@ -226,7 +154,7 @@ class OrderHistoryDataItems {
   int? id;
   String? description;
   String? name;
-  String? rate;
+  int? rate;
   int? discount;
   int? priceBeforeDiscount;
   int? flavorId;
@@ -268,7 +196,7 @@ class OrderHistoryDataItems {
     id = json['id']?.toInt();
     description = json['description']?.toString();
     name = json['name']?.toString();
-    rate = json['rate']?.toString();
+    rate = json['rate']?.toInt();
     discount = json['discount']?.toInt();
     priceBeforeDiscount = json['price_before_discount']?.toInt();
     flavorId = json['flavor_id']?.toInt();
@@ -335,25 +263,25 @@ class OrderHistoryDataItems {
 class OrderHistoryData {
 /*
 {
-  "id": 33,
+  "id": 34,
   "status": "Accept",
-  "status_color": null,
+  "status_color": "14B93B",
   "date": "18 Jan 2022",
   "items": [
     {
-      "id": 123,
-      "description": "<p>Discription English. dd dd dd .</p>",
-      "name": "Title for our new vendor",
-      "rate": null,
-      "discount": 20,
-      "price_before_discount": 120,
+      "id": 2,
+      "description": "<p>Quia sunt officiis repellendus Deserunt obcaecati sunt sit aute iusto veritatis beatae suscipit omnis corrupti consequatur dolorum autem est sint</p>",
+      "name": "Consectetur minus aspernatur ad sequi deserunt id earum id nisi aut eu sunt qui eligendi molestiae",
+      "rate": 3,
+      "discount": 0,
+      "price_before_discount": 800,
       "flavor_id": 0,
       "region_id": 0,
       "roast_id": 0,
       "brand_id": 0,
       "vendor_id": 0,
       "images": [
-        "https://api-staging.coffepidia.com/saved_images/products/61ee6e446bbec.png"
+        "https://api-staging.coffepidia.com/saved_images/products/makteb.jpg"
       ],
       "vendor": {
         "id": 61,
@@ -370,10 +298,10 @@ class OrderHistoryData {
       "overview": {
         "region": "Regions 1",
         "brand": "First Brand",
-        "roast": "Roasts 1",
+        "roast": "Roast 2",
         "flavor": "Flavor 2"
       },
-      "stock": 121,
+      "stock": 73,
       "price": 487,
       "quantity": 5,
       "cost": 4000,
@@ -386,19 +314,7 @@ class OrderHistoryData {
   "discount": 0,
   "total_price": 8950,
   "payment_method": "Wallet",
-  "address": {
-    "id": 95,
-    "street": "mosha",
-    "details": "this is a details",
-    "primary": 0,
-    "city": "Doki",
-    "city_id": 2,
-    "area": "Mesa7a",
-    "area_id": 3,
-    "governorate": "Cairo",
-    "governorate_id": 1,
-    "name": "Abeer"
-  }
+  "address": ""
 }
 */
 
@@ -413,7 +329,7 @@ class OrderHistoryData {
   int? discount;
   int? totalPrice;
   String? paymentMethod;
-  OrderHistoryDataAddress? address;
+  String? address;
 
   OrderHistoryData({
     this.id,
@@ -432,8 +348,7 @@ class OrderHistoryData {
   OrderHistoryData.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toInt();
     status = json['status']?.toString();
-    statusColor =
-        json['status_color'] == null ? 'null' : json['status_color'].toString();
+    statusColor = json['status_color']?.toString();
     date = json['date']?.toString();
     if (json['items'] != null) {
       final v = json['items'];
@@ -449,9 +364,7 @@ class OrderHistoryData {
     discount = json['discount']?.toInt();
     totalPrice = json['total_price']?.toInt();
     paymentMethod = json['payment_method']?.toString();
-    address = (json['address'] != null)
-        ? OrderHistoryDataAddress.fromJson(json['address'])
-        : null;
+    address = json['address']?.toString();
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -473,9 +386,7 @@ class OrderHistoryData {
     data['discount'] = discount;
     data['total_price'] = totalPrice;
     data['payment_method'] = paymentMethod;
-    if (address != null) {
-      data['address'] = address!.toJson();
-    }
+    data['address'] = address;
     return data;
   }
 }
@@ -485,25 +396,25 @@ class OrderHistory {
 {
   "data": [
     {
-      "id": 33,
+      "id": 34,
       "status": "Accept",
-      "status_color": null,
+      "status_color": "14B93B",
       "date": "18 Jan 2022",
       "items": [
         {
-          "id": 123,
-          "description": "<p>Discription English. dd dd dd .</p>",
-          "name": "Title for our new vendor",
-          "rate": null,
-          "discount": 20,
-          "price_before_discount": 120,
+          "id": 2,
+          "description": "<p>Quia sunt officiis repellendus Deserunt obcaecati sunt sit aute iusto veritatis beatae suscipit omnis corrupti consequatur dolorum autem est sint</p>",
+          "name": "Consectetur minus aspernatur ad sequi deserunt id earum id nisi aut eu sunt qui eligendi molestiae",
+          "rate": 3,
+          "discount": 0,
+          "price_before_discount": 800,
           "flavor_id": 0,
           "region_id": 0,
           "roast_id": 0,
           "brand_id": 0,
           "vendor_id": 0,
           "images": [
-            "https://api-staging.coffepidia.com/saved_images/products/61ee6e446bbec.png"
+            "https://api-staging.coffepidia.com/saved_images/products/makteb.jpg"
           ],
           "vendor": {
             "id": 61,
@@ -520,10 +431,10 @@ class OrderHistory {
           "overview": {
             "region": "Regions 1",
             "brand": "First Brand",
-            "roast": "Roasts 1",
+            "roast": "Roast 2",
             "flavor": "Flavor 2"
           },
-          "stock": 121,
+          "stock": 73,
           "price": 487,
           "quantity": 5,
           "cost": 4000,
@@ -536,19 +447,7 @@ class OrderHistory {
       "discount": 0,
       "total_price": 8950,
       "payment_method": "Wallet",
-      "address": {
-        "id": 95,
-        "street": "mosha",
-        "details": "this is a details",
-        "primary": 0,
-        "city": "Doki",
-        "city_id": 2,
-        "area": "Mesa7a",
-        "area_id": 3,
-        "governorate": "Cairo",
-        "governorate_id": 1,
-        "name": "Abeer"
-      }
+      "address": ""
     }
   ]
 }

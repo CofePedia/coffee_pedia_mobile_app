@@ -76,7 +76,7 @@ class AddressRepository {
   }
 
   Future<DeleteAddress> postDeleteAddress(
-    int addressId,
+    String addressId,
   ) async {
     final deleteAddress = await addressWebServices.postDeleteAddress(addressId);
 

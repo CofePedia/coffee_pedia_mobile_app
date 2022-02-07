@@ -101,7 +101,7 @@ class AddressCubit extends Cubit<AddressState> {
     );
   }
 
-  void postDeleteAddress(int addressId) {
+  void postDeleteAddress(String addressId) {
     addressRepository.postDeleteAddress(addressId).then(
       (value) {
         emit(DeleteAddressIsPressed(value));
