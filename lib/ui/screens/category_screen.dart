@@ -19,11 +19,15 @@ class CategoryScreenProvider extends StatelessWidget {
   final int categoriesId;
   final List<CategoriesDataChildren?>? subCategories;
   final Map<String, List<String?>> multiMap;
+  final Map<String, String?>? rangeMap;
+  final Map<String, String?>? singleMap;
 
   const CategoryScreenProvider(
       {required this.categoriesId,
       required this.subCategories,
       required this.multiMap,
+      required this.rangeMap,
+      required this.singleMap,
       Key? key})
       : super(key: key);
 
@@ -39,6 +43,8 @@ class CategoryScreenProvider extends StatelessWidget {
         categoriesId: categoriesId,
         subCategories: subCategories!,
         multiMap: multiMap,
+        rangeMap: rangeMap,
+        singleMap: singleMap,
       ),
     );
   }
@@ -48,11 +54,15 @@ class CategoryScreen extends StatefulWidget {
   final int categoriesId;
   final List<CategoriesDataChildren?>? subCategories;
   final Map<String, List<String?>> multiMap;
+  final Map<String, String?>? rangeMap;
+  final Map<String, String?>? singleMap;
 
   const CategoryScreen(
       {required this.categoriesId,
       this.subCategories,
       required this.multiMap,
+      required this.rangeMap,
+      required this.singleMap,
       Key? key})
       : super(key: key);
 
@@ -63,11 +73,17 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
-    BlocProvider.of<CategoryProductsCubit>(context)
-        .getCategoryProducts(0, widget.categoriesId, widget.multiMap);
+    BlocProvider.of<CategoryProductsCubit>(context).getCategoryProducts(
+      subCategoryId: -1,
+      categoryId: widget.categoriesId,
+      multiMap: widget.multiMap,
+      rangeMap: widget.rangeMap,
+      singleMap: widget.singleMap,
+    );
     super.initState();
   }
 
+  bool hasData = false;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryProductsCubit, CategoryProductsState>(
@@ -81,25 +97,27 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   Container(
                     height: 105.h,
                     width: MediaQuery.of(context).size.width,
+                    color: Theme.of(context).primaryColor,
                     padding:
                         EdgeInsets.only(top: 53.h, bottom: 9.h, right: 15.w),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0xffFFD008),
-                          Color(0xffFFE77E),
-                        ],
-                      ),
-                    ),
+                    // decoration: BoxDecoration(
+                    //   gradient: LinearGradient(
+                    //     colors: [
+                    //       Color(0xffFFD008),
+                    //       Color(0xffFFE77E),
+                    //     ],
+                    //   ),
+                    // ),
                     child: Row(
                       children: [
                         IconButton(
                           onPressed: () {
-                            Navigator.of(context).pop();
+                            Navigator.pop(context, hasData = true);
                           },
                           icon: Icon(
                             Icons.chevron_left,
                             size: 22.w,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                           color: Color(0xff000000),
                         ),
@@ -213,6 +231,24 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ),
                           );
                         },
+                        // onTap: () async {
+                        //   final hasData = await Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) {
+                        //         return ProductProvider(
+                        //           id: state.categoryProducts!.data!
+                        //               .data![index]!.id!,
+                        //         );
+                        //       },
+                        //     ),
+                        //   );
+                        //   if (hasData == true) {
+                        //     BlocProvider.of<CategoryProductsCubit>(context)
+                        //         .getCategoryProducts(
+                        //             0, widget.categoriesId, widget.multiMap);
+                        //   }
+                        // },
                         child: Container(
                           height: 305.h,
                           width: 164.5.w,
@@ -277,34 +313,41 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        height: 17.h,
-                                        width: 55.w,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffFFD008),
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(
-                                              12.5.r,
+                                      state.categoryProducts!.data!
+                                                  .data![index]!.discount ==
+                                              0
+                                          ? SizedBox(
+                                              height: 17.h,
+                                              width: 55.w,
+                                            )
+                                          : Container(
+                                              height: 17.h,
+                                              width: 55.w,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffFFD008),
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(
+                                                    12.5.r,
+                                                  ),
+                                                  bottomRight: Radius.circular(
+                                                    12.5.r,
+                                                  ),
+                                                  bottomLeft: Radius.circular(
+                                                    12.5.r,
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                '${state.categoryProducts!.data!.data![index]!.discount}% Off',
+                                                // state.categoryProducts!.data!
+                                                //     .filters![2]!.optionsSingle![2]
+                                                //     .toString(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1,
+                                              ),
                                             ),
-                                            bottomRight: Radius.circular(
-                                              12.5.r,
-                                            ),
-                                            bottomLeft: Radius.circular(
-                                              12.5.r,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          '${state.categoryProducts!.data!.data![index]!.discount}% Off',
-                                          // state.categoryProducts!.data!
-                                          //     .filters![2]!.optionsSingle![2]
-                                          //     .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
-                                      ),
                                       SizedBox(
                                         height: 15.h,
                                       ),

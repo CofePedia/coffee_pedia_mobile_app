@@ -112,8 +112,8 @@ class BasketDataItems {
     id = json['id']?.toInt();
     description = json['description']?.toString();
     name = json['name']?.toString();
-    rate = json['rate']?.toInt();
-    discount = json['discount']?.toString();
+    rate = json['rate'] == null ? 0 : json['rate'].toInt();
+    discount = json['discount'] == null ? '0' : json['discount'].toString();
     priceBeforeDiscount = json['price_before_discount']?.toInt();
     flavorId = json['flavor_id']?.toInt();
     regionId = json['region_id']?.toInt();

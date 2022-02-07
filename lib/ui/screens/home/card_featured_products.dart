@@ -59,6 +59,8 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 6.w),
                   child: InkWell(
+                    // onTap: () async {
+                    //   final hasData = await Navigator.push(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -71,6 +73,10 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                           },
                         ),
                       );
+                      // if (hasData == true) {
+                      //   BlocProvider.of<FeaturedProductsCubit>(context)
+                      //       .getFeaturedProducts();
+                      // }
                     },
                     child: Container(
                       height: 262.h,
@@ -107,46 +113,55 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                               ),
                             ),
                           ),
-                          Positioned(
-                            top: 28.h,
-                            left: 12.w,
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(Assets.iconsStarActive),
-                                SizedBox(
-                                  width: 6.14.w,
+                          state.featuredProducts!.data!.data![index]!.rate == 0
+                              ? SizedBox.shrink()
+                              : Positioned(
+                                  top: 28.h,
+                                  left: 12.w,
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(Assets.iconsStarActive),
+                                      SizedBox(
+                                        width: 6.14.w,
+                                      ),
+                                      Text(
+                                        state.featuredProducts!.data!
+                                            .data![index]!.rate!
+                                            .toString(),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Text(
-                                  state.featuredProducts!.data!.data![index]!
-                                      .rate!
-                                      .toString(),
-                                ),
-                              ],
-                            ),
-                          ),
                           Positioned(
                             top: 130.h,
                             left: 12.w,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  height: 17.h,
-                                  width: 55.h,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffFFD008),
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(12.5.h),
-                                        bottomRight: Radius.circular(12.5.h),
-                                        bottomLeft: Radius.circular(12.5.h)),
-                                  ),
-                                  child: Text(
-                                    '${state.featuredProducts!.data!.data![index]!.discount}% Off',
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1,
-                                  ),
-                                ),
+                                state.featuredProducts!.data!.data![index]!
+                                            .discount ==
+                                        0
+                                    ? SizedBox.shrink()
+                                    : Container(
+                                        height: 17.h,
+                                        width: 55.h,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xffFFD008),
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(12.5.h),
+                                              bottomRight:
+                                                  Radius.circular(12.5.h),
+                                              bottomLeft:
+                                                  Radius.circular(12.5.h)),
+                                        ),
+                                        child: Text(
+                                          '${state.featuredProducts!.data!.data![index]!.discount}% Off',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
+                                        ),
+                                      ),
                                 SizedBox(
                                   height: 13.h,
                                 ),

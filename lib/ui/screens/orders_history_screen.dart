@@ -4,6 +4,7 @@ import 'package:coffepedia/data/web_services/order_history_web_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class OrdersHistoryProvider extends StatelessWidget {
   const OrdersHistoryProvider({Key? key}) : super(key: key);
@@ -107,15 +108,12 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                       width: 67.w,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
+                                        //TODO: change to status color from api
                                         color: state.orderHistory!.data![index]!
                                                     .statusColor !=
-                                                null
-                                            ? Color(
-                                                int.parse(state
-                                                    .orderHistory!
-                                                    .data![index]!
-                                                    .statusColor!),
-                                              )
+                                                'null'
+                                            ? HexColor(state.orderHistory!
+                                                .data![index]!.statusColor!)
                                             : Theme.of(context).primaryColor,
                                         borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(12.5.r),
@@ -215,6 +213,91 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                     width: 26.w,
                                   ),
                                 ),
+                              ),
+                            ),
+                            Container(
+                              color: Color(0xffF8F8F8),
+                              width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 19.w, vertical: 16.h),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Payment Method',
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                  ),
+
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Text(
+                                    state.orderHistory!.data![index]!
+                                        .paymentMethod!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(fontSize: 13.sp),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  // Row(
+                                  //   children: [
+                                  //     SvgPicture.asset(Assets.imagesVisaLogo),
+                                  //     SizedBox(
+                                  //       width: 25.w,
+                                  //     ),
+                                  //     Text(
+                                  //       '**** **** **** 5089',
+                                  //       style: Theme.of(context)
+                                  //           .textTheme
+                                  //           .headline5,
+                                  //     ),
+                                  //   ],
+                                  // ),
+
+                                  Text(
+                                    'Subtotal               EGP ${state.orderHistory!.data![index]!.subTotal}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3!
+                                        .copyWith(fontSize: 12.sp),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Text(
+                                    'Discount               EGP ${state.orderHistory!.data![index]!.discount}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3!
+                                        .copyWith(fontSize: 12.sp),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Text(
+                                    'COD                       EGP ${state.orderHistory!.data![index]!.deliveryCharge}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3!
+                                        .copyWith(fontSize: 12.sp),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Text(
+                                    'Total                   EGP ${state.orderHistory!.data![index]!.totalPrice}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(fontSize: 13.sp),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
@@ -412,66 +495,65 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
             //             ),
             //           ),
             //         ),
-            //         Container(
-            //           color: Color(0xffF8F8F8),
-            //           width: MediaQuery.of(context).size.width,
-            //           padding: EdgeInsets.symmetric(
-            //               horizontal: 19.w, vertical: 16.h),
-            //           child: Column(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             children: [
-            //               Text(
-            //                 'Payment Method',
-            //                 style: Theme.of(context).textTheme.headline3,
-            //               ),
-            //               SizedBox(
-            //                 height: 5.h,
-            //               ),
-            //               Row(
-            //                 children: [
-            //                   SvgPicture.asset(Assets.imagesVisaLogo),
-            //                   SizedBox(
-            //                     width: 25.w,
-            //                   ),
-            //                   Text(
-            //                     '**** **** **** 5089',
-            //                     style: Theme.of(context).textTheme.headline5,
-            //                   ),
-            //                 ],
-            //               ),
-            //               SizedBox(
-            //                 height: 8.h,
-            //               ),
-            //               Text(
-            //                 'Subtotal               EGP 845',
-            //                 style: Theme.of(context)
-            //                     .textTheme
-            //                     .headline3!
-            //                     .copyWith(fontSize: 12.sp),
-            //               ),
-            //               SizedBox(
-            //                 height: 8.h,
-            //               ),
-            //               Text(
-            //                 'COD                       EGP 15',
-            //                 style: Theme.of(context)
-            //                     .textTheme
-            //                     .headline3!
-            //                     .copyWith(fontSize: 12.sp),
-            //               ),
-            //               SizedBox(
-            //                 height: 10.h,
-            //               ),
-            //               Text(
-            //                 'Total                   EGP 860',
-            //                 style: Theme.of(context)
-            //                     .textTheme
-            //                     .bodyText1!
-            //                     .copyWith(fontSize: 13.sp),
-            //               ),
-            //             ],
+            // Container(
+            //   color: Color(0xffF8F8F8),
+            //   width: MediaQuery.of(context).size.width,
+            //   padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 16.h),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         'Payment Method',
+            //         style: Theme.of(context).textTheme.headline3,
+            //       ),
+            //       SizedBox(
+            //         height: 5.h,
+            //       ),
+            //       Row(
+            //         children: [
+            //           SvgPicture.asset(Assets.imagesVisaLogo),
+            //           SizedBox(
+            //             width: 25.w,
             //           ),
-            //         ),
+            //           Text(
+            //             '**** **** **** 5089',
+            //             style: Theme.of(context).textTheme.headline5,
+            //           ),
+            //         ],
+            //       ),
+            //       SizedBox(
+            //         height: 8.h,
+            //       ),
+            //       Text(
+            //         'Subtotal               EGP 845',
+            //         style: Theme.of(context)
+            //             .textTheme
+            //             .headline3!
+            //             .copyWith(fontSize: 12.sp),
+            //       ),
+            //       SizedBox(
+            //         height: 8.h,
+            //       ),
+            //       Text(
+            //         'COD                       EGP 15',
+            //         style: Theme.of(context)
+            //             .textTheme
+            //             .headline3!
+            //             .copyWith(fontSize: 12.sp),
+            //       ),
+            //       SizedBox(
+            //         height: 10.h,
+            //       ),
+            //       Text(
+            //         'Total                   EGP 860',
+            //         style: Theme.of(context)
+            //             .textTheme
+            //             .bodyText1!
+            //             .copyWith(fontSize: 13.sp),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             //       ],
             //     ),
             //   ),

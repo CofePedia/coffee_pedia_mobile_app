@@ -6,38 +6,48 @@ class FiltersButtons extends StatefulWidget {
   const FiltersButtons(
       {required this.multiFilter,
       required this.multiKey,
-      required this.map,
+      required this.multiMap,
       Key? key})
       : super(key: key);
   final List<CategoryProductsDataFiltersOptions>? multiFilter;
   final String multiKey;
-  final Map<String, List<String?>> map;
+  final Map<String, List<String?>> multiMap;
 
   @override
   State<FiltersButtons> createState() => _FiltersButtonsState();
 }
 
 class _FiltersButtonsState extends State<FiltersButtons> {
-  List<bool>? _selected;
-  @override
-  void initState() {
-    _selected = List.filled(widget.multiFilter!.length, false);
-    super.initState();
-  }
+  List<bool>? selected;
 
-  // final map = <String, List<int?>>{};
-
-  void addValueToMap<K, V>(Map<K, List<V>> map, K key, V value) {
-    map.update(
-      key,
-      (list) => list..add(value),
-      ifAbsent: () => [value],
-    );
-    print(map);
+  void addValueToMultiMap<K, V>(
+      Map<K, List<V>> map, K key, V value, isSelected) {
+    if (isSelected == true) {
+      map.update(
+        key,
+        (list) {
+          return list..add(value);
+        },
+        ifAbsent: () => [value],
+      );
+      print(map);
+    } else {
+      map.update(
+        key,
+        (list) {
+          return list..remove(value);
+        },
+      );
+      map.removeWhere((removeKey, value) => removeKey == key && value.isEmpty);
+      print(map);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.multiMap.isEmpty)
+      selected = List.filled(widget.multiFilter!.length, false);
+
     return Wrap(
       spacing: 4.w,
       children: List.generate(
@@ -45,37 +55,32 @@ class _FiltersButtonsState extends State<FiltersButtons> {
         (index) => FilterChip(
           label: Text(
             widget.multiFilter![index].name!,
-            style: TextStyle(
-              color: _selected![index]
-                  ? Theme.of(context).primaryColor
-                  : Color(0xff231F20),
-              fontSize: 13.sp,
-            ),
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                color: selected![index]
+                    ? Theme.of(context).primaryColor
+                    : Color(0xff231F20),
+                fontSize: 13.sp),
           ),
-          selected: _selected![index],
+          selected: selected![index],
           side: BorderSide(
-            color: _selected![index]
+            color: selected![index]
                 ? Theme.of(context).primaryColor
                 : Colors.transparent,
           ),
           backgroundColor: Color(0xffE9E7E7),
           selectedColor: Colors.white,
           selectedShadowColor: Color.fromARGB(41, 16, 124, 192),
-          elevation: _selected![index] ? 2 : 0,
+          elevation: selected![index] ? 2 : 0,
           showCheckmark: false,
           onSelected: (bool value) {
-            _selected![index] = value;
+            selected![index] = value;
             setState(() {
-              addValueToMap(
-                widget.map,
+              addValueToMultiMap(
+                widget.multiMap,
                 widget.multiKey + '[]',
                 widget.multiFilter![index].id.toString(),
+                value,
               );
-
-              // widget.map.removeWhere((key, value) {
-              //   return key == widget.multiKey &&
-              //       value == [widget.multiFilter![index].id];
-              // });
             });
           },
         ),

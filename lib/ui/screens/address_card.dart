@@ -12,7 +12,7 @@ class AddressCard extends StatelessWidget {
   }) : super(key: key);
   // bool? primary = false;
   late bool? menu;
-  final List<MyAddressesData> address;
+  final List<MyAddressesData?>? address;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class AddressCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 15.w),
       child: ListView.builder(
           padding: EdgeInsets.zero,
-          itemCount: address.length,
+          itemCount: address!.length,
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) => Container(
                 margin: EdgeInsets.only(top: 18.h),
@@ -51,7 +51,7 @@ class AddressCard extends StatelessWidget {
                         children: [
                           Container(
                             child: Text(
-                              address[index].street!,
+                              address![index]!.street!,
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle2!
@@ -61,7 +61,7 @@ class AddressCard extends StatelessWidget {
                             ),
                           ),
                           // //primary
-                          address[index].primary == 0
+                          address![index]!.primary == 0
                               ? Container(
                                   height: 17.h,
                                   width: 67.w,
@@ -113,7 +113,7 @@ class AddressCard extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          address[index].street!,
+                          address![index]!.street!,
                           maxLines: 3,
                           style: Theme.of(context).textTheme.headline4,
                         ),

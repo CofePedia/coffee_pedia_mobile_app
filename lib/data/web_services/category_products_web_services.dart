@@ -9,22 +9,28 @@ import 'package:http/http.dart' as http;
 class CategoryProductsWebServices {
   final userDao = UserDao();
 
-  Future<CategoryProducts> getCategoryProducts(
-    int subCategoryId,
-    int categoryId,
-    Map<String, List<String?>> multiMap,
-    // Map<String, String> rangeMap,
-  ) async {
+  Future<CategoryProducts> getCategoryProducts({
+    int? subCategoryId,
+    int? categoryId,
+    Map<String, List<String?>>? multiMap,
+    Map<String, String?>? rangeMap,
+    Map<String, String?>? singleMap,
+  }) async {
     final Map<String, dynamic> queryParameters = {
       'category': categoryId.toString(),
-      // 'brand[]': ["2", '3'],
     };
 
-    if (multiMap.isNotEmpty) {
+    if (multiMap!.isNotEmpty) {
       queryParameters.addAll(multiMap);
     }
+    if (rangeMap!.isNotEmpty) {
+      queryParameters.addAll(rangeMap);
+    }
+    if (singleMap!.isNotEmpty) {
+      queryParameters.addAll(singleMap);
+    }
 
-    if (subCategoryId != 0) {
+    if (subCategoryId != -1) {
       queryParameters.addAll({
         'subCategory': subCategoryId.toString(),
       });

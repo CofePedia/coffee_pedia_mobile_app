@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DeliveryInfoScreenProvider extends StatelessWidget {
   const DeliveryInfoScreenProvider({Key? key}) : super(key: key);
+  static const routeName = '/delivery-info-screen-provider';
 
   @override
   Widget build(BuildContext context) {
@@ -288,6 +289,13 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                                       ),
                                       TextSpan(
                                         text:
+                                            '${state.myAddresses!.data![index]!.street!}, ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline4,
+                                      ),
+                                      TextSpan(
+                                        text:
                                             '${state.myAddresses!.data![index]!.area!}, ',
                                         style: Theme.of(context)
                                             .textTheme
@@ -337,7 +345,9 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                   ),
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => AddAddressSheetProvider(),
+                  builder: (context) => AddAddressSheetProvider(
+                    addressPath: DeliveryInfoScreenProvider(),
+                  ),
                 );
               },
               child: Padding(

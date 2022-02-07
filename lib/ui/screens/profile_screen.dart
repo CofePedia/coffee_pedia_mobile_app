@@ -101,8 +101,8 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                             children: [
                               state.me!.data!.avatar != ''
                                   ? Container(
-                                      width: 50.0.w,
-                                      height: 50.0.h,
+                                      width: 55.0.w,
+                                      height: 55.0.h,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                           image: NetworkImage(
@@ -130,18 +130,19 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                                 children: [
                                   Text(
                                     "Welcome back",
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
-                                  ),
-                                  Text(
-                                    state.me!.data!.name!,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .caption!
+                                        .bodyText1!
                                         .copyWith(
-                                          fontWeight: FontWeight.w700,
+                                          fontSize: 12.sp,
                                         ),
                                   ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  Text(state.me!.data!.name!,
+                                      style:
+                                          Theme.of(context).textTheme.caption),
                                 ],
                               )
                             ],
@@ -189,7 +190,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return const AddressBookScreen();
+                                    return AddressBookScreenProvider();
                                   },
                                 ),
                               );
@@ -301,6 +302,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                               Theme.of(context).textTheme.headline4!.copyWith(
                                     fontSize: 14.sp,
                                     color: Color(0xffE23333),
+                                    fontWeight: FontWeight.w700,
                                   ),
                         ),
                       ),

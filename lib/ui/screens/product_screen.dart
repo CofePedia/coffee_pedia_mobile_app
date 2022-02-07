@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 import '../checkout_popup.dart';
 
@@ -49,13 +50,14 @@ class _ProductScreenState extends State<ProductScreen> {
   //   '18 Ounce (Pack of 3)',
   //   '18 Ounce (Pack of 6)',
   // ];
-  final List<String> overview = ['region', 'Brand', 'roast', 'flavor'];
+  // final List<String> overview = ['region', 'Brand', 'roast', 'flavor'];
   @override
   void initState() {
     BlocProvider.of<ProductCubit>(context).getProduct(widget.id);
     super.initState();
   }
 
+  // bool? hasData = false;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductCubit, ProductState>(
@@ -195,7 +197,10 @@ class _ProductScreenState extends State<ProductScreen> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.pop(
+                                context,
+                                //    hasData = true,
+                              );
                               // Navigator.push(
                               //   context,
                               //   MaterialPageRoute(
@@ -279,31 +284,34 @@ class _ProductScreenState extends State<ProductScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                  height: 17.h,
-                                  width: 55.w,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffFFD008),
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(
-                                        12.5.r,
+                                state.product!.data!.discount == 0
+                                    ? SizedBox.shrink()
+                                    : Container(
+                                        height: 17.h,
+                                        width: 55.w,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xffFFD008),
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(
+                                              12.5.r,
+                                            ),
+                                            bottomRight: Radius.circular(
+                                              12.5.r,
+                                            ),
+                                            bottomLeft: Radius.circular(
+                                              12.5.r,
+                                            ),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          '${state.product!.data!.discount}% Off',
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
+                                        ),
                                       ),
-                                      bottomRight: Radius.circular(
-                                        12.5.r,
-                                      ),
-                                      bottomLeft: Radius.circular(
-                                        12.5.r,
-                                      ),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    '${state.product!.data!.discount}% Off',
-                                    textAlign: TextAlign.center,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1,
-                                  ),
-                                ),
                                 Container(
                                   height: 38.h,
                                   width: 38.w,
@@ -414,12 +422,13 @@ class _ProductScreenState extends State<ProductScreen> {
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ),
+
                           Padding(
                             padding: EdgeInsets.only(
                                 top: 15.h, right: 15.w, left: 15.w),
-                            child: Text(
+                            child: HtmlWidget(
                               state.product!.data!.description!,
-                              style: Theme.of(context).textTheme.subtitle2,
+                              textStyle: Theme.of(context).textTheme.subtitle2,
                             ),
                           ),
                           Padding(
@@ -438,13 +447,14 @@ class _ProductScreenState extends State<ProductScreen> {
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ),
+                          // TODO: it needs to be handled from backend first
                           Padding(
                             padding: EdgeInsets.only(top: 15.h),
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 15.w),
-                              child: GridView(
+                              child: GridView.builder(
                                 padding: EdgeInsets.zero,
-                                // itemCount: 4,
+                                itemCount: 4,
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 gridDelegate:
@@ -453,121 +463,121 @@ class _ProductScreenState extends State<ProductScreen> {
                                   mainAxisSpacing: 8.h,
                                   childAspectRatio: 130.w / 30.h,
                                 ),
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Brand',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2!
-                                            .copyWith(
-                                              color: Color(
-                                                0xff8A8A8A,
-                                              ),
-                                            ),
-                                      ),
-                                      Text(
-                                        state.product!.data!.overview!.brand!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2,
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Flavor',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2!
-                                            .copyWith(
-                                              color: Color(
-                                                0xff8A8A8A,
-                                              ),
-                                            ),
-                                      ),
-                                      Text(
-                                        state.product!.data!.overview!.flavor!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2,
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Region',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2!
-                                            .copyWith(
-                                              color: Color(
-                                                0xff8A8A8A,
-                                              ),
-                                            ),
-                                      ),
-                                      Text(
-                                        state.product!.data!.overview!.region!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2,
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Roast',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2!
-                                            .copyWith(
-                                              color: Color(
-                                                0xff8A8A8A,
-                                              ),
-                                            ),
-                                      ),
-                                      Text(
-                                        state.product!.data!.overview!.roast!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                                // itemBuilder: (context, index) => Column(
-                                //   crossAxisAlignment: CrossAxisAlignment.start,
-                                //   children: [
-                                //     Text(
-                                //       'Brand',
-                                //       style: Theme.of(context)
-                                //           .textTheme
-                                //           .subtitle2!
-                                //           .copyWith(
-                                //             color: Color(
-                                //               0xff8A8A8A,
+                                // children: [
+                                //   Column(
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.start,
+                                //     children: [
+                                //       Text(
+                                //         'Brand',
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2!
+                                //             .copyWith(
+                                //               color: Color(
+                                //                 0xff8A8A8A,
+                                //               ),
                                 //             ),
-                                //           ),
-                                //     ),
-                                //     Text(
-                                //       'Starbucks',
-                                //       style:
-                                //           Theme.of(context).textTheme.subtitle2,
-                                //     ),
-                                //   ],
-                                // ),
+                                //       ),
+                                //       Text(
+                                //         state.product!.data!.overview!.brand!,
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2,
+                                //       ),
+                                //     ],
+                                //   ),
+                                //   Column(
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.start,
+                                //     children: [
+                                //       Text(
+                                //         'Flavor',
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2!
+                                //             .copyWith(
+                                //               color: Color(
+                                //                 0xff8A8A8A,
+                                //               ),
+                                //             ),
+                                //       ),
+                                //       Text(
+                                //         state.product!.data!.overview!.flavor!,
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2,
+                                //       ),
+                                //     ],
+                                //   ),
+                                //   Column(
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.start,
+                                //     children: [
+                                //       Text(
+                                //         'Region',
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2!
+                                //             .copyWith(
+                                //               color: Color(
+                                //                 0xff8A8A8A,
+                                //               ),
+                                //             ),
+                                //       ),
+                                //       Text(
+                                //         state.product!.data!.overview!.region!,
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2,
+                                //       ),
+                                //     ],
+                                //   ),
+                                //   Column(
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.start,
+                                //     children: [
+                                //       Text(
+                                //         'Roast',
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2!
+                                //             .copyWith(
+                                //               color: Color(
+                                //                 0xff8A8A8A,
+                                //               ),
+                                //             ),
+                                //       ),
+                                //       Text(
+                                //         state.product!.data!.overview!.roast!,
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2,
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ],
+                                itemBuilder: (context, index) => Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Brand',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle2!
+                                          .copyWith(
+                                            color: Color(
+                                              0xff8A8A8A,
+                                            ),
+                                          ),
+                                    ),
+                                    Text(
+                                      'Starbucks',
+                                      style:
+                                          Theme.of(context).textTheme.subtitle2,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -593,7 +603,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               leading: CircleAvatar(
                                 radius: 25.sp,
                                 foregroundImage: NetworkImage(
-                                    state.product!.data!.vendor!.logo!),
+                                    state.product!.data!.vendor!.coverPhoto!),
                               ),
                               title: Text(
                                 'Seller name',
@@ -607,7 +617,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                     ),
                               ),
                               subtitle: Text(
-                                state.product!.data!.vendor!.name ?? '',
+                                state.product!.data!.vendor!.companyName ?? '',
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle2!
@@ -617,53 +627,53 @@ class _ProductScreenState extends State<ProductScreen> {
                               ),
                             ),
                           ),
-                          Container(
-                            padding: EdgeInsets.only(left: 15.w),
-                            height: 47.h,
-                            width: MediaQuery.of(context).size.width,
-                            color: Color(0xffDDF0FC),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 35.h,
-                                  width: 35.w,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffDDF0FC),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        19.5.r,
-                                      ),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    '3',
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle2!
-                                        .copyWith(
-                                          color: Theme.of(context).primaryColor,
-                                          fontSize: 14.sp,
-                                        ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5.w,
-                                ),
-                                Text(
-                                  'Other offers from EGP 240',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                        fontSize: 14.sp,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Container(
+                          //   padding: EdgeInsets.only(left: 15.w),
+                          //   height: 47.h,
+                          //   width: MediaQuery.of(context).size.width,
+                          //   color: Color(0xffDDF0FC),
+                          //   child: Row(
+                          //     children: [
+                          //       Container(
+                          //         height: 35.h,
+                          //         width: 35.w,
+                          //         alignment: Alignment.center,
+                          //         decoration: BoxDecoration(
+                          //           color: Color(0xffDDF0FC),
+                          //           borderRadius: BorderRadius.all(
+                          //             Radius.circular(
+                          //               19.5.r,
+                          //             ),
+                          //           ),
+                          //         ),
+                          //         child: Text(
+                          //           '3',
+                          //           textAlign: TextAlign.center,
+                          //           style: Theme.of(context)
+                          //               .textTheme
+                          //               .subtitle2!
+                          //               .copyWith(
+                          //                 color: Theme.of(context).primaryColor,
+                          //                 fontSize: 14.sp,
+                          //               ),
+                          //         ),
+                          //       ),
+                          //       SizedBox(
+                          //         width: 5.w,
+                          //       ),
+                          //       Text(
+                          //         'Other offers from EGP 240',
+                          //         style: Theme.of(context)
+                          //             .textTheme
+                          //             .subtitle2!
+                          //             .copyWith(
+                          //               color: Theme.of(context).primaryColor,
+                          //               fontSize: 14.sp,
+                          //             ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                         ],
                       ),
                     )

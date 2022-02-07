@@ -6,10 +6,20 @@ class CategoryProductsRepository {
 
   CategoryProductsRepository(this.categoryProductsWebServices);
 
-  Future<CategoryProducts> getCategoryProducts(int subCategoryId,
-      int categoryId, Map<String, List<String?>> multiMap) async {
+  Future<CategoryProducts> getCategoryProducts({
+    int? subCategoryId,
+    int? categoryId,
+    Map<String, List<String?>>? multiMap,
+    Map<String, String?>? rangeMap,
+    Map<String, String?>? singleMap,
+  }) async {
     final categoryProduct = categoryProductsWebServices.getCategoryProducts(
-        subCategoryId, categoryId, multiMap);
+      categoryId: categoryId,
+      subCategoryId: subCategoryId,
+      multiMap: multiMap,
+      rangeMap: rangeMap,
+      singleMap: singleMap,
+    );
     return categoryProduct;
   }
 }

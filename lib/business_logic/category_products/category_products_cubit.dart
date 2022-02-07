@@ -10,10 +10,21 @@ class CategoryProductsCubit extends Cubit<CategoryProductsState> {
   CategoryProductsCubit(this.categoryProductsRepository)
       : super(CategoryProductsInitial());
 
-  void getCategoryProducts(
-      int subCategoryId, int categoryId, Map<String, List<String?>> multiMap) {
+  void getCategoryProducts({
+    int? subCategoryId,
+    int? categoryId,
+    Map<String, List<String?>>? multiMap,
+    Map<String, String?>? rangeMap,
+    Map<String, String?>? singleMap,
+  }) {
     categoryProductsRepository
-        .getCategoryProducts(subCategoryId, categoryId, multiMap)
+        .getCategoryProducts(
+      subCategoryId: subCategoryId,
+      categoryId: categoryId,
+      multiMap: multiMap,
+      rangeMap: rangeMap,
+      singleMap: singleMap,
+    )
         .then(
       (value) {
         emit(CategoryProductsIsLoaded(value));

@@ -29,3 +29,13 @@ class MyAddressesIsLoaded extends AddressState {
   final MyAddresses? myAddresses;
   MyAddressesIsLoaded(this.myAddresses);
 }
+
+class UpdateAddressIsPressed extends AddressState {
+  final UpdateAddress? updateAddress;
+  UpdateAddressIsPressed(this.updateAddress);
+}
+
+class DeleteAddressIsPressed extends AddressState {
+  final DeleteAddress? deleteAddress;
+  DeleteAddressIsPressed(this.deleteAddress);
+}

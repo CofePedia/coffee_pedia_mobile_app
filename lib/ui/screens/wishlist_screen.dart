@@ -144,27 +144,30 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                     height: 118.h,
                                   ),
                                 ),
-                                Positioned(
-                                  top: 29.h,
-                                  left: 12.w,
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset(Assets.iconsStarActive),
-                                      SizedBox(
-                                        width: 5.w,
-                                      ),
-                                      Text(
-                                        item.rate!.toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                              fontWeight: FontWeight.w700,
+                                item.rate == 0
+                                    ? SizedBox.shrink()
+                                    : Positioned(
+                                        top: 29.h,
+                                        left: 12.w,
+                                        child: Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                                Assets.iconsStarActive),
+                                            SizedBox(
+                                              width: 5.w,
                                             ),
+                                            Text(
+                                              item.rate!.toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2!
+                                                  .copyWith(
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                ),
                                 Positioned(
                                   top: 171.h,
                                   left: 12.w,
@@ -176,7 +179,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                         width: 135.w,
                                         height: 54.h,
                                         child: Text(
-                                          item.titleEn!,
+                                          item.name!,
                                           maxLines: 3,
                                           style: Theme.of(context)
                                               .textTheme
@@ -190,7 +193,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                         height: 32.h,
                                       ),
                                       Text(
-                                        'EGP ${item.priceAfterDiscount!}',
+                                        'EGP ${item.price!}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1,
@@ -227,11 +230,12 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                         setState(() {
                                           BlocProvider.of<WishlistCubit>(
                                                   context)
-                                              .getToggleProductsInWishlist(state
-                                                  .wishlist!.data![index]!.id!
-                                                  .toString());
-                                          _isFavorite = state
-                                              .wishlist!.data![index]!.like!;
+                                              .getToggleProductsInWishlist(
+                                            state.wishlist!.data![index]!.id!
+                                                .toString(),
+                                          );
+                                          _isFavorite = state.wishlist!
+                                              .data![index]!.inWishlist!;
                                         });
                                       },
                                       child: Icon(
