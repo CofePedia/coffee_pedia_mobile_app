@@ -1,6 +1,8 @@
 import 'package:coffepedia/business_logic/address/address_cubit.dart';
+import 'package:coffepedia/data/models/my_addresses.dart';
 import 'package:coffepedia/data/repository/address_repository.dart';
 import 'package:coffepedia/data/web_services/address_web_services.dart';
+import 'package:coffepedia/ui/screens/address_book%D9%8D_screen.dart';
 import 'package:coffepedia/ui/shared/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +13,8 @@ import '../city_address_widget.dart';
 
 class AddAddressSheetProvider extends StatelessWidget {
   final Widget addressPath;
-  AddAddressSheetProvider({required this.addressPath, Key? key})
+  final MyAddressesData? address;
+  AddAddressSheetProvider({required this.addressPath, this.address, Key? key})
       : super(key: key);
 
   @override
@@ -24,6 +27,7 @@ class AddAddressSheetProvider extends StatelessWidget {
       ),
       child: AddAddressSheet(
         addressPath: addressPath,
+        address: address,
       ),
     );
   }
@@ -31,8 +35,9 @@ class AddAddressSheetProvider extends StatelessWidget {
 
 class AddAddressSheet extends StatefulWidget {
   final Widget addressPath;
+  final MyAddressesData? address;
 
-  const AddAddressSheet({required this.addressPath, Key? key})
+  const AddAddressSheet({required this.addressPath, this.address, Key? key})
       : super(key: key);
 
   @override
@@ -58,6 +63,15 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
   @override
   void initState() {
     BlocProvider.of<AddressCubit>(context).getGovernorate();
+
+    if (widget.address != null) {
+      if (_details.text.isEmpty) _details.text = widget.address!.details!;
+      if (_street.text.isEmpty) _street.text = widget.address!.street!;
+      if (_name.text.isEmpty) _name.text = widget.address!.name!;
+      _selectedGovernorate = widget.address!.governorateId!;
+      _selectedCity = widget.address!.cityId!;
+      _selectedArea = widget.address!.areaId!;
+    }
     super.initState();
   }
 
@@ -98,13 +112,19 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => widget.addressPath),
           );
+
           // Navigator.(
           //     context, AddressBookScreenProvider.routeName);
           // Navigator.pushNamedAndRemoveUntil(
           //     context, AddressBookScreenProvider.routeName, (route) => true);
           // Navigator.restorablePopAndPushNamed(
           //     context, AddressBookScreenProvider.routeName);
-          print('amr is pressed');
+        } else if (state is UpdateAddressIsPressed) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => AddressBookScreenProvider(),
+            ),
+          );
         }
       },
       child: Container(
@@ -145,7 +165,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                     ),
                   ),
                   Text(
-                    "New Address",
+                    widget.address != null ? 'Edit Address' : "New Address",
                     style: Theme.of(context).textTheme.caption,
                   ),
                   SizedBox(
@@ -494,14 +514,27 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                         _name.text.isEmpty
                     ? null
                     : () {
-                        BlocProvider.of<AddressCubit>(context).getAddAddress(
-                          _selectedGovernorate.toString(),
-                          _selectedCity.toString(),
-                          _name.text,
-                          _selectedArea.toString(),
-                          _street.text,
-                          _details.text,
-                        );
+                        widget.address != null
+                            ? BlocProvider.of<AddressCubit>(context)
+                                .postUpdateAddress(
+                                    name: _name.text,
+                                    governorateId:
+                                        _selectedGovernorate.toString(),
+                                    cityId: _selectedCity.toString(),
+                                    areaId: _selectedArea.toString(),
+                                    street: _street.text,
+                                    details: _details.text,
+                                    addressId: widget.address!.id.toString(),
+                                    primary: widget.address!.primary.toString())
+                            : BlocProvider.of<AddressCubit>(context)
+                                .getAddAddress(
+                                _selectedGovernorate.toString(),
+                                _selectedCity.toString(),
+                                _name.text,
+                                _selectedArea.toString(),
+                                _street.text,
+                                _details.text,
+                              );
                       },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(
@@ -511,7 +544,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                   ),
                 ),
                 child: Text(
-                  "Add Address",
+                  widget.address != null ? 'Edit Address' : "Add Address",
                   style: Theme.of(context).textTheme.headline2,
                 ),
               ),

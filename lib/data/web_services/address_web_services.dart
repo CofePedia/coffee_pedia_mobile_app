@@ -152,7 +152,7 @@ class AddressWebServices {
       'address_id': addressId,
     };
 
-    if (name!.length != 0) {
+    if (name!.isNotEmpty) {
       queryParameters.addAll({
         'name': name,
       });
