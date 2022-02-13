@@ -3,6 +3,7 @@ import 'package:coffepedia/data/repository/make_order_repository.dart';
 import 'package:coffepedia/data/web_services/make_order_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
+import 'package:coffepedia/ui/screens/orders_history_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -114,7 +115,16 @@ class _SuccessScreenState extends State<SuccessScreen> {
                     height: 24.h,
                   ),
                   CustomButton(
-                    onPress: () {},
+                    onPress: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return OrdersHistoryProvider();
+                          },
+                        ),
+                      );
+                    },
                     title: 'Track your order',
                     height: 50.h,
                     width: 345.w,

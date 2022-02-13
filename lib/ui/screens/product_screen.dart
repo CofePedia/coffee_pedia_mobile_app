@@ -3,6 +3,7 @@ import 'package:coffepedia/business_logic/product/product_cubit.dart';
 import 'package:coffepedia/data/repository/product_repository.dart';
 import 'package:coffepedia/data/web_services/product_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/checkout_popup.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:coffepedia/ui/shared/rating_bar.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
@@ -11,8 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-
-import '../checkout_popup.dart';
 
 class ProductProvider extends StatelessWidget {
   final int id;
@@ -43,19 +42,13 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  int counter = 1;
-  // int _selectedIndex = 0;
-  // final List<String> weight = [
-  //   '12 Ounce (Pack of 6)',
-  //   '18 Ounce (Pack of 3)',
-  //   '18 Ounce (Pack of 6)',
-  // ];
-  // final List<String> overview = ['region', 'Brand', 'roast', 'flavor'];
   @override
   void initState() {
     BlocProvider.of<ProductCubit>(context).getProduct(widget.id);
     super.initState();
   }
+
+  int counter = 1;
 
   // bool? hasData = false;
   @override
@@ -125,7 +118,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   InkWell(
                     onTap: () {
                       setState(() {
-                        counter--;
+                        if (counter > 1) counter--;
                       });
                     },
                     child: CircleAvatar(
@@ -151,11 +144,11 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                         context: context,
                         isScrollControlled: true,
-                        builder: (context) => CheckoutPopUp(
-                          title: state.product!.data!.name,
-                          image: state.product!.data!.images![0],
-                          totalPrice: state.product!.data!.price.toString(),
-                        ),
+                        builder: (context) => CheckoutPopUpProvider(
+                            title: state.product!.data!.name,
+                            image: state.product!.data!.images![0],
+                            totalPrice: state.product!.data!.price.toString(),
+                            state: state),
                       );
                     },
                     width: 170.w,

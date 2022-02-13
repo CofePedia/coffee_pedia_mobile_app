@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:coffepedia/constants/strings.dart';
 import 'package:coffepedia/data/models/gettoken_database.dart';
 import 'package:coffepedia/data/models/update_profile.dart';
@@ -32,17 +33,6 @@ class UpdateProfileWebServices {
 
     http.StreamedResponse response = await request.send();
 
-    // final http.Response response = await http.post(
-    //   url,
-    //   body:
-    //     {
-    //       "profile" :profilePicture.path
-    //     }
-    //   ,
-
-    //   headers: {'Authorization': 'Bearer ' + token.getToken!},
-    // );
-
     print("request updateProfile fields ${request.fields}");
     print("request updateProfile files ${request.files.asMap()}");
 
@@ -54,10 +44,10 @@ class UpdateProfileWebServices {
       return UpdateProfile.fromJson(
         json.decode(res.body),
       );
-    } 
+    }
     // else if (response.statusCode == 401) {
     //   return UpdateProfile.refresh401(res.body);
-    // } 
+    // }
     else {
       print(res.body);
       throw Exception(

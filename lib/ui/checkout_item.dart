@@ -1,3 +1,5 @@
+import 'package:bot_toast/bot_toast.dart';
+import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
 import 'package:coffepedia/business_logic/wishlist/wishlist_cubit.dart';
 import 'package:coffepedia/data/repository/wishlist_repository.dart';
 import 'package:coffepedia/data/web_services/wishlist_web_services.dart';
@@ -49,7 +51,7 @@ class CheckoutItemProvider extends StatelessWidget {
 }
 
 class CheckoutItem extends StatefulWidget {
-  const CheckoutItem(
+  CheckoutItem(
       {required this.quantity,
       required this.title,
       this.priceBeforeDiscount,
@@ -64,7 +66,7 @@ class CheckoutItem extends StatefulWidget {
   final String image;
   final String price;
   final String? priceBeforeDiscount;
-  final int quantity;
+  int quantity;
   final String vendor;
   final String productId;
 
@@ -73,8 +75,6 @@ class CheckoutItem extends StatefulWidget {
 }
 
 class _CheckoutItemState extends State<CheckoutItem> {
-  int counter = 1;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -160,7 +160,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
               InkWell(
                 onTap: () {
                   setState(() {
-                    counter++;
+                    widget.quantity++;
                   });
                 },
                 child: CircleAvatar(
@@ -188,7 +188,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
               InkWell(
                 onTap: () {
                   setState(() {
-                    counter--;
+                    if (widget.quantity > 1) widget.quantity--;
                   });
                 },
                 child: CircleAvatar(
@@ -202,35 +202,43 @@ class _CheckoutItemState extends State<CheckoutItem> {
                 ),
               ),
               Spacer(),
-              BlocBuilder<WishlistCubit, WishlistState>(
-                builder: (context, state) {
-                  return InkWell(
-                    onTap: () {
-                      BlocProvider.of<WishlistCubit>(context)
-                          .getToggleProductsInWishlist(widget.productId);
-                    },
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(
-                          Assets.iconsHeart,
-                          width: 15.w,
-                          height: 13.5.h,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        SizedBox(
-                          width: 8.w,
-                        ),
-                        Text(
-                          "Move to Wishlist",
-                          style:
-                              Theme.of(context).textTheme.headline4!.copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                        ),
-                      ],
-                    ),
-                  );
+              BlocListener<WishlistCubit, WishlistState>(
+                listener: (context, state) {
+                  if (state is ToggleProductsInWishlistIsLoaded) {
+                    BotToast.showText(
+                        text: state.toggleProductsInWishlist!.data!.msg!);
+                  }
                 },
+                child: BlocBuilder<WishlistCubit, WishlistState>(
+                  builder: (context, state) {
+                    return InkWell(
+                      onTap: () {
+                        BlocProvider.of<WishlistCubit>(context)
+                            .getToggleProductsInWishlist(widget.productId);
+                      },
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            Assets.iconsHeart,
+                            width: 15.w,
+                            height: 13.5.h,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          SizedBox(
+                            width: 8.w,
+                          ),
+                          Text(
+                            "Move to Wishlist",
+                            style:
+                                Theme.of(context).textTheme.headline4!.copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
               Container(
                 width: 2.w,
@@ -239,7 +247,10 @@ class _CheckoutItemState extends State<CheckoutItem> {
                 color: Color(0xff484848),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  BlocProvider.of<BasketCubit>(context)
+                      .getRemoveFromBasket(widget.productId);
+                },
                 child: Row(
                   children: [
                     SvgPicture.asset(

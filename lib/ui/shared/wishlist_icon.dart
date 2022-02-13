@@ -66,7 +66,7 @@ class _WishlistIconState extends State<WishlistIcon> {
               });
             },
             child: Icon(
-              Icons.favorite,
+              widget.isFavorite ? Icons.favorite : Icons.favorite_border,
               size: 28.h,
               color: widget.isFavorite ? Color(0xffE02020) : Colors.grey,
             ),

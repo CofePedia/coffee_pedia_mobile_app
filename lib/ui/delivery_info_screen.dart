@@ -10,7 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DeliveryInfoScreenProvider extends StatelessWidget {
   const DeliveryInfoScreenProvider({Key? key}) : super(key: key);
-  static const routeName = '/delivery-info-screen-provider';
 
   @override
   Widget build(BuildContext context) {

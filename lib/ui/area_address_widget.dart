@@ -9,6 +9,7 @@ class AreaAddressProvider extends StatelessWidget {
   final int? cityId;
   final Function? onSelectedCity;
   final int? selectedArea;
+
   const AreaAddressProvider(
       {this.cityId, this.onSelectedCity, this.selectedArea, Key? key})
       : super(key: key);
@@ -34,6 +35,7 @@ class AreaAddress extends StatefulWidget {
   final int? cityId;
   final Function? onSelectedCity;
   final int? selectedArea;
+
   const AreaAddress(
       {this.cityId, this.onSelectedCity, this.selectedArea, Key? key})
       : super(key: key);
@@ -46,6 +48,7 @@ class _AreaAddressState extends State<AreaAddress> {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<AddressCubit>(context).getAreas(widget.cityId!);
+
     return Container(
       height: 40.h,
       width: 168.w,

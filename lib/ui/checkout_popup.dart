@@ -1,14 +1,58 @@
+import 'package:bot_toast/bot_toast.dart';
+import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
+import 'package:coffepedia/business_logic/product/product_cubit.dart';
+import 'package:coffepedia/data/repository/basket_repository.dart';
+import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/ui/delivery_info_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CheckoutPopUp extends StatelessWidget {
-  const CheckoutPopUp({this.title, this.totalPrice, this.image, Key? key})
-      : super(key: key);
-
+class CheckoutPopUpProvider extends StatelessWidget {
   final String? image;
   final String? title;
   final String? totalPrice;
+  final ProductLoaded state;
+  const CheckoutPopUpProvider({
+    required this.image,
+    required this.totalPrice,
+    required this.title,
+    required this.state,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => BasketCubit(
+        BasketRepository(
+          BasketWebServices(),
+        ),
+      ),
+      child: CheckoutPopUp(
+        image: image,
+        title: title,
+        totalPrice: totalPrice,
+        state: state,
+      ),
+    );
+  }
+}
+
+class CheckoutPopUp extends StatelessWidget {
+  const CheckoutPopUp({
+    required this.title,
+    required this.totalPrice,
+    required this.image,
+    required this.state,
+    Key? key,
+  }) : super(key: key);
+  //
+  final String? image;
+  final String? title;
+  final String? totalPrice;
+  final ProductLoaded state;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,32 +117,61 @@ class CheckoutPopUp extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.only(top: 22.h, bottom: 7.h),
-            height: 50.h,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const DeliveryInfoScreenProvider();
+          BlocListener<BasketCubit, BasketState>(
+            listener: (context, state) {
+              if (state is AddToBasketIsPressed)
+                BotToast.showText(text: 'state.addToBasket!.data!.msg![0]!');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const DeliveryInfoScreenProvider();
+                  },
+                ),
+              );
+            },
+            child: BlocBuilder<BasketCubit, BasketState>(
+              builder: (context, state) {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.only(top: 22.h, bottom: 7.h),
+                  height: 50.h,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      BlocProvider.of<BasketCubit>(context).getAddToBasket([
+                        {"product_id": 1, "quantity": 5}
+                      ]);
+                      // if (state is AddToBasketIsPressed) {
+                      //   print(112);
+                      //   Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) {
+                      //         return const DeliveryInfoScreenProvider();
+                      //       },
+                      //     ),
+                      //   );
+                      // } else {
+                      //   print(111);
+                      //   Center(
+                      //     child: CircularProgressIndicator(),
+                      //   );
+                      // }
                     },
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.r),
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      "Proceed to checkout",
+                      style: Theme.of(context).textTheme.headline2,
+                    ),
                   ),
                 );
               },
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.r),
-                  ),
-                ),
-              ),
-              child: Text(
-                "Proceed to checkout",
-                style: Theme.of(context).textTheme.headline2,
-              ),
             ),
           ),
           TextButton(
