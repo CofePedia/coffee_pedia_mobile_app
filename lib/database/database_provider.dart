@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:coffepedia/data/models/basket.dart';
 import 'package:coffepedia/data/models/gettoken_database.dart';
 import 'package:coffepedia/data/models/login_data_user.dart';
 import 'package:path/path.dart';
@@ -8,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 final userTable = 'userTable';
+final basketTable = 'basketTable';
 
 class DatabaseProvider {
   static final DatabaseProvider dbProvider = DatabaseProvider();
@@ -22,7 +24,7 @@ class DatabaseProvider {
     return _database!;
   }
 
-  createDatabase() async {
+  Future<Database> createDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, "User.db");
 
@@ -48,13 +50,20 @@ class DatabaseProvider {
         "id INTEGER PRIMARY KEY, "
         "token TEXT "
         ")");
+    await database.execute("CREATE TABLE $basketTable ("
+        "id INTEGER PRIMARY KEY autoincrement, "
+        "product_id integer "
+        "quantity integer "
+        ")");
   }
 }
 
 class UserDao {
   final dbProvider = DatabaseProvider.dbProvider;
 
-  Future<int> createUser(LoginData user) async {
+  Future<int> createUser(
+    LoginData user,
+  ) async {
     final db = await dbProvider.database;
     var result = db.insert(userTable, {"id": "0", "token": user.token});
     getUserToken();
@@ -116,5 +125,35 @@ class UserDao {
     } catch (err) {
       return null;
     }
+  }
+
+  // final data = {
+  //   basketTable: [
+  //     {"product_id": 10, "quantity": "img1"},
+  //     {"id": 11, "name": "img2"}
+  //   ],
+  // };
+  //
+  // final String dataAsJson = json.encode(data);
+
+  Future<int> createBasket(
+    BasketDataItems basket,
+  ) async {
+    final db = await dbProvider.database;
+    var result = db.insert(basketTable, basket.toJson());
+    return result;
+  }
+
+  Future<int> deleteBasket(int id) async {
+    final db = await dbProvider.database;
+    var result = await db.delete(basketTable, where: 'id = ?', whereArgs: [id]);
+    return result;
+  }
+
+  Future<int> updateBasket(BasketDataItems basket) async {
+    final db = await dbProvider.database;
+    var result = await db.update(basketTable, basket.toJson(),
+        where: "id = ?", whereArgs: [basket.id]);
+    return result;
   }
 }

@@ -64,247 +64,268 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
             BlocBuilder<OrdersHistoryCubit, OrdersHistoryState>(
               builder: (context, state) {
                 if (state is OrdersHistoryLoaded) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: state.orderHistory!.data!.length,
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (context, index) => Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(0, 0, 0, 0.12),
-                              offset: Offset(0, 2),
-                              blurRadius: 11.sp,
-                            ),
-                          ],
-                          color: Colors.white,
-                        ),
-                        child: ExpansionTile(
-                          collapsedIconColor: Color(0xff000000),
-                          iconColor: Color(0xff000000),
-                          subtitle: Padding(
-                            padding: EdgeInsets.only(top: 12.h),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Status',
-                                      style:
-                                          Theme.of(context).textTheme.headline3,
-                                    ),
-                                    SizedBox(
-                                      height: 6.h,
-                                    ),
-                                    Container(
-                                      height: 17.h,
-                                      width: 67.w,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        //TODO: change to status color from api
-                                        color: state.orderHistory!.data![index]!
-                                                    .statusColor !=
-                                                'null'
-                                            ? HexColor(state.orderHistory!
-                                                .data![index]!.statusColor!)
-                                            : Theme.of(context).primaryColor,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(12.5.r),
-                                          bottomRight: Radius.circular(12.5.r),
-                                          bottomLeft: Radius.circular(12.5.r),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        state.orderHistory!.data![index]!
-                                            .status!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2!
-                                            .copyWith(fontSize: 10.sp),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Date',
-                                      style:
-                                          Theme.of(context).textTheme.headline3,
-                                    ),
-                                    SizedBox(
-                                      height: 6.h,
-                                    ),
-                                    Text(
-                                      state.orderHistory!.data![index]!.date!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .caption!
-                                          .copyWith(
-                                            fontSize: 13.sp,
-                                            fontWeight: FontWeight.w600,
+                  return state.orderHistory!.data!.length > 0
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: state.orderHistory!.data!.length,
+                          padding: EdgeInsets.zero,
+                          itemBuilder: (context, index) => Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 8.h, horizontal: 16.w),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6.r),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color.fromRGBO(0, 0, 0, 0.12),
+                                    offset: Offset(0, 2),
+                                    blurRadius: 11.sp,
+                                  ),
+                                ],
+                                color: Colors.white,
+                              ),
+                              child: ExpansionTile(
+                                collapsedIconColor: Color(0xff000000),
+                                iconColor: Color(0xff000000),
+                                subtitle: Padding(
+                                  padding: EdgeInsets.only(top: 12.h),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Status',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline3,
                                           ),
-                                    )
-                                  ],
+                                          SizedBox(
+                                            height: 6.h,
+                                          ),
+                                          Container(
+                                            height: 17.h,
+                                            width: 67.w,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              color: state
+                                                          .orderHistory!
+                                                          .data![index]!
+                                                          .statusColor !=
+                                                      'null'
+                                                  ? HexColor(state
+                                                      .orderHistory!
+                                                      .data![index]!
+                                                      .statusColor!)
+                                                  : Theme.of(context)
+                                                      .primaryColor,
+                                              borderRadius: BorderRadius.only(
+                                                topLeft:
+                                                    Radius.circular(12.5.r),
+                                                bottomRight:
+                                                    Radius.circular(12.5.r),
+                                                bottomLeft:
+                                                    Radius.circular(12.5.r),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              state.orderHistory!.data![index]!
+                                                  .status!,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline2!
+                                                  .copyWith(fontSize: 10.sp),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Date',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline3,
+                                          ),
+                                          SizedBox(
+                                            height: 6.h,
+                                          ),
+                                          Text(
+                                            state.orderHistory!.data![index]!
+                                                .date!,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .caption!
+                                                .copyWith(
+                                                  fontSize: 13.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          tilePadding: EdgeInsets.symmetric(
-                              vertical: 18.h, horizontal: 16.w),
-                          title: Text(
-                            'Order ID: ${state.orderHistory!.data![index]!.id!}',
-                            style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
-                                      fontSize: 14.sp,
-                                    ),
-                          ),
-                          children: [
-                            Divider(
-                              thickness: 1.h,
-                              color: Color(0xffE3E3E3),
-                            ),
-                            ListView.builder(
-                              itemCount: state
-                                  .orderHistory!.data![index]!.items!.length,
-                              shrinkWrap: true,
-                              padding: EdgeInsets.zero,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, itemsIndex) => ListTile(
+                                tilePadding: EdgeInsets.symmetric(
+                                    vertical: 18.h, horizontal: 16.w),
                                 title: Text(
-                                  state.orderHistory!.data![index]!
-                                      .items![itemsIndex]!.name!,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+                                  'Order ID: ${state.orderHistory!.data![index]!.id!}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
-                                      .copyWith(fontSize: 12.sp),
+                                      .copyWith(
+                                        fontSize: 14.sp,
+                                      ),
                                 ),
-                                subtitle: Padding(
-                                  padding: EdgeInsets.only(top: 10.h),
-                                  child: Text(
-                                    'x${state.orderHistory!.data![index]!.items![itemsIndex]!.quantity!.toString()}',
-                                    style:
-                                        Theme.of(context).textTheme.headline4,
-                                  ),
-                                ),
-                                trailing: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 6.h, horizontal: 17.w),
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffF4F4F4),
-                                    borderRadius: BorderRadius.circular(7.sp),
-                                  ),
-                                  child: Image.network(
-                                    // TODO: Ask Nada to make it image not list of images
-                                    state.orderHistory!.data![index]!
-                                        .items![itemsIndex]!.images![0]!,
-                                    fit: BoxFit.cover,
-                                    height: 48.h,
-                                    width: 26.w,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              color: Color(0xffF8F8F8),
-                              width: MediaQuery.of(context).size.width,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 19.w, vertical: 16.h),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    'Payment Method',
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
+                                  Divider(
+                                    thickness: 1.h,
+                                    color: Color(0xffE3E3E3),
                                   ),
+                                  ListView.builder(
+                                    itemCount: state.orderHistory!.data![index]!
+                                        .items!.length,
+                                    shrinkWrap: true,
+                                    padding: EdgeInsets.zero,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, itemsIndex) =>
+                                        ListTile(
+                                      title: Text(
+                                        state.orderHistory!.data![index]!
+                                            .items![itemsIndex]!.name!,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(fontSize: 12.sp),
+                                      ),
+                                      subtitle: Padding(
+                                        padding: EdgeInsets.only(top: 10.h),
+                                        child: Text(
+                                          'x${state.orderHistory!.data![index]!.items![itemsIndex]!.quantity!.toString()}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline4,
+                                        ),
+                                      ),
+                                      trailing: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 6.h, horizontal: 17.w),
+                                        decoration: BoxDecoration(
+                                          color: Color(0xffF4F4F4),
+                                          borderRadius:
+                                              BorderRadius.circular(7.sp),
+                                        ),
+                                        child: Image.network(
+                                          state.orderHistory!.data![index]!
+                                              .items![itemsIndex]!.image!,
+                                          fit: BoxFit.cover,
+                                          height: 48.h,
+                                          width: 26.w,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    color: Color(0xffF8F8F8),
+                                    width: MediaQuery.of(context).size.width,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 19.w, vertical: 16.h),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Payment Method',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3,
+                                        ),
 
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  Text(
-                                    state.orderHistory!.data![index]!
-                                        .paymentMethod!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(fontSize: 13.sp),
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  // Row(
-                                  //   children: [
-                                  //     SvgPicture.asset(Assets.imagesVisaLogo),
-                                  //     SizedBox(
-                                  //       width: 25.w,
-                                  //     ),
-                                  //     Text(
-                                  //       '**** **** **** 5089',
-                                  //       style: Theme.of(context)
-                                  //           .textTheme
-                                  //           .headline5,
-                                  //     ),
-                                  //   ],
-                                  // ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        Text(
+                                          state.orderHistory!.data![index]!
+                                              .paymentMethod!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .copyWith(fontSize: 13.sp),
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        // Row(
+                                        //   children: [
+                                        //     SvgPicture.asset(Assets.imagesVisaLogo),
+                                        //     SizedBox(
+                                        //       width: 25.w,
+                                        //     ),
+                                        //     Text(
+                                        //       '**** **** **** 5089',
+                                        //       style: Theme.of(context)
+                                        //           .textTheme
+                                        //           .headline5,
+                                        //     ),
+                                        //   ],
+                                        // ),
 
-                                  Text(
-                                    'Subtotal               EGP ${state.orderHistory!.data![index]!.subTotal}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline3!
-                                        .copyWith(fontSize: 12.sp),
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  Text(
-                                    'Discount               EGP ${state.orderHistory!.data![index]!.discount}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline3!
-                                        .copyWith(fontSize: 12.sp),
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  Text(
-                                    'COD                       EGP ${state.orderHistory!.data![index]!.deliveryCharge}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline3!
-                                        .copyWith(fontSize: 12.sp),
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  Text(
-                                    'Total                   EGP ${state.orderHistory!.data![index]!.totalPrice}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .copyWith(fontSize: 13.sp),
+                                        Text(
+                                          'Subtotal               EGP ${state.orderHistory!.data![index]!.subTotal}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3!
+                                              .copyWith(fontSize: 12.sp),
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        Text(
+                                          'Discount               EGP ${state.orderHistory!.data![index]!.discount}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3!
+                                              .copyWith(fontSize: 12.sp),
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        Text(
+                                          'COD                       EGP ${state.orderHistory!.data![index]!.deliveryCharge}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3!
+                                              .copyWith(fontSize: 12.sp),
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        Text(
+                                          'Total                   EGP ${state.orderHistory!.data![index]!.totalPrice}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .copyWith(fontSize: 13.sp),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
+                          ),
+                        )
+                      : Text('No orders history');
                 } else {
                   return Center(
                     child: CircularProgressIndicator(),

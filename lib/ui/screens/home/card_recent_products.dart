@@ -2,6 +2,7 @@ import 'package:coffepedia/business_logic/most_recent/most_recent_cubit.dart';
 import 'package:coffepedia/data/repository/most_recent_repository.dart';
 import 'package:coffepedia/data/web_services/most_recent_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,7 +56,18 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 6.w),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ProductProvider(
+                              id: state.mostRecent!.data!.data![index]!.id!,
+                            );
+                          },
+                        ),
+                      );
+                    },
                     child: Container(
                       height: 187.h,
                       width: 214.w,

@@ -37,9 +37,11 @@ class Assets {
   static const String iconsProfile = 'assets/icons/Profile.svg';
   static const String iconsSearch = 'assets/icons/Search.svg';
 
-  static const String iconsShoppingBasket = 'assets/icons/ShoppingBasket.svg';
+  static const String iconsShoppingBasket =
+      'assets/icons/icons_shopping_basket.svg';
   static const String iconsStarActive = 'assets/icons/star_active.svg';
   static const String fullscreenIcon = 'assets/icons/fullscreen_icon.svg';
+  static const String shoppingBasket = 'assets/images/shopping_basket.svg';
 
   static const String imagesBitmap = 'assets/images/Bitmap.png';
   static const String fawryImage = 'assets/images/fawry.svg';

@@ -5,7 +5,6 @@ import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../checkout_popup.dart';
 import 'chechbox_widget.dart';
 
 class RecipesDetailsBottomSheet extends StatefulWidget {
@@ -187,19 +186,19 @@ class _RecipesDetailsBottomSheetState extends State<RecipesDetailsBottomSheet> {
                 margin: EdgeInsetsDirectional.only(end: 190.w, top: 16.h),
                 child: CustomButton(
                   onPress: () {
-                    showModalBottomSheet(
-                      enableDrag: false,
-                      isDismissible: true,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25.r),
-                          topRight: Radius.circular(25.r),
-                        ),
-                      ),
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (context) => CheckoutPopUp(),
-                    );
+                    // showModalBottomSheet(
+                    //   enableDrag: false,
+                    //   isDismissible: true,
+                    //   shape: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.only(
+                    //       topLeft: Radius.circular(25.r),
+                    //       topRight: Radius.circular(25.r),
+                    //     ),
+                    //   ),
+                    //   context: context,
+                    //   isScrollControlled: true,
+                    //   builder: (context) => CheckoutPopUpProvider(),
+                    // );
                   },
                   width: 170.w,
                   height: 50.h,

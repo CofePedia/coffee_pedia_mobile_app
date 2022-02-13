@@ -68,10 +68,17 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
       if (_details.text.isEmpty) _details.text = widget.address!.details!;
       if (_street.text.isEmpty) _street.text = widget.address!.street!;
       if (_name.text.isEmpty) _name.text = widget.address!.name!;
+
       _selectedGovernorate = widget.address!.governorateId!;
       _selectedCity = widget.address!.cityId!;
       _selectedArea = widget.address!.areaId!;
+      _governorateId = _selectedGovernorate!;
+      _cityId = _selectedCity;
     }
+
+    print("_selectedCity $_selectedCity");
+    print('_selectedArea $_selectedArea');
+
     super.initState();
   }
 
@@ -100,8 +107,6 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
       _selectedArea = value;
     });
   }
-
-  bool hasData = false;
 
   @override
   Widget build(BuildContext context) {
@@ -507,9 +512,9 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                 ],
               ),
               child: ElevatedButton(
-                onPressed: _selectedGovernorate == 0 ||
-                        _selectedArea == 0 ||
-                        _selectedCity == 0 ||
+                onPressed: _selectedGovernorate == null ||
+                        _selectedArea == null ||
+                        _selectedCity == null ||
                         _street.text.isEmpty ||
                         _name.text.isEmpty
                     ? null

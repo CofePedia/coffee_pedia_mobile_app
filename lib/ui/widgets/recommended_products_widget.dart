@@ -1,6 +1,6 @@
-import 'package:coffepedia/business_logic/featured_products/featured_products_cubit.dart';
-import 'package:coffepedia/data/repository/featured_products_repository.dart';
-import 'package:coffepedia/data/web_services/featured_products_web_services.dart';
+import 'package:coffepedia/business_logic/recommended_products/recommended_products_cubit.dart';
+import 'package:coffepedia/data/repository/recommended_products_repository.dart';
+import 'package:coffepedia/data/web_services/recommended_products_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
@@ -9,68 +9,67 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class FeaturedProducts extends StatelessWidget {
-  const FeaturedProducts({Key? key}) : super(key: key);
+class RecommendedProductsProvider extends StatelessWidget {
+  const RecommendedProductsProvider({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FeaturedProductsCubit(
-        FeaturedProductsRepository(
-          FeaturedProductsWebServices(),
+      create: (context) => RecommendedProductsCubit(
+        RecommendedProductsRepository(
+          RecommendedProductsWebServices(),
         ),
       ),
-      child: CardFeaturedProducts(),
+      child: RecommendedProducts(),
     );
   }
 }
 
-class CardFeaturedProducts extends StatefulWidget {
-  const CardFeaturedProducts({
+class RecommendedProducts extends StatefulWidget {
+  const RecommendedProducts({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<CardFeaturedProducts> createState() => _CardFeaturedProductsState();
+  State<RecommendedProducts> createState() => _RecommendedProductsState();
 }
 
-class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
+class _RecommendedProductsState extends State<RecommendedProducts> {
+  @override
+  void initState() {
+    BlocProvider.of<RecommendedProductsCubit>(context).getRecommendedProducts();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<FeaturedProductsCubit>(context).getFeaturedProducts();
-    return BlocBuilder<FeaturedProductsCubit, FeaturedProductsState>(
+    return BlocBuilder<RecommendedProductsCubit, RecommendedProductsState>(
       builder: (context, state) {
-        if (state is FeaturedProductsIsLoaded) {
+        if (state is RecommendedProductsLoaded) {
+          final result = state.recommendedProducts!.data!;
           return Container(
             margin: EdgeInsets.only(bottom: 24.h),
             width: MediaQuery.of(context).size.width,
             height: 286.h,
             child: ListView.builder(
-              itemCount: state.featuredProducts!.data!.data!.length,
+              itemCount: result.length,
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 11.w),
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 6.w),
                   child: InkWell(
-                    // onTap: () async {
-                    //   final hasData = await Navigator.push(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
                             return ProductProvider(
-                              id: state
-                                  .featuredProducts!.data!.data![index]!.id!,
+                              id: result[index]!.id!,
                             );
                           },
                         ),
                       );
-                      // if (hasData == true) {
-                      //   BlocProvider.of<FeaturedProductsCubit>(context)
-                      //       .getFeaturedProducts();
-                      // }
                     },
                     child: Container(
                       height: 262.h,
@@ -99,15 +98,14 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                             right: 17.w,
                             child: Container(
                               child: Image.network(
-                                state.featuredProducts!.data!.data![index]!
-                                    .image!,
+                                result[index]!.image!,
                                 width: 85.w,
                                 height: 130.h,
                                 fit: BoxFit.fill,
                               ),
                             ),
                           ),
-                          state.featuredProducts!.data!.data![index]!.rate == 0
+                          result[index]!.rate == 0
                               ? SizedBox.shrink()
                               : Positioned(
                                   top: 28.h,
@@ -119,9 +117,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                         width: 6.14.w,
                                       ),
                                       Text(
-                                        state.featuredProducts!.data!
-                                            .data![index]!.rate!
-                                            .toString(),
+                                        result[index]!.rate!.toString(),
                                       ),
                                     ],
                                   ),
@@ -132,9 +128,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                state.featuredProducts!.data!.data![index]!
-                                            .discount ==
-                                        0
+                                result[index]!.discount == 0
                                     ? SizedBox.shrink()
                                     : Container(
                                         height: 17.h,
@@ -150,7 +144,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                                   Radius.circular(12.5.h)),
                                         ),
                                         child: Text(
-                                          '${state.featuredProducts!.data!.data![index]!.discount}% Off',
+                                          '${result[index]!.discount}% Off',
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1,
@@ -162,8 +156,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                 Container(
                                   width: 192.w,
                                   child: Text(
-                                    state.featuredProducts!.data!.data![index]!
-                                        .name!,
+                                    result[index]!.name!,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
@@ -177,7 +170,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                   height: 6.h,
                                 ),
                                 Text(
-                                  'EGP ${state.featuredProducts!.data!.data![index]!.priceBeforeDiscount}',
+                                  'EGP ${result[index]!.priceBeforeDiscount}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2!
@@ -190,7 +183,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                   height: 8.h,
                                 ),
                                 Text(
-                                  'EGP ${state.featuredProducts!.data!.data![index]!.price}',
+                                  'EGP ${result[index]!.price}',
                                   style: Theme.of(context).textTheme.subtitle1,
                                 ),
                               ],
@@ -213,11 +206,8 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                 ],
                               ),
                               child: WishlistIconWidget(
-                                productId: state
-                                    .featuredProducts!.data!.data![index]!.id!
-                                    .toString(),
-                                isFavorite: state.featuredProducts!.data!
-                                    .data![index]!.inWishlist!,
+                                productId: result[index]!.id!.toString(),
+                                isFavorite: result[index]!.inWishlist!,
                               ),
                             ),
                           ),

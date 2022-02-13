@@ -9,8 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddressBookScreenProvider extends StatelessWidget {
-  static const routeName = '/address-book-screen-provider';
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
