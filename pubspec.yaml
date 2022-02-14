@@ -49,6 +49,8 @@ dependencies:
   flutter_widget_from_html: ^0.8.5
   hexcolor: ^2.0.6
   path:
+  infinite_scroll_pagination: ^3.1.0
+
 
 
 

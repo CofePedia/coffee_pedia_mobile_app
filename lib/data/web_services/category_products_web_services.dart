@@ -10,6 +10,7 @@ class CategoryProductsWebServices {
   final userDao = UserDao();
 
   Future<CategoryProducts> getCategoryProducts({
+    int? page,
     int? subCategoryId,
     int? categoryId,
     Map<String, List<String?>>? multiMap,
@@ -33,6 +34,11 @@ class CategoryProductsWebServices {
     if (subCategoryId != -1) {
       queryParameters.addAll({
         'subCategory': subCategoryId.toString(),
+      });
+    }
+    if (page != -1) {
+      queryParameters.addAll({
+        'page': page.toString(),
       });
     }
     final uri = Uri.https(getBaseUrl, '/products', queryParameters);

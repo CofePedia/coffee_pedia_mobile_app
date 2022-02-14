@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import 'product_screen.dart';
 
@@ -71,27 +72,66 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  bool hasData = false;
+  static const _pageSize = 20;
+
+  final PagingController _pagingController = PagingController(firstPageKey: 0);
+
   @override
   void initState() {
     BlocProvider.of<CategoryProductsCubit>(context).getCategoryProducts(
+      page: 2,
       subCategoryId: -1,
       categoryId: widget.categoriesId,
       multiMap: widget.multiMap,
       rangeMap: widget.rangeMap,
       singleMap: widget.singleMap,
     );
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey);
+    });
     super.initState();
   }
 
-  bool hasData = false;
+  Future<void> _fetchPage(int pageKey) async {
+    try {
+      final newItems =
+          BlocProvider.of<CategoryProductsCubit>(context).getCategoryProducts(
+        page: 2,
+        subCategoryId: -1,
+        categoryId: widget.categoriesId,
+        multiMap: widget.multiMap,
+        rangeMap: widget.rangeMap,
+        singleMap: widget.singleMap,
+      );
+      final isLastPage = newItems.length < _pageSize;
+      if (isLastPage) {
+        _pagingController.appendLastPage(newItems);
+      } else {
+        final nextPageKey = pageKey + newItems.length;
+        _pagingController.appendPage(newItems, nextPageKey.toInt());
+      }
+    } catch (error) {
+      _pagingController.error = error;
+    }
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryProductsCubit, CategoryProductsState>(
       builder: (context, state) {
         if (state is CategoryProductsIsLoaded) {
           return Scaffold(
-            body: SingleChildScrollView(
-              child: Column(
+              body: PagedListView(
+            pagingController: _pagingController,
+            builderDelegate: PagedChildBuilderDelegate(
+              itemBuilder: (context, item, index) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
@@ -100,14 +140,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     color: Theme.of(context).primaryColor,
                     padding:
                         EdgeInsets.only(top: 53.h, bottom: 9.h, right: 15.w),
-                    // decoration: BoxDecoration(
-                    //   gradient: LinearGradient(
-                    //     colors: [
-                    //       Color(0xffFFD008),
-                    //       Color(0xffFFE77E),
-                    //     ],
-                    //   ),
-                    // ),
+// decoration: BoxDecoration(
+//   gradient: LinearGradient(
+//     colors: [
+//       Color(0xffFFD008),
+//       Color(0xffFFE77E),
+//     ],
+//   ),
+// ),
                     child: Row(
                       children: [
                         IconButton(
@@ -231,24 +271,24 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ),
                           );
                         },
-                        // onTap: () async {
-                        //   final hasData = await Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) {
-                        //         return ProductProvider(
-                        //           id: state.categoryProducts!.data!
-                        //               .data![index]!.id!,
-                        //         );
-                        //       },
-                        //     ),
-                        //   );
-                        //   if (hasData == true) {
-                        //     BlocProvider.of<CategoryProductsCubit>(context)
-                        //         .getCategoryProducts(
-                        //             0, widget.categoriesId, widget.multiMap);
-                        //   }
-                        // },
+// onTap: () async {
+//   final hasData = await Navigator.push(
+//     context,
+//     MaterialPageRoute(
+//       builder: (context) {
+//         return ProductProvider(
+//           id: state.categoryProducts!.data!
+//               .data![index]!.id!,
+//         );
+//       },
+//     ),
+//   );
+//   if (hasData == true) {
+//     BlocProvider.of<CategoryProductsCubit>(context)
+//         .getCategoryProducts(
+//             0, widget.categoriesId, widget.multiMap);
+//   }
+// },
                         child: Container(
                           height: 305.h,
                           width: 164.5.w,
@@ -340,9 +380,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               ),
                                               child: Text(
                                                 '${state.categoryProducts!.data!.data![index]!.discount}% Off',
-                                                // state.categoryProducts!.data!
-                                                //     .filters![2]!.optionsSingle![2]
-                                                //     .toString(),
+// state.categoryProducts!.data!
+//     .filters![2]!.optionsSingle![2]
+//     .toString(),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .bodyText1,
@@ -428,7 +468,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ],
               ),
             ),
-          );
+          ));
         } else {
           return Center(
             child: CircularProgressIndicator(),

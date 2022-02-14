@@ -7,6 +7,7 @@ class CategoryProductsRepository {
   CategoryProductsRepository(this.categoryProductsWebServices);
 
   Future<CategoryProducts> getCategoryProducts({
+    int? page,
     int? subCategoryId,
     int? categoryId,
     Map<String, List<String?>>? multiMap,
@@ -14,6 +15,7 @@ class CategoryProductsRepository {
     Map<String, String?>? singleMap,
   }) async {
     final categoryProduct = categoryProductsWebServices.getCategoryProducts(
+      page: page,
       categoryId: categoryId,
       subCategoryId: subCategoryId,
       multiMap: multiMap,
