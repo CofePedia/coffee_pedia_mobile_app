@@ -226,7 +226,7 @@ class CategoryProductsDataPaginate {
 
   int? currentPage;
   int? lastPage;
-  int? perPage;
+  String? perPage;
   int? total;
 
   CategoryProductsDataPaginate({
@@ -238,7 +238,7 @@ class CategoryProductsDataPaginate {
   CategoryProductsDataPaginate.fromJson(Map<String, dynamic> json) {
     currentPage = json['currentPage']?.toInt();
     lastPage = json['lastPage']?.toInt();
-    perPage = json['perPage']?.toInt();
+    perPage = json['perPage']?.toString();
     total = json['total']?.toInt();
   }
   Map<String, dynamic> toJson() {

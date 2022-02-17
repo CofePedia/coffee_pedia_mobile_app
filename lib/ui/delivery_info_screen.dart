@@ -2,12 +2,13 @@ import 'package:coffepedia/business_logic/address/address_cubit.dart';
 import 'package:coffepedia/data/repository/address_repository.dart';
 import 'package:coffepedia/data/web_services/address_web_services.dart';
 import 'package:coffepedia/ui/screens/address_bottom_sheet.dart';
-import 'package:coffepedia/ui/screens/check-internet_connection.dart';
 import 'package:coffepedia/ui/screens/payment_info_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'screens/check_internet_connection.dart';
 
 class DeliveryInfoScreenProvider extends StatelessWidget {
   const DeliveryInfoScreenProvider({Key? key}) : super(key: key);
@@ -68,22 +69,22 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
             onPress: _addressId == 0
                 ? () {}
                 : () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return PaymentInfoScreenProvider(
-                      addressId: _addressId!,
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return PaymentInfoScreenProvider(
+                            addressId: _addressId!,
+                          );
+                        },
+                      ),
                     );
                   },
-                ),
-              );
-            },
             width: 345.w,
             height: 50.h,
             borderRadius: 25.r,
             buttonColor:
-            _addressId == 0 ? Colors.grey : Theme.of(context).primaryColor,
+                _addressId == 0 ? Colors.grey : Theme.of(context).primaryColor,
           ),
         ),
         body: SingleChildScrollView(
@@ -108,8 +109,8 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                   Text(
                     'Delivery info',
                     style: Theme.of(context).textTheme.headline1!.copyWith(
-                      fontSize: 18.sp,
-                    ),
+                          fontSize: 18.sp,
+                        ),
                   ),
                 ],
               ),
@@ -187,8 +188,8 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                   Text(
                     'Payment Info',
                     style: Theme.of(context).textTheme.headline6!.copyWith(
-                      color: Color(0xff9D9D9D),
-                    ),
+                          color: Color(0xff9D9D9D),
+                        ),
                   ),
                 ],
               ),
@@ -247,7 +248,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                                     ),
                                   ),
                                   shape:
-                                  MaterialStateProperty.all<OutlinedBorder>(
+                                      MaterialStateProperty.all<OutlinedBorder>(
                                     RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(6.r),
                                     ),
@@ -261,7 +262,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                                     setState(() {
                                       _selectedIndex = value;
                                       _addressId =
-                                      state.myAddresses!.data![index]!.id!;
+                                          state.myAddresses!.data![index]!.id!;
                                       print('addressID: $_addressId');
                                     });
                                   },
@@ -272,16 +273,16 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                                         .textTheme
                                         .subtitle2!
                                         .copyWith(
-                                      fontSize: 14.sp,
-                                    ),
+                                          fontSize: 14.sp,
+                                        ),
                                   ),
                                   subtitle: RichText(
                                     text: TextSpan(
                                       children: <TextSpan>[
                                         TextSpan(
                                           text: state.myAddresses!.data![index]!
-                                              .details! ==
-                                              ''
+                                                      .details! ==
+                                                  ''
                                               ? ''
                                               : '${state.myAddresses!.data![index]!.details!}, ',
                                           style: Theme.of(context)
@@ -290,28 +291,28 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                                         ),
                                         TextSpan(
                                           text:
-                                          '${state.myAddresses!.data![index]!.street!}, ',
+                                              '${state.myAddresses!.data![index]!.street!}, ',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline4,
                                         ),
                                         TextSpan(
                                           text:
-                                          '${state.myAddresses!.data![index]!.area!}, ',
+                                              '${state.myAddresses!.data![index]!.area!}, ',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline4,
                                         ),
                                         TextSpan(
                                           text:
-                                          '${state.myAddresses!.data![index]!.city!}, ',
+                                              '${state.myAddresses!.data![index]!.city!}, ',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline4,
                                         ),
                                         TextSpan(
                                           text:
-                                          '${state.myAddresses!.data![index]!.governorate!}.',
+                                              '${state.myAddresses!.data![index]!.governorate!}.',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline4,
@@ -353,7 +354,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                 },
                 child: Padding(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
+                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
                   child: Row(
                     children: [
                       Icon(

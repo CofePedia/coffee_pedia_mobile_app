@@ -1,4 +1,4 @@
-import 'package:coffepedia/ui/screens/check-internet_connection.dart';
+import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,8 +37,8 @@ class _SwitchLanguageBottomSheetState extends State<SwitchLanguageBottomSheet> {
                   Text(
                     'English',
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontSize: 14.sp,
-                    ),
+                          fontSize: 14.sp,
+                        ),
                   ),
                 ],
               ),
@@ -60,8 +60,8 @@ class _SwitchLanguageBottomSheetState extends State<SwitchLanguageBottomSheet> {
                   Text(
                     'العربية',
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontSize: 14.sp,
-                    ),
+                          fontSize: 14.sp,
+                        ),
                   ),
                 ],
               ),

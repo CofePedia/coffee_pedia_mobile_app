@@ -1,5 +1,5 @@
 import 'package:coffepedia/generated/assets.dart';
-import 'package:coffepedia/ui/screens/check-internet_connection.dart';
+import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/widgets/recommended_products_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

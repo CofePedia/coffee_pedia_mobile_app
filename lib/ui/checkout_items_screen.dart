@@ -3,7 +3,7 @@ import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/ui/basket_empty_screen.dart';
-import 'package:coffepedia/ui/screens/check-internet_connection.dart';
+import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,33 +72,33 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
   Widget build(BuildContext context) {
     return CheckInternetConnection(
         screen: BlocListener<BasketCubit, BasketState>(
-          listener: (context, state) {
-            if (state is RemoveFromBasketIsPressed) {
-              BotToast.showText(text: state.removeFromBasket!.data!.msg!);
-              BlocProvider.of<BasketCubit>(context).getBasket();
-            } else if (state is CouponUnvalid) {
-              BotToast.showText(text: state.error!.toString());
-              BlocProvider.of<BasketCubit>(context).getBasket();
-            } else if (state is CouponIsPressed) {
-              setState(() {
-                isPressed = true;
-              });
-              BlocProvider.of<BasketCubit>(context).getBasket();
-              if (isPressed == true) {
-                subTotal = state.coupon!.data!.subTotal!.toString();
-                discount = state.coupon!.data!.discount!.toString();
-                deliveryCharge = state.coupon!.data!.deliveryCharge!.toString();
-                total = state.coupon!.data!.totalPrice!.toString();
-              }
-            }
-          },
-          child: BlocBuilder<BasketCubit, BasketState>(
-            builder: (context, state) {
-              if (state is BasketLoaded) {
-                // localBasket(
-                //     state.basket!.data!.totalItems!, state.basket!.data!.items);
-                return state.basket!.data!.items!.length > 0
-                    ? Scaffold(
+      listener: (context, state) {
+        if (state is RemoveFromBasketIsPressed) {
+          BotToast.showText(text: state.removeFromBasket!.data!.msg!);
+          BlocProvider.of<BasketCubit>(context).getBasket();
+        } else if (state is CouponUnvalid) {
+          BotToast.showText(text: state.error!.toString());
+          BlocProvider.of<BasketCubit>(context).getBasket();
+        } else if (state is CouponIsPressed) {
+          setState(() {
+            isPressed = true;
+          });
+          BlocProvider.of<BasketCubit>(context).getBasket();
+          if (isPressed == true) {
+            subTotal = state.coupon!.data!.subTotal!.toString();
+            discount = state.coupon!.data!.discount!.toString();
+            deliveryCharge = state.coupon!.data!.deliveryCharge!.toString();
+            total = state.coupon!.data!.totalPrice!.toString();
+          }
+        }
+      },
+      child: BlocBuilder<BasketCubit, BasketState>(
+        builder: (context, state) {
+          if (state is BasketLoaded) {
+            // localBasket(
+            //     state.basket!.data!.totalItems!, state.basket!.data!.items);
+            return state.basket!.data!.items!.length > 0
+                ? Scaffold(
                     backgroundColor: Colors.white,
                     bottomNavigationBar: Padding(
                       padding: EdgeInsets.only(bottom: 69.h),
@@ -160,8 +160,8 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                       .textTheme
                                       .subtitle1!
                                       .copyWith(
-                                    color: Colors.black,
-                                  ),
+                                        color: Colors.black,
+                                      ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
@@ -176,8 +176,8 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                             .textTheme
                                             .subtitle1!
                                             .copyWith(
-                                          color: Colors.black,
-                                        ),
+                                              color: Colors.black,
+                                            ),
                                       ),
                                       SizedBox(
                                         width: 5.w,
@@ -188,8 +188,8 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                             .textTheme
                                             .headline4!
                                             .copyWith(
-                                          color: Colors.black,
-                                        ),
+                                              color: Colors.black,
+                                            ),
                                       ),
                                     ],
                                   ),
@@ -207,7 +207,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding:
-                                  EdgeInsets.symmetric(horizontal: 16.w),
+                                      EdgeInsets.symmetric(horizontal: 16.w),
                                   child: CheckoutItemProvider(
                                     productId: state
                                         .basket!.data!.items![index]!.id!
@@ -233,7 +233,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 return Container(
                                   width: MediaQuery.of(context).size.width,
                                   margin:
-                                  EdgeInsets.symmetric(vertical: 15.75.h),
+                                      EdgeInsets.symmetric(vertical: 15.75.h),
                                   height: 1.h,
                                   color: Color(0xff979797),
                                 );
@@ -267,7 +267,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                       controller: coupon,
                                       showCursor: true,
                                       cursorColor:
-                                      Theme.of(context).primaryColor,
+                                          Theme.of(context).primaryColor,
                                       keyboardType: TextInputType.text,
                                       style: TextStyle(color: Colors.black45),
                                       inputFormatters: [
@@ -282,11 +282,11 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                             .textTheme
                                             .headline4!
                                             .copyWith(
-                                          color: Color(0xffcccccc),
-                                        ),
+                                              color: Color(0xffcccccc),
+                                            ),
                                         border: OutlineInputBorder(
                                           borderRadius:
-                                          BorderRadius.circular(5.w),
+                                              BorderRadius.circular(5.w),
                                           borderSide: BorderSide(
                                             color: Colors.transparent,
                                             width: 1.w,
@@ -294,7 +294,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                         ),
                                         enabledBorder: OutlineInputBorder(
                                           borderRadius:
-                                          BorderRadius.circular(5.w),
+                                              BorderRadius.circular(5.w),
                                           borderSide: BorderSide(
                                             color: Colors.transparent,
                                             width: 1.w,
@@ -305,7 +305,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                           onTap: () {
                                             if (coupon.text.trim().isNotEmpty) {
                                               BlocProvider.of<BasketCubit>(
-                                                  context)
+                                                      context)
                                                   .getCoupon(coupon.text);
                                             }
                                           },
@@ -315,7 +315,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.only(
                                                 bottomRight:
-                                                Radius.circular(5.r),
+                                                    Radius.circular(5.r),
                                                 topRight: Radius.circular(5.r),
                                               ),
                                               color: Color(0xff107CC0),
@@ -327,8 +327,8 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                                   .textTheme
                                                   .headline2!
                                                   .copyWith(
-                                                fontWeight: FontWeight.w500,
-                                              ),
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
                                             ),
                                           ),
                                         ),
@@ -338,7 +338,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("Subtotal",
                                         style: Theme.of(context)
@@ -358,7 +358,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("Discount",
                                         style: Theme.of(context)
@@ -378,7 +378,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("Delivery charge"),
                                     Text(isPressed == false
@@ -388,10 +388,10 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 ),
                                 Padding(
                                   padding:
-                                  EdgeInsets.only(top: 16.h, bottom: 28.h),
+                                      EdgeInsets.only(top: 16.h, bottom: 28.h),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text("Total price",
                                           style: Theme.of(context)
@@ -405,8 +405,8 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                             .textTheme
                                             .caption!
                                             .copyWith(
-                                          color: Color(0xff107CC0),
-                                        ),
+                                              color: Color(0xff107CC0),
+                                            ),
                                       ),
                                     ],
                                   ),
@@ -435,15 +435,15 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                         ],
                       ),
                     ))
-                    : BasketEmptyScreen();
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          ),
-        ));
+                : BasketEmptyScreen();
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+    ));
   }
 }
 
