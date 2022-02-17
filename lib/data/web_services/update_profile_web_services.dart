@@ -14,9 +14,9 @@ class UpdateProfileWebServices {
       String? email, String? password, File? profilePicture) async {
     final url = Uri.parse(baseUrl + 'auth/updateProfile');
     GetTokenDatabase? token = await userDao.getUserToken();
-    print("token update profile = " + token!.getToken!);
+    //print("token update profile = " + token!.getToken!);
 
-    var headers = {'Authorization': 'Bearer ' + token.getToken!};
+    var headers = {'Authorization': 'Bearer ' + token!.getToken!};
     var request = http.MultipartRequest('POST', url);
 
     request.fields.putIfAbsent('firstName', () => firstName!);

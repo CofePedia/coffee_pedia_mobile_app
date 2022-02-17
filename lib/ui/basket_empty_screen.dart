@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BasketEmptyScreen extends StatelessWidget {
-  const BasketEmptyScreen({Key? key}) : super(key: key);
+  bool isLoggedIn;
+  BasketEmptyScreen({required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class BasketEmptyScreen extends StatelessWidget {
                 top: 31.h, bottom: 45.h, left: 16.w, right: 16.w),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 93.h,
+              height: 100.h,
               padding: EdgeInsets.all(16.h),
               decoration: BoxDecoration(
                 color: Color(0xffF3FCFE),
@@ -38,10 +39,10 @@ class BasketEmptyScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    radius: 25.sp,
+                    radius: 23.sp,
                     child: SvgPicture.asset(
                       Assets.shoppingBasket,
-                      fit: BoxFit.fill,
+                      fit: BoxFit.contain,
                     ),
                   ),
                   Column(
@@ -74,18 +75,20 @@ class BasketEmptyScreen extends StatelessWidget {
           SizedBox(
             height: 48.h,
           ),
-          Padding(
+          (isLoggedIn)
+          ? Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Text(
               "Recommended based on your shopping history",
               maxLines: 2,
               style: Theme.of(context).textTheme.caption,
             ),
-          ),
+          ) : SizedBox.shrink(),
           SizedBox(
             height: 23.h,
           ),
-          Container(
+          (isLoggedIn)
+            ? Container(
             height: 286.h,
             child: ListView.builder(
               itemCount: 5,
@@ -96,7 +99,7 @@ class BasketEmptyScreen extends StatelessWidget {
                 return RecommendedProductsProvider();
               },
             ),
-          ),
+          ) : SizedBox.shrink(),
         ],
       ),
     );

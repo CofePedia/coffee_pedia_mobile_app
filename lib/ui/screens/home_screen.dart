@@ -65,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    //search bar
                     Container(
                       padding: EdgeInsets.only(
                         left: 15.w,
@@ -97,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 16.h,
                     ),
+                    //home ads
                     Container(
                       margin: EdgeInsets.only(bottom: 24.h),
                       width: MediaQuery.of(context).size.width,
