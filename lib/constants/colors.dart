@@ -13,6 +13,8 @@ const kGrey5 = Color(0xff606C74);
 const kWhite = Color(0xffffffff);
 const kDarkBlue = Color(0xff4367B2);
 const kBlue = Color(0xff4285F4);
+const kBlue2 = Color(0xff007CC6);
+
 
 const kRed = Color(0xffE02020);
 const kGreen = Color(0xff27DC4E);

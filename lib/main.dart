@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/login/login_bloc.dart';
 import 'package:coffepedia/data/repository/user_repository.dart';
 import 'package:coffepedia/ui/screens/intro/splash_screen.dart';
+import 'package:coffepedia/ui/screens/no_internet_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

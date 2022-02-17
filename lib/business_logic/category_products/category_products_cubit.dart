@@ -11,6 +11,7 @@ class CategoryProductsCubit extends Cubit<CategoryProductsState> {
       : super(CategoryProductsInitial());
 
   getCategoryProducts({
+    int? limit,
     int? page,
     int? subCategoryId,
     int? categoryId,
@@ -20,6 +21,7 @@ class CategoryProductsCubit extends Cubit<CategoryProductsState> {
   }) {
     categoryProductsRepository
         .getCategoryProducts(
+      limit: limit,
       page: page,
       subCategoryId: subCategoryId,
       categoryId: categoryId,

@@ -6,6 +6,7 @@ import 'package:coffepedia/database/database_provider.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/account_settings_screen.dart';
 import 'package:coffepedia/ui/screens/address_bookٍ_screen.dart';
+import 'package:coffepedia/ui/screens/check-internet_connection.dart';
 import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
 import 'package:coffepedia/ui/screens/switch_language_bottom_sheet.dart';
 import 'package:coffepedia/ui/screens/wishlist_screen.dart';
@@ -53,7 +54,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<MeCubit>(context).getMe();
-    return BlocBuilder<MeCubit, MeState>(
+    return CheckInternetConnection(screen: BlocBuilder<MeCubit, MeState>(
       builder: (context, state) {
         if (state is MeIsLoaded) {
           return Scaffold(
@@ -93,34 +94,34 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                                   .textTheme
                                   .subtitle1!
                                   .copyWith(
-                                    color: Colors.black,
-                                  ),
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                           Row(
                             children: [
                               state.me!.data!.avatar != ''
                                   ? Container(
-                                      width: 55.0.w,
-                                      height: 55.0.h,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                            state.me!.data!.avatar!,
-                                          ),
-                                        ),
-                                        shape: BoxShape.circle,
-                                      ),
-                                    )
-                                  : CircleAvatar(
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      radius: 25.r,
-                                      child: SvgPicture.asset(
-                                        Assets.userPhote,
-                                      ),
+                                width: 55.0.w,
+                                height: 55.0.h,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      state.me!.data!.avatar!,
                                     ),
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                              )
+                                  : CircleAvatar(
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .secondary,
+                                radius: 25.r,
+                                child: SvgPicture.asset(
+                                  Assets.userPhote,
+                                ),
+                              ),
                               SizedBox(
                                 width: 12.w,
                               ),
@@ -134,15 +135,15 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                                         .textTheme
                                         .bodyText1!
                                         .copyWith(
-                                          fontSize: 12.sp,
-                                        ),
+                                      fontSize: 12.sp,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 5.h,
                                   ),
                                   Text(state.me!.data!.name!,
                                       style:
-                                          Theme.of(context).textTheme.caption),
+                                      Theme.of(context).textTheme.caption),
                                 ],
                               )
                             ],
@@ -234,7 +235,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
                       child: InkWell(
                         onTap: () {
                           showModalBottomSheet(
@@ -255,9 +256,9 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                           title: Text(
                             'Switch Language',
                             style:
-                                Theme.of(context).textTheme.headline2!.copyWith(
-                                      color: Color(0xff231F20),
-                                    ),
+                            Theme.of(context).textTheme.headline2!.copyWith(
+                              color: Color(0xff231F20),
+                            ),
                           ),
                           trailing: Text(
                             'English',
@@ -278,8 +279,8 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         userDao.deleteUser();
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (_) {
-                          return LoginPage();
-                        }), (route) => false);
+                              return LoginPage();
+                            }), (route) => false);
                       },
                       child: Container(
                         height: 54.h,
@@ -299,11 +300,11 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         child: Text(
                           'Logout',
                           style:
-                              Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontSize: 14.sp,
-                                    color: Color(0xffE23333),
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                          Theme.of(context).textTheme.headline4!.copyWith(
+                            fontSize: 14.sp,
+                            color: Color(0xffE23333),
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
@@ -318,6 +319,6 @@ class _ProfileScreenState extends State<_ProfileScreen> {
           );
         }
       },
-    );
+    ));
   }
 }

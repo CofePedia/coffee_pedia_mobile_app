@@ -42,6 +42,8 @@ class Assets {
   static const String iconsStarActive = 'assets/icons/star_active.svg';
   static const String fullscreenIcon = 'assets/icons/fullscreen_icon.svg';
   static const String shoppingBasket = 'assets/images/shopping_basket.svg';
+  static const String noInternetConnectionImage = 'assets/images/no_internet.png';
+
 
   static const String imagesBitmap = 'assets/images/Bitmap.png';
   static const String fawryImage = 'assets/images/fawry.svg';

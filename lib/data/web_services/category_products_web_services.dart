@@ -10,6 +10,7 @@ class CategoryProductsWebServices {
   final userDao = UserDao();
 
   Future<CategoryProducts> getCategoryProducts({
+    int? limit,
     int? page,
     int? subCategoryId,
     int? categoryId,
@@ -41,6 +42,12 @@ class CategoryProductsWebServices {
         'page': page.toString(),
       });
     }
+    if (limit != -1) {
+      queryParameters.addAll({
+        'limit': limit.toString(),
+      });
+    }
+
     final uri = Uri.https(getBaseUrl, '/products', queryParameters);
     print('queryParameters $queryParameters');
     GetTokenDatabase? token = await userDao.getUserToken();

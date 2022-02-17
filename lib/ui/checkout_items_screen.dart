@@ -1,10 +1,11 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
-import 'package:coffepedia/data/models/basket.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/ui/basket_empty_screen.dart';
+import 'package:coffepedia/ui/screens/check-internet_connection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -31,45 +32,73 @@ class CheckoutItemsScreen extends StatefulWidget {
 }
 
 class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
+  final TextEditingController coupon = TextEditingController();
+  bool discountLoading = false;
+
   @override
   void initState() {
     BlocProvider.of<BasketCubit>(context).getBasket();
-
     super.initState();
   }
 
-  localBasket(int totalItems, List<BasketDataItems?>? localProducts) {
-    List<Map<String, String>> getLocalBasket = [];
-    if (localProducts!.length > 0)
-      localProducts.forEach(
-        (element) {
-          getLocalBasket.add(
-            {
-              'product_id': element!.id.toString(),
-              'quantity': element.quantity.toString()
-            },
-          );
-        },
-      );
-    print("localProducts $getLocalBasket");
+  @override
+  void dispose() {
+    coupon.dispose();
+    super.dispose();
   }
+
+  // localBasket(int totalItems, List<BasketDataItems?>? localProducts) {
+  //   List<Map<String, String>> getLocalBasket = [];
+  //   if (localProducts!.length > 0)
+  //     localProducts.forEach(
+  //       (element) {
+  //         getLocalBasket.add(
+  //           {
+  //             'product_id': element!.id.toString(),
+  //             'quantity': element.quantity.toString()
+  //           },
+  //         );
+  //       },
+  //     );
+  //   print("localProducts $getLocalBasket");
+  // }
+  bool isPressed = false;
+  String? subTotal;
+  String? discount;
+  String? deliveryCharge;
+  String? total;
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BasketCubit, BasketState>(
-      listener: (context, state) {
-        if (state is RemoveFromBasketIsPressed) {
-          BotToast.showText(text: state.removeFromBasket!.data!.msg!);
-          BlocProvider.of<BasketCubit>(context).getBasket();
-        }
-      },
-      child: BlocBuilder<BasketCubit, BasketState>(
-        builder: (context, state) {
-          if (state is BasketLoaded) {
-            localBasket(
-                state.basket!.data!.totalItems!, state.basket!.data!.items);
-            return state.basket!.data!.items!.length > 0
-                ? Scaffold(
+    return CheckInternetConnection(
+        screen: BlocListener<BasketCubit, BasketState>(
+          listener: (context, state) {
+            if (state is RemoveFromBasketIsPressed) {
+              BotToast.showText(text: state.removeFromBasket!.data!.msg!);
+              BlocProvider.of<BasketCubit>(context).getBasket();
+            } else if (state is CouponUnvalid) {
+              BotToast.showText(text: state.error!.toString());
+              BlocProvider.of<BasketCubit>(context).getBasket();
+            } else if (state is CouponIsPressed) {
+              setState(() {
+                isPressed = true;
+              });
+              BlocProvider.of<BasketCubit>(context).getBasket();
+              if (isPressed == true) {
+                subTotal = state.coupon!.data!.subTotal!.toString();
+                discount = state.coupon!.data!.discount!.toString();
+                deliveryCharge = state.coupon!.data!.deliveryCharge!.toString();
+                total = state.coupon!.data!.totalPrice!.toString();
+              }
+            }
+          },
+          child: BlocBuilder<BasketCubit, BasketState>(
+            builder: (context, state) {
+              if (state is BasketLoaded) {
+                // localBasket(
+                //     state.basket!.data!.totalItems!, state.basket!.data!.items);
+                return state.basket!.data!.items!.length > 0
+                    ? Scaffold(
                     backgroundColor: Colors.white,
                     bottomNavigationBar: Padding(
                       padding: EdgeInsets.only(bottom: 69.h),
@@ -131,8 +160,8 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                       .textTheme
                                       .subtitle1!
                                       .copyWith(
-                                        color: Colors.black,
-                                      ),
+                                    color: Colors.black,
+                                  ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
@@ -147,8 +176,8 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                             .textTheme
                                             .subtitle1!
                                             .copyWith(
-                                              color: Colors.black,
-                                            ),
+                                          color: Colors.black,
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 5.w,
@@ -159,8 +188,8 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                             .textTheme
                                             .headline4!
                                             .copyWith(
-                                              color: Colors.black,
-                                            ),
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -178,7 +207,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 16.w),
+                                  EdgeInsets.symmetric(horizontal: 16.w),
                                   child: CheckoutItemProvider(
                                     productId: state
                                         .basket!.data!.items![index]!.id!
@@ -204,7 +233,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 return Container(
                                   width: MediaQuery.of(context).size.width,
                                   margin:
-                                      EdgeInsets.symmetric(vertical: 15.75.h),
+                                  EdgeInsets.symmetric(vertical: 15.75.h),
                                   height: 1.h,
                                   color: Color(0xff979797),
                                 );
@@ -234,6 +263,16 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                   child: Container(
                                     height: 40.h,
                                     child: TextFormField(
+                                      maxLines: 1,
+                                      controller: coupon,
+                                      showCursor: true,
+                                      cursorColor:
+                                      Theme.of(context).primaryColor,
+                                      keyboardType: TextInputType.text,
+                                      style: TextStyle(color: Colors.black45),
+                                      inputFormatters: [
+                                        WhiteSpacesInputFormatter(),
+                                      ],
                                       decoration: InputDecoration(
                                         fillColor: Colors.white,
                                         filled: true,
@@ -243,11 +282,11 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                             .textTheme
                                             .headline4!
                                             .copyWith(
-                                              color: Color(0xffcccccc),
-                                            ),
+                                          color: Color(0xffcccccc),
+                                        ),
                                         border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(5.w),
+                                          BorderRadius.circular(5.w),
                                           borderSide: BorderSide(
                                             color: Colors.transparent,
                                             width: 1.w,
@@ -255,31 +294,42 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                         ),
                                         enabledBorder: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(5.w),
+                                          BorderRadius.circular(5.w),
                                           borderSide: BorderSide(
                                             color: Colors.transparent,
                                             width: 1.w,
                                           ),
                                         ),
-                                        suffixIcon: Container(
-                                          height: 40.h,
-                                          width: 90.w,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                              bottomRight: Radius.circular(5.r),
-                                              topRight: Radius.circular(5.r),
+                                        alignLabelWithHint: true,
+                                        suffixIcon: InkWell(
+                                          onTap: () {
+                                            if (coupon.text.trim().isNotEmpty) {
+                                              BlocProvider.of<BasketCubit>(
+                                                  context)
+                                                  .getCoupon(coupon.text);
+                                            }
+                                          },
+                                          child: Container(
+                                            height: 40.h,
+                                            width: 90.w,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                bottomRight:
+                                                Radius.circular(5.r),
+                                                topRight: Radius.circular(5.r),
+                                              ),
+                                              color: Color(0xff107CC0),
                                             ),
-                                            color: Color(0xff107CC0),
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "Apply",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline2!
-                                                .copyWith(
-                                                  fontWeight: FontWeight.w500,
-                                                ),
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              "Apply",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline2!
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -288,13 +338,16 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("Subtotal",
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline4),
-                                    Text("EGP 840",
+                                    Text(
+                                        isPressed == false
+                                            ? "EGP ${state.basket!.data!.subTotal}"
+                                            : "EGP $subTotal",
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline4),
@@ -305,13 +358,16 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("Discount",
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline4),
-                                    Text("- EGP 120",
+                                    Text(
+                                        isPressed == false
+                                            ? "- EGP ${state.basket!.data!.discount}"
+                                            : "- EGP $discount",
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline4),
@@ -322,31 +378,35 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("Delivery charge"),
-                                    Text("+ EGP 50"),
+                                    Text(isPressed == false
+                                        ? "+ EGP ${state.basket!.data!.deliveryCharge}"
+                                        : "+ EGP $deliveryCharge"),
                                   ],
                                 ),
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(top: 16.h, bottom: 28.h),
+                                  EdgeInsets.only(top: 16.h, bottom: 28.h),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text("Total price",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline4),
                                       Text(
-                                        "EGP ${state.basket!.data!.total}",
+                                        isPressed == false
+                                            ? "EGP ${state.basket!.data!.total}"
+                                            : "EGP $total",
                                         style: Theme.of(context)
                                             .textTheme
                                             .caption!
                                             .copyWith(
-                                              color: Color(0xff107CC0),
-                                            ),
+                                          color: Color(0xff107CC0),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -371,18 +431,34 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 // )
                               ],
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ))
-                : BasketEmptyScreen();
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-    );
+                    : BasketEmptyScreen();
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        ));
+  }
+}
+
+class WhiteSpacesInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    var text = newValue.text;
+    if (newValue.selection.baseOffset == 0) {
+      return newValue;
+    }
+
+    var string = text.trim();
+    return newValue.copyWith(
+        text: string,
+        selection: new TextSelection.collapsed(offset: string.length));
   }
 }

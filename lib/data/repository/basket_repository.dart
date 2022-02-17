@@ -1,5 +1,6 @@
 import 'package:coffepedia/data/models/add_to_basket.dart';
 import 'package:coffepedia/data/models/basket.dart';
+import 'package:coffepedia/data/models/coupon.dart';
 import 'package:coffepedia/data/models/remove_from_basket.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/database/database_provider.dart';
@@ -28,4 +29,9 @@ class BasketRepository {
   Future createBasket(BasketDataItems basket) => userDao.createBasket(basket);
   Future updateBasket(BasketDataItems basket) => userDao.updateBasket(basket);
   Future deleteBasketById(int id) => userDao.deleteBasket(id);
+
+  Future<Coupon> postCoupon(String coupon) async {
+    final result = basketWebServices.postCoupon(coupon);
+    return result;
+  }
 }

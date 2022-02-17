@@ -2,6 +2,7 @@ import 'package:coffepedia/business_logic/make_order/make_order_cubit.dart';
 import 'package:coffepedia/data/repository/make_order_repository.dart';
 import 'package:coffepedia/data/web_services/make_order_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/check-internet_connection.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/screens/orders_history_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
@@ -63,7 +64,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CheckInternetConnection(screen: Scaffold(
       body: BlocBuilder<MakeOrderCubit, MakeOrderState>(
         builder: (context, state) {
           if (state is MakeOrderIsLoaded) {
@@ -76,8 +77,8 @@ class _SuccessScreenState extends State<SuccessScreen> {
                   Text(
                     'Thank You',
                     style: Theme.of(context).textTheme.caption!.copyWith(
-                          fontSize: 22.sp,
-                        ),
+                      fontSize: 22.sp,
+                    ),
                   ),
                   SizedBox(
                     height: 17.h,
@@ -108,8 +109,8 @@ class _SuccessScreenState extends State<SuccessScreen> {
                     'You will recieve an email with your order details and the expecting shipping date',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 12.sp,
-                        ),
+                      fontSize: 12.sp,
+                    ),
                   ),
                   SizedBox(
                     height: 24.h,
@@ -151,8 +152,8 @@ class _SuccessScreenState extends State<SuccessScreen> {
                     child: Text(
                       'Continue Shopping',
                       style: Theme.of(context).textTheme.headline2!.copyWith(
-                            color: Color(0xff007CC6),
-                          ),
+                        color: Color(0xff007CC6),
+                      ),
                     ),
                   ),
                 ],
@@ -165,6 +166,6 @@ class _SuccessScreenState extends State<SuccessScreen> {
           }
         },
       ),
-    );
+    ));
   }
 }

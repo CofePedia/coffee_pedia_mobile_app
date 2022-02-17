@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,7 +36,7 @@ class _HomePageState extends State<HomePage> {
           badgeContent: Text(
             '2',
             style:
-                Theme.of(context).textTheme.headline5!.copyWith(color: kGrey5),
+            Theme.of(context).textTheme.headline5!.copyWith(color: kGrey5),
           ),
           child: SvgPicture.asset(
             image,
@@ -53,58 +54,59 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      bottomNavigationBar: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 69.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(22.r),
-            topRight: Radius.circular(22.r),
-          ),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(22.0),
-            topRight: Radius.circular(22.0),
-          ),
-          child: BottomNavigationBar(
-            items: [
-              getItem(Assets.iconsHome, "Shop", 0),
-              getItem(Assets.iconsShoppingBasket, "My Basket", 1),
-              getItem(Assets.iconsProfile, "Profile", 2),
-              getItem(Assets.iconsMore, "More", 3),
-            ],
-            currentIndex: currentIndex,
-            onTap: (index) {
-              setState(() {
-                currentIndex = index;
-              });
-            },
-            type: BottomNavigationBarType.fixed,
-            selectedItemColor: Color(0xff4470C1),
-            selectedLabelStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
+    return CheckInternetConnection(
+        screen: Scaffold(
+          extendBody: true,
+          bottomNavigationBar: Container(
+            width: MediaQuery.of(context).size.width,
+            height: 69.h,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(22.r),
+                topRight: Radius.circular(22.r),
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(22.0),
+                topRight: Radius.circular(22.0),
+              ),
+              child: BottomNavigationBar(
+                items: [
+                  getItem(Assets.iconsHome, "Shop", 0),
+                  getItem(Assets.iconsShoppingBasket, "My Basket", 1),
+                  getItem(Assets.iconsProfile, "Profile", 2),
+                  getItem(Assets.iconsMore, "More", 3),
+                ],
+                currentIndex: currentIndex,
+                onTap: (index) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+                type: BottomNavigationBarType.fixed,
+                selectedItemColor: Color(0xff4470C1),
+                selectedLabelStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
                   color: Color(0xff4470C1),
                   fontWeight: FontWeight.w900,
                 ),
-            unselectedLabelStyle:
+                unselectedLabelStyle:
                 Theme.of(context).textTheme.bodyText2!.copyWith(
-                      color: Color(0xff606C74),
-                      fontWeight: FontWeight.w900,
-                    ),
+                  color: Color(0xff606C74),
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ),
           ),
-        ),
-      ),
-      body: IndexedStack(
-        index: currentIndex,
-        children: [
-          HomeScreenProvider(),
-          CheckoutItemsScreenProvider(),
-          ProfileScreen(),
-          MoreScreen(),
-        ],
-      ),
-    );
+          body: IndexedStack(
+            index: currentIndex,
+            children: [
+              HomeScreenProvider(),
+              CheckoutItemsScreenProvider(),
+              ProfileScreen(),
+              MoreScreen(),
+            ],
+          ),
+        ),);
   }
 }

@@ -31,3 +31,13 @@ class UpdateLocalBasketError extends BasketState {}
 class DeleteLocalBasket extends BasketState {}
 
 class DeleteLocalBasketError extends BasketState {}
+
+class CouponIsPressed extends BasketState {
+  final Coupon? coupon;
+  CouponIsPressed(this.coupon);
+}
+
+class CouponUnvalid extends BasketState {
+  final Exception? error;
+  CouponUnvalid(this.error);
+}

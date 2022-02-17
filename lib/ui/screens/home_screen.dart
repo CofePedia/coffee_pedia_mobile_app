@@ -3,6 +3,7 @@ import 'package:coffepedia/business_logic/home_ads/home_ads_cubit.dart';
 import 'package:coffepedia/data/repository/home_ads_repository.dart';
 import 'package:coffepedia/data/web_services/home_ads_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/screens/home/ads.dart';
 import 'package:coffepedia/ui/screens/home/brands_icons.dart';
 import 'package:coffepedia/ui/screens/home/card_recent_products.dart';
@@ -53,8 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // TODO: every section should have its own data
+    return CheckInternetConnection(screen: Scaffold(
       body: BlocBuilder<HomeAdsCubit, HomeAdsState>(
         builder: (context, state) {
           if (state is HomeAdsLoaded) {
@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.zero,
                         itemBuilder: (context, index) => AdBanner(
                           adImageBackground:
-                              state.homeAds!.data!.topHeader![index].image,
+                          state.homeAds!.data!.topHeader![index].image,
                           onPress: onTap,
                         ),
                       ),
@@ -145,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context, index) {
                           return Ads(
                             adImageBackground:
-                                state.homeAds!.data!.inPage![index].image,
+                            state.homeAds!.data!.inPage![index].image,
                           );
                         },
                       ),
@@ -163,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
       ),
-    );
+    ));
   }
 
   onTap() {
