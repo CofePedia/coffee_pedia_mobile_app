@@ -8,14 +8,15 @@ part 'me_state.dart';
 
 class MeCubit extends Cubit<MeState> {
   final MeRepository meRepository;
-
   MeCubit(this.meRepository) : super(MeInitial());
   void getMe() {
     meRepository.getMe().then(
       (value) {
         emit(MeIsLoaded(value));
       },
-    );
+    ).onError((error, stackTrace) {
+      emit(MeIsNotExist());
+    });
   }
 
   void logout() {

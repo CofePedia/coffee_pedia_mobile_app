@@ -5,10 +5,11 @@ import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/database/database_provider.dart';
 
 class BasketRepository {
-  BasketRepository(this.basketWebServices);
-
   final BasketWebServices basketWebServices;
   final userDao = UserDao();
+  BasketRepository(this.basketWebServices);
+
+
 
   Future<Basket> getBasket() async {
     final basket = basketWebServices.getBasket();
@@ -25,7 +26,12 @@ class BasketRepository {
     return removeFromBasket;
   }
 
-  Future createBasket(BasketDataItems basket) => userDao.createBasket(basket);
-  Future updateBasket(BasketDataItems basket) => userDao.updateBasket(basket);
-  Future deleteBasketById(int id) => userDao.deleteBasket(id);
+  Future addProductInLocalBasket(BasketLocal basketLocal) => userDao.addProductInLocalBasket(basketLocal);
+  Future deleteFromLocalBasket(int productId) => userDao.deleteFromLocalBasket(productId);
+  Future truncateLocalBasket() => userDao.truncateLocalBasket();
+  Future updateQuantityInLocalBasket(int productId, int quantity) => userDao.updateQuantityInLocalBasket(productId, quantity);
+  Future incrementQuantityInLocalBasket(int productId) => userDao.IncrementQuantityInLocalBasket(productId);
+  Future decrementQuantityInLocalBasket(int productId) => userDao.DecrementQuantityInLocalBasket(productId);
+  Future<List<BasketLocal>> getAllLocalProductsFromBasket() => userDao.getAllLocalProductsFromBasket();
+
 }

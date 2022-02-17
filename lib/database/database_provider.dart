@@ -8,11 +8,28 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-final userTable = 'userTable';
-final basketTable = 'basketTable';
+
 
 class DatabaseProvider {
   static final DatabaseProvider dbProvider = DatabaseProvider();
+
+  static final userTable = 'userTable';
+  static final columnIdUser = 'id';
+  static final columnTokenUser = 'token';
+
+  static final basketTable = 'basketTable';
+  static final columnIdBasket = 'id';
+  static final columnProductIdBasket = 'product_id';
+  static final columnQuantityBasket = 'quantity';
+  static final columnPriceBasket = 'price';
+  static final columnPriceBeforeDiscountBasket = 'price_before_discount';
+  static final columnNameBasket = 'name';
+  static final columnVendorBasket = 'vendor';
+  static final columnImageBasket = 'image';
+
+  static final wishesTable = 'wishesTable';
+  static final columnIdWishes = 'id';
+  static final columnProductIdWishes = 'product_id';
 
   Database? _database;
 
@@ -30,7 +47,7 @@ class DatabaseProvider {
 
     var database = await openDatabase(
       path,
-      version: 1,
+      version: 4,
       onCreate: initDB,
       onUpgrade: onUpgrade,
     );
@@ -47,13 +64,22 @@ class DatabaseProvider {
 
   void initDB(Database database, int version) async {
     await database.execute("CREATE TABLE $userTable ("
-        "id INTEGER PRIMARY KEY, "
-        "token TEXT "
+        "$columnIdUser INTEGER PRIMARY KEY, "
+        "$columnTokenUser TEXT "
         ")");
     await database.execute("CREATE TABLE $basketTable ("
-        "id INTEGER PRIMARY KEY autoincrement, "
-        "product_id integer "
-        "quantity integer "
+        /*"$columnIdBasket INTEGER PRIMARY KEY autoincrement, "*/
+        "$columnProductIdBasket integer PRIMARY KEY, "
+        "$columnQuantityBasket integer, "
+        "$columnPriceBasket TEXT, "
+        "$columnNameBasket TEXT, "
+        "$columnVendorBasket TEXT, "
+        "$columnImageBasket TEXT, "
+        "$columnPriceBeforeDiscountBasket TEXT "
+        ")");
+    await database.execute("CREATE TABLE $wishesTable ("
+        "$columnIdWishes INTEGER PRIMARY KEY autoincrement, "
+        "$columnProductIdWishes integer "
         ")");
   }
 }
@@ -61,11 +87,9 @@ class DatabaseProvider {
 class UserDao {
   final dbProvider = DatabaseProvider.dbProvider;
 
-  Future<int> createUser(
-    LoginData user,
-  ) async {
+  Future<int> createUser(LoginData user,) async {
     final db = await dbProvider.database;
-    var result = db.insert(userTable, {"id": "0", "token": user.token});
+    var result = db.insert(DatabaseProvider.userTable, {"id": "0", "token": user.token});
     getUserToken();
     return result;
   }
@@ -73,7 +97,7 @@ class UserDao {
   Future<int> deleteUser() async {
     final db = await dbProvider.database;
     var result = await db.delete(
-      userTable,
+      DatabaseProvider.userTable,
       // where: "id = 0",
       // whereArgs: [id],
     );
@@ -83,7 +107,7 @@ class UserDao {
   Future<int> updateUser(int id, LoginDataUser user) async {
     final db = await dbProvider.database;
     var result = await db
-        .update(userTable, user.toJson(), where: "id = ?", whereArgs: [id]);
+        .update(DatabaseProvider.userTable, user.toJson(), where: "id = ?", whereArgs: [id]);
     return result;
   }
 
@@ -91,7 +115,7 @@ class UserDao {
     final db = await dbProvider.database;
     try {
       List<Map> users =
-          await db.query(userTable, where: 'token = ?', whereArgs: [token]);
+          await db.query(DatabaseProvider.userTable, where: 'token = ?', whereArgs: [token]);
       if (users.length > 0) {
         return true;
       } else {
@@ -106,7 +130,7 @@ class UserDao {
     final db = await dbProvider.database;
     try {
       List<Map> users =
-          await db.query(userTable, where: 'id = ?', whereArgs: [id]);
+          await db.query(DatabaseProvider.userTable, where: 'id = ?', whereArgs: [id]);
       if (users.length > 0) {
         return true;
       } else {
@@ -120,13 +144,92 @@ class UserDao {
   Future<GetTokenDatabase?> getUserToken() async {
     final db = await dbProvider.database;
     try {
-      var res = await db.rawQuery("SELECT token FROM $userTable WHERE id=0");
+      var res = await db.rawQuery("SELECT token FROM ${DatabaseProvider.userTable} WHERE id=0");
       return res.isNotEmpty ? GetTokenDatabase.fromJson(res.first) : null;
     } catch (err) {
       return null;
     }
   }
 
+  //BASKET ...
+  Future addProductInLocalBasket(BasketLocal basketLocal) async {
+    final db = await dbProvider.database;
+    // row to insert
+    Map<String, dynamic> row = {
+      DatabaseProvider.columnProductIdBasket  : basketLocal.productId,
+      DatabaseProvider.columnQuantityBasket  : basketLocal.quantity,
+      DatabaseProvider.columnPriceBasket  : basketLocal.price,
+      DatabaseProvider.columnNameBasket  : basketLocal.name,
+      DatabaseProvider.columnVendorBasket  : basketLocal.vendor,
+      DatabaseProvider.columnImageBasket  : basketLocal.image,
+      DatabaseProvider.columnPriceBeforeDiscountBasket  : basketLocal.priceBeforeDiscount,
+    };
+    // do the insert and get the id of the inserted row
+    int id = await db.insert(DatabaseProvider.basketTable, row);
+    // show the results: print all rows in the db
+    print(await db.query(DatabaseProvider.basketTable));
+    return id;
+  }
+  Future deleteFromLocalBasket(int productId) async {
+    final db = await dbProvider.database;
+    var result = await db.delete(DatabaseProvider.basketTable,
+        where: '${DatabaseProvider.columnProductIdBasket} = ?', whereArgs: [productId]);
+    print(await db.query(DatabaseProvider.basketTable));
+    return result;
+  }
+  Future truncateLocalBasket() async {
+    final db = await dbProvider.database;
+    var result = await db.execute("DELETE FROM ${DatabaseProvider.basketTable}");
+    print(await db.query(DatabaseProvider.basketTable));
+    print("local basket is empty!!");
+    return result;
+  }
+  Future updateQuantityInLocalBasket(int productId, int quantity) async {
+    final db = await dbProvider.database;
+    var result = await db.execute("UPDATE ${DatabaseProvider.basketTable} "
+        "SET ${DatabaseProvider.columnQuantityBasket} = $quantity "
+        "WHERE ${DatabaseProvider.columnProductIdBasket} = $productId");
+    print(await db.query(DatabaseProvider.basketTable));
+    return result;
+  }
+  Future IncrementQuantityInLocalBasket(int productId) async {
+    final db = await dbProvider.database;
+    var result = await db.execute("UPDATE ${DatabaseProvider.basketTable} "
+        "SET ${DatabaseProvider.columnQuantityBasket} = ${DatabaseProvider.columnQuantityBasket} + 1 "
+        "WHERE ${DatabaseProvider.columnProductIdBasket} = $productId");
+    print(await db.query(DatabaseProvider.basketTable));
+    return result;
+  }
+  Future DecrementQuantityInLocalBasket(int productId) async {
+    final db = await dbProvider.database;
+    var result = await db.execute("UPDATE ${DatabaseProvider.basketTable} "
+        "SET ${DatabaseProvider.columnQuantityBasket} = ${DatabaseProvider.columnQuantityBasket} - 1 "
+        "WHERE ${DatabaseProvider.columnProductIdBasket} = $productId");
+    print(await db.query(DatabaseProvider.basketTable));
+    return result;
+  }
+  Future<List<BasketLocal>> getAllLocalProductsFromBasket() async {
+    final db = await dbProvider.database;
+    // do the insert and get the id of the inserted row
+    List<Map> result = await db.query(DatabaseProvider.basketTable);
+
+    List<BasketLocal> baskets = [];
+    // print the results
+    result.forEach((row) {
+      baskets.add(
+        BasketLocal(
+          productId: row[DatabaseProvider.columnProductIdBasket],
+          quantity: row[DatabaseProvider.columnQuantityBasket],
+          price: row[DatabaseProvider.columnPriceBasket],
+          name: row[DatabaseProvider.columnNameBasket],
+          vendor: row[DatabaseProvider.columnVendorBasket],
+          image: row[DatabaseProvider.columnImageBasket],
+          priceBeforeDiscount: row[DatabaseProvider.columnPriceBeforeDiscountBasket],
+        ));
+    });
+
+    return baskets;
+  }
   // final data = {
   //   basketTable: [
   //     {"product_id": 10, "quantity": "img1"},
@@ -135,25 +238,31 @@ class UserDao {
   // };
   //
   // final String dataAsJson = json.encode(data);
-
-  Future<int> createBasket(
-    BasketDataItems basket,
-  ) async {
+  //basket...
+  /* Future<int> addProductInBasket(BasketDataItems basket , String quantity) async {
     final db = await dbProvider.database;
-    var result = db.insert(basketTable, basket.toJson());
-    return result;
+    // row to insert
+    Map<String, dynamic> row = {
+      DatabaseProvider.columnProductIdBasket  : basket.id.toString(),
+      DatabaseProvider.columnQuantityBasket  : quantity
+    };
+    // do the insert and get the id of the inserted row
+    int id = await db.insert(DatabaseProvider.wishesTable, row);
+    // show the results: print all rows in the db
+    print(await db.query(DatabaseProvider.wishesTable));
+    return id;
   }
-
   Future<int> deleteBasket(int id) async {
     final db = await dbProvider.database;
-    var result = await db.delete(basketTable, where: 'id = ?', whereArgs: [id]);
+    var result = await db.delete(DatabaseProvider.basketTable, where: 'id = ?', whereArgs: [id]);
     return result;
   }
-
   Future<int> updateBasket(BasketDataItems basket) async {
     final db = await dbProvider.database;
-    var result = await db.update(basketTable, basket.toJson(),
+    var result = await db.update(DatabaseProvider.basketTable, basket.toJson(),
         where: "id = ?", whereArgs: [basket.id]);
     return result;
   }
+
+*/
 }

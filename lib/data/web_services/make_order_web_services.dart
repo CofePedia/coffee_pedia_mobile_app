@@ -14,11 +14,11 @@ class MakeOrderWebServices {
 
     GetTokenDatabase? token = await userDao.getUserToken();
 
-    print("token makeOrder = " + token!.getToken!);
+    //print("token makeOrder = " + token!.getToken!);
 
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
       body: {
         'address_id': addressId,
         'payment_id': paymentId,

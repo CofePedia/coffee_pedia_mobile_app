@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:coffepedia/business_logic/product/product_cubit.dart';
+import 'package:coffepedia/data/models/basket.dart';
 import 'package:coffepedia/data/repository/product_repository.dart';
 import 'package:coffepedia/data/web_services/product_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
@@ -145,6 +146,16 @@ class _ProductScreenState extends State<ProductScreen> {
                         context: context,
                         isScrollControlled: true,
                         builder: (context) => CheckoutPopUpProvider(
+                            basketLocal: BasketLocal(
+                              productId: int.parse(state.product!.data!.id.toString()),
+                              quantity: counter,
+                              image:( state.product!.data!.images != null && state.product!.data!.images!.isNotEmpty )
+                                  ? state.product!.data!.images![0] : "",
+                              price: state.product!.data!.price.toString(),
+                              vendor: state.product!.data!.vendor!.companyName,
+                              name: state.product!.data!.name,
+                              priceBeforeDiscount: state.product!.data!.priceBeforeDiscount.toString()
+                            ),
                             title: state.product!.data!.name,
                             image: state.product!.data!.images![0],
                             totalPrice: state.product!.data!.price.toString(),

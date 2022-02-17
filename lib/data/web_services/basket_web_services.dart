@@ -19,7 +19,7 @@ class BasketWebServices {
 
     final http.Response response = await http.get(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
     );
     print("response Basket ${response.body}");
 
@@ -37,10 +37,12 @@ class BasketWebServices {
 
   Future<AddToBasket> getAddToBasket(List<Map<String, int>> productsMap) async {
     GetTokenDatabase? token = await userDao.getUserToken();
+    print("my token = " + token!.token.toString());
     var headers = {
       'Authorization': 'Bearer ' + token!.getToken!,
       'Content-Type': 'application/json'
     };
+    print("productsMap = " + productsMap.toString());
     var request = http.Request('POST', Uri.parse(baseUrl + '/cart/add'));
     request.body = json.encode({"products": productsMap}
         //     {
@@ -68,11 +70,11 @@ class BasketWebServices {
     final url = Uri.parse(baseUrl + '/removeFromCart');
     GetTokenDatabase? token = await userDao.getUserToken();
 
-    print("token remove from basket = " + token!.getToken!);
+    //print("token remove from basket = " + token!.getToken!);
 
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
       body: {
         'product_id': productId,
       },
@@ -90,4 +92,5 @@ class BasketWebServices {
       );
     }
   }
+
 }

@@ -13,11 +13,11 @@ class WishlistWebServices {
   Future<Wishlist> getWishlist() async {
     final url = Uri.parse(baseUrl + 'wishlist');
     GetTokenDatabase? token = await userDao.getUserToken();
-    print("token wishlist = " + token!.getToken!);
+    //print("token wishlist = " + token!.getToken!);
 
     final http.Response response = await http.get(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
     );
     print("response wishlist ${response.body}");
 
@@ -37,11 +37,11 @@ class WishlistWebServices {
       String productId) async {
     final url = Uri.parse(baseUrl + 'toggleProductInWishlist');
     GetTokenDatabase? token = await userDao.getUserToken();
-    print("token toggleProductInWishlist = " + token!.getToken!);
+    //print("token toggleProductInWishlist = " + token!.getToken!);
 
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
       body: {
         'product_id': productId,
       },

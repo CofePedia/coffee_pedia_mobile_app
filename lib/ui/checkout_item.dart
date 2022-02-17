@@ -4,6 +4,7 @@ import 'package:coffepedia/business_logic/wishlist/wishlist_cubit.dart';
 import 'package:coffepedia/data/repository/wishlist_repository.dart';
 import 'package:coffepedia/data/web_services/wishlist_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class CheckoutItemProvider extends StatelessWidget {
   final String title;
   final String productId;
-
+  final bool isLocal;
   final String image;
   final String price;
   final String? priceBeforeDiscount;
@@ -21,7 +22,8 @@ class CheckoutItemProvider extends StatelessWidget {
   const CheckoutItemProvider(
       {required this.quantity,
       required this.title,
-      this.priceBeforeDiscount,
+      required this.priceBeforeDiscount,
+      required this.isLocal,
       required this.vendor,
       required this.image,
       required this.price,
@@ -45,6 +47,7 @@ class CheckoutItemProvider extends StatelessWidget {
         price: price,
         priceBeforeDiscount: priceBeforeDiscount,
         productId: productId,
+        isLocal: isLocal,
       ),
     );
   }
@@ -59,10 +62,12 @@ class CheckoutItem extends StatefulWidget {
       required this.image,
       required this.price,
       required this.productId,
+      required this.isLocal,
       Key? key})
       : super(key: key);
 
   final String title;
+  final bool isLocal;
   final String image;
   final String price;
   final String? priceBeforeDiscount;
@@ -77,6 +82,7 @@ class CheckoutItem extends StatefulWidget {
 class _CheckoutItemState extends State<CheckoutItem> {
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Column(
@@ -85,7 +91,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            height: 76.h,
+            height: 80.h,
             margin: EdgeInsets.only(bottom: 12.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -160,7 +166,12 @@ class _CheckoutItemState extends State<CheckoutItem> {
               InkWell(
                 onTap: () {
                   setState(() {
-                    widget.quantity++;
+                    //if(widget.isLocal){
+                      BlocProvider.of<BasketCubit>(context)
+                          .updateQuantityInLocalBasket(int.parse(widget.productId.toString()) ,
+                          int.parse(widget.quantity.toString())+1);
+                    //}else
+                     // widget.quantity++;
                   });
                 },
                 child: CircleAvatar(
@@ -188,7 +199,13 @@ class _CheckoutItemState extends State<CheckoutItem> {
               InkWell(
                 onTap: () {
                   setState(() {
-                    if (widget.quantity > 1) widget.quantity--;
+                    if(/*widget.isLocal && */widget.quantity > 1){
+                      BlocProvider.of<BasketCubit>(context)
+                          .updateQuantityInLocalBasket(int.parse(widget.productId.toString()) ,
+                          int.parse(widget.quantity.toString())-1);
+                    }
+                    // else
+                    //   if (widget.quantity > 1) widget.quantity--;
                   });
                 },
                 child: CircleAvatar(
@@ -202,6 +219,8 @@ class _CheckoutItemState extends State<CheckoutItem> {
                 ),
               ),
               Spacer(),
+              //(!widget.isLocal)
+
               BlocListener<WishlistCubit, WishlistState>(
                 listener: (context, state) {
                   if (state is ToggleProductsInWishlistIsLoaded) {
@@ -213,8 +232,12 @@ class _CheckoutItemState extends State<CheckoutItem> {
                   builder: (context, state) {
                     return InkWell(
                       onTap: () {
-                        BlocProvider.of<WishlistCubit>(context)
-                            .getToggleProductsInWishlist(widget.productId);
+                        if(!widget.isLocal){
+                          BlocProvider.of<WishlistCubit>(context)
+                              .getToggleProductsInWishlist(widget.productId);
+                        }else{
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage()));
+                        }
                       },
                       child: Row(
                         children: [
@@ -240,16 +263,27 @@ class _CheckoutItemState extends State<CheckoutItem> {
                   },
                 ),
               ),
+
+              //(!widget.isLocal)
+
               Container(
                 width: 2.w,
                 height: 25.h,
                 margin: EdgeInsets.symmetric(horizontal: 11.w),
                 color: Color(0xff484848),
               ),
+
+              //remove button
               InkWell(
                 onTap: () {
                   BlocProvider.of<BasketCubit>(context)
-                      .getRemoveFromBasket(widget.productId);
+                    .deleteFromLocalBasket(int.parse(widget.productId));
+                  /*if(widget.isLocal){
+
+                  }else {
+                    BlocProvider.of<BasketCubit>(context)
+                        .getRemoveFromBasket(widget.productId);
+                  }*/
                 },
                 child: Row(
                   children: [

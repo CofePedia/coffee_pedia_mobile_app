@@ -87,11 +87,11 @@ class AddressWebServices {
     final url = Uri.parse(baseUrl + 'addAddress');
     GetTokenDatabase? token = await userDao.getUserToken();
 
-    print("token = " + token!.getToken!);
+    //print("token = " + token!.getToken!);
 
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
       body: {
         'governorate_id': governorateId,
         'city_id': cityId,
@@ -118,11 +118,11 @@ class AddressWebServices {
   Future<MyAddresses> getMyAddresses() async {
     final url = Uri.parse(baseUrl + 'myAddresses');
     GetTokenDatabase? token = await userDao.getUserToken();
-    print("token myAddresses = " + token!.getToken!);
+    //print("token myAddresses = " + token!.getToken!);
 
     final http.Response response = await http.get(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
     );
     print("response myAddresses ${response.body}");
 
@@ -191,10 +191,10 @@ class AddressWebServices {
     final url = Uri.parse(baseUrl + 'updateAddress');
     GetTokenDatabase? token = await userDao.getUserToken();
 
-    print("token updateAddress = " + token!.getToken!);
+    //print("token updateAddress = " + token!.getToken!);
 
     final http.Response response = await http.post(url,
-        headers: {'Authorization': 'Bearer ' + token.getToken!},
+        headers: {'Authorization': 'Bearer ' + token!.getToken!},
         body: queryParameters);
     print("response updateAddress ${response.body}");
 
@@ -216,11 +216,11 @@ class AddressWebServices {
     final url = Uri.parse(baseUrl + 'deleteAddress');
     GetTokenDatabase? token = await userDao.getUserToken();
 
-    print("token deleteAddress = " + token!.getToken!);
+    //print("token deleteAddress = " + token!.getToken!);
 
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
       body: {
         'address_id': addressId,
       },
