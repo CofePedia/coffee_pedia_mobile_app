@@ -14,6 +14,10 @@ class MeIsLoaded extends MeState {
   MeIsLoaded(this.me);
 }
 
+class MeIsNotExist extends MeState {
+  MeIsNotExist();
+}
+
 class IsLogout extends MeState {
   final Logout? logout;
   IsLogout(this.logout);

@@ -20,7 +20,7 @@ class BasketWebServices {
 
     final http.Response response = await http.get(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
     );
     print("response Basket ${response.body}");
 
@@ -38,10 +38,12 @@ class BasketWebServices {
 
   Future<AddToBasket> getAddToBasket(List<Map<String, int>> productsMap) async {
     GetTokenDatabase? token = await userDao.getUserToken();
+    print("my token = " + token!.token.toString());
     var headers = {
       'Authorization': 'Bearer ' + token!.getToken!,
       'Content-Type': 'application/json'
     };
+    print("productsMap = " + productsMap.toString());
     var request = http.Request('POST', Uri.parse(baseUrl + '/cart/add'));
     request.body = json.encode({"products": productsMap}
       //     {
@@ -69,11 +71,11 @@ class BasketWebServices {
     final url = Uri.parse(baseUrl + '/removeFromCart');
     GetTokenDatabase? token = await userDao.getUserToken();
 
-    print("token remove from basket = " + token!.getToken!);
+    //print("token remove from basket = " + token!.getToken!);
 
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
       body: {
         'product_id': productId,
       },
@@ -82,34 +84,6 @@ class BasketWebServices {
 
     if (response.statusCode == 200) {
       return RemoveFromBasket.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(json.decode(response.body).toString());
-      throw Exception(
-        json.decode(response.body),
-      );
-    }
-  }
-
-  Future<Coupon> postCoupon(String coupon) async {
-    final url = Uri.parse(baseUrl + '/checkCoupon');
-
-    GetTokenDatabase? token = await userDao.getUserToken();
-
-    print("token coupon = " + token!.getToken!);
-
-    final http.Response response = await http.post(
-      url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
-      body: {
-        'coupon': coupon,
-      },
-    );
-    print("response coupon ${response.body}");
-
-    if (response.statusCode == 200) {
-      return Coupon.fromJson(
         json.decode(response.body),
       );
     } else {

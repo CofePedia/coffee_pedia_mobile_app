@@ -20,17 +20,56 @@ class RemoveFromBasketIsPressed extends BasketState {
   RemoveFromBasketIsPressed(this.removeFromBasket);
 }
 
-class CreateLocalBasket extends BasketState {}
+///// LOCAL FROM SQfLITE
+class AddToCartPressed extends BasketState {
+  List<BasketLocal>  basketLocalList;
+  AddToCartPressed(this.basketLocalList);
+}
+class LocalBasketLoaded extends BasketState {
+  List<BasketLocal>  basketLocalList;
+  LocalBasketLoaded(this.basketLocalList);
+}
+class LocalBasketError extends BasketState {
+  String error;
+  LocalBasketError(this.error);
+}
+class RemoveFromLocalBasketIsPressed extends BasketState {
+  RemoveFromLocalBasketIsPressed();
+}
+class AddToLocalBasketIsPressed extends BasketState {
+  AddToLocalBasketIsPressed();
+}
 
-class CreateLocalBasketError extends BasketState {}
 
-class UpdateLocalBasket extends BasketState {}
+class AddedLocalBasket extends BasketState {
+  // final AddedLocalBasket? addedLocalBasket;
+  AddedLocalBasket(/*this.addedLocalBasket*/);
+}
 
-class UpdateLocalBasketError extends BasketState {}
+class AddedLocalBasketError extends BasketState {
+  String error;
+  AddedLocalBasketError(this.error);
+}
 
-class DeleteLocalBasket extends BasketState {}
+class UpdateLocalBasket extends BasketState {
+  // final UpdateLocalBasket? updateLocalBasket;
+  UpdateLocalBasket(/*this.updateLocalBasket*/);
+}
 
-class DeleteLocalBasketError extends BasketState {}
+class UpdateLocalBasketError extends BasketState {
+  String error;
+  UpdateLocalBasketError(this.error);
+}
+
+class DeleteLocalBasket extends BasketState {
+  // final DeleteLocalBasket? deleteLocalBasket;
+  DeleteLocalBasket(/*this.deleteLocalBasket*/);
+}
+
+class DeleteLocalBasketError extends BasketState {
+  String error;
+  DeleteLocalBasketError(this.error);
+}
 
 class CouponIsPressed extends BasketState {
   final Coupon? coupon;

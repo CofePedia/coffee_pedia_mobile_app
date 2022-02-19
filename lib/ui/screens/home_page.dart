@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants/colors.dart';
 import '../checkout_items_screen.dart';
 import 'home_screen.dart';
+import 'intro/login_register_screen.dart';
 import 'more_screen.dart';
 import 'profile_screen.dart';
 
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
           showBadge: index == 1 ? true : false,
           // font change
           badgeContent: Text(
-            '2',
+            '3',
             style:
             Theme.of(context).textTheme.headline5!.copyWith(color: kGrey5),
           ),

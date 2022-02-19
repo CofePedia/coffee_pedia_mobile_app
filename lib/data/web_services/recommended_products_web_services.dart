@@ -13,11 +13,11 @@ class RecommendedProductsWebServices {
     final url = Uri.parse(baseUrl + 'recommendedProduct');
     GetTokenDatabase? token = await userDao.getUserToken();
 
-    print("token RecommendedProducts = " + token!.getToken!);
+    //print("token RecommendedProducts = " + token!.getToken!);
 
     final http.Response response = await http.get(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
     );
     print("response RecommendedProducts ${response.body}");
 
@@ -26,6 +26,7 @@ class RecommendedProductsWebServices {
         json.decode(response.body),
       );
     } else {
+      print("recommended = " +response.body.toString());
       print(json.decode(response.body).toString());
       throw Exception(
         json.decode(response.body),

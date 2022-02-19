@@ -3,7 +3,10 @@ import 'package:coffepedia/business_logic/auth/auth_bloc.dart';
 import 'package:coffepedia/business_logic/login/login_bloc.dart';
 import 'package:coffepedia/business_logic/signup/form_submission_status.dart';
 import 'package:coffepedia/business_logic/signup/signup_bloc.dart';
+import 'package:coffepedia/data/models/basket.dart';
+import 'package:coffepedia/data/repository/basket_repository.dart';
 import 'package:coffepedia/data/repository/user_repository.dart';
+import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
@@ -78,7 +81,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
       body: MultiBlocListener(
         listeners: [
           BlocListener<LoginBloc, LoginState>(
-            listener: (context, state) {
+            listener: (context, state) async {
               if (state is LoginFailure) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -87,6 +90,58 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   ),
                 );
               } else if (state is LoginSuccess) {
+                /*// we need to get the basket and put it all(replace the existing) inside the local database
+                //1) delete all items from database.
+                final BasketRepository basketRepository = BasketRepository(BasketWebServices(),);
+                await basketRepository.truncateLocalBasket();
+                */
+
+                //TODO 1) get all items from the local database..
+                final BasketRepository basketRepository = BasketRepository(BasketWebServices(),);
+                List<Map<String, int>> basket = [];
+                print("A 1");
+                List<BasketLocal> basketInLocal = await basketRepository.getAllLocalProductsFromBasket();
+                print("A 2++");
+                if (basketInLocal != null && basketInLocal.isNotEmpty) {
+                  print("A 2 inside if");
+                  print("A 2 " + basketInLocal.length.toString());
+                  basketInLocal.forEach((element) {
+                    Map<String, int> basketMap = {
+                      "product_id": int.parse(element.productId.toString()),
+                      "quantity": int.parse(element.quantity.toString())
+                    };
+                    basket.add(basketMap);
+                  });
+                  print("A 3");
+                  //TODO 3) send all the products to the database..
+                  basketRepository.getAddToBasket(basket);
+                }else{
+                  print("A 2--");
+                  //TODO: 4) there are no items in the local DB, so we will check if there's anything in the backend basket
+                  // we need to get them and put them in the local database
+                  Basket basket = await basketRepository.getBasket();
+                  if(basket != null){
+                    if(basket.data!.items!.isNotEmpty){
+                      basket.data!.items!.forEach((element) {
+                        BasketLocal basketLocal = BasketLocal(
+                          productId: int.parse(element!.id.toString()),
+                          quantity:  int.parse(element!.quantity.toString()),
+                          priceBeforeDiscount: element!.priceBeforeDiscount.toString(),
+                          image: (element!.images != null && element!.images!.length > 0) ? element!.images![0] : element!.image,
+                          name: element!.name,
+                          price: element!.price.toString(),
+                          vendor: element!.vendor,
+                        );
+                        basketRepository.addProductInLocalBasket(basketLocal);
+                      });
+                    }else{
+                      // صباح الفل خلاص :D
+                    }
+                  }
+
+                }
+
+
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) => HomePage(

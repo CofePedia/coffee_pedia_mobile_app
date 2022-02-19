@@ -256,6 +256,13 @@ class BasketData {
   }
 }
 
+class BasketLocal{
+  int? productId, quantity;
+  String? name , image , vendor , price, priceBeforeDiscount;
+  BasketLocal({this.productId, this.quantity, this.name, this.image,
+      this.vendor, this.price, this.priceBeforeDiscount});
+}
+
 class Basket {
 /*
 {

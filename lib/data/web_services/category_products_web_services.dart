@@ -51,11 +51,11 @@ class CategoryProductsWebServices {
     final uri = Uri.https(getBaseUrl, '/products', queryParameters);
     print('queryParameters $queryParameters');
     GetTokenDatabase? token = await userDao.getUserToken();
-    print("token product " + token!.getToken!);
+    //print("token product " + token!.getToken!);
 
     final http.Response response = await http.get(
       uri,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
     );
     print("response categoryProducts ${response.body}");
     if (response.statusCode == 200) {

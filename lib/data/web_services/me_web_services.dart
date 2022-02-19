@@ -13,11 +13,11 @@ class MeWebServices {
   Future<MeModel> getMe() async {
     final url = Uri.parse(baseUrl + 'auth/me');
     GetTokenDatabase? token = await userDao.getUserToken();
-    print("token me = " + token!.getToken!);
+    //print("token me = " + token!.getToken!);
 
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
     );
     print("response me ${response.body}");
 
@@ -37,11 +37,11 @@ class MeWebServices {
     final url = Uri.parse(baseUrl + '/auth/logout');
     GetTokenDatabase? token = await userDao.getUserToken();
 
-    print("token logout" + token!.getToken!);
+    //print("token logout" + token!.getToken!);
 
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
     );
     print("response logout ${response.body}");
 
