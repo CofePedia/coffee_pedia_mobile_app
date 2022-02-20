@@ -29,7 +29,7 @@ class BasketWebServices {
         json.decode(response.body),
       );
     } else {
-      print(json.decode(response.body).toString());
+      print("response.body = " + (response.body).toString());
       throw Exception(
         json.decode(response.body),
       );
@@ -93,4 +93,32 @@ class BasketWebServices {
       );
     }
   }
+  Future<Coupon> postCoupon(String coupon) async {
+    final url = Uri.parse(baseUrl + '/checkCoupon');
+
+    GetTokenDatabase? token = await userDao.getUserToken();
+
+    print("token coupon = " + token!.getToken!);
+
+    final http.Response response = await http.post(
+      url,
+      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      body: {
+        'coupon': coupon,
+      },
+    );
+    print("response coupon ${response.body}");
+
+    if (response.statusCode == 200) {
+      return Coupon.fromJson(
+        json.decode(response.body),
+      );
+    } else {
+      print(json.decode(response.body).toString());
+      throw Exception(
+        json.decode(response.body),
+      );
+    }
+  }
+
 }

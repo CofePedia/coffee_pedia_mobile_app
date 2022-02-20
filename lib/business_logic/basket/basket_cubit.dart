@@ -137,7 +137,9 @@ class BasketCubit extends Cubit<BasketState> {
     }
     print("A 3");
     //TODO 3) send all the products to the database..
-    basketRepository.getAddToBasket(basket);
+    basketRepository.getAddToBasket(basket).then((value) {
+      emit(AddToBasketIsPressed(value));
+    });
 
   }
 
@@ -147,6 +149,7 @@ class BasketCubit extends Cubit<BasketState> {
         .then(
           (value) async {
             emit(RemoveFromLocalBasketIsPressed(),);
+
             //TODO 2) get all items from the local database..
             List<Map<String, int>> basket = [];
             print("A 1");
@@ -168,8 +171,16 @@ class BasketCubit extends Cubit<BasketState> {
             }
             print("A 3");
             //TODO 3) send all the products to the database..
-            basketRepository.getAddToBasket(basket);
+            if(basket.length > 0) {
+              basketRepository.getAddToBasket(basket).then((value) {
+                emit(AddToBasketIsPressed(value));
+              });
+            }else {
+              basketRepository.getRemoveFromBasket(productId.toString()).then((value) {
+                emit(RemoveFromLocalBasketIsPressed());
+              });
 
+            }
           }
         )
         .catchError((error) {
@@ -207,7 +218,9 @@ class BasketCubit extends Cubit<BasketState> {
             }
             print("A 3");
             //TODO 3) send all the products to the database..
-            basketRepository.getAddToBasket(basket);
+            basketRepository.getAddToBasket(basket).then((value) {
+              emit(AddToBasketIsPressed(value));
+            });
           }
        )
         .catchError((error) {

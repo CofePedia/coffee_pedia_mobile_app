@@ -54,7 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CheckInternetConnection(screen: Scaffold(
+    return CheckInternetConnection(
+        screen: Scaffold(
       body: BlocBuilder<HomeAdsCubit, HomeAdsState>(
         builder: (context, state) {
           if (state is HomeAdsLoaded) {

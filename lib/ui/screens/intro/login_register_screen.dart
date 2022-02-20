@@ -95,7 +95,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 final BasketRepository basketRepository = BasketRepository(BasketWebServices(),);
                 await basketRepository.truncateLocalBasket();
                 */
-
                 //TODO 1) get all items from the local database..
                 final BasketRepository basketRepository = BasketRepository(BasketWebServices(),);
                 List<Map<String, int>> basket = [];
@@ -115,10 +114,10 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   print("A 3");
                   //TODO 3) send all the products to the database..
                   basketRepository.getAddToBasket(basket);
-                }else{
+                }
+                else{
                   print("A 2--");
-                  //TODO: 4) there are no items in the local DB, so we will check if there's anything in the backend basket
-                  // we need to get them and put them in the local database
+                  //TODO: 4) there are no items in the local DB, so we will check if there's anything in the backend basket we need to get them and put them in the local database
                   Basket basket = await basketRepository.getBasket();
                   if(basket != null){
                     if(basket.data!.items!.isNotEmpty){
@@ -138,7 +137,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                       // صباح الفل خلاص :D
                     }
                   }
-
                 }
 
 
