@@ -96,10 +96,13 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 await basketRepository.truncateLocalBasket();
                 */
                 //TODO 1) get all items from the local database..
-                final BasketRepository basketRepository = BasketRepository(BasketWebServices(),);
+                final BasketRepository basketRepository = BasketRepository(
+                  BasketWebServices(),
+                );
                 List<Map<String, int>> basket = [];
                 print("A 1");
-                List<BasketLocal> basketInLocal = await basketRepository.getAllLocalProductsFromBasket();
+                List<BasketLocal> basketInLocal =
+                    await basketRepository.getAllLocalProductsFromBasket();
                 print("A 2++");
                 if (basketInLocal != null && basketInLocal.isNotEmpty) {
                   print("A 2 inside if");
@@ -114,31 +117,33 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   print("A 3");
                   //TODO 3) send all the products to the database..
                   basketRepository.getAddToBasket(basket);
-                }
-                else{
+                } else {
                   print("A 2--");
                   //TODO: 4) there are no items in the local DB, so we will check if there's anything in the backend basket we need to get them and put them in the local database
                   Basket basket = await basketRepository.getBasket();
-                  if(basket != null){
-                    if(basket.data!.items!.isNotEmpty){
+                  if (basket != null) {
+                    if (basket.data!.items!.isNotEmpty) {
                       basket.data!.items!.forEach((element) {
                         BasketLocal basketLocal = BasketLocal(
                           productId: int.parse(element!.id.toString()),
-                          quantity:  int.parse(element!.quantity.toString()),
-                          priceBeforeDiscount: element!.priceBeforeDiscount.toString(),
-                          image: (element!.images != null && element!.images!.length > 0) ? element!.images![0] : element!.image,
-                          name: element!.name,
-                          price: element!.price.toString(),
-                          vendor: element!.vendor,
+                          quantity: int.parse(element.quantity.toString()),
+                          priceBeforeDiscount:
+                              element.priceBeforeDiscount.toString(),
+                          image: (element.images != null &&
+                                  element.images!.length > 0)
+                              ? element.images![0]
+                              : element.image,
+                          name: element.name,
+                          price: element.price.toString(),
+                          vendor: element.vendor,
                         );
                         basketRepository.addProductInLocalBasket(basketLocal);
                       });
-                    }else{
+                    } else {
                       // صباح الفل خلاص :D
                     }
                   }
                 }
-
 
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(

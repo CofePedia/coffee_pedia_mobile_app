@@ -20,7 +20,7 @@ class BasketWebServices {
 
     final http.Response response = await http.get(
       url,
-      headers: {'Authorization': 'Bearer ' + token!.getToken!},
+      headers: {'Authorization': 'Bearer ' + token.getToken!},
     );
     print("response Basket ${response.body}");
 
@@ -40,18 +40,18 @@ class BasketWebServices {
     GetTokenDatabase? token = await userDao.getUserToken();
     print("my token = " + token!.token.toString());
     var headers = {
-      'Authorization': 'Bearer ' + token!.getToken!,
+      'Authorization': 'Bearer ' + token.getToken!,
       'Content-Type': 'application/json'
     };
     print("productsMap = " + productsMap.toString());
     var request = http.Request('POST', Uri.parse(baseUrl + '/cart/add'));
     request.body = json.encode({"products": productsMap}
-      //     {
-      //   "products": [
-      //     {"product_id": 35, "quantity": 5}
-      //   ]
-      // }
-    );
+        //     {
+        //   "products": [
+        //     {"product_id": 35, "quantity": 5}
+        //   ]
+        // }
+        );
     request.headers.addAll(headers);
     final response = await request.send();
     final http.Response res = await http.Response.fromStream(response);
@@ -93,6 +93,7 @@ class BasketWebServices {
       );
     }
   }
+
   Future<Coupon> postCoupon(String coupon) async {
     final url = Uri.parse(baseUrl + '/checkCoupon');
 
@@ -120,5 +121,4 @@ class BasketWebServices {
       );
     }
   }
-
 }
