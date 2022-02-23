@@ -3,6 +3,7 @@ import 'package:coffepedia/data/repository/categories_repository.dart';
 import 'package:coffepedia/data/web_services/categories_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/category_screen.dart';
+import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -133,9 +134,7 @@ class _CardCategoryState extends State<CardCategory> {
             ),
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return CategoryShimmerWidget();
         }
       },
     );

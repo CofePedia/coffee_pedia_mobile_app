@@ -4,7 +4,6 @@ import 'package:coffepedia/data/repository/user_repository.dart';
 import 'package:coffepedia/services/preferences.dart';
 import 'package:coffepedia/services/translator.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
-import 'package:coffepedia/ui/screens/intro/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -88,7 +87,13 @@ class MyApp extends StatelessWidget {
             navigatorObservers: [
               BotToastNavigatorObserver(),
             ],
-            home:  HomePage(currentIndex: 0,), /*SplashScreen()*/
+            home: HomePage(
+              currentIndex: 0,
+            ),
+            /*SplashScreen()*/
+            // home: SellerInfoScreen(),
+            // home: ShimmerWidget(),
+
             theme: ThemeData(
               colorScheme: ThemeData().colorScheme.copyWith(
                     secondary: Color(0xffffffff),

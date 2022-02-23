@@ -16,7 +16,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../main.dart';
 import 'checkout_item.dart';
 import 'delivery_info_screen.dart';
 
@@ -60,17 +59,18 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
     super.initState();
     init();
   }
+
   bool isLoggedIn = false;
 
   final TextEditingController coupon = TextEditingController();
   bool discountLoading = false;
   bool isPressed = false;
-  String? subTotal ;
-  String? discount ;
-  String? deliveryCharge ;
-  String? total ;
+  String? subTotal;
+  String? discount;
+  String? deliveryCharge;
+  String? total;
 
-  init() async{
+  init() async {
     BlocProvider.of<MeCubit>(context).getMe();
     //final userDao = UserDao();
     //GetTokenDatabase? token = await userDao.getUserToken();
@@ -80,40 +80,37 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if(!isLoggedIn)
+    if (!isLoggedIn)
       BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
-    if(isLoggedIn)
-      BlocProvider.of<BasketCubit>(context).getBasket();
+    if (isLoggedIn) BlocProvider.of<BasketCubit>(context).getBasket();
     return CheckInternetConnection(
-      screen: MultiBlocListener(
-          listeners: [
-            BlocListener<BasketCubit, BasketState>(
-              listener: (context, state) {
-                if(state is AddToBasketIsPressed){
-                  print("AddToBasketIsPressed");
-                  if(isLoggedIn)
-                    BlocProvider.of<BasketCubit>(context).getBasket();
-                }
-                else if (state is CouponUnvalid) {
-                  BotToast.showText(text: state.error!.toString());
-                  if(isLoggedIn)
-                    BlocProvider.of<BasketCubit>(context).getBasket();
-                  setState(() {
-                    isPressed = false;
-                  });
-                }
-                else if (state is CouponIsPressed) {
-                  setState(() {
-                    isPressed = true;
-                  });
-                  if(isLoggedIn)
-                    BlocProvider.of<BasketCubit>(context).getBasket();
-                  if (isPressed == true) {
-                    subTotal = state.coupon!.data!.subTotal!.toString();
-                    discount = state.coupon!.data!.discount!.toString();
-                    deliveryCharge = state.coupon!.data!.deliveryCharge!.toString();
-                    total = state.coupon!.data!.totalPrice!.toString();
-                  }
+        screen: MultiBlocListener(
+            listeners: [
+          BlocListener<BasketCubit, BasketState>(
+            listener: (context, state) {
+              if (state is AddToBasketIsPressed) {
+                print("AddToBasketIsPressed");
+                if (isLoggedIn)
+                  BlocProvider.of<BasketCubit>(context).getBasket();
+              } else if (state is CouponUnvalid) {
+                BotToast.showText(text: state.error!.toString());
+                if (isLoggedIn)
+                  BlocProvider.of<BasketCubit>(context).getBasket();
+                setState(() {
+                  isPressed = false;
+                });
+              } else if (state is CouponIsPressed) {
+                setState(() {
+                  isPressed = true;
+                });
+                if (isLoggedIn)
+                  BlocProvider.of<BasketCubit>(context).getBasket();
+                if (isPressed == true) {
+                  subTotal = state.coupon!.data!.subTotal!.toString();
+                  discount = state.coupon!.data!.discount!.toString();
+                  deliveryCharge =
+                      state.coupon!.data!.deliveryCharge!.toString();
+                  total = state.coupon!.data!.totalPrice!.toString();
                 }
                 else if (state is RemoveFromBasketIsPressed) {
                   BotToast.showText(text: state.removeFromBasket!.data!.msg!);
@@ -203,7 +200,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                             ),
                           ),
                           child: Text(
-                            translator.translate("checkout_items_screen.proceed_to_checkout"),
+                            "Proceed to checkout",
                             style: Theme.of(context).textTheme.headline2,
                           ),
                         ),
@@ -223,7 +220,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  translator.translate("checkout_items_screen.shopping_basket"),
+                                  "Shopping Basket",
                                   style: Theme.of(context)
                                       .textTheme
                                       .subtitle1!
@@ -239,7 +236,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        translator.translate("checkout_items_screen.items"),
+                                        "Items",
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1!
@@ -251,7 +248,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                         width: 5.w,
                                       ),
                                       Text(
-                                        "(${state.basket!.data!.totalItems} ${translator.translate("checkout_items_screen.item")})",
+                                        "(${state.basket!.data!.totalItems} Item)",
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline4!
@@ -321,7 +318,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  translator.translate("checkout_items_screen.have_coupon"),
+                                  "Have a coupon?",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
@@ -346,7 +343,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                         fillColor: Colors.white,
                                         filled: true,
                                         contentPadding: EdgeInsets.all(9.h),
-                                        hintText: translator.translate("checkout_items_screen.coupon_code"),
+                                        hintText: "Coupon code",
                                         hintStyle: Theme.of(context)
                                             .textTheme
                                             .headline4!
@@ -391,7 +388,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                             ),
                                             alignment: Alignment.center,
                                             child: Text(
-                                              translator.translate("checkout_items_screen.apply"),
+                                              "Apply",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline2!
@@ -409,14 +406,14 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(translator.translate("checkout_items_screen.subtotal"),
+                                    Text("Subtotal",
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline4),
                                     Text(
                                       isPressed == false
-                                          ? "${translator.translate("checkout_items_screen.egp")} ${state.basket!.data!.subTotal}"
-                                          : "${translator.translate("checkout_items_screen.egp")} $subTotal",
+                                          ? "EGP ${state.basket!.data!.subTotal}"
+                                          : "EGP $subTotal",
                                       style:
                                       Theme.of(context).textTheme.headline4,
                                     ),
@@ -429,14 +426,14 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(translator.translate("checkout_items_screen.discount"),
+                                    Text("Discount",
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline4),
                                     Text(
                                         isPressed == false
-                                            ? "- ${translator.translate("checkout_items_screen.egp")} ${state.basket!.data!.discount}"
-                                            : "- ${translator.translate("checkout_items_screen.egp")} $discount",
+                                            ? "- EGP ${state.basket!.data!.discount}"
+                                            : "- EGP $discount",
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline4),
@@ -449,10 +446,10 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(translator.translate("checkout_items_screen.delivery_charge")),
+                                    Text("Delivery charge"),
                                     Text(isPressed == false
-                                        ? "+ ${translator.translate("checkout_items_screen.egp")} ${state.basket!.data!.deliveryCharge}"
-                                        : "+ ${translator.translate("checkout_items_screen.egp")} $deliveryCharge"),
+                                        ? "+ EGP ${state.basket!.data!.deliveryCharge}"
+                                        : "+ EGP $deliveryCharge"),
                                   ],
                                 ),
                                 Padding(
@@ -462,14 +459,14 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(translator.translate("checkout_items_screen.total_price"),
+                                      Text("Total price",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline4),
                                       Text(
                                         isPressed == false
-                                            ? "${translator.translate("checkout_items_screen.egp")} ${state.basket!.data!.total}"
-                                            : "${translator.translate("checkout_items_screen.egp")} $total",
+                                            ? "EGP ${state.basket!.data!.total}"
+                                            : "EGP $total",
                                         style: Theme.of(context)
                                             .textTheme
                                             .caption!
@@ -576,7 +573,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                           ),
                         ),
                         child: Text(
-                          translator.translate("checkout_items_screen.proceed_to_checkout"),
+                          "Proceed to checkout",
                           style: Theme.of(context).textTheme.headline2,
                         ),
                       ),
@@ -596,7 +593,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                translator.translate("checkout_items_screen.shopping_basket"),
+                                "Shopping Basket",
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1!
@@ -612,7 +609,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      translator.translate("checkout_items_screen.items"),
+                                      "Items",
                                       style: Theme.of(context)
                                           .textTheme
                                           .subtitle1!
@@ -624,7 +621,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                       width: 5.w,
                                     ),
                                     Text(
-                                      "(${state.basketLocalList!.length} ${translator.translate("checkout_items_screen.item")})",
+                                      "(${state.basketLocalList!.length} Item)",
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline4!
@@ -693,7 +690,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                translator.translate("checkout_items_screen.coupon_code"),
+                                "Have a coupon?",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1!
@@ -718,7 +715,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                       fillColor: Colors.white,
                                       filled: true,
                                       contentPadding: EdgeInsets.all(9.h),
-                                      hintText: translator.translate("checkout_items_screen.coupon_code"),
+                                      hintText: "Coupon code",
                                       hintStyle: Theme.of(context)
                                           .textTheme
                                           .headline4!
@@ -763,7 +760,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                           ),
                                           alignment: Alignment.center,
                                           child: Text(
-                                            translator.translate("checkout_items_screen.apply"),
+                                            "Apply",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline2!
@@ -781,14 +778,14 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text((translator.translate("checkout_items_screen.subtotal")),
+                                  Text("Subtotal",
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline4),
                                   Text(
                                       isPressed == false
-                                          ? "${Text(translator.translate("checkout_items_screen.egp"))} $subTotal"/*${state.basket!.data!.subTotal}*/
-                                          : "${Text(translator.translate("checkout_items_screen.egp"))} $subTotal",
+                                          ? "EGP $subTotal"/*${state.basket!.data!.subTotal}*/
+                                          : "EGP $subTotal",
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline4),
@@ -801,14 +798,14 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text((translator.translate("checkout_items_screen.discount")),
+                                  Text("Discount",
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline4),
                                   Text(
                                       isPressed == false
-                                          ? "- ${Text(translator.translate("checkout_items_screen.egp"))} $discount"/*${state.basket!.data!.discount}*/
-                                          : "- ${Text(translator.translate("checkout_items_screen.egp"))} $discount",
+                                          ? "- EGP $discount"/*${state.basket!.data!.discount}*/
+                                          : "- EGP $discount",
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline4),
@@ -821,10 +818,10 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(translator.translate("checkout_items_screen.delivery_charge")),
+                                  Text("Delivery charge"),
                                   Text(isPressed == false
-                                      ? "+ ${translator.translate("checkout_items_screen.egp")} $deliveryCharge"/*${state.basket!.data!.deliveryCharge}*/
-                                      : "+ ${translator.translate("checkout_items_screen.egp")} $deliveryCharge"),
+                                      ? "+ EGP $deliveryCharge"/*${state.basket!.data!.deliveryCharge}*/
+                                      : "+ EGP $deliveryCharge"),
                                 ],
                               ),
                               Padding(
@@ -834,15 +831,14 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                        translator.translate("checkout_items_screen.total_price"),
+                                    Text("Total price",
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline4),
                                     Text(
                                       isPressed == false
-                                          ? "${translator.translate("checkout_items_screen.egp") } $total"/*${state.basket!.data!.total}*/
-                                          : "${translator.translate("checkout_items_screen.egp")} $total",
+                                          ? "EGP $total"/*${state.basket!.data!.total}*/
+                                          : "EGP $total",
                                       style: Theme.of(context)
                                           .textTheme
                                           .caption!

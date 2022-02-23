@@ -9,14 +9,18 @@ const kGrey2 = Color(0xff8A8A8A);
 const kGrey3 = Color(0xffCCCCCC);
 const kGrey4 = Color(0xff9D9D9D);
 const kGrey5 = Color(0xff606C74);
+const kGrey6 = Color(0xffEFEFEF);
+const kGrey7 = Color(0xffEDEDED);
+const kGrey8 = Color(0xffD6D6D6);
 
 const kWhite = Color(0xffffffff);
 const kDarkBlue = Color(0xff4367B2);
 const kBlue = Color(0xff4285F4);
 const kBlue2 = Color(0xff007CC6);
 
-
 const kRed = Color(0xffE02020);
 const kGreen = Color(0xff27DC4E);
 const kYellow = Color(0xffFFD008);
+const kYellow2 = Color(0xffF7B500);
+
 const kBabyYellow = Color(0xffFFE77E);
