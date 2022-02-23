@@ -9,6 +9,7 @@ import 'package:coffepedia/ui/screens/filters_screen.dart';
 import 'package:coffepedia/ui/screens/home/search_bar.dart';
 import 'package:coffepedia/ui/shared/custom_outline_button.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
+import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -77,7 +78,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   bool? isRefresh;
   int? _subCategoryId = -1;
   int currentPage = 1;
-  int limit = 2;
+  int limit = 4;
   List<CategoryProductsDataData?> products = [];
   final RefreshController refreshController = RefreshController();
 
@@ -93,17 +94,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
-// BlocProvider.of<CategoryProductsCubit>(
-  //         context)
-  //     .getCategoryProducts(
-  //   limit: limit,
-  //   page: page,
-  //   subCategoryId: _selectedSubCategory!,
-  //   categoryId: widget.categoriesId,
-  //   multiMap: {},
-  //   rangeMap: {},
-  //   singleMap: {},
-  // );
   @override
   void initState() {
     fetchMoreData();
@@ -118,25 +108,23 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoryProductsCubit, CategoryProductsState>(
-      builder: (context, state) {
-        if (state is CategoryProductsIsLoaded) {
-          state.categoryProducts!.data!.paginate!.currentPage! <=
-                  state.categoryProducts!.data!.paginate!.lastPage!
-              ? isRefresh = true
-              : isRefresh = false;
-          // if (_subCategoryId != -1) products.clear();
-          currentPage == 1
-              ? products = state.categoryProducts!.data!.data!
-              : products.addAll(state.categoryProducts!.data!.data!);
-          // products.clear();
-          // products.addAll(state.categoryProducts!.data!.data!);
-          if (isRefresh == true) {
-            currentPage++;
-          }
+    return Scaffold(
+      body: BlocBuilder<CategoryProductsCubit, CategoryProductsState>(
+        builder: (context, state) {
+          if (state is CategoryProductsIsLoaded) {
+            state.categoryProducts!.data!.paginate!.currentPage! <=
+                    state.categoryProducts!.data!.paginate!.lastPage!
+                ? isRefresh = true
+                : isRefresh = false;
+            currentPage == 1
+                ? products = state.categoryProducts!.data!.data!
+                : products.addAll(state.categoryProducts!.data!.data!);
 
-          return Scaffold(
-            body: SmartRefresher(
+            if (isRefresh == true) {
+              currentPage++;
+            }
+
+            return SmartRefresher(
               controller: refreshController,
               enablePullUp: true,
               enablePullDown: false,
@@ -145,6 +133,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 isRefresh == true
                     ? refreshController.loadComplete()
                     : refreshController.loadNoData();
+                print('amrazzam');
               },
               child: CheckInternetConnection(
                 screen: SingleChildScrollView(
@@ -181,12 +170,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       SizedBox(
                         height: 15.h,
                       ),
-                      // CategoryItems(
-                      //   categoriesId: widget.categoriesId,
-                      //   subCategories: widget.subCategories,
-                      //   currentPage: currentPage,
-                      //   limit: limit,
-                      // ),
                       Container(
                         height: 78.h,
                         width: MediaQuery.of(context).size.width,
@@ -199,44 +182,25 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             padding: EdgeInsets.symmetric(horizontal: 4.w),
                             child: OutlinedButton(
                               onPressed: () {
-                                setState(() {
-                                  currentPage = 1;
-                                  widget.multiMap = {};
-                                  widget.rangeMap = {};
-                                  widget.singleMap = {};
-                                  // subCategoryId =
-                                  //     widget.subCategories![index]!.id!;
-                                  // _selectedSubCategory == subCategoryId
-                                  //     ? _selectedSubCategory = -1
-                                  //     : _selectedSubCategory =
-                                  //         widget.subCategories![index]!.id!;
+                                setState(
+                                  () async {
+                                    currentPage = 1;
+                                    widget.multiMap = {};
+                                    widget.rangeMap = {};
+                                    widget.singleMap = {};
 
-                                  _subCategoryId ==
-                                          widget.subCategories![index]!.id!
-                                      ? _subCategoryId = -1
-                                      : _subCategoryId =
-                                          widget.subCategories![index]!.id!;
-                                  fetchMoreData();
-                                  products.clear();
-                                  products.addAll(
-                                      state.categoryProducts!.data!.data!);
-
-                                  // BlocProvider.of<CategoryProductsCubit>(
-                                  //         context)
-                                  //     .getCategoryProducts(
-                                  //   limit: limit,
-                                  //   page: page,
-                                  //   subCategoryId: _selectedSubCategory!,
-                                  //   categoryId: widget.categoriesId,
-                                  //   multiMap: {},
-                                  //   rangeMap: {},
-                                  //   singleMap: {},
-                                  // );
-
-                                  // if (isRefresh == true) {
-                                  //   page++;
-                                  // }
-                                });
+                                    _subCategoryId ==
+                                            widget.subCategories![index]!.id!
+                                        ? _subCategoryId = -1
+                                        : _subCategoryId =
+                                            widget.subCategories![index]!.id!;
+                                    await fetchMoreData();
+                                    refreshController.loadComplete();
+                                    products.clear();
+                                    products.addAll(
+                                        state.categoryProducts!.data!.data!);
+                                  },
+                                );
                                 print('selectedSubCategory $_subCategoryId');
                               },
                               style: ButtonStyle(
@@ -604,14 +568,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ),
                 ),
               ),
-            ),
-          );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
+            );
+          } else {
+            return CategoryProductsShimmerWidget();
+          }
+        },
+      ),
     );
   }
 }
