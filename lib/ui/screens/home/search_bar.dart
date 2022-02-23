@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../main.dart';
+
 class SearchBar extends StatelessWidget {
   const SearchBar({
     Key? key,
@@ -17,7 +19,7 @@ class SearchBar extends StatelessWidget {
       width: width,
       child: TextField(
         decoration: InputDecoration(
-          hintText: 'Search Coffepedia',
+          hintText: translator.translate("home_screen.search"),
           contentPadding: EdgeInsets.all(8.h),
           border: InputBorder.none,
           prefixIcon: SvgPicture.asset(

@@ -16,6 +16,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
+import '../main.dart';
+
 class CheckoutPopUpProvider extends StatelessWidget {
   final BasketLocal? basketLocal;
   final String? image;
@@ -133,14 +135,14 @@ class CheckoutPopUp extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "TOTAL",
+                      translator.translate("checkout_popup.total"),
                       style: Theme.of(context).textTheme.overline,
                     ),
                     SizedBox(
                       height: 16.h,
                     ),
                     Text(
-                      "EGP $totalPrice",
+                      translator.translate("checkout_popup.egp") + totalPrice!,
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             color: Theme.of(context).primaryColor,
                           ),
@@ -289,7 +291,7 @@ class CheckoutPopUp extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      "Proceed to checkout",
+                      translator.translate("checkout_popup.proceed_to_checkout"),
                       style: Theme.of(context).textTheme.headline2,
                     ),
                   ),
@@ -302,7 +304,7 @@ class CheckoutPopUp extends StatelessWidget {
               Navigator.pop(context);
             },
             child: Text(
-              "Continue Shopping",
+              translator.translate("checkout_popup.continue_shopping"),
               style: Theme.of(context).textTheme.headline2!.copyWith(
                     color: Theme.of(context).primaryColor,
                   ),

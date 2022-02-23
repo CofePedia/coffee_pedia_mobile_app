@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../main.dart';
 import 'product_screen.dart';
 
 class CategoryScreenProvider extends StatelessWidget {
@@ -25,13 +26,14 @@ class CategoryScreenProvider extends StatelessWidget {
   final Map<String, String?>? rangeMap;
   final Map<String, String?>? singleMap;
 
-  const CategoryScreenProvider(
-      {required this.categoriesId,
+  const CategoryScreenProvider({
+    required this.categoriesId,
         required this.subCategories,
         required this.multiMap,
         required this.rangeMap,
         required this.singleMap,
-        Key? key})
+        Key? key
+  })
       : super(key: key);
 
   @override
@@ -200,7 +202,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   ),
                                   TextSpan(
                                     text:
-                                    '(${state.categoryProducts!.data!.paginate!.total} Item)',
+                                    '(${state.categoryProducts!.data!.paginate!.total} ${translator.translate("categories_screen.item")})',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline1!
@@ -212,7 +214,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               ),
                             ),
                             CustomOutlineButton(
-                              title: 'Filter',
+                              title: '${translator.translate("categories_screen.filter")}',
                               onPress: () {
                                 showModalBottomSheet(
                                   enableDrag: false,
@@ -384,7 +386,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                   ),
                                                 ),
                                                 child: Text(
-                                                  '${products[index]!.discount}% Off',
+                                                  '${products[index]!.discount}% ${translator.translate("categories_screen.off")}',
 // state.categoryProducts!.data!
 //     .filters![2]!.optionsSingle![2]
 //     .toString(),
@@ -415,7 +417,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                 height: 12.h,
                                               ),
                                               Text(
-                                                'EGP ${products[index]!.priceBeforeDiscount}',
+                                                '${translator.translate("categories_screen.egp")} ${products[index]!.priceBeforeDiscount}',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .bodyText2!
@@ -429,7 +431,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                 height: 8.h,
                                               ),
                                               Text(
-                                                'EGP ${products[index]!.price}',
+                                                '${translator.translate("categories_screen.egp")} ${products[index]!.price}',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .subtitle1,

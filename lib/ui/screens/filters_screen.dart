@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../main.dart';
 import 'category_screen.dart';
 
 class FiltersScreenProvider extends StatelessWidget {
@@ -114,7 +115,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                       alignment: Alignment.centerRight,
                       child: InkWell(
                         child: Text(
-                          'Close',
+                          translator.translate("filter_screen.close"),
                           style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             color: Color(0xff241F20),
                             fontSize: 14.sp,
@@ -281,7 +282,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                             if (multiMap.isEmpty &&
                                 rangeMap.isEmpty &&
                                 singleMap.isEmpty) {
-                              BotToast.showText(text: "Enter Data");
+                              BotToast.showText(text: translator.translate("filter_screen.enter_data"),);
                             } else {
                               // Navigator.of(context).pop();
                               // Navigator.pushReplacement(context, newRoute);
@@ -305,7 +306,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                             //     .getCategoryProducts(0, widget.categoriesId, map);
                             // TODO: change route
                           },
-                          title: 'Show results',
+                          title: translator.translate("filter_screen.show_result"),
                           height: 50.h,
                           width: 345.w,
                           imageWidth: 0,
@@ -327,7 +328,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                             print("singleMap $singleMap");
                           },
                           child: Text(
-                            'Clear all',
+                            translator.translate("filter_screen.clear_all"),
                             style: Theme.of(context).textTheme.headline2!.copyWith(
                               color: Color(0xff007CC6),
                             ),

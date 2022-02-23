@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants/colors.dart';
+import '../../../main.dart';
 import '../../custom_input.dart';
 
 class LoginPage extends StatelessWidget {
@@ -222,7 +223,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                               padding:
                                   EdgeInsets.only(top: 79.7.h, bottom: 32.h),
                               child: Text(
-                                isLogin ? "Login" : "Create Account",
+                                isLogin ? translator.translate("login_registration_screen.login")
+                                    : translator.translate("login_registration_screen.create_account"),
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1!
@@ -337,8 +339,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                     SizedBox(
                                       width: 157.w,
                                       child: CustomInput(
-                                          title: 'First Name',
-                                          hint: "First Name",
+                                          title: translator.translate("login_registration_screen.first_name"),
+                                          hint: translator.translate("login_registration_screen.first_name"),
                                           textEditingController: _firstName,
                                           padding: false,
                                           onChanged: (value) {
@@ -351,8 +353,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                     SizedBox(
                                       width: 157.w,
                                       child: CustomInput(
-                                        title: 'Last Name',
-                                        hint: "Last Name",
+                                        title: translator.translate("login_registration_screen.last_name"),
+                                        hint: translator.translate("login_registration_screen.last_name"),
                                         textEditingController: _lastName,
                                         padding: false,
                                         onChanged: (value) =>
@@ -366,8 +368,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                 ),
                           CustomInput(
                             padding: false,
-                            title: 'Email Address',
-                            hint: "Email Address",
+                            title: translator.translate("login_registration_screen.email_address"),
+                            hint: translator.translate("login_registration_screen.email_address"),
                             textEditingController: _email,
                             onChanged: (value) =>
                                 context.read<SignupBloc>().add(
@@ -375,8 +377,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                     ),
                           ),
                           CustomInput(
-                            title: 'Password',
-                            hint: "Enter password",
+                            title: translator.translate("login_registration_screen.password"),
+                            hint: translator.translate("login_registration_screen.password"),
                             textEditingController: _password,
                             icon: true,
                             padding: false,
@@ -388,8 +390,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           isLogin
                               ? SizedBox.shrink()
                               : CustomInput(
-                                  title: 'Confirm Password',
-                                  hint: "Confirm password",
+                                  title: translator.translate("login_registration_screen.confirm_password"),
+                                  hint: translator.translate("login_registration_screen.confirm_password"),
                                   textEditingController: _confirmPassword,
                                   padding: false,
                                   icon: true,
@@ -417,7 +419,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                         );
                                       },
                                       child: Text(
-                                        "Forgot Password?",
+                                        translator.translate("login_registration_screen.forget_password"),
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline2!
@@ -448,7 +450,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                 ),
                               ),
                               child: Text(
-                                isLogin ? "Login" : "Create Account",
+                                isLogin ? translator.translate("login_registration_screen.login")
+                                    : translator.translate("login_registration_screen.create_account"),
                                 style: Theme.of(context).textTheme.headline2,
                               ),
                             ),
@@ -472,9 +475,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                         children: <TextSpan>[
                                           TextSpan(
                                               text:
-                                                  'By creating account, you accept our '),
+                                              translator.translate("login_registration_screen.accept_msg"),),
                                           TextSpan(
-                                            text: 'terms and conditions',
+                                            text: translator.translate("login_registration_screen.terms_n_conditions"),
                                             style: TextStyle(
                                               color: Theme.of(context)
                                                   .primaryColor,
@@ -482,9 +485,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                                   TextDecoration.underline,
                                             ),
                                           ),
-                                          TextSpan(text: ' and '),
+                                          TextSpan(text: ' ${translator.translate("login_registration_screen.and")} '),
                                           TextSpan(
-                                            text: 'privacy policy',
+                                            text: translator.translate("login_registration_screen.privacy_policy"),
                                             style: TextStyle(
                                               color: Theme.of(context)
                                                   .primaryColor,
@@ -507,9 +510,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           Padding(
                             padding: EdgeInsets.only(top: 32.h, bottom: 6.h),
                             child: Text(
-                              isLogin
-                                  ? "Don’t have an Account"
-                                  : "Have an Account",
+                              isLogin ? translator.translate("login_registration_screen.dont_have_account")
+                                  : translator.translate("login_registration_screen.have_an_account"),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline2!
@@ -525,7 +527,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                               });
                             },
                             child: Text(
-                              isLogin ? "Create account" : "Login",
+                              isLogin ? translator.translate("login_registration_screen.login")
+                                  : translator.translate("login_registration_screen.create_account"),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline2!

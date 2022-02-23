@@ -9,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../main.dart';
+
 class RecommendedProductsProvider extends StatelessWidget {
   const RecommendedProductsProvider({Key? key}) : super(key: key);
 
@@ -183,7 +185,7 @@ class _RecommendedProductsState extends State<RecommendedProducts> {
                                   height: 8.h,
                                 ),
                                 Text(
-                                  'EGP ${result[index]!.price}',
+                                  '${translator.translate("checkout_items_screen.egp")} ${result[index]!.price}',
                                   style: Theme.of(context).textTheme.subtitle1,
                                 ),
                               ],

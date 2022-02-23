@@ -16,6 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../main.dart';
 import 'orders_history_screen.dart';
 import 'profile_item.dart';
 
@@ -93,7 +94,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         Padding(
                           padding: EdgeInsets.only(top: 60.h, bottom: 16.h),
                           child: Text(
-                            "My Profile",
+                            translator.translate("profile_screen.my_profile"),
                             style:
                                 Theme.of(context).textTheme.subtitle1!.copyWith(
                                       color: Colors.black,
@@ -133,7 +134,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Welcome back",
+                                  translator.translate("profile_screen.welcome_back"),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
@@ -163,7 +164,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                       children: [
                         //ordersHistory
                         ProfileItem(
-                          title: "Orders History",
+                          title: translator.translate("profile_screen.order_history"),
                           onPress: () {
                             Navigator.push(
                               context,
@@ -177,7 +178,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         ),
                         //my wishlist
                         ProfileItem(
-                          title: "My wishlist",
+                          title: translator.translate("profile_screen.my_wishlist"),
                           onPress: () {
                             Navigator.push(
                               context,
@@ -191,7 +192,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         ),
                         //address book
                         ProfileItem(
-                          title: "Address Book",
+                          title: translator.translate("profile_screen.address_book"),
                           onPress: () {
                             Navigator.push(
                               context,
@@ -218,7 +219,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         // ),
                         //account settings
                         ProfileItem(
-                          title: "Account settings",
+                          title: translator.translate("profile_screen.account_settings"),
                           onPress: () {
                             Navigator.push(
                               context,
@@ -262,14 +263,14 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                       },
                       child: ListTile(
                         title: Text(
-                          'Switch Language',
+                          translator.translate("profile_screen.switch_language"),
                           style:
                               Theme.of(context).textTheme.headline2!.copyWith(
                                     color: Color(0xff231F20),
                                   ),
                         ),
                         trailing: Text(
-                          'English',
+                          translator.translate("profile_screen.english"),
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
@@ -307,7 +308,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         color: Colors.white,
                       ),
                       child: Text(
-                        'Logout',
+                        translator.translate("profile_screen.logout"),
                         style: Theme.of(context).textTheme.headline4!.copyWith(
                               fontSize: 14.sp,
                               color: Color(0xffE23333),
@@ -355,7 +356,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         Padding(
                           padding: EdgeInsets.only(top: 60.h, bottom: 16.h),
                           child: Text(
-                            "My Profile",
+                            translator.translate("profile_screen.my_profile"),
                             style:
                                 Theme.of(context).textTheme.subtitle1!.copyWith(
                                       color: Colors.black,
@@ -382,7 +383,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Welcome",
+                                  translator.translate("profile_screen.welcome"),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
@@ -407,7 +408,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                       children: [
                         //my wishlist
                         ProfileItem(
-                          title: "My wishlist",
+                          title: translator.translate("profile_screen.my_wishlist"),
                           onPress: () {
                             Navigator.push(
                               context,
@@ -449,14 +450,14 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                       },
                       child: ListTile(
                         title: Text(
-                          'Switch Language',
+                          translator.translate("profile_screen.switch_language"),
                           style:
                               Theme.of(context).textTheme.headline2!.copyWith(
                                     color: Color(0xff231F20),
                                   ),
                         ),
                         trailing: Text(
-                          'English',
+                          translator.translate("profile_screen.english"),
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
@@ -489,7 +490,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         color: Colors.white,
                       ),
                       child: Text(
-                        'Login',
+                        translator.translate("profile_screen.login"),
                         style: Theme.of(context).textTheme.headline2!.copyWith(
                               fontSize: 14.sp,
                               color: kBlue,

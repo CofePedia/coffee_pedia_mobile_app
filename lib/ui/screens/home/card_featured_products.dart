@@ -9,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../main.dart';
+
 class FeaturedProducts extends StatelessWidget {
   const FeaturedProducts({Key? key}) : super(key: key);
 
@@ -177,7 +179,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                   height: 6.h,
                                 ),
                                 Text(
-                                  'EGP ${state.featuredProducts!.data!.data![index]!.priceBeforeDiscount}',
+                                  '${translator.translate("wishlist_screen.egp")} ${state.featuredProducts!.data!.data![index]!.priceBeforeDiscount}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2!
@@ -190,7 +192,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                   height: 8.h,
                                 ),
                                 Text(
-                                  'EGP ${state.featuredProducts!.data!.data![index]!.price}',
+                                  '${translator.translate("wishlist_screen.egp")} ${state.featuredProducts!.data!.data![index]!.price}',
                                   style: Theme.of(context).textTheme.subtitle1,
                                 ),
                               ],

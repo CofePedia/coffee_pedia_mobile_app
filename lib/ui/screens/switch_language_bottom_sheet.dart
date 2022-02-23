@@ -3,6 +3,8 @@ import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../main.dart';
+
 class SwitchLanguageBottomSheet extends StatefulWidget {
   const SwitchLanguageBottomSheet({Key? key}) : super(key: key);
 
@@ -68,7 +70,7 @@ class _SwitchLanguageBottomSheetState extends State<SwitchLanguageBottomSheet> {
               Expanded(
                 child: CustomButton(
                   onPress: () {},
-                  title: 'Save',
+                  title: translator.translate("profile_screen.save"),
                   height: 50.h,
                   width: 345.w,
                   imageWidth: 0,

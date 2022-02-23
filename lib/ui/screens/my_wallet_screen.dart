@@ -2,6 +2,7 @@ import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../main.dart';
 import 'chechbox_widget.dart';
 
 class MyWalletScreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                       width: 10.w,
                     ),
                     Text(
-                      'My Wallet',
+                      translator.translate("wallet_screen.my_wallet"),
                       style: Theme.of(context).textTheme.headline1!.copyWith(
                         fontSize: 18.sp,
                       ),
@@ -74,7 +75,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                                 width: 12.w,
                               ),
                               Text(
-                                'Your balance',
+                                translator.translate("wallet_screen.your_balance"),
                                 style:
                                 Theme.of(context).textTheme.bodyText1!.copyWith(
                                   fontSize: 14.sp,
@@ -83,13 +84,13 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
                             ],
                           ),
                           Text(
-                            'EGP199',
+                            '${translator.translate("wallet_screen.egp")} 199',
                             style: Theme.of(context).textTheme.caption,
                           )
                         ],
                       ),
                       Text(
-                        ' Last update 09 Oct 2021',
+                        '${translator.translate("wallet_screen.last_update")} 09 Oct 2021',
                         style: Theme.of(context).textTheme.headline4,
                       ),
                     ],
@@ -99,7 +100,7 @@ class _MyWalletScreenState extends State<MyWalletScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 16.h),
                 child: CheckboxWidget(
-                  title: 'Use my wallet balance when making order',
+                  title: translator.translate("wallet_screen.use_my_wallet_msg")
                 ),
               ),
             ],

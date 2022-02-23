@@ -1,6 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/login/login_bloc.dart';
 import 'package:coffepedia/data/repository/user_repository.dart';
+import 'package:coffepedia/services/preferences.dart';
+import 'package:coffepedia/services/translator.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/screens/intro/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -12,8 +14,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'business_logic/auth/auth_bloc.dart';
 import 'data/web_services/auth_web_services.dart';
 
+late Translator translator;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Prefs.init();
+  translator = Translator();
+  await translator.init();
+
   await EasyLocalization.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -49,6 +58,7 @@ void main() async {
       );
     },
   );
+
 }
 
 class MyApp extends StatelessWidget {
@@ -70,10 +80,10 @@ class MyApp extends StatelessWidget {
           ],
           child: MaterialApp(
             title: 'Coffepedia',
+            localizationsDelegates: translator.delegates,
+            locale: translator.locale,
+            supportedLocales: translator.locals(),
             debugShowCheckedModeBanner: false,
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
             builder: BotToastInit(),
             navigatorObservers: [
               BotToastNavigatorObserver(),

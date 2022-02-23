@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../main.dart';
 import 'articles_details_screen.dart';
 
 class BlogScreen extends StatefulWidget {
@@ -17,8 +18,8 @@ class BlogScreen extends StatefulWidget {
 
 class _BlogScreenState extends State<BlogScreen> {
   final List<String> mainTabs = [
-    'Articles',
-    'Reviews',
+    translator.translate("address.article"),
+    translator.translate("address.reviews"),
   ];
   final List<IconData> icons = [
     Icons.article,
@@ -67,7 +68,7 @@ class _BlogScreenState extends State<BlogScreen> {
                             width: 10.w,
                           ),
                           Text(
-                            'Blog',
+                            translator.translate("blog_screen.blog"),
                             style: Theme.of(context).textTheme.headline1!.copyWith(
                               fontSize: 18.sp,
                             ),

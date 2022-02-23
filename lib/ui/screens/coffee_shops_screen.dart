@@ -9,6 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../main.dart';
+
 class CoffeeShopsScreen extends StatelessWidget {
   const CoffeeShopsScreen({Key? key}) : super(key: key);
 
@@ -40,7 +42,7 @@ class CoffeeShopsScreen extends StatelessWidget {
                           width: 10.w,
                         ),
                         Text(
-                          'Coffee shops',
+                          translator.translate("coffeeShops_screen.coffee_shops"),
                           style: Theme.of(context).textTheme.headline1!.copyWith(
                             fontSize: 18.sp,
                           ),
@@ -49,14 +51,14 @@ class CoffeeShopsScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Coffee shops nearby you',
+                    translator.translate("coffeeShops_screen.coffee_shops_near_you"),
                     style: Theme.of(context).textTheme.caption,
                   ),
                   SizedBox(
                     height: 12.h,
                   ),
                   CustomTextFormField(
-                    hintText: 'Search …',
+                    hintText: '${translator.translate("coffeeShops_screen.search")} …',
                     width: 345.w,
                     keyboardType: TextInputType.text,
                     height: 43.h,
@@ -92,7 +94,7 @@ class CoffeeShopsScreen extends StatelessWidget {
                         color: Color(0xff8A8A8A),
                       ),
                       hint: Text(
-                        'Select Area',
+                        translator.translate("coffeeShops_screen.select_area"),
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
@@ -105,7 +107,7 @@ class CoffeeShopsScreen extends StatelessWidget {
                   ),
                   CustomButton(
                     onPress: () {},
-                    title: 'Search',
+                    title: translator.translate("coffeeShops_screen.search"),
                     height: 50.h,
                     width: 345.w,
                     imageWidth: 0,
@@ -125,14 +127,14 @@ class CoffeeShopsScreen extends StatelessWidget {
                         text: TextSpan(
                           children: <TextSpan>[
                             TextSpan(
-                              text: 'Coffee shops ',
+                              text: translator.translate("coffeeShops_screen.coffee_shops"),
                               style:
                               Theme.of(context).textTheme.headline1!.copyWith(
                                 fontSize: 18.sp,
                               ),
                             ),
                             TextSpan(
-                              text: '(156 Item)',
+                              text: '(156 ${translator.translate("coffeeShops_screen.item")})',
                               style:
                               Theme.of(context).textTheme.headline1!.copyWith(
                                 fontSize: 12.sp,
@@ -142,7 +144,7 @@ class CoffeeShopsScreen extends StatelessWidget {
                         ),
                       ),
                       CustomOutlineButton(
-                        title: 'Filter',
+                        title: translator.translate("coffeeShops_screen.filter"),
                         onPress: () {},
                         height: 40.h,
                         width: 100.w,
@@ -219,7 +221,7 @@ class CoffeeShopsScreen extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'Starbucks Coffe',
+                                          'Starbucks Coffee',
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1!

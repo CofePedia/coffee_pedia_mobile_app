@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../main.dart';
+
 class ShowOnMapBottomSheet extends StatelessWidget {
   const ShowOnMapBottomSheet({Key? key}) : super(key: key);
 
@@ -83,7 +85,7 @@ class ShowOnMapBottomSheet extends StatelessWidget {
                       width: 7.w,
                     ),
                     Text(
-                      'Show on Map',
+                      translator.translate("map_widget.show_on_map"),
                       style: Theme.of(context).textTheme.headline2,
                     ),
                   ],

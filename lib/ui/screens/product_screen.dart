@@ -15,6 +15,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
+import '../../main.dart';
+
 class ProductProvider extends StatelessWidget {
   final int id;
   const ProductProvider({required this.id, Key? key}) : super(key: key);
@@ -168,7 +170,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     height: 50.h,
                     assetName: Assets.iconsShoppingBasket,
                     borderRadius: 25.r,
-                    title: 'Add to basket',
+                    title: translator.translate("product_screen.add_to_basket"),
                     buttonColor: Theme.of(context).primaryColor,
                     imageColor: Theme.of(context).colorScheme.secondary,
                     imageHeight: 18.h,
@@ -311,7 +313,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                           ),
                                         ),
                                         child: Text(
-                                          '${state.product!.data!.discount}% Off',
+                                          '${state.product!.data!.discount}% ${translator.translate("product_screen.off")}',
                                           textAlign: TextAlign.center,
                                           style: Theme.of(context)
                                               .textTheme
@@ -367,7 +369,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             padding: EdgeInsets.only(
                                 top: 15.h, right: 15.w, left: 15.w),
                             child: Text(
-                              'EGP ${state.product!.data!.priceBeforeDiscount!}',
+                              '${translator.translate("product_screen.egp")} ${state.product!.data!.priceBeforeDiscount!}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
@@ -381,7 +383,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             padding: EdgeInsets.only(
                                 top: 8.h, right: 15.w, left: 15.w),
                             child: Text(
-                              'EGP ${state.product!.data!.price!}',
+                              '${translator.translate("product_screen.egp")} ${state.product!.data!.price!}',
                               style: Theme.of(context).textTheme.subtitle1,
                             ),
                           ),
@@ -424,7 +426,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             padding: EdgeInsets.only(
                                 top: 24.h, right: 15.w, left: 15.w),
                             child: Text(
-                              'About this item',
+                              translator.translate("product_screen.about_this_item"),
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ),
@@ -449,7 +451,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             padding: EdgeInsets.only(
                                 top: 24.h, right: 15.w, left: 15.w),
                             child: Text(
-                              'Product overview',
+                              translator.translate("product_screen.product_overview"),
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ),
@@ -567,7 +569,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Brand',
+                                      translator.translate("product_screen.brand"),
                                       style: Theme.of(context)
                                           .textTheme
                                           .subtitle2!
@@ -599,7 +601,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             padding: EdgeInsets.only(
                                 top: 24.h, right: 15.w, left: 15.w),
                             child: Text(
-                              'About seller',
+                              translator.translate("product_screen.about_seller"),
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ),
@@ -612,7 +614,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                     state.product!.data!.vendor!.coverPhoto!),
                               ),
                               title: Text(
-                                'Seller name',
+                                translator.translate("product_screen.seller_name"),
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle2!

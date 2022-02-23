@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../main.dart';
+
 class RangeFilterSlider extends StatefulWidget {
   final double min;
   final double max;
@@ -68,14 +70,14 @@ class _RangeFilterSliderState extends State<RangeFilterSlider> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              'From: ${low!.round().toString()} EGP',
+              '${translator.translate("range_filter_slider.from")}: ${low!.round().toString()} ${translator.translate("range_filter_slider.egp")}',
               style: Theme.of(context)
                   .textTheme
                   .bodyText1!
                   .copyWith(fontSize: 13.sp),
             ),
             Text(
-              'To: ${high!.round().toString()} EGP',
+              '${translator.translate("range_filter_slider.to")}: ${high!.round().toString()} ${translator.translate("range_filter_slider.egp")}',
               style: Theme.of(context)
                   .textTheme
                   .bodyText1!

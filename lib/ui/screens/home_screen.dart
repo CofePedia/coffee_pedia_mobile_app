@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../main.dart';
 import 'home/ad_banner.dart';
 import 'home/ad_slider.dart';
 import 'home/card_category.dart';
@@ -130,11 +131,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    SectionName(sectionName: "Shop By Category"),
+                    SectionName(sectionName: translator.translate("home_screen.shop_by_category")),
                     Categories(),
-                    SectionName(sectionName: "Featured Products"),
+                    SectionName(sectionName: translator.translate("home_screen.featured_products")),
                     FeaturedProducts(),
-                    SectionName(sectionName: "Shop By Brands"),
+                    SectionName(sectionName: translator.translate("home_screen.shop_by_brands")),
                     BrandsProvider(),
                     Container(
                       margin: EdgeInsets.only(bottom: 24.h),
@@ -153,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
-                    SectionName(sectionName: "Most Recent Products"),
+                    SectionName(sectionName: translator.translate("home_screen.recent_products")),
                     MostRecent(),
                   ],
                 ),

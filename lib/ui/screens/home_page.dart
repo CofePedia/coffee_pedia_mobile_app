@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/colors.dart';
+import '../../main.dart';
 import '../checkout_items_screen.dart';
 import 'home_screen.dart';
 import 'intro/login_register_screen.dart';
@@ -74,10 +75,10 @@ class _HomePageState extends State<HomePage> {
               ),
               child: BottomNavigationBar(
                 items: [
-                  getItem(Assets.iconsHome, "Shop", 0),
-                  getItem(Assets.iconsShoppingBasket, "My Basket", 1),
-                  getItem(Assets.iconsProfile, "Profile", 2),
-                  getItem(Assets.iconsMore, "More", 3),
+                  getItem(Assets.iconsHome, translator.translate("home_screen.home_tap"), 0),
+                  getItem(Assets.iconsShoppingBasket, translator.translate("home_screen.my_basket_tap"), 1),
+                  getItem(Assets.iconsProfile, translator.translate("home_screen.profile_tap"), 2),
+                  getItem(Assets.iconsMore, translator.translate("home_screen.more_tap"), 3),
                 ],
                 currentIndex: currentIndex,
                 onTap: (index) {

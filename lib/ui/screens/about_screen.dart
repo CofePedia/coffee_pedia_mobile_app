@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../main.dart';
 import 'check_internet_connection.dart';
 import 'map_viewer_widget.dart';
 
@@ -37,7 +38,7 @@ class AboutScreen extends StatelessWidget {
                         width: 10.w,
                       ),
                       Text(
-                        'About Coffepedia',
+                        translator.translate("about_screen.about_coffePedia"),
                         style: Theme.of(context).textTheme.headline1!.copyWith(
                           fontSize: 18.sp,
                         ),
@@ -77,7 +78,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Text(
-                    'Our Story',
+                    translator.translate("about_screen.our_story"),
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ),
@@ -87,7 +88,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Text(
-                    'We are a family-owned neighborhood breakfast and lunch restaurant located near Los Angeles International Airport (LAX). We take pride in providing friendly and swift service to our local patrons and those who are traveling or are "on the go". ',
+                    translator.translate("about_screen.our_story_first_paragraph"),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
@@ -97,7 +98,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Text(
-                    'It is also a very labor intensive process involving a vast intercontinental collaboration that starts with the coffee grower, moves from there to the picker, then to the mill workers who meticulously remove the fruit and dry the beans, then to those who clean and grade the beans, to those who roast them, to those consumers and baristas who finally grind the beans and prepare the beverage. Every act along the way can be performed either with passion and precision or with careless shoddiness. It is the cumulative quality of all of these creative contributions that together make the difference between a lackluster cup and a fine and distinctive one.',
+                    translator.translate("about_screen.our_story_second_paragraph"),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
@@ -107,7 +108,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Text(
-                    'What we belive',
+                    translator.translate("about_screen.what_we_believe"),
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ),
@@ -117,7 +118,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Text(
-                    'Our values shape the culture of our organization and define the character of our company. We live the core values through individual behaviors. They serve as the foundation for how we act and make decisions.',
+                    translator.translate("about_screen.what_we_believe_first_paragraph"),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
@@ -127,7 +128,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Text(
-                    'Our partners',
+                    translator.translate("about_screen.our_partners"),
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ),
@@ -137,7 +138,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Text(
-                    'Our network includes a diverse group of development agencies, government organizations, local and national organizations, and other international NGOs. This network is a valuable asset in enabling ICP and its partners to achieve a better future for the millions of smallholder coffee farmer families worldwide.',
+                    translator.translate("about_screen.our_partners_first_paragraph"),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
@@ -175,7 +176,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Text(
-                    'Contacts',
+                    translator.translate("about_screen.contacts"),
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ),
@@ -239,7 +240,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Text(
-                    'Follow us',
+                    translator.translate("about_screen.follow_us"),
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ),

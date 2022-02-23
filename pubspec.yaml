@@ -56,10 +56,6 @@ dependencies:
 
 
 
-
-
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -86,6 +82,8 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/translations/
+    - assets/langs/ar.json
+    - assets/langs/en.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

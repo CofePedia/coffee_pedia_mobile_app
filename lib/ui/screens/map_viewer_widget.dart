@@ -8,6 +8,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
 
+import '../../main.dart';
+
 class MapViewerWidget extends StatefulWidget {
   const MapViewerWidget({Key? key}) : super(key: key);
 
@@ -161,7 +163,7 @@ class _MapViewerWidgetState extends State<MapViewerWidget> {
                                 onPress: () {},
                                 width: 74.w,
                                 height: 25.h,
-                                title: 'Show',
+                                title: translator.translate("map_widget.show"),
                                 borderRadius: 12.5.r,
                                 buttonColor: Theme.of(context).primaryColor,
                               ),
