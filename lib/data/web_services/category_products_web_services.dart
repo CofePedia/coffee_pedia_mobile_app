@@ -37,12 +37,12 @@ class CategoryProductsWebServices {
         'subCategory': subCategoryId.toString(),
       });
     }
-    if (page != -1) {
+    if (page != null) {
       queryParameters.addAll({
         'page': page.toString(),
       });
     }
-    if (limit != -1) {
+    if (limit != null) {
       queryParameters.addAll({
         'limit': limit.toString(),
       });

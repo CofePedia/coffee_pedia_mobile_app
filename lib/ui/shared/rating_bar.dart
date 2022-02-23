@@ -14,10 +14,11 @@ class RatingBarComponent extends StatelessWidget {
       itemBuilder: (context, index) => SvgPicture.asset(
         'assets/icons/star_active.svg',
       ),
-      itemCount: 5, itemPadding: EdgeInsets.all(3.h),
+      itemCount: 5,
+      // itemPadding: EdgeInsets.all(3.h),
       unratedColor: Colors.grey.shade400,
-      itemSize: 16.h,
-      //itemSize: 50.0,
+      itemSize: 19.h,
+      // itemSize: 50.0,
       direction: Axis.horizontal,
     );
   }
