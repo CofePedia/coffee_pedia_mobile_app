@@ -249,12 +249,13 @@ class CategoryProductsShimmerWidget extends StatelessWidget {
                   ),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: 10,
+                  itemCount: 4,
                   itemBuilder: (context, index) {
                     return Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(11.0.r),
-                          color: Colors.white),
+                        borderRadius: BorderRadius.circular(11.0.r),
+                        color: Colors.white,
+                      ),
                     );
                   }),
             ),

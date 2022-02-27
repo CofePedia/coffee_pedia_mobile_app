@@ -55,15 +55,16 @@ class _WishlistScreenState extends State<WishlistScreen> {
   @override
   Widget build(BuildContext context) {
     return CheckInternetConnection(
-      screen: BlocListener<WishlistCubit, WishlistState>(
-        listener: (context, state) {
-          if (state is ToggleProductsInWishlistIsLoaded) {
-            BotToast.showText(text: state.toggleProductsInWishlist!.data!.msg!);
-            BlocProvider.of<WishlistCubit>(context).getWishlist();
-          }
-        },
-        child: Scaffold(
-          body: SingleChildScrollView(
+      screen: Scaffold(
+        body: BlocListener<WishlistCubit, WishlistState>(
+          listener: (context, state) {
+            if (state is ToggleProductsInWishlistIsLoaded) {
+              BotToast.showText(
+                  text: state.toggleProductsInWishlist!.data!.msg!);
+              BlocProvider.of<WishlistCubit>(context).getWishlist();
+            }
+          },
+          child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.only(bottom: 15.h),
               child: Column(

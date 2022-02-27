@@ -5,6 +5,7 @@ import 'package:coffepedia/data/repository/product_repository.dart';
 import 'package:coffepedia/data/web_services/product_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/checkout_popup.dart';
+import 'package:coffepedia/ui/screens/category_screen.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:coffepedia/ui/shared/rating_bar.dart';
@@ -624,34 +625,55 @@ class _ProductScreenState extends State<ProductScreen> {
                                 style: Theme.of(context).textTheme.caption,
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 8.h),
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  radius: 25.sp,
-                                  foregroundImage: NetworkImage(
-                                      state.product!.data!.vendor!.coverPhoto!),
-                                ),
-                                title: Text(
-                                  'Seller name',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                        color: Color(
-                                          0xff8A8A8A,
+                            InkWell(
+                              onTap: () {
+                                print('${state.product!.data!.vendorId}');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return CategoryScreenProvider(
+                                      categoryName:
+                                          state.product!.data!.category!.name,
+                                      subCategories: [],
+                                      multiMap: {},
+                                      rangeMap: {},
+                                      singleMap: {},
+                                      categoriesId:
+                                          state.product!.data!.category!.id,
+                                      vendorId: state.product!.data!.vendorId,
+                                    );
+                                  }),
+                                );
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 8.h),
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    radius: 25.sp,
+                                    foregroundImage: NetworkImage(state
+                                        .product!.data!.vendor!.coverPhoto!),
+                                  ),
+                                  title: Text(
+                                    'Seller name',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2!
+                                        .copyWith(
+                                          color: Color(
+                                            0xff8A8A8A,
+                                          ),
                                         ),
-                                      ),
-                                ),
-                                subtitle: Text(
-                                  state.product!.data!.vendor!.companyName ??
-                                      '',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                      ),
+                                  ),
+                                  subtitle: Text(
+                                    state.product!.data!.vendor!.companyName ??
+                                        '',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2!
+                                        .copyWith(
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                  ),
                                 ),
                               ),
                             ),

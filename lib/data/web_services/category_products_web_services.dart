@@ -10,6 +10,7 @@ class CategoryProductsWebServices {
   final userDao = UserDao();
 
   Future<CategoryProducts> getCategoryProducts({
+    int? vendorId,
     int? limit,
     int? page,
     int? subCategoryId,
@@ -19,7 +20,7 @@ class CategoryProductsWebServices {
     Map<String, String?>? singleMap,
   }) async {
     final Map<String, dynamic> queryParameters = {
-      'category': categoryId.toString(),
+      // 'category': categoryId.toString(),
     };
 
     if (multiMap!.isNotEmpty) {
@@ -31,12 +32,22 @@ class CategoryProductsWebServices {
     if (singleMap!.isNotEmpty) {
       queryParameters.addAll(singleMap);
     }
-
+    if (categoryId != -1) {
+      queryParameters.addAll({
+        'category': categoryId.toString(),
+      });
+    }
     if (subCategoryId != -1) {
       queryParameters.addAll({
         'subCategory': subCategoryId.toString(),
       });
     }
+    if (vendorId != -1) {
+      queryParameters.addAll({
+        'vendor': vendorId.toString(),
+      });
+    }
+
     if (page != null) {
       queryParameters.addAll({
         'page': page.toString(),
@@ -71,4 +82,24 @@ class CategoryProductsWebServices {
       );
     }
   }
+
+  // Future<VendorDetails> getVendorDetails(int vendorId) async {
+  //   final url = Uri.parse(baseUrl + '/vendor_details/$vendorId');
+  //
+  //   final http.Response response = await http.get(
+  //     url,
+  //   );
+  //   print("response vendor details ${response.body}");
+  //
+  //   if (response.statusCode == 200) {
+  //     return VendorDetails.fromJson(
+  //       json.decode(response.body),
+  //     );
+  //   } else {
+  //     print("vendor details error = " + (response.body).toString());
+  //     throw Exception(
+  //       json.decode(response.body),
+  //     );
+  //   }
+  // }
 }

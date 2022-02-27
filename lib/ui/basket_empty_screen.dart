@@ -1,27 +1,26 @@
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
-import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/widgets/recommended_products_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BasketEmptyScreen extends StatelessWidget {
-  bool isLoggedIn;
-  BasketEmptyScreen({required this.isLoggedIn});
+  final bool isLoggedIn;
+  const BasketEmptyScreen({required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
     return CheckInternetConnection(
         screen: Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 60.h, right: 16.w, left: 16.w),
-                child: Text(
-                  "My Basket",
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 60.h, right: 16.w, left: 16.w),
+            child: Text(
+              "My Basket",
+              style: Theme.of(context).textTheme.subtitle1!.copyWith(
                     color: Colors.black,
                   ),
             ),
@@ -79,30 +78,19 @@ class BasketEmptyScreen extends StatelessWidget {
             height: 48.h,
           ),
           (isLoggedIn)
-          ? Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Text(
-              "Recommended based on your shopping history",
-              maxLines: 2,
-              style: Theme.of(context).textTheme.caption,
-            ),
-          ) : SizedBox.shrink(),
+              ? Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Text(
+                    "Recommended based on your shopping history",
+                    maxLines: 2,
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                )
+              : SizedBox.shrink(),
           SizedBox(
             height: 23.h,
           ),
-          (isLoggedIn)
-            ? Container(
-            height: 286.h,
-            child: ListView.builder(
-              itemCount: 5,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return RecommendedProductsProvider();
-              },
-            ),
-          ) : SizedBox.shrink(),
+          (isLoggedIn) ? RecommendedProductsProvider() : SizedBox.shrink(),
         ],
       ),
     ));

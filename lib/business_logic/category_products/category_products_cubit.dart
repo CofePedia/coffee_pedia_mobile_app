@@ -11,6 +11,7 @@ class CategoryProductsCubit extends Cubit<CategoryProductsState> {
       : super(CategoryProductsInitial());
 
   getCategoryProducts({
+    int? vendorId,
     int? limit,
     int? page,
     int? subCategoryId,
@@ -21,6 +22,7 @@ class CategoryProductsCubit extends Cubit<CategoryProductsState> {
   }) {
     categoryProductsRepository
         .getCategoryProducts(
+      vendorId: vendorId,
       limit: limit,
       page: page,
       subCategoryId: subCategoryId,
@@ -35,4 +37,12 @@ class CategoryProductsCubit extends Cubit<CategoryProductsState> {
       },
     );
   }
+
+  // void getVendorDetails(int vendorId) {
+  //   categoryProductsRepository.getVendorDetails(vendorId).then(
+  //     (value) {
+  //       emit(VendorDetailsIsLoaded(value));
+  //     },
+  //   );
+  // }
 }

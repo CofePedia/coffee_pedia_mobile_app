@@ -4,6 +4,7 @@ import 'package:coffepedia/data/web_services/recommended_products_web_services.d
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
+import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -220,9 +221,7 @@ class _RecommendedProductsState extends State<RecommendedProducts> {
             ),
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return FeaturedProductsShimmerWidget();
         }
       },
     );

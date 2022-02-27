@@ -9,6 +9,7 @@ import 'package:coffepedia/ui/screens/filters_screen.dart';
 import 'package:coffepedia/ui/screens/home/search_bar.dart';
 import 'package:coffepedia/ui/shared/custom_outline_button.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
+import 'package:coffepedia/ui/widgets/seller_details_widget.dart';
 import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,18 +20,22 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'product_screen.dart';
 
 class CategoryScreenProvider extends StatelessWidget {
-  final int categoriesId;
+  final int? categoriesId;
+  final int? vendorId;
+  final String? categoryName;
   final List<CategoriesDataChildren?>? subCategories;
-  final Map<String, List<String?>> multiMap;
+  final Map<String, List<String?>>? multiMap;
   final Map<String, String?>? rangeMap;
   final Map<String, String?>? singleMap;
 
   const CategoryScreenProvider(
-      {required this.categoriesId,
-      required this.subCategories,
-      required this.multiMap,
-      required this.rangeMap,
-      required this.singleMap,
+      {this.categoriesId,
+      this.subCategories,
+      this.categoryName,
+      this.multiMap,
+      this.rangeMap,
+      this.singleMap,
+      this.vendorId,
       Key? key})
       : super(key: key);
 
@@ -43,11 +48,13 @@ class CategoryScreenProvider extends StatelessWidget {
         ),
       ),
       child: CategoryScreen(
-        categoriesId: categoriesId,
+        categoriesId: categoriesId!,
         subCategories: subCategories!,
-        multiMap: multiMap,
+        multiMap: multiMap!,
         rangeMap: rangeMap,
         singleMap: singleMap,
+        vendorId: vendorId!,
+        categoryName: categoryName!,
       ),
     );
   }
@@ -55,6 +62,8 @@ class CategoryScreenProvider extends StatelessWidget {
 
 class CategoryScreen extends StatefulWidget {
   final int categoriesId;
+  final int vendorId;
+  final String categoryName;
   final List<CategoriesDataChildren?>? subCategories;
   Map<String, List<String?>> multiMap;
   Map<String, String?>? rangeMap;
@@ -63,9 +72,11 @@ class CategoryScreen extends StatefulWidget {
   CategoryScreen(
       {required this.categoriesId,
       this.subCategories,
+      required this.categoryName,
       required this.multiMap,
       required this.rangeMap,
       required this.singleMap,
+      required this.vendorId,
       Key? key})
       : super(key: key);
 
@@ -84,6 +95,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   fetchMoreData() {
     BlocProvider.of<CategoryProductsCubit>(context).getCategoryProducts(
+      vendorId: widget.vendorId,
       page: currentPage,
       limit: limit,
       subCategoryId: _subCategoryId,
@@ -140,133 +152,234 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        height: 105.h,
-                        width: MediaQuery.of(context).size.width,
-                        color: Theme.of(context).primaryColor,
-                        padding: EdgeInsets.only(
-                            top: 53.h, bottom: 9.h, right: 15.w),
-                        child: Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                Navigator.pop(context, hasData = true);
-                              },
-                              icon: Icon(
-                                Icons.chevron_left,
-                                size: 22.w,
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
-                              color: Color(0xff000000),
-                            ),
-                            Expanded(
-                              child: SearchBar(
-                                width: 309.w,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      Container(
-                        height: 78.h,
-                        width: MediaQuery.of(context).size.width,
-                        child: ListView.builder(
-                          padding: EdgeInsets.only(left: 11.w, right: 11.w),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: widget.subCategories!.length,
-                          itemBuilder: (context, index) => Container(
-                            width: 158.w,
-                            padding: EdgeInsets.symmetric(horizontal: 4.w),
-                            child: OutlinedButton(
-                              onPressed: () {
-                                setState(
-                                  () async {
-                                    currentPage = 1;
-                                    widget.multiMap = {};
-                                    widget.rangeMap = {};
-                                    widget.singleMap = {};
-
-                                    _subCategoryId ==
-                                            widget.subCategories![index]!.id!
-                                        ? _subCategoryId = -1
-                                        : _subCategoryId =
-                                            widget.subCategories![index]!.id!;
-                                    await fetchMoreData();
-                                    refreshController.loadComplete();
-                                    products.clear();
-                                    products.addAll(
-                                        state.categoryProducts!.data!.data!);
-                                  },
-                                );
-                                print('selectedSubCategory $_subCategoryId');
-                              },
-                              style: ButtonStyle(
-                                padding: MaterialStateProperty.all<
-                                    EdgeInsetsGeometry>(
-                                  EdgeInsets.zero,
-                                ),
-                                shape:
-                                    MaterialStateProperty.all<OutlinedBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.w),
-                                  ),
-                                ),
-                                side: MaterialStateProperty.all<BorderSide>(
-                                  BorderSide(
-                                    color: _subCategoryId ==
-                                            widget.subCategories![index]!.id!
-                                        ? Color(0xffCC1010)
-                                        : Colors.transparent,
-                                  ),
-                                ),
-                              ),
-                              child: Stack(
+                      widget.vendorId != -1
+                          ? Padding(
+                              padding: EdgeInsets.only(
+                                  bottom: 31.h,
+                                  left: 18.w,
+                                  right: 18.w,
+                                  top: 60.h),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    height: 72.h,
-                                    width: 145.w,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.r),
-                                      color: Color(0xffEED2BB),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Icon(
+                                      Icons.chevron_left,
+                                      size: 24.w,
                                     ),
                                   ),
-                                  Positioned(
-                                    top: 4.h,
-                                    bottom: 4.h,
-                                    right: 4.w,
-                                    left: 80.w,
-                                    child: Image.network(
-                                      widget.subCategories![index]!.icon!,
-                                      height: 64.h,
-                                      width: 50.w,
-                                    ),
+                                  SizedBox(
+                                    width: 10.w,
                                   ),
-                                  Positioned(
-                                    top: 12.6.h,
-                                    left: 10.w,
-                                    child: Container(
-                                      width: 60.w,
-                                      child: Text(
-                                        widget.subCategories![index]!.name!,
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          color: Color(
-                                            0xff3A1008,
-                                          ),
+                                  Text(
+                                    'Seller info',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline1!
+                                        .copyWith(
+                                          fontSize: 18.sp,
                                         ),
-                                      ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(
+                              height: 105.h,
+                              width: MediaQuery.of(context).size.width,
+                              color: Theme.of(context).primaryColor,
+                              padding: EdgeInsets.only(
+                                  top: 53.h, bottom: 9.h, right: 15.w),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context, hasData = true);
+                                    },
+                                    icon: Icon(
+                                      Icons.chevron_left,
+                                      size: 22.w,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                    ),
+                                    color: Color(0xff000000),
+                                  ),
+                                  Expanded(
+                                    child: SearchBar(
+                                      width: 309.w,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                        ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      widget.vendorId != -1
+                          ? SellerDetailsWidget(
+                              vendorId: widget.vendorId,
+                            )
+                          : SizedBox.shrink(),
+                      Container(
+                        height: 78.h,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListView.builder(
+                            padding: EdgeInsets.only(left: 11.w, right: 11.w),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: widget.vendorId != -1
+                                ? state
+                                    .categoryProducts!.data!.subCategory!.length
+                                : widget.subCategories!.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                width: 158.w,
+                                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                                child: OutlinedButton(
+                                  onPressed: () {
+                                    setState(
+                                      () async {
+                                        currentPage = 1;
+                                        widget.multiMap = {};
+                                        widget.rangeMap = {};
+                                        widget.singleMap = {};
+
+                                        if (widget.vendorId != 1) {
+                                          // _subCategoryId = state.categoryProducts!
+                                          //     .data!.subCategory![index]!.id!;
+
+                                          _subCategoryId ==
+                                                  state.categoryProducts!.data!
+                                                      .subCategory![index]!.id!
+                                              ? _subCategoryId = -1
+                                              : _subCategoryId = state
+                                                  .categoryProducts!
+                                                  .data!
+                                                  .subCategory![index]!
+                                                  .id!;
+                                        } else {
+                                          _subCategoryId ==
+                                                  widget.subCategories![index]!
+                                                      .id!
+                                              ? _subCategoryId = -1
+                                              : _subCategoryId = widget
+                                                  .subCategories![index]!.id!;
+                                        }
+
+                                        // widget.vendorId != -1
+                                        //     ? _subCategoryId = state
+                                        //         .categoryProducts!
+                                        //         .data!
+                                        //         .subCategory![index]!
+                                        //         .id!
+                                        //     : _subCategoryId =
+                                        //         widget.subCategories![index]!.id!;
+
+                                        // _subCategoryId ==
+                                        //         widget.subCategories![index]!.id!
+                                        //     ? _subCategoryId = -1
+                                        //     : _subCategoryId =
+                                        //         widget.subCategories![index]!.id!;
+                                        await fetchMoreData();
+                                        refreshController.loadComplete();
+                                        products.clear();
+                                        products.addAll(state
+                                            .categoryProducts!.data!.data!);
+                                      },
+                                    );
+                                    print(
+                                        'selectedSubCategory2 ${_subCategoryId = widget.subCategories![index]!.id!}');
+                                    print(
+                                        'selectedSubCategory $_subCategoryId');
+                                  },
+                                  style: ButtonStyle(
+                                    padding: MaterialStateProperty.all<
+                                        EdgeInsetsGeometry>(
+                                      EdgeInsets.zero,
+                                    ),
+                                    shape: MaterialStateProperty.all<
+                                        OutlinedBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.w),
+                                      ),
+                                    ),
+                                    side: MaterialStateProperty.all<BorderSide>(
+                                      BorderSide(
+                                          color:
+                                              // _subCategoryId == widget.subCategories![index]!.id ?                                               Color(0xffCC1010)
+
+                                              // _subCategoryId ==
+                                              //             widget
+                                              //                 .subCategories![index]!
+                                              //                 .id! &&
+                                              //         _subCategoryId ==
+                                              //             state
+                                              //                 .categoryProducts!
+                                              //                 .data!
+                                              //                 .subCategory![index]!
+                                              //                 .id!
+                                              //     ?
+                                              Color(0xffCC1010)
+                                          // : Colors.transparent,
+                                          ),
+                                    ),
+                                  ),
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        height: 72.h,
+                                        width: 145.w,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.r),
+                                          color: Color(0xffEED2BB),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 4.h,
+                                        bottom: 4.h,
+                                        right: 4.w,
+                                        left: 80.w,
+                                        child: Image.network(
+                                          widget.vendorId != -1
+                                              ? state.categoryProducts!.data!
+                                                  .subCategory![index]!.icon!
+                                              : widget
+                                                  .subCategories![index]!.icon!,
+                                          height: 64.h,
+                                          width: 50.w,
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 12.6.h,
+                                        left: 10.w,
+                                        child: Container(
+                                          width: 60.w,
+                                          child: Text(
+                                            widget.vendorId != -1
+                                                ? state.categoryProducts!.data!
+                                                    .subCategory![index]!.name!
+                                                : widget.subCategories![index]!
+                                                    .name!,
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: Color(
+                                                0xff3A1008,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
                       ),
                       Padding(
                         padding:
@@ -279,8 +392,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               text: TextSpan(
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text:
-                                        '${state.categoryProducts!.data!.category!.name} ',
+                                    text: widget.vendorId != -1
+                                        ? '${widget.categoryName} '
+                                        : '${state.categoryProducts!.data!.category!.name} ',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline1!

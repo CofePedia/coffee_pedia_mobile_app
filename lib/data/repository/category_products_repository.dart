@@ -7,6 +7,7 @@ class CategoryProductsRepository {
   CategoryProductsRepository(this.categoryProductsWebServices);
 
   Future<CategoryProducts> getCategoryProducts({
+    int? vendorId,
     int? limit,
     int? page,
     int? subCategoryId,
@@ -16,6 +17,7 @@ class CategoryProductsRepository {
     Map<String, String?>? singleMap,
   }) async {
     final categoryProduct = categoryProductsWebServices.getCategoryProducts(
+      vendorId: vendorId,
       limit: limit,
       page: page,
       categoryId: categoryId,
@@ -26,4 +28,9 @@ class CategoryProductsRepository {
     );
     return categoryProduct;
   }
+
+  // Future<VendorDetails> getVendorDetails(int vendorId) async {
+  //   final basket = categoryProductsWebServices.getVendorDetails(vendorId);
+  //   return basket;
+  // }
 }
