@@ -98,30 +98,29 @@ class _SellerDetailsState extends State<SellerDetails> {
                         // width: 100,
                         height: 28.h,
                         child: ListView.builder(
+                          padding: EdgeInsets.zero,
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 3.h, horizontal: 12.w),
-                            // height: 20.h,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Color(
-                                0xffE9E7E7,
+                          itemBuilder: (context, index) => Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 4.w),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 3.h, horizontal: 12.w),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Color(
+                                  0xffE9E7E7,
+                                ),
+                                borderRadius: BorderRadius.circular(17.5.r),
                               ),
-                              borderRadius: BorderRadius.circular(17.5.r),
-                            ),
-                            child: Text(
-                              // "state.vendorDetails!.data!.feature![index]!",
-                              "amt",
-
-                              style: Theme.of(context).textTheme.bodyText1,
+                              child: Text(
+                                state.vendorDetails!.data!.feature![index]!,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
                             ),
                           ),
-                          itemCount: 2,
-
-                          // itemCount: state.vendorDetails!.data!.feature!.length,
+                          itemCount: state.vendorDetails!.data!.feature!.length,
                         ),
                       ),
                       // SizedBox(
