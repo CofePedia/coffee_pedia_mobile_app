@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../main.dart';
 import 'screens/check_internet_connection.dart';
 
 class DeliveryInfoScreenProvider extends StatelessWidget {
@@ -65,7 +66,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
             ),
           ),
           child: CustomButton(
-            title: 'Continue',
+            title: translator.translate("delivery_info_screen.continue"),
             onPress: _addressId == 0
                 ? () {}
                 : () {
@@ -107,7 +108,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                     color: Color(0xff000000),
                   ),
                   Text(
-                    'Delivery info',
+                    translator.translate("delivery_info_screen.delivery_info"),
                     style: Theme.of(context).textTheme.headline1!.copyWith(
                           fontSize: 18.sp,
                         ),
@@ -179,14 +180,14 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Delivery Info',
+                    translator.translate("delivery_info_screen.delivery_info"),
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   SizedBox(
                     width: 63.w,
                   ),
                   Text(
-                    'Payment Info',
+                    translator.translate("delivery_info_screen.payment_info"),
                     style: Theme.of(context).textTheme.headline6!.copyWith(
                           color: Color(0xff9D9D9D),
                         ),
@@ -196,7 +197,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 27.h),
                 child: Text(
-                  'From Address Book',
+                  translator.translate("from_address_book"),
                   style: Theme.of(context).textTheme.caption,
                 ),
               ),
@@ -366,7 +367,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                         width: 8.w,
                       ),
                       Text(
-                        'Add New Address',
+                        translator.translate("delivery_info_screen.add_new_address"),
                         style: Theme.of(context).textTheme.headline6,
                       ),
                     ],

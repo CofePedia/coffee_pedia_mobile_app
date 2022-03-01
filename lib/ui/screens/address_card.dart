@@ -3,6 +3,8 @@ import 'package:coffepedia/data/models/my_addresses.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../main.dart';
+
 class AddressCard extends StatelessWidget {
   AddressCard({
     // this.primary,
@@ -81,7 +83,7 @@ class AddressCard extends StatelessWidget {
                                     ),
                                   ),
                                   child: Text(
-                                    'Primary',
+                                    translator.translate("address.primary"),
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline1!
@@ -126,8 +128,8 @@ class AddressCard extends StatelessWidget {
   }
 
   var myMenuItems = <String>[
-    'asPrimary',
-    'Delete',
+    translator.translate("address.asPrimary"),
+    translator.translate("address.delete"),
   ];
 
   void onSelectedFunc(item) {

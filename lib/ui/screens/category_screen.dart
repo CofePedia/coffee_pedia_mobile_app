@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../main.dart';
 import 'product_screen.dart';
 
 class CategoryScreenProvider extends StatelessWidget {
@@ -56,17 +57,17 @@ class CategoryScreenProvider extends StatelessWidget {
 class CategoryScreen extends StatefulWidget {
   final int categoriesId;
   final List<CategoriesDataChildren?>? subCategories;
-  final Map<String, List<String?>> multiMap;
-  final Map<String, String?>? rangeMap;
-  final Map<String, String?>? singleMap;
+  Map<String, List<String?>> multiMap;
+  Map<String, String?>? rangeMap;
+  Map<String, String?>? singleMap;
 
-  const CategoryScreen(
+  CategoryScreen(
       {required this.categoriesId,
-        this.subCategories,
-        required this.multiMap,
-        required this.rangeMap,
-        required this.singleMap,
-        Key? key})
+      this.subCategories,
+      required this.multiMap,
+      required this.rangeMap,
+      required this.singleMap,
+      Key? key})
       : super(key: key);
 
   @override
@@ -76,8 +77,9 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   bool hasData = false;
   bool? isRefresh;
+  int? _subCategoryId = -1;
   int currentPage = 1;
-  int limit = 4;
+  int limit = 2;
   List<CategoryProductsDataData?> products = [];
   final RefreshController refreshController = RefreshController();
 
@@ -85,13 +87,25 @@ class _CategoryScreenState extends State<CategoryScreen> {
     BlocProvider.of<CategoryProductsCubit>(context).getCategoryProducts(
       page: currentPage,
       limit: limit,
-      subCategoryId: -1,
+      subCategoryId: _subCategoryId,
       categoryId: widget.categoriesId,
       multiMap: widget.multiMap,
       rangeMap: widget.rangeMap,
       singleMap: widget.singleMap,
     );
   }
+
+// BlocProvider.of<CategoryProductsCubit>(
+  //         context)
+  //     .getCategoryProducts(
+  //   limit: limit,
+  //   page: page,
+  //   subCategoryId: _selectedSubCategory!,
+  //   categoryId: widget.categoriesId,
+  //   multiMap: {},
+  //   rangeMap: {},
+  //   singleMap: {},
+  // );
 
   @override
   void initState() {
@@ -111,12 +125,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
       builder: (context, state) {
         if (state is CategoryProductsIsLoaded) {
           state.categoryProducts!.data!.paginate!.currentPage! <=
-              state.categoryProducts!.data!.paginate!.lastPage!
+                  state.categoryProducts!.data!.paginate!.lastPage!
               ? isRefresh = true
               : isRefresh = false;
           currentPage == 1
               ? products = state.categoryProducts!.data!.data!
               : products.addAll(state.categoryProducts!.data!.data!);
+          if(state.categoryProducts!.data!.data!.isEmpty )
+            products.clear();
           if (isRefresh == true) {
             currentPage++;
           }
@@ -174,13 +190,132 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       SizedBox(
                         height: 15.h,
                       ),
-                      CategoryItems(
-                        categoriesId: widget.categoriesId,
-                        subCategories: widget.subCategories,
+                      // CategoryItems(
+                      //   categoriesId: widget.categoriesId,
+                      //   subCategories: widget.subCategories,
+                      //   currentPage: currentPage,
+                      //   limit: limit,
+                      // ),
+                      Container(
+                        height: 78.h,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListView.builder(
+                          padding: EdgeInsets.only(left: 11.w, right: 11.w),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: widget.subCategories!.length,
+                          itemBuilder: (context, index) => Container(
+                            width: 158.w,
+                            padding: EdgeInsets.symmetric(horizontal: 4.w),
+                            child: OutlinedButton(
+                              onPressed: () {
+
+                                setState(() {
+                                  currentPage = 1;
+                                  widget.multiMap = {};
+                                  widget.rangeMap = {};
+                                  widget.singleMap = {};
+                                  // subCategoryId =
+                                  //     widget.subCategories![index]!.id!;
+                                  // _selectedSubCategory == subCategoryId
+                                  //     ? _selectedSubCategory = -1
+                                  //     : _selectedSubCategory =
+                                  //         widget.subCategories![index]!.id!;
+                                  _subCategoryId ==
+                                          widget.subCategories![index]!.id!
+                                      ? _subCategoryId = -1
+                                      : _subCategoryId =
+                                          widget.subCategories![index]!.id!;
+                                  products.clear();
+
+                                  /*products.addAll(
+                                      state.categoryProducts!.data!.data!);*/
+                                  // BlocProvider.of<CategoryProductsCubit>(
+                                  //         context)
+                                  //     .getCategoryProducts(
+                                  //   limit: limit,
+                                  //   page: page,
+                                  //   subCategoryId: _selectedSubCategory!,
+                                  //   categoryId: widget.categoriesId,
+                                  //   multiMap: {},
+                                  //   rangeMap: {},
+                                  //   singleMap: {},
+                                  // );
+
+                                  // if (isRefresh == true) {
+                                  //   page++;
+                                  // }
+                                });
+                                fetchMoreData();
+                                print('selectedSubCategory $_subCategoryId');
+                              },
+                              style: ButtonStyle(
+                                padding: MaterialStateProperty.all<
+                                    EdgeInsetsGeometry>(
+                                  EdgeInsets.zero,
+                                ),
+                                shape:
+                                    MaterialStateProperty.all<OutlinedBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.w),
+                                  ),
+                                ),
+                                side: MaterialStateProperty.all<BorderSide>(
+                                  BorderSide(
+                                    color: _subCategoryId ==
+                                            widget.subCategories![index]!.id!
+                                        ? Color(0xffCC1010)
+                                        : Colors.transparent,
+                                  ),
+                                ),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    height: 72.h,
+                                    width: 145.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      color: Color(0xffEED2BB),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 4.h,
+                                    bottom: 4.h,
+                                    right: 4.w,
+                                    left: 80.w,
+                                    child: Image.network(
+                                      widget.subCategories![index]!.icon!,
+                                      height: 64.h,
+                                      width: 50.w,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 12.6.h,
+                                    left: 10.w,
+                                    child: Container(
+                                      width: 60.w,
+                                      child: Text(
+                                        widget.subCategories![index]!.name!,
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                          color: Color(
+                                            0xff3A1008,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                       Padding(
                         padding:
-                        EdgeInsets.only(top: 31.h, right: 15.w, left: 15.w),
+                            EdgeInsets.only(top: 31.h, right: 15.w, left: 15.w),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -190,13 +325,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 children: <TextSpan>[
                                   TextSpan(
                                     text:
-                                    '${state.categoryProducts!.data!.category!.name} ',
+                                        '${state.categoryProducts!.data!.category!.name} ',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline1!
                                         .copyWith(
-                                      fontSize: 18.sp,
-                                    ),
+                                          fontSize: 18.sp,
+                                        ),
                                   ),
                                   TextSpan(
                                     text:
@@ -205,8 +340,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         .textTheme
                                         .headline1!
                                         .copyWith(
-                                      fontSize: 12.sp,
-                                    ),
+                                          fontSize: 12.sp,
+                                        ),
                                   ),
                                 ],
                               ),
@@ -251,7 +386,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         child: GridView.builder(
                             padding: EdgeInsets.only(top: 40.h, bottom: 15.h),
                             gridDelegate:
-                            SliverGridDelegateWithFixedCrossAxisCount(
+                                SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               mainAxisSpacing: 16.h,
                               crossAxisSpacing: 8.w,
@@ -261,6 +396,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             shrinkWrap: true,
                             itemCount: products.length,
                             itemBuilder: (context, index) {
+                              print('products length ${products.length}');
+                              print(
+                                  'total ${state.categoryProducts!.data!.paginate!.total}');
                               return InkWell(
                                 onTap: () {
                                   Navigator.push(
@@ -319,30 +457,30 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       ),
                                       products[index]!.rate! != 0
                                           ? Positioned(
-                                        top: 30.h,
-                                        left: 20.w,
-                                        child: Row(
-                                          children: [
-                                            SvgPicture.asset(
-                                                Assets.iconsStarActive),
-                                            SizedBox(
-                                              width: 5.w,
-                                            ),
-                                            Text(
-                                              products[index]!
-                                                  .rate
-                                                  .toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2!
-                                                  .copyWith(
-                                                fontWeight:
-                                                FontWeight.w700,
+                                              top: 30.h,
+                                              left: 20.w,
+                                              child: Row(
+                                                children: [
+                                                  SvgPicture.asset(
+                                                      Assets.iconsStarActive),
+                                                  SizedBox(
+                                                    width: 5.w,
+                                                  ),
+                                                  Text(
+                                                    products[index]!
+                                                        .rate
+                                                        .toString(),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyText2!
+                                                        .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                        ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
+                                            )
                                           : SizedBox.shrink(),
                                       Positioned(
                                         top: 152.h,
@@ -352,13 +490,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               horizontal: 8.w),
                                           child: Column(
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               products[index]!.discount == 0
                                                   ? SizedBox(
-                                                height: 17.h,
-                                                width: 55.w,
-                                              )
+                                                      height: 17.h,
+                                                      width: 55.w,
+                                                    )
                                                   : Container(
                                                 height: 17.h,
                                                 width: 55.w,
@@ -388,11 +526,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
 // state.categoryProducts!.data!
 //     .filters![2]!.optionsSingle![2]
 //     .toString(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1,
-                                                ),
-                                              ),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .bodyText1,
+                                                      ),
+                                                    ),
                                               SizedBox(
                                                 height: 15.h,
                                               ),
@@ -402,13 +540,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                   products[index]!.name!,
                                                   maxLines: 3,
                                                   overflow:
-                                                  TextOverflow.ellipsis,
+                                                      TextOverflow.ellipsis,
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .headline1!
                                                       .copyWith(
-                                                    fontSize: 14.sp,
-                                                  ),
+                                                        fontSize: 14.sp,
+                                                      ),
                                                 ),
                                               ),
                                               SizedBox(
@@ -420,10 +558,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                     .textTheme
                                                     .bodyText2!
                                                     .copyWith(
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                  color: Colors.black45,
-                                                ),
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
+                                                      color: Colors.black45,
+                                                    ),
                                               ),
                                               SizedBox(
                                                 height: 8.h,
@@ -447,7 +585,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           decoration: BoxDecoration(
                                             color: Color(0xffffffff),
                                             borderRadius:
-                                            BorderRadius.circular(25),
+                                                BorderRadius.circular(25),
                                             boxShadow: [
                                               BoxShadow(
                                                 color: Color.fromRGBO(
@@ -459,9 +597,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           ),
                                           child: WishlistIconWidget(
                                             productId:
-                                            products[index]!.id!.toString(),
+                                                products[index]!.id!.toString(),
                                             isFavorite:
-                                            products[index]!.inWishlist!,
+                                                products[index]!.inWishlist!,
                                           ),
                                         ),
                                       ),

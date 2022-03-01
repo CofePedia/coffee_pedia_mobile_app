@@ -6,6 +6,7 @@ import 'package:coffepedia/ui/screens/recipes_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../main.dart';
 import 'gridview_items.dart';
 
 class MoreScreen extends StatelessWidget {
@@ -22,7 +23,7 @@ class MoreScreen extends StatelessWidget {
                 padding: EdgeInsets.only(
                     top: 60.h, left: 16.w, right: 16.w, bottom: 27.h),
                 child: Text(
-                  'More',
+                  translator.translate("more_screen.more"),
                   style: Theme.of(context).textTheme.headline1!.copyWith(
                     fontSize: 18.sp,
                   ),
@@ -51,7 +52,7 @@ class MoreScreen extends StatelessWidget {
                         );
                       },
                       icon: Icons.store,
-                      title: 'Coffee shops',
+                      title: translator.translate("more_screen.coffee_shops")
                     ),
                     GridviewItems(
                       onPress: () {
@@ -65,7 +66,7 @@ class MoreScreen extends StatelessWidget {
                         );
                       },
                       icon: Icons.eighteen_mp,
-                      title: 'Blog',
+                      title: translator.translate("more_screen.blog")
                     ),
                     GridviewItems(
                       onPress: () {
@@ -79,7 +80,7 @@ class MoreScreen extends StatelessWidget {
                         );
                       },
                       icon: Icons.eighteen_mp,
-                      title: 'Recipes',
+                      title: translator.translate("more_screen.recipes")
                     ),
                     GridviewItems(
                       onPress: () {
@@ -93,7 +94,7 @@ class MoreScreen extends StatelessWidget {
                         );
                       },
                       icon: Icons.eighteen_mp,
-                      title: 'About',
+                      title: translator.translate("more_screen.about")
                     ),
                   ],
                 ),

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../main.dart';
+
 class CityAddressProvider extends StatelessWidget {
   final int? governorateId;
   final Function? onChange;
@@ -86,7 +88,7 @@ class _CityAddressState extends State<CityAddress> {
                 color: Color(0xffCCCCCC),
               ),
               hint: Text(
-                'City',
+                translator.translate("delivery_info_screen.city"),
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       color: Color(
                         0xffCCCCCC,
@@ -106,7 +108,7 @@ class _CityAddressState extends State<CityAddress> {
                 color: Color(0xffCCCCCC),
               ),
               hint: Text(
-                'City',
+                translator.translate("delivery_info_screen.city"),
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       color: Color(
                         0xffCCCCCC,

@@ -2,6 +2,8 @@ import 'package:coffepedia/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../main.dart';
+
 class NoInternetScreen extends StatelessWidget {
   const NoInternetScreen({Key? key}) : super(key: key);
 
@@ -19,7 +21,7 @@ class NoInternetScreen extends StatelessWidget {
                 height: 32.h,
               ),
               Text(
-                'No internet connection',
+                translator.translate("no_internet_screen.no_internet_text1"),
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
@@ -29,7 +31,7 @@ class NoInternetScreen extends StatelessWidget {
                 height: 12.h,
               ),
               Text(
-                'System is offline and orders will not received,',
+                translator.translate("no_internet_screen.no_internet_text2"),
                 style: Theme.of(context)
                     .textTheme
                     .headline4!
@@ -39,7 +41,7 @@ class NoInternetScreen extends StatelessWidget {
                 height: 5.h,
               ),
               Text(
-                'Please check your internet connection and try again.',
+                translator.translate("no_internet_screen.no_internet_text3"),
                 style: Theme.of(context)
                     .textTheme
                     .headline4!

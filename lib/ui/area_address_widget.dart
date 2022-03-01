@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../main.dart';
+
 class AreaAddressProvider extends StatelessWidget {
   final int? cityId;
   final Function? onSelectedCity;
@@ -89,7 +91,7 @@ class _AreaAddressState extends State<AreaAddress> {
                 color: Color(0xffCCCCCC),
               ),
               hint: Text(
-                'Area',
+                translator.translate("address.area"),
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       color: Color(
                         0xffCCCCCC,
@@ -109,7 +111,7 @@ class _AreaAddressState extends State<AreaAddress> {
                 color: Color(0xffCCCCCC),
               ),
               hint: Text(
-                'Area',
+                translator.translate("address.area"),
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       color: Color(
                         0xffCCCCCC,

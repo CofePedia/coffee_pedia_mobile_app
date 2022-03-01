@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../main.dart';
 import '../area_address_widget.dart';
 import '../city_address_widget.dart';
 
@@ -161,7 +162,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 5.w),
                             child: Text(
-                              "Close",
+                              translator.translate("address.close"),
                               style:
                               Theme.of(context).textTheme.headline2!.copyWith(
                                 color: Color(0xff241F20),
@@ -172,7 +173,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                         ),
                       ),
                       Text(
-                        widget.address != null ? 'Edit Address' : "New Address",
+                        widget.address != null ? translator.translate("address.edit_address") : translator.translate("address.new_address"),
                         style: Theme.of(context).textTheme.caption,
                       ),
                       SizedBox(
@@ -268,7 +269,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                       //   ),
                       // ),
                       Text(
-                        'Name',
+                        translator.translate("address.name"),
                         style: Theme.of(context).textTheme.headline3!.copyWith(
                           fontSize: 12.sp,
                         ),
@@ -276,7 +277,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                       Padding(
                         padding: EdgeInsets.only(top: 8.h, bottom: 12.h),
                         child: CustomTextFormField(
-                          hintText: 'Name',
+                          hintText: translator.translate("address.name"),
                           width: 345.w,
                           suffix: null,
                           keyboardType: TextInputType.text,
@@ -291,7 +292,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Governorate',
+                                translator.translate("address.governorate"),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline3!
@@ -349,7 +350,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                                           color: Color(0xffCCCCCC),
                                         ),
                                         hint: Text(
-                                          'Governorate',
+                                          translator.translate("address.governorate"),
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline6!
@@ -372,7 +373,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                                           color: Color(0xffCCCCCC),
                                         ),
                                         hint: Text(
-                                          'Governorate',
+                                          translator.translate("address.governorate"),
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline6!
@@ -391,7 +392,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                                 height: 12.h,
                               ),
                               Text(
-                                'Area',
+                                translator.translate("address.area"),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline3!
@@ -411,7 +412,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'City',
+                                translator.translate("address.city"),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline3!
@@ -429,7 +430,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                                 height: 12.h,
                               ),
                               Text(
-                                'Street',
+                                translator.translate("address.street"),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline3!
@@ -439,7 +440,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                                 height: 8.h,
                               ),
                               CustomTextFormField(
-                                hintText: 'Street',
+                                hintText: translator.translate("address.street"),
                                 width: 168.w,
                                 suffix: null,
                                 keyboardType: TextInputType.text,
@@ -453,7 +454,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                       Padding(
                         padding: EdgeInsets.only(top: 12.h),
                         child: Text(
-                          "Address Details",
+                          translator.translate("address.address_details"),
                           style: Theme.of(context).textTheme.headline4!.copyWith(
                             color: Color(0xff8A8A8A),
                           ),
@@ -551,7 +552,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                       ),
                     ),
                     child: Text(
-                      widget.address != null ? 'Edit Address' : "Add Address",
+                      widget.address != null ? translator.translate("address.edit_address") : translator.translate("address.add_address"),
                       style: Theme.of(context).textTheme.headline2,
                     ),
                   ),

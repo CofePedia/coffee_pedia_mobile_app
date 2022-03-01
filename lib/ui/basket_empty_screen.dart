@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../main.dart';
+
 class BasketEmptyScreen extends StatelessWidget {
   bool isLoggedIn;
   BasketEmptyScreen({required this.isLoggedIn});
@@ -20,7 +22,7 @@ class BasketEmptyScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 60.h, right: 16.w, left: 16.w),
                 child: Text(
-                  "My Basket",
+                  translator.translate("basket_empty.my_basket"),
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                     color: Colors.black,
                   ),
@@ -53,7 +55,7 @@ class BasketEmptyScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Your Basket is Empty",
+                        translator.translate("basket_empty.basket_is_empty"),
                         style: Theme.of(context).textTheme.caption!.copyWith(
                               color: Colors.black,
                             ),
@@ -64,7 +66,7 @@ class BasketEmptyScreen extends StatelessWidget {
                       SizedBox(
                         width: 211.w,
                         child: Text(
-                          "You have no items in your shopping basket.",
+                          translator.translate("basket_empty.no_items_in_basket_text"),
                           maxLines: 2,
                           style: Theme.of(context).textTheme.headline4,
                         ),
@@ -82,7 +84,7 @@ class BasketEmptyScreen extends StatelessWidget {
           ? Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Text(
-              "Recommended based on your shopping history",
+              translator.translate("basket_empty.recommended_text"),
               maxLines: 2,
               style: Theme.of(context).textTheme.caption,
             ),

@@ -1,0 +1,226 @@
+{
+  "msg" : "MMMMMMMM",
+  "delivery_info_screen": {
+    "continue" : "Continue",
+    "delivery_info" : "Delivery info",
+    "payment_info" : "Payment Info",
+    "from_address_book" : "From Address Book",
+    "add_new_address" : "Add New Address",
+    "city" : "City"
+   },
+  "checkout_popup": {
+    "total" : "TOTAL",
+    "egp" : "EGP",
+    "proceed_to_checkout" : "Proceed to checkout",
+    "continue_shopping" : "Continue Shopping"
+   },
+  "checkout_items_screen": {
+    "total_price" : "Total Price",
+    "shopping_basket" : "Shopping Basket",
+    "items" : "Items",
+    "item" : "Item",
+    "have_coupon" : "Have a coupon?",
+    "coupon_code" : "Coupon code",
+    "apply" : "Apply",
+    "subtotal" : "Subtotal",
+    "egp" : "EGP",
+    "discount" : "Discount",
+    "delivery_charge" : "Delivery charge",
+    "total_price" : "Total price",
+    "sold_by" : "Sold by",
+    "move_to_wishlist" : "Move to Wishlist",
+    "remove" : "Remove",
+    "proceed_to_checkout" : "Proceed to checkout"
+  },
+  "basket_empty": {
+      "my_basket" : "My Basket",
+      "basket_is_empty" : "Your Basket is Empty",
+      "no_items_in_basket_text" : "You have no items in your shopping basket.",
+      "recommended_text" : "Recommended based on your shopping history"
+  },
+  "address": {
+    "area" : "Area",
+    "add_new_address" : "Add New Address",
+    "delete" : "Delete",
+    "asPrimary" : "asPrimary",
+    "edit" : "Edit",
+    "primary" : "Primary",
+    "address_book" : "Address Book",
+    "close" : "Close",
+    "new_address" : "New Address",
+    "edit_address" : "Edit Address",
+    "name" : "Name",
+    "governorate" : "Governorate",
+    "city" : "City",
+    "street" : "Street",
+    "address_details" : "Address Details"
+  },
+  "range_filter_slider": {
+    "from" : "FROM",
+    "to" : "To",
+    "to" : "EGP"
+  },
+  "account_settings": {
+    "account_settings" : "Account settings",
+    "add_photo" : "Add photo",
+    "personal_info" : "Personal info",
+    "cancel" : "Cancel",
+    "edit" : "Edit",
+    "first_name" : "First Name",
+    "last_name" : "Last Name",
+    "email_address" : "Email Address",
+    "password" : "Password",
+    "save" : "Save",
+    "shipping_address" : "Shipping Address",
+    "manage_addresses" : "Manage Addresses",
+    "primary" : "Primary"
+  },
+  "about_screen" : {
+    "about_coffePedia" : "About Coffepedia",
+    "our_story" : "Our Story",
+    "our_story_first_paragraph" : "We are a family-owned neighborhood breakfast and lunch restaurant located near Los Angeles International Airport (LAX). We take pride in providing friendly and swift service to our local patrons and those who are traveling or are \"on the go\". ",
+    "our_story_second_paragraph" : "It is also a very labor intensive process involving a vast intercontinental collaboration that starts with the coffee grower, moves from there to the picker, then to the mill workers who meticulously remove the fruit and dry the beans, then to those who clean and grade the beans, to those who roast them, to those consumers and baristas who finally grind the beans and prepare the beverage. Every act along the way can be performed either with passion and precision or with careless shoddiness. It is the cumulative quality of all of these creative contributions that together make the difference between a lackluster cup and a fine and distinctive one.",
+    "what_we_believe" : "What we belive",
+    "what_we_believe_first_paragraph" : "Our values shape the culture of our organization and define the character of our company. We live the core values through individual behaviors. They serve as the foundation for how we act and make decisions.",
+    "our_partners" : "Our partners",
+    "our_partners_first_paragraph" : "Our network includes a diverse group of development agencies, government organizations, local and national organizations, and other international NGOs. This network is a valuable asset in enabling ICP and its partners to achieve a better future for the millions of smallholder coffee farmer families worldwide.",
+    "contacts" : "Contacts",
+    "follow_us" : "Follow us"
+  },
+  "blog_screen" : {
+    "blog" : "Blog",
+    "article" : "Article",
+    "reviews" : "Reviews"
+  },
+  "categories_screen" : {
+    "item" : "Item",
+    "filter" : "Filter",
+    "off" : "Off",
+    "egp" : "EGP"
+  },
+  "coffeeShops_screen" : {
+    "coffee_shops" : "Coffee shops",
+    "coffee_shops_near_you" : "Coffee shops nearby you",
+    "off" : "Search",
+    "select_area" : "Select Area",
+    "item" : "Item",
+    "filter" : "Filter"
+  },
+  "filter_screen" : {
+    "clear_all" : "Clear all",
+    "show_data" : "Show results",
+    "enter_data" : "Enter Data",
+    "close" : "Close"
+  },
+  "home_screen" : {
+    "home_tap" : "Shop",
+    "my_basket_tap" : "My Basket",
+    "profile_tap" : "Profile",
+    "more_tap" : "More",
+    "shop_by_category" : "Shop By Category",
+    "featured_products" : "Featured Products",
+    "shop_by_brands" : "Shop By Brands",
+    "recent_products" : "Most Recent Products",
+    "search" : "Search Coffepedia"
+  },
+  "more_screen" : {
+    "more" : "More",
+    "coffee_shops" : "Coffee shops",
+    "blog" : "Blog",
+    "recipes" : "Recipes",
+    "about" : "About"
+  },
+  "map_widget" : {
+    "show" : "Show",
+    "show_on_map" : "Show on Map"
+  },
+  "wallet_screen" : {
+    "my_wallet" : "My Wallet",
+    "your_balance" : "Your balance",
+    "last_update" : "Last update",
+    "egp" : "EGP",
+    "use_my_wallet_msg" : "Use my wallet balance when making order"
+  },
+  "no_internet_screen" : {
+    "no_internet_text1" : "No internet connection",
+    "no_internet_text2" : "System is offline and orders will not received,",
+    "no_internet_text3" : "Please check your internet connection and try again."
+  },
+  "order_history_screen" : {
+    "order_history" : "Orders History",
+    "status" : "Status",
+    "date" : "Date",
+    "order_id" : "Order ID",
+    "payment_method" : "Payment Method",
+    "subtotal" : "Subtotal",
+    "discount" : "Discount",
+    "cod" : "COD",
+    "total" : "Total",
+    "no_orders_history" : "No orders history"
+  },
+  "payment_info_screen" : {
+    "pay_now" : "Pay Now",
+    "payment_info" : "Payment info",
+    "delivery_info" : "Delivery Info",
+    "from_address_book" : "From Address Book",
+    "payment_id" : "paymentID"
+  },
+  "product_screen" : {
+    "add_to_basket" : "Add to basket",
+    "off" : "Off",
+    "egp" : "EGP",
+    "about_this_item" : "About this item",
+    "product_overview" : "Product overview",
+    "brand" : "Brand",
+    "about_seller" : "About seller",
+    "seller_name" : "Seller name"
+  },
+  "profile_screen" : {
+    "my_profile" : "My Profile",
+    "welcome" : "Welcome",
+    "welcome_back" : "Welcome back",
+    "order_history" : "Orders History",
+    "my_wishlist" : "My wishlist",
+    "address_book" : "Address Book",
+    "account_settings" : "Account settings",
+    "switch_language" : "Switch Language",
+    "english" : "English",
+    "logout" : "Logout",
+    "login" : "Login",
+    "save" : "Save"
+  },
+  "success_screen" : {
+    "thank_you" : "Thank You",
+    "order_id" : "Order ID",
+    "success_msg" : "You will recieve an email with your order details and the expecting shipping date",
+    "track_order" : "Track your order",
+    "continue_shopping" : "Continue Shopping"
+  },
+  "wishlist_screen" : {
+    "my_wishlist" : "My wishlist",
+    "egp" : "EGP",
+    "no_wishlist_items" : "No wishlist items"
+  },
+  "login_registration_screen" : {
+    "login" : "Login",
+    "create_account" : "Create Account",
+    "first_name" : "First Name",
+    "last_name" : "Last Name",
+    "email_address" : "Email Address",
+    "password" : "Password",
+    "confirm_password" : "Confirm Password",
+    "forget_password" : "Forgot Password?",
+    "accept_msg" : "By creating account, you accept our",
+    "terms_n_conditions" : "terms and conditions",
+    "and" : "and",
+    "privacy_policy" : "privacy policy",
+    "dont_have_account" : "Don’t have an Account",
+    "have_an_account" : "Have an Account"
+  },
+  "forget_password_screen" : {
+    "forget_password" : "Forgot Password",
+    "enter_email_msg" : "Please enter your email address",
+    "email_address" : "Email Address",
+    "send" : "Send"
+  }
+}

@@ -59,17 +59,18 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
     super.initState();
     init();
   }
+
   bool isLoggedIn = false;
 
   final TextEditingController coupon = TextEditingController();
   bool discountLoading = false;
   bool isPressed = false;
-  String? subTotal ;
-  String? discount ;
-  String? deliveryCharge ;
-  String? total ;
+  String? subTotal;
+  String? discount;
+  String? deliveryCharge;
+  String? total;
 
-  init() async{
+  init() async {
     BlocProvider.of<MeCubit>(context).getMe();
     //final userDao = UserDao();
     //GetTokenDatabase? token = await userDao.getUserToken();
@@ -79,23 +80,22 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if(!isLoggedIn)
+    if (!isLoggedIn)
       BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
-    if(isLoggedIn)
-      BlocProvider.of<BasketCubit>(context).getBasket();
+    if (isLoggedIn) BlocProvider.of<BasketCubit>(context).getBasket();
     return CheckInternetConnection(
-      screen: MultiBlocListener(
-          listeners: [
-            BlocListener<BasketCubit, BasketState>(
+        screen: MultiBlocListener(
+            listeners: [
+          BlocListener<BasketCubit, BasketState>(
               listener: (context, state) {
-                if(state is AddToBasketIsPressed){
+                if (state is AddToBasketIsPressed) {
                   print("AddToBasketIsPressed");
-                  if(isLoggedIn)
+                  if (isLoggedIn)
                     BlocProvider.of<BasketCubit>(context).getBasket();
                 }
                 else if (state is CouponUnvalid) {
                   BotToast.showText(text: state.error!.toString());
-                  if(isLoggedIn)
+                  if (isLoggedIn)
                     BlocProvider.of<BasketCubit>(context).getBasket();
                   setState(() {
                     isPressed = false;
@@ -105,46 +105,50 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                   setState(() {
                     isPressed = true;
                   });
-                  if(isLoggedIn)
+                  if (isLoggedIn)
                     BlocProvider.of<BasketCubit>(context).getBasket();
                   if (isPressed == true) {
                     subTotal = state.coupon!.data!.subTotal!.toString();
                     discount = state.coupon!.data!.discount!.toString();
-                    deliveryCharge = state.coupon!.data!.deliveryCharge!.toString();
+                    deliveryCharge =
+                        state.coupon!.data!.deliveryCharge!.toString();
                     total = state.coupon!.data!.totalPrice!.toString();
                   }
+                  else if (state is RemoveFromBasketIsPressed) {
+                    //BotToast.showText(text: state.removeFromBasket!.data!.msg!);
+                    print("MyQuerySoundEffectsEnabled 2");
+                    if (isLoggedIn)
+                      BlocProvider.of<BasketCubit>(context).getBasket();
+                  }
+                  else if (state is RemoveFromLocalBasketIsPressed) {
+                    print("MyQuerySoundEffectsEnabled 1");
+                    BotToast.showText(text: "removed from basket");
+                    if (!isLoggedIn)
+                      BlocProvider.of<BasketCubit>(context)
+                          .getAllLocalProductsFromBasket();
+                    else
+                      BlocProvider.of<BasketCubit>(context).getBasket();
+                  }
+                  else if (state is UpdateLocalBasket) {
+                    print("MyQuerySoundEffectsEnabled 2");
+                    BotToast.showText(text: "updated to basket");
+                    if (!isLoggedIn)
+                      BlocProvider.of<BasketCubit>(context)
+                          .getAllLocalProductsFromBasket();
+                    else
+                      BlocProvider.of<BasketCubit>(context).getBasket();
+                  }
+                  else if (state is AddedLocalBasket) {
+                    print("MyQuerySoundEffectsEnabled 3");
+                    BotToast.showText(text: "added to basket");
+                    if (!isLoggedIn)
+                      BlocProvider.of<BasketCubit>(context)
+                          .getAllLocalProductsFromBasket();
+                    else
+                      BlocProvider.of<BasketCubit>(context).getBasket();
+                  }
                 }
-                else if (state is RemoveFromBasketIsPressed) {
-                  BotToast.showText(text: state.removeFromBasket!.data!.msg!);
-                  print("MyQuerySoundEffectsEnabled 2");
-                  if(isLoggedIn)
-                    BlocProvider.of<BasketCubit>(context).getBasket();
-                }
-                else if (state is RemoveFromLocalBasketIsPressed ){
-                  print("MyQuerySoundEffectsEnabled 1");
-                  BotToast.showText(text: "removed from basket");
-                  if(!isLoggedIn)
-                    BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
-                  else
-                    BlocProvider.of<BasketCubit>(context).getBasket();
-                }
-                else if (state is UpdateLocalBasket ){
-                  print("MyQuerySoundEffectsEnabled 2");
-                  BotToast.showText(text: "updated to basket");
-                  if(!isLoggedIn)
-                    BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
-                  else
-                    BlocProvider.of<BasketCubit>(context).getBasket();
-                }
-                else if (state is AddedLocalBasket ){
-                  print("MyQuerySoundEffectsEnabled 3");
-                  BotToast.showText(text: "added to basket");
-                  if(!isLoggedIn)
-                    BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
-                  else
-                    BlocProvider.of<BasketCubit>(context).getBasket();
-                }
-              },
+              }
             ),
             BlocListener<MeCubit, MeState>(
               listener: (context, state) {

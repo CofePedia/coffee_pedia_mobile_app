@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../main.dart';
+
 class OrdersHistoryProvider extends StatelessWidget {
   const OrdersHistoryProvider({Key? key}) : super(key: key);
 
@@ -55,7 +57,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                       color: Color(0xff000000),
                     ),
                     Text(
-                      'Orders History',
+                      translator.translate("order_history_screen.order_history"),
                       style: Theme.of(context)
                           .textTheme
                           .headline1!
@@ -101,7 +103,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                       CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Status',
+                                          translator.translate("order_history_screen.status"),
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -150,7 +152,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                       CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Date',
+                                          translator.translate("order_history_screen.date"),
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3,
@@ -177,7 +179,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                               tilePadding: EdgeInsets.symmetric(
                                   vertical: 18.h, horizontal: 16.w),
                               title: Text(
-                                'Order ID: ${state.orderHistory!.data![index]!.id!}',
+                                '${translator.translate("order_history_screen.order_id")}: ${state.orderHistory!.data![index]!.id!}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1!
@@ -247,7 +249,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                     MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Payment Method',
+                                        translator.translate("order_history_screen.payment_method"),
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline3,
@@ -283,7 +285,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                       // ),
 
                                       Text(
-                                        'Subtotal               EGP ${state.orderHistory!.data![index]!.subTotal}',
+                                        '${translator.translate("order_history_screen.subtotal")}            ${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.subTotal}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline3!
@@ -293,7 +295,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                         height: 10.h,
                                       ),
                                       Text(
-                                        'Discount               EGP ${state.orderHistory!.data![index]!.discount}',
+                                        '${translator.translate("order_history_screen.discount")}            ${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.discount}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline3!
@@ -303,7 +305,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                         height: 10.h,
                                       ),
                                       Text(
-                                        'COD                       EGP ${state.orderHistory!.data![index]!.deliveryCharge}',
+                                        '${translator.translate("order_history_screen.cod")}            ${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.deliveryCharge}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline3!
@@ -313,7 +315,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                         height: 10.h,
                                       ),
                                       Text(
-                                        'Total                   EGP ${state.orderHistory!.data![index]!.totalPrice}',
+                                        '${translator.translate("order_history_screen.total")}            ${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.totalPrice}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1!
@@ -327,7 +329,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                           ),
                         ),
                       )
-                          : Text('No orders history');
+                          : Text(translator.translate("order_history_screen.no_orders_history"),);
                     } else {
                       return Center(
                         child: CircularProgressIndicator(),

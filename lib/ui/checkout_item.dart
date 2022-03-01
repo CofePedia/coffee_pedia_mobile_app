@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../main.dart';
+
 class CheckoutItemProvider extends StatelessWidget {
   final String title;
   final String productId;
@@ -115,7 +117,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
                       height: 4.h,
                     ),
                     Text(
-                      "EGP ${widget.priceBeforeDiscount}",
+                      "${translator.translate("checkout_items_screen.egp")} ${widget.priceBeforeDiscount}",
                       maxLines: 2,
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
@@ -126,7 +128,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
                       height: 4.h,
                     ),
                     Text(
-                      "EGP ${widget.price}",
+                      "${translator.translate("checkout_items_screen.egp")} ${widget.price}",
                       maxLines: 2,
                       textAlign: TextAlign.start,
                       style: Theme.of(context)
@@ -153,7 +155,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
               ],
             ),
           ),
-          Text("Sold by", style: Theme.of(context).textTheme.bodyText1),
+          Text(translator.translate("checkout_items_screen.sold_by"), style: Theme.of(context).textTheme.bodyText1),
           SizedBox(
             height: 4.h,
           ),
@@ -251,7 +253,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
                             width: 8.w,
                           ),
                           Text(
-                            "Move to Wishlist",
+                            translator.translate("checkout_items_screen.move_to_wishlist"),
                             style:
                                 Theme.of(context).textTheme.headline4!.copyWith(
                                       color: Theme.of(context).primaryColor,
@@ -296,7 +298,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
                       width: 8.w,
                     ),
                     Text(
-                      "Remove",
+                      translator.translate("checkout_items_screen.remove"),
                       style: Theme.of(context).textTheme.headline4!.copyWith(
                             color: Colors.red,
                           ),

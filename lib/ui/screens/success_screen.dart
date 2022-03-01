@@ -11,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../main.dart';
+
 class SuccessScreenProvider extends StatelessWidget {
   final int paymentId;
   final int addressId;
@@ -75,7 +77,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Thank You',
+                    translator.translate("success_screen.thank_you"),
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           fontSize: 22.sp,
                         ),
@@ -99,14 +101,14 @@ class _SuccessScreenState extends State<SuccessScreen> {
                     height: 24.h,
                   ),
                   Text(
-                    'Order ID #${state.makeOrder!.data!.orderId!}',
+                    '${translator.translate("success_screen.order_id")} #${state.makeOrder!.data!.orderId!}',
                     style: Theme.of(context).textTheme.caption,
                   ),
                   SizedBox(
                     height: 12.h,
                   ),
                   Text(
-                    'You will recieve an email with your order details and the expecting shipping date',
+                    translator.translate("success_screen.success_msg"),
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 12.sp,
@@ -126,7 +128,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                         ),
                       );
                     },
-                    title: 'Track your order',
+                    title: translator.translate("success_screen.track_order"),
                     height: 50.h,
                     width: 345.w,
                     imageWidth: 0,
@@ -150,7 +152,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                       );
                     },
                     child: Text(
-                      'Continue Shopping',
+                      translator.translate("success_screen.continue_shopping"),
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             color: Color(0xff007CC6),
                           ),

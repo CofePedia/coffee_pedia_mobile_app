@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../main.dart';
+
 class AddressBookScreenProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                               width: 18.w,
                             ),
                             Text(
-                              'Address Book',
+                              translator.translate("address.address_book"),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline1!
@@ -165,7 +167,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                                                 ),
                                               ),
                                               child: Text(
-                                                'Primary',
+                                                translator.translate("address.primary"),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .headline1!
@@ -177,7 +179,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                                               itemBuilder: (cxt) => [
                                                 PopupMenuItem(
                                                   child: Text(
-                                                    "Primary",
+                                                    translator.translate("address.primary"),
                                                     style:
                                                     Theme.of(context)
                                                         .textTheme
@@ -233,7 +235,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                                                 ),
                                                 PopupMenuItem(
                                                   child: Text(
-                                                    "Edit",
+                                                    translator.translate("address.edit"),
                                                     style:
                                                     Theme.of(context)
                                                         .textTheme
@@ -243,7 +245,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                                                 ),
                                                 PopupMenuItem(
                                                   child: Text(
-                                                    "Delete",
+                                                    translator.translate("address.delete"),
                                                     style:
                                                     Theme.of(context)
                                                         .textTheme
@@ -411,7 +413,7 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                                 width: 8.w,
                               ),
                               Text(
-                                'Add New Address',
+                                translator.translate("address.add_new_address"),
                                 style: Theme.of(context).textTheme.headline6,
                               ),
                             ],

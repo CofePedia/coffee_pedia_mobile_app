@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../main.dart';
 import '../../custom_input.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
@@ -48,7 +49,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         bottom: 8.h,
                       ),
                       child: Text(
-                        "Forgot Password",
+                        translator.translate("forget_password_screen.forget_password"),
                         style: Theme.of(context)
                             .textTheme
                             .subtitle1!
@@ -56,7 +57,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       ),
                     ),
                     Text(
-                      "Please enter your email address",
+                      translator.translate("forget_password_screen.enter_email_msg"),
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             color: Color(0xff231F20),
                           ),
@@ -67,8 +68,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         bottom: 18.h,
                       ),
                       child: CustomInput(
-                        title: "Email",
-                        hint: "Email Address",
+                        title: translator.translate("forget_password_screen.email_address"),
+                        hint: translator.translate("forget_password_screen.email_address"),
                         textEditingController: _email,
                       ),
                     ),
@@ -86,7 +87,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                           ),
                         ),
                         child: Text(
-                          "Send",
+                          translator.translate("forget_password_screen.send"),
                           style: Theme.of(context).textTheme.headline2,
                         ),
                       ),

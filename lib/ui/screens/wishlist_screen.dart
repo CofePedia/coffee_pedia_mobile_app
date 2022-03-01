@@ -9,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../main.dart';
+
 class WishlistScreenProvider extends StatelessWidget {
   const WishlistScreenProvider({Key? key}) : super(key: key);
 
@@ -86,7 +88,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                           width: 10.w,
                         ),
                         Text(
-                          'My wishlist',
+                          translator.translate("wishlist_screen.my_wishlist"),
                           style:
                               Theme.of(context).textTheme.headline1!.copyWith(
                                     fontSize: 18.sp,
@@ -200,7 +202,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                 height: 32.h,
                                               ),
                                               Text(
-                                                'EGP ${item.price!}',
+                                                '${translator.translate("wishlist_screen.egp")} ${item.price!}',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .subtitle1,
@@ -269,7 +271,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                 ),
                               )
                             : Container(
-                                child: Text('No wishlist items'),
+                                child: Text(translator.translate("wishlist_screen.no_wishlist_items"),),
                               );
                       } else {
                         return Center(

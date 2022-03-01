@@ -18,6 +18,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../main.dart';
 import 'address_bookٍ_screen.dart';
 
 class AccountSettingsScreen extends StatelessWidget {
@@ -185,7 +186,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                   width: 18.w,
                 ),
                 Text(
-                  'Account settings',
+                  translator.translate("account_settings.account_settings"),
                   style: Theme.of(context).textTheme.headline1!.copyWith(
                     fontSize: 18.sp,
                   ),
@@ -246,7 +247,7 @@ class _AccountSettingsState extends State<AccountSettings> {
               );
             },
             child: Text(
-              'Add photo',
+              translator.translate("account_settings.add_photo"),
               style: Theme.of(context)
                   .textTheme
                   .headline6!
@@ -295,7 +296,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Personal info',
+                        translator.translate("account_settings.personal_info"),
                         style: Theme.of(context).textTheme.caption,
                       ),
                       visableEditable!
@@ -306,7 +307,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                           });
                         },
                         child: Text(
-                          'Cancel',
+                          translator.translate("account_settings.cancel"),
                           style: Theme.of(context)
                               .textTheme
                               .headline6!
@@ -325,7 +326,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                           });
                         },
                         child: Text(
-                          'Edit',
+                          translator.translate("account_settings.edit"),
                           style: Theme.of(context)
                               .textTheme
                               .headline6!
@@ -349,7 +350,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'First Name',
+                                    translator.translate("account_settings.first_name"),
                                     style: Theme.of(context)
                                         .textTheme
                                         .subtitle2!
@@ -368,7 +369,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                                     keyboardType: TextInputType.text,
                                     textEditingController: firstname,
                                     height: 40.h,
-                                    hintText: 'First Name',
+                                    hintText: translator.translate("account_settings.first_name"),
                                   )
                                       : Container(
                                     width: 150.w,
@@ -385,7 +386,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Last Name',
+                                  translator.translate("account_settings.last_name"),
                                   style: Theme.of(context)
                                       .textTheme
                                       .subtitle2!
@@ -404,7 +405,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                                   keyboardType: TextInputType.text,
                                   textEditingController: lastname,
                                   height: 40.h,
-                                  hintText: 'Last Name',
+                                  hintText: translator.translate("account_settings.last_name"),
                                 )
                                     : Container(
                                   width: 150.w,
@@ -423,7 +424,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                         height: 12.h,
                       ),
                       Text(
-                        'Email Address',
+                          translator.translate("account_settings.email_address"),
                         style: Theme.of(context).textTheme.subtitle2!.copyWith(
                           color: Color(
                             0xff8A8A8A,
@@ -439,7 +440,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                         keyboardType: TextInputType.emailAddress,
                         textEditingController: email,
                         height: 40.h,
-                        hintText: 'email',
+                        hintText: translator.translate("account_settings.email_address"),
                       )
                           : Container(
                         child: Text(
@@ -452,7 +453,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                         height: 12.h,
                       ),
                       Text(
-                        'Password',
+                        translator.translate("account_settings.password"),
                         maxLines: 1,
                         style: Theme.of(context).textTheme.subtitle2!.copyWith(
                           color: Color(
@@ -469,7 +470,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                         keyboardType: TextInputType.visiblePassword,
                         textEditingController: password,
                         height: 40.h,
-                        hintText: 'password',
+                        hintText: translator.translate("account_settings.password"),
                       )
                           : Container(
                         width: 250.w,
@@ -487,7 +488,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                         children: [
                           CustomButton(
                             onPress: onUpdateProfileButtonPressed,
-                            title: 'Save',
+                            title: translator.translate("account_settings.save"),
                             width: 75.w,
                             height: 35.h,
                             borderRadius: 25.sp,
@@ -552,7 +553,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Shipping Address',
+                        translator.translate("account_settings.shipping_address"),
                         style: Theme.of(context).textTheme.caption,
                       ),
                       InkWell(
@@ -567,7 +568,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                           );
                         },
                         child: Text(
-                          'Manage Addresses',
+                          translator.translate("account_settings.manage_addresses"),
                           style: Theme.of(context)
                               .textTheme
                               .headline6!
@@ -614,7 +615,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                           ),
                         ),
                         child: Text(
-                          'Primary',
+                          translator.translate("account_settings.primary"),
                           style: Theme.of(context)
                               .textTheme
                               .headline1!

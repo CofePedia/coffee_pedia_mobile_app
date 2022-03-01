@@ -57,7 +57,10 @@ class CategoryProductsWebServices {
       uri,
       headers: {'Authorization': 'Bearer ' + token!.getToken!},
     );
+    // var list =  as List;
+    // print("response categoryProducts length = ${list.length.toString()}");
     print("response categoryProducts ${response.body}");
+
     if (response.statusCode == 200) {
       return CategoryProducts.fromJson(
         json.decode(response.body),

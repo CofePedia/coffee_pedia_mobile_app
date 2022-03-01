@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../main.dart';
+
 class PaymentInfoScreenProvider extends StatelessWidget {
   final int addressId;
   const PaymentInfoScreenProvider({
@@ -79,7 +81,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                       ),
                     ),
                     child: CustomButton(
-                      title: 'Pay Now',
+                      title: translator.translate("payment_info_screen.pay_now"),
                       onPress: _paymentId == 0
                           ? () {}
                           : () {
@@ -124,7 +126,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                             color: Color(0xff000000),
                           ),
                           Text(
-                            'Payment info',
+                            translator.translate("payment_info_screen.payment_info"),
                             style: Theme.of(context).textTheme.headline1!.copyWith(
                               fontSize: 18.sp,
                             ),
@@ -196,14 +198,14 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Delivery Info',
+                            translator.translate("payment_info_screen.delivery_info"),
                             style: Theme.of(context).textTheme.headline6,
                           ),
                           SizedBox(
                             width: 63.w,
                           ),
                           Text(
-                            'Payment Info',
+                            translator.translate("payment_info_screen.payment_info"),
                             style: Theme.of(context).textTheme.headline6,
                           ),
                         ],
@@ -212,7 +214,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                         padding:
                         EdgeInsets.symmetric(horizontal: 15.w, vertical: 27.h),
                         child: Text(
-                          'From Address Book',
+                          translator.translate("payment_info_screen.from_address_book"),
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ),
@@ -301,7 +303,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                                       _paymentId = state.payments!.data![index]!.id;
                                     });
                                     print(
-                                        'paymentID: ${state.payments!.data![index]!.id}');
+                                        '${translator.translate("payment_info_screen.payment_id")}: ${state.payments!.data![index]!.id}');
                                   },
                                   title: Text(
                                     state.payments!.data![index]!.name!,
