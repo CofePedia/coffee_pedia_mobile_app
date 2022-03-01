@@ -486,6 +486,7 @@ class CategoryProductsData {
       });
       this.data = arr0;
     }
+    if(data != null) print("response categoryProducts ${data!.length.toString()}");
     paginate = (json['paginate'] != null)
         ? CategoryProductsDataPaginate.fromJson(json['paginate'])
         : null;

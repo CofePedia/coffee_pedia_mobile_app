@@ -1,7 +1,6 @@
 import 'package:coffepedia/business_logic/brands/brands_cubit.dart';
 import 'package:coffepedia/data/repository/brands_repository.dart';
 import 'package:coffepedia/data/web_services/brands_web_services.dart';
-import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -69,7 +68,9 @@ class _BrandsIconsState extends State<BrandsIcons> {
             ),
           );
         } else {
-          return BrandsShimmerWidget();
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         }
       },
     );

@@ -37,12 +37,12 @@ class CategoryProductsWebServices {
         'subCategory': subCategoryId.toString(),
       });
     }
-    if (page != null) {
+    if (page != -1) {
       queryParameters.addAll({
         'page': page.toString(),
       });
     }
-    if (limit != null) {
+    if (limit != -1) {
       queryParameters.addAll({
         'limit': limit.toString(),
       });
@@ -55,10 +55,12 @@ class CategoryProductsWebServices {
 
     final http.Response response = await http.get(
       uri,
-      // TODO: Check token again if needed
-      // headers: {'Authorization': 'Bearer ' + token!.getToken!},
+      headers: {'Authorization': 'Bearer ' + token!.getToken!},
     );
+    // var list =  as List;
+    // print("response categoryProducts length = ${list.length.toString()}");
     print("response categoryProducts ${response.body}");
+
     if (response.statusCode == 200) {
       return CategoryProducts.fromJson(
         json.decode(response.body),

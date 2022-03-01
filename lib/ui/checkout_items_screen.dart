@@ -87,62 +87,68 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
         screen: MultiBlocListener(
             listeners: [
           BlocListener<BasketCubit, BasketState>(
-            listener: (context, state) {
-              if (state is AddToBasketIsPressed) {
-                print("AddToBasketIsPressed");
-                if (isLoggedIn)
-                  BlocProvider.of<BasketCubit>(context).getBasket();
-              } else if (state is CouponUnvalid) {
-                BotToast.showText(text: state.error!.toString());
-                if (isLoggedIn)
-                  BlocProvider.of<BasketCubit>(context).getBasket();
-                setState(() {
-                  isPressed = false;
-                });
-              } else if (state is CouponIsPressed) {
-                setState(() {
-                  isPressed = true;
-                });
-                if (isLoggedIn)
-                  BlocProvider.of<BasketCubit>(context).getBasket();
-                if (isPressed == true) {
-                  subTotal = state.coupon!.data!.subTotal!.toString();
-                  discount = state.coupon!.data!.discount!.toString();
-                  deliveryCharge =
-                      state.coupon!.data!.deliveryCharge!.toString();
-                  total = state.coupon!.data!.totalPrice!.toString();
-                }
-                else if (state is RemoveFromBasketIsPressed) {
-                  BotToast.showText(text: state.removeFromBasket!.data!.msg!);
-                  print("MyQuerySoundEffectsEnabled 2");
-                  if(isLoggedIn)
+              listener: (context, state) {
+                if (state is AddToBasketIsPressed) {
+                  print("AddToBasketIsPressed");
+                  if (isLoggedIn)
                     BlocProvider.of<BasketCubit>(context).getBasket();
                 }
-                else if (state is RemoveFromLocalBasketIsPressed ){
-                  print("MyQuerySoundEffectsEnabled 1");
-                  BotToast.showText(text: "removed from basket");
-                  if(!isLoggedIn)
-                    BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
-                  else
+                else if (state is CouponUnvalid) {
+                  BotToast.showText(text: state.error!.toString());
+                  if (isLoggedIn)
                     BlocProvider.of<BasketCubit>(context).getBasket();
+                  setState(() {
+                    isPressed = false;
+                  });
                 }
-                else if (state is UpdateLocalBasket ){
-                  print("MyQuerySoundEffectsEnabled 2");
-                  BotToast.showText(text: "updated to basket");
-                  if(!isLoggedIn)
-                    BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
-                  else
+                else if (state is CouponIsPressed) {
+                  setState(() {
+                    isPressed = true;
+                  });
+                  if (isLoggedIn)
                     BlocProvider.of<BasketCubit>(context).getBasket();
+                  if (isPressed == true) {
+                    subTotal = state.coupon!.data!.subTotal!.toString();
+                    discount = state.coupon!.data!.discount!.toString();
+                    deliveryCharge =
+                        state.coupon!.data!.deliveryCharge!.toString();
+                    total = state.coupon!.data!.totalPrice!.toString();
+                  }
+                  else if (state is RemoveFromBasketIsPressed) {
+                    //BotToast.showText(text: state.removeFromBasket!.data!.msg!);
+                    print("MyQuerySoundEffectsEnabled 2");
+                    if (isLoggedIn)
+                      BlocProvider.of<BasketCubit>(context).getBasket();
+                  }
+                  else if (state is RemoveFromLocalBasketIsPressed) {
+                    print("MyQuerySoundEffectsEnabled 1");
+                    BotToast.showText(text: "removed from basket");
+                    if (!isLoggedIn)
+                      BlocProvider.of<BasketCubit>(context)
+                          .getAllLocalProductsFromBasket();
+                    else
+                      BlocProvider.of<BasketCubit>(context).getBasket();
+                  }
+                  else if (state is UpdateLocalBasket) {
+                    print("MyQuerySoundEffectsEnabled 2");
+                    BotToast.showText(text: "updated to basket");
+                    if (!isLoggedIn)
+                      BlocProvider.of<BasketCubit>(context)
+                          .getAllLocalProductsFromBasket();
+                    else
+                      BlocProvider.of<BasketCubit>(context).getBasket();
+                  }
+                  else if (state is AddedLocalBasket) {
+                    print("MyQuerySoundEffectsEnabled 3");
+                    BotToast.showText(text: "added to basket");
+                    if (!isLoggedIn)
+                      BlocProvider.of<BasketCubit>(context)
+                          .getAllLocalProductsFromBasket();
+                    else
+                      BlocProvider.of<BasketCubit>(context).getBasket();
+                  }
                 }
-                else if (state is AddedLocalBasket ){
-                  print("MyQuerySoundEffectsEnabled 3");
-                  BotToast.showText(text: "added to basket");
-                  if(!isLoggedIn)
-                    BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
-                  else
-                    BlocProvider.of<BasketCubit>(context).getBasket();
-                }
-              },
+              }
             ),
             BlocListener<MeCubit, MeState>(
               listener: (context, state) {

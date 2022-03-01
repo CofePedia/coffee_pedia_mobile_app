@@ -106,6 +106,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   //   rangeMap: {},
   //   singleMap: {},
   // );
+
   @override
   void initState() {
     fetchMoreData();
@@ -130,6 +131,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
           currentPage == 1
               ? products = state.categoryProducts!.data!.data!
               : products.addAll(state.categoryProducts!.data!.data!);
+          if(state.categoryProducts!.data!.data!.isEmpty )
+            products.clear();
           if (isRefresh == true) {
             currentPage++;
           }
@@ -205,6 +208,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             padding: EdgeInsets.symmetric(horizontal: 4.w),
                             child: OutlinedButton(
                               onPressed: () {
+
                                 setState(() {
                                   currentPage = 1;
                                   widget.multiMap = {};
@@ -216,17 +220,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   //     ? _selectedSubCategory = -1
                                   //     : _selectedSubCategory =
                                   //         widget.subCategories![index]!.id!;
-
                                   _subCategoryId ==
                                           widget.subCategories![index]!.id!
                                       ? _subCategoryId = -1
                                       : _subCategoryId =
                                           widget.subCategories![index]!.id!;
-                                  fetchMoreData();
                                   products.clear();
-                                  products.addAll(
-                                      state.categoryProducts!.data!.data!);
 
+                                  /*products.addAll(
+                                      state.categoryProducts!.data!.data!);*/
                                   // BlocProvider.of<CategoryProductsCubit>(
                                   //         context)
                                   //     .getCategoryProducts(
@@ -243,6 +245,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   //   page++;
                                   // }
                                 });
+                                fetchMoreData();
                                 print('selectedSubCategory $_subCategoryId');
                               },
                               style: ButtonStyle(
@@ -393,6 +396,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             shrinkWrap: true,
                             itemCount: products.length,
                             itemBuilder: (context, index) {
+                              print('products length ${products.length}');
+                              print(
+                                  'total ${state.categoryProducts!.data!.paginate!.total}');
                               return InkWell(
                                 onTap: () {
                                   Navigator.push(

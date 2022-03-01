@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class RatingBarComponent extends StatelessWidget {
@@ -14,11 +13,10 @@ class RatingBarComponent extends StatelessWidget {
       itemBuilder: (context, index) => SvgPicture.asset(
         'assets/icons/star_active.svg',
       ),
-      itemCount: 5,
-      // itemPadding: EdgeInsets.all(3.h),
+      itemCount: 5, itemPadding: EdgeInsets.zero,
       unratedColor: Colors.grey.shade400,
-      itemSize: 19.h,
-      // itemSize: 50.0,
+      itemSize: 20,
+      //itemSize: 50.0,
       direction: Axis.horizontal,
     );
   }

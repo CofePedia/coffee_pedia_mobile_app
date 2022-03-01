@@ -45,7 +45,7 @@ class Translator with ChangeNotifier {
 
     String value = (_values == null || _values[key] == null) ? '$key' : _values[key];
     if(key.toString().contains(".")){
-      print("AAAA");
+      // print("AAAA");
       List<String> keys = key.split(".");
       if(_values == null ){
         value = '$key';
@@ -57,8 +57,8 @@ class Translator with ChangeNotifier {
           value = _values[keys.elementAt(0)][keys.elementAt(1)];
       }
     }
-    print("_values = $_values");
-    print("value = $value");
+    // print("_values = $_values");
+    // print("value = $value");
     if (arguments == null) return value;
     for (var key in arguments.keys) {
       value = value.replaceAll(key, arguments[key]!);

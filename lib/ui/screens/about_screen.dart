@@ -21,8 +21,7 @@ class AboutScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 16.h, left: 18.w, right: 18.w),
+                  padding: EdgeInsets.only(bottom: 16.h, left: 18.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -41,8 +40,8 @@ class AboutScreen extends StatelessWidget {
                       Text(
                         translator.translate("about_screen.about_coffePedia"),
                         style: Theme.of(context).textTheme.headline1!.copyWith(
-                              fontSize: 18.sp,
-                            ),
+                          fontSize: 18.sp,
+                        ),
                       ),
                     ],
                   ),
