@@ -7,7 +7,7 @@ class VendorRepository {
   VendorRepository(this.vendorWebServices);
 
   Future<VendorDetails> getVendorDetails(int vendorId) async {
-    final basket = vendorWebServices.getVendorDetails(vendorId);
-    return basket;
+    final vendor = vendorWebServices.getVendorDetails(vendorId);
+    return vendor;
   }
 }

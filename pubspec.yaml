@@ -53,6 +53,8 @@ dependencies:
   pull_to_refresh: ^2.0.0
   percent_indicator: ^4.0.0
   shimmer: ^2.0.0
+  easy_debounce: ^2.0.2+1
+
 
 
 

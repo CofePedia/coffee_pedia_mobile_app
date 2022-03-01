@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 4.h,
                     ),
                     Expanded(
-                      child: SearchBar(
+                      child: SearchBarProvider(
                         width: 345.w,
                       ),
                     ),

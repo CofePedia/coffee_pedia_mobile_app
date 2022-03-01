@@ -219,7 +219,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     color: Color(0xff000000),
                                   ),
                                   Expanded(
-                                    child: SearchBar(
+                                    child: SearchBarProvider(
                                       width: 309.w,
                                     ),
                                   ),
