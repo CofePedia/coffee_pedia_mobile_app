@@ -8,8 +8,6 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-
-
 class DatabaseProvider {
   static final DatabaseProvider dbProvider = DatabaseProvider();
 
@@ -55,10 +53,10 @@ class DatabaseProvider {
   }
 
   void onUpgrade(
-      Database database,
-      int oldVersion,
-      int newVersion,
-      ) {
+    Database database,
+    int oldVersion,
+    int newVersion,
+  ) {
     if (newVersion > oldVersion) {}
   }
 
@@ -68,7 +66,7 @@ class DatabaseProvider {
         "$columnTokenUser TEXT "
         ")");
     await database.execute("CREATE TABLE $basketTable ("
-    /*"$columnIdBasket INTEGER PRIMARY KEY autoincrement, "*/
+        /*"$columnIdBasket INTEGER PRIMARY KEY autoincrement, "*/
         "$columnProductIdBasket integer PRIMARY KEY, "
         "$columnQuantityBasket integer, "
         "$columnPriceBasket TEXT, "
@@ -87,9 +85,12 @@ class DatabaseProvider {
 class UserDao {
   final dbProvider = DatabaseProvider.dbProvider;
 
-  Future<int> createUser(LoginData user,) async {
+  Future<int> createUser(
+    LoginData user,
+  ) async {
     final db = await dbProvider.database;
-    var result = db.insert(DatabaseProvider.userTable, {"id": "15", "token": user.token});
+    var result = db
+        .insert(DatabaseProvider.userTable, {"id": "15", "token": user.token});
     getUserToken();
     return result;
   }
@@ -106,16 +107,16 @@ class UserDao {
 
   Future<int> updateUser(int id, LoginDataUser user) async {
     final db = await dbProvider.database;
-    var result = await db
-        .update(DatabaseProvider.userTable, user.toJson(), where: "id = ?", whereArgs: [id]);
+    var result = await db.update(DatabaseProvider.userTable, user.toJson(),
+        where: "id = ?", whereArgs: [id]);
     return result;
   }
 
   Future<bool> checkUser(String token) async {
     final db = await dbProvider.database;
     try {
-      List<Map> users =
-      await db.query(DatabaseProvider.userTable, where: 'token = ?', whereArgs: [token]);
+      List<Map> users = await db.query(DatabaseProvider.userTable,
+          where: 'token = ?', whereArgs: [token]);
       if (users.length > 0) {
         return true;
       } else {
@@ -129,8 +130,8 @@ class UserDao {
   Future<bool> checkSavedToken(int id) async {
     final db = await dbProvider.database;
     try {
-      List<Map> users =
-      await db.query(DatabaseProvider.userTable, where: 'id = ?', whereArgs: [id]);
+      List<Map> users = await db
+          .query(DatabaseProvider.userTable, where: 'id = ?', whereArgs: [id]);
       if (users.length > 0) {
         return true;
       } else {
@@ -144,7 +145,8 @@ class UserDao {
   Future<GetTokenDatabase?> getUserToken() async {
     final db = await dbProvider.database;
     try {
-      var res = await db.rawQuery("SELECT token FROM ${DatabaseProvider.userTable} WHERE id=15");
+      var res = await db.rawQuery(
+          "SELECT token FROM ${DatabaseProvider.userTable} WHERE id=15");
       return res.isNotEmpty ? GetTokenDatabase.fromJson(res.first) : null;
     } catch (err) {
       return null;
@@ -156,13 +158,14 @@ class UserDao {
     final db = await dbProvider.database;
     // row to insert
     Map<String, dynamic> row = {
-      DatabaseProvider.columnProductIdBasket  : basketLocal.productId,
-      DatabaseProvider.columnQuantityBasket  : basketLocal.quantity,
-      DatabaseProvider.columnPriceBasket  : basketLocal.price,
-      DatabaseProvider.columnNameBasket  : basketLocal.name,
-      DatabaseProvider.columnVendorBasket  : basketLocal.vendor,
-      DatabaseProvider.columnImageBasket  : basketLocal.image,
-      DatabaseProvider.columnPriceBeforeDiscountBasket  : basketLocal.priceBeforeDiscount,
+      DatabaseProvider.columnProductIdBasket: basketLocal.productId,
+      DatabaseProvider.columnQuantityBasket: basketLocal.quantity,
+      DatabaseProvider.columnPriceBasket: basketLocal.price,
+      DatabaseProvider.columnNameBasket: basketLocal.name,
+      DatabaseProvider.columnVendorBasket: basketLocal.vendor,
+      DatabaseProvider.columnImageBasket: basketLocal.image,
+      DatabaseProvider.columnPriceBeforeDiscountBasket:
+          basketLocal.priceBeforeDiscount,
     };
     // do the insert and get the id of the inserted row
     int id = await db.insert(DatabaseProvider.basketTable, row);
@@ -170,20 +173,25 @@ class UserDao {
     print(await db.query(DatabaseProvider.basketTable));
     return id;
   }
+
   Future deleteFromLocalBasket(int productId) async {
     final db = await dbProvider.database;
     var result = await db.delete(DatabaseProvider.basketTable,
-        where: '${DatabaseProvider.columnProductIdBasket} = ?', whereArgs: [productId]);
+        where: '${DatabaseProvider.columnProductIdBasket} = ?',
+        whereArgs: [productId]);
     print(await db.query(DatabaseProvider.basketTable));
     return result;
   }
+
   Future truncateLocalBasket() async {
     final db = await dbProvider.database;
-    var result = await db.execute("DELETE FROM ${DatabaseProvider.basketTable}");
+    var result =
+        await db.execute("DELETE FROM ${DatabaseProvider.basketTable}");
     print(await db.query(DatabaseProvider.basketTable));
     print("local basket is empty!!");
     return result;
   }
+
   Future updateQuantityInLocalBasket(int productId, int quantity) async {
     final db = await dbProvider.database;
     var result = await db.execute("UPDATE ${DatabaseProvider.basketTable} "
@@ -192,7 +200,8 @@ class UserDao {
     print(await db.query(DatabaseProvider.basketTable));
     return result;
   }
-  Future IncrementQuantityInLocalBasket(int productId) async {
+
+  Future incrementQuantityInLocalBasket(int productId) async {
     final db = await dbProvider.database;
     var result = await db.execute("UPDATE ${DatabaseProvider.basketTable} "
         "SET ${DatabaseProvider.columnQuantityBasket} = ${DatabaseProvider.columnQuantityBasket} + 1 "
@@ -200,7 +209,8 @@ class UserDao {
     print(await db.query(DatabaseProvider.basketTable));
     return result;
   }
-  Future DecrementQuantityInLocalBasket(int productId) async {
+
+  Future decrementQuantityInLocalBasket(int productId) async {
     final db = await dbProvider.database;
     var result = await db.execute("UPDATE ${DatabaseProvider.basketTable} "
         "SET ${DatabaseProvider.columnQuantityBasket} = ${DatabaseProvider.columnQuantityBasket} - 1 "
@@ -208,6 +218,7 @@ class UserDao {
     print(await db.query(DatabaseProvider.basketTable));
     return result;
   }
+
   Future<List<BasketLocal>> getAllLocalProductsFromBasket() async {
     final db = await dbProvider.database;
     // do the insert and get the id of the inserted row
@@ -216,16 +227,16 @@ class UserDao {
     List<BasketLocal> baskets = [];
     // print the results
     result.forEach((row) {
-      baskets.add(
-          BasketLocal(
-            productId: row[DatabaseProvider.columnProductIdBasket],
-            quantity: row[DatabaseProvider.columnQuantityBasket],
-            price: row[DatabaseProvider.columnPriceBasket],
-            name: row[DatabaseProvider.columnNameBasket],
-            vendor: row[DatabaseProvider.columnVendorBasket],
-            image: row[DatabaseProvider.columnImageBasket],
-            priceBeforeDiscount: row[DatabaseProvider.columnPriceBeforeDiscountBasket],
-          ));
+      baskets.add(BasketLocal(
+        productId: row[DatabaseProvider.columnProductIdBasket],
+        quantity: row[DatabaseProvider.columnQuantityBasket],
+        price: row[DatabaseProvider.columnPriceBasket],
+        name: row[DatabaseProvider.columnNameBasket],
+        vendor: row[DatabaseProvider.columnVendorBasket],
+        image: row[DatabaseProvider.columnImageBasket],
+        priceBeforeDiscount:
+            row[DatabaseProvider.columnPriceBeforeDiscountBasket],
+      ));
     });
 
     return baskets;

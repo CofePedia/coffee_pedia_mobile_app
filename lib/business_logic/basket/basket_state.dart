@@ -22,24 +22,27 @@ class RemoveFromBasketIsPressed extends BasketState {
 
 ///// LOCAL FROM SQfLITE
 class AddToCartPressed extends BasketState {
-  List<BasketLocal>  basketLocalList;
+  final List<BasketLocal> basketLocalList;
   AddToCartPressed(this.basketLocalList);
 }
+
 class LocalBasketLoaded extends BasketState {
-  List<BasketLocal>  basketLocalList;
+  final List<BasketLocal> basketLocalList;
   LocalBasketLoaded(this.basketLocalList);
 }
+
 class LocalBasketError extends BasketState {
-  String error;
+  final String error;
   LocalBasketError(this.error);
 }
+
 class RemoveFromLocalBasketIsPressed extends BasketState {
   RemoveFromLocalBasketIsPressed();
 }
+
 class AddToLocalBasketIsPressed extends BasketState {
   AddToLocalBasketIsPressed();
 }
-
 
 class AddedLocalBasket extends BasketState {
   // final AddedLocalBasket? addedLocalBasket;
@@ -47,7 +50,7 @@ class AddedLocalBasket extends BasketState {
 }
 
 class AddedLocalBasketError extends BasketState {
-  String error;
+  final String error;
   AddedLocalBasketError(this.error);
 }
 
@@ -57,7 +60,7 @@ class UpdateLocalBasket extends BasketState {
 }
 
 class UpdateLocalBasketError extends BasketState {
-  String error;
+  final String error;
   UpdateLocalBasketError(this.error);
 }
 

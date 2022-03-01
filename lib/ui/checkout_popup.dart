@@ -7,14 +7,11 @@ import 'package:coffepedia/data/repository/basket_repository.dart';
 import 'package:coffepedia/data/repository/me_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/data/web_services/me_web_services.dart';
-import 'package:coffepedia/ui/checkout_items_screen.dart';
-import 'package:coffepedia/ui/delivery_info_screen.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 import '../main.dart';
 
@@ -156,7 +153,7 @@ class CheckoutPopUp extends StatelessWidget {
             listeners: [
               BlocListener<MeCubit, MeState>(
                 listener: (context, state) {
-                  if (state is MeIsLoaded){
+                  if (state is MeIsLoaded) {
                     isLoggedIn = true;
                   }
                 },
@@ -168,7 +165,7 @@ class CheckoutPopUp extends StatelessWidget {
                         text: 'state.addToBasket!.data!.msg![0]!');
                   else if (state is AddedLocalBasket) {
                     BotToast.showText(text: 'added to local');
-                  } else if (state is AddToCartPressed){
+                  } else if (state is AddToCartPressed) {
                     /*if (isLoggedIn) {
                       print("MyQuerySoundEffectsEnabled  proceed button with a user");
                       //TODO 1) add the item to the local db..
@@ -210,15 +207,12 @@ class CheckoutPopUp extends StatelessWidget {
                     }
                     else
                       print("No user detected");*/
-                  }else
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const HomePage(currentIndex: 1);
-                        },
-                      ), (route) => false
-                    );
+                  } else
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const HomePage(currentIndex: 1);
+                      },
+                    ), (route) => false);
                 },
               ),
             ],
@@ -230,21 +224,24 @@ class CheckoutPopUp extends StatelessWidget {
                   height: 50.h,
                   child: ElevatedButton(
                     onPressed: () async {
-                      final BasketRepository basketRepository = BasketRepository(BasketWebServices(),);
+                      final BasketRepository basketRepository =
+                          BasketRepository(
+                        BasketWebServices(),
+                      );
                       if (state is MeIsLoaded) {
-                        print("MyQuerySoundEffectsEnabled  proceed button with a user");
+                        print(
+                            "MyQuerySoundEffectsEnabled  proceed button with a user");
                         //TODO 1) add the item to the local db..
                         await BlocProvider.of<BasketCubit>(context)
                             .addProductInLocalBasket(BasketLocal(
-                            productId: basketLocal!.productId,
-                            quantity: basketLocal!.quantity,
-                            image: basketLocal!.image,
-                            price: basketLocal!.price,
-                            vendor: basketLocal!.vendor,
-                            name: basketLocal!.name,
-                            priceBeforeDiscount:
-                            basketLocal!.priceBeforeDiscount)
-                        );
+                                productId: basketLocal!.productId,
+                                quantity: basketLocal!.quantity,
+                                image: basketLocal!.image,
+                                price: basketLocal!.price,
+                                vendor: basketLocal!.vendor,
+                                name: basketLocal!.name,
+                                priceBeforeDiscount:
+                                    basketLocal!.priceBeforeDiscount));
                         /*//TODO 2) get all items from the local database..
                         List<Map<String, int>> basket = [];
                         print("A 1");
@@ -267,9 +264,9 @@ class CheckoutPopUp extends StatelessWidget {
                         print("A 3");
                         //TODO 3) send all the products to the database..
                         BlocProvider.of<BasketCubit>(context).getAddToBasket(basket);*/
-                      }
-                      else if (state is MeIsNotExist) {
-                        print("MyQuerySoundEffectsEnabled  proceed button with local");
+                      } else if (state is MeIsNotExist) {
+                        print(
+                            "MyQuerySoundEffectsEnabled  proceed button with local");
                         await BlocProvider.of<BasketCubit>(context)
                             .addProductInLocalBasket(BasketLocal(
                                 productId: basketLocal!.productId,
@@ -281,7 +278,6 @@ class CheckoutPopUp extends StatelessWidget {
                                 priceBeforeDiscount:
                                     basketLocal!.priceBeforeDiscount));
                       }
-
                     },
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
@@ -291,7 +287,8 @@ class CheckoutPopUp extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      translator.translate("checkout_popup.proceed_to_checkout"),
+                      translator
+                          .translate("checkout_popup.proceed_to_checkout"),
                       style: Theme.of(context).textTheme.headline2,
                     ),
                   ),

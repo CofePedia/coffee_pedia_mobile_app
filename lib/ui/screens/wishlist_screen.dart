@@ -37,10 +37,12 @@ class WishlistScreen extends StatefulWidget {
 class _WishlistScreenState extends State<WishlistScreen> {
   bool _isFavorite = true;
   //
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    BlocProvider.of<WishlistCubit>(context).getWishlist();
+
+    super.initState();
+  }
   //
   // void toggleWishlistIcon(
   //   String productId,
@@ -57,14 +59,16 @@ class _WishlistScreenState extends State<WishlistScreen> {
     BlocProvider.of<WishlistCubit>(context).getWishlist();
 
     return CheckInternetConnection(
-      screen: BlocListener<WishlistCubit, WishlistState>(
-        listener: (context, state) {
-          if (state is ToggleProductsInWishlistIsLoaded) {
-            BotToast.showText(text: state.toggleProductsInWishlist!.data!.msg!);
-          }
-        },
-        child: Scaffold(
-          body: SingleChildScrollView(
+      screen: Scaffold(
+        body: BlocListener<WishlistCubit, WishlistState>(
+          listener: (context, state) {
+            if (state is ToggleProductsInWishlistIsLoaded) {
+              BotToast.showText(
+                  text: state.toggleProductsInWishlist!.data!.msg!);
+              BlocProvider.of<WishlistCubit>(context).getWishlist();
+            }
+          },
+          child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.only(bottom: 15.h),
               child: Column(
@@ -271,7 +275,10 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                 ),
                               )
                             : Container(
-                                child: Text(translator.translate("wishlist_screen.no_wishlist_items"),),
+                                child: Text(
+                                  translator.translate(
+                                      "wishlist_screen.no_wishlist_items"),
+                                ),
                               );
                       } else {
                         return Center(

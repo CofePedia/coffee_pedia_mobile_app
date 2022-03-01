@@ -6,12 +6,9 @@ import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/database/database_provider.dart';
 
 class BasketRepository {
-
   final BasketWebServices basketWebServices;
   final userDao = UserDao();
   BasketRepository(this.basketWebServices);
-
-
 
   Future<Basket> getBasket() async {
     final basket = basketWebServices.getBasket();
@@ -36,12 +33,18 @@ class BasketRepository {
     final result = basketWebServices.postCoupon(coupon);
     return result;
   }
-  Future addProductInLocalBasket(BasketLocal basketLocal) => userDao.addProductInLocalBasket(basketLocal);
-  Future deleteFromLocalBasket(int productId) => userDao.deleteFromLocalBasket(productId);
-  Future truncateLocalBasket() => userDao.truncateLocalBasket();
-  Future updateQuantityInLocalBasket(int productId, int quantity) => userDao.updateQuantityInLocalBasket(productId, quantity);
-  Future incrementQuantityInLocalBasket(int productId) => userDao.IncrementQuantityInLocalBasket(productId);
-  Future decrementQuantityInLocalBasket(int productId) => userDao.DecrementQuantityInLocalBasket(productId);
-  Future<List<BasketLocal>> getAllLocalProductsFromBasket() => userDao.getAllLocalProductsFromBasket();
 
+  Future addProductInLocalBasket(BasketLocal basketLocal) =>
+      userDao.addProductInLocalBasket(basketLocal);
+  Future deleteFromLocalBasket(int productId) =>
+      userDao.deleteFromLocalBasket(productId);
+  Future truncateLocalBasket() => userDao.truncateLocalBasket();
+  Future updateQuantityInLocalBasket(int productId, int quantity) =>
+      userDao.updateQuantityInLocalBasket(productId, quantity);
+  Future incrementQuantityInLocalBasket(int productId) =>
+      userDao.incrementQuantityInLocalBasket(productId);
+  Future decrementQuantityInLocalBasket(int productId) =>
+      userDao.decrementQuantityInLocalBasket(productId);
+  Future<List<BasketLocal>> getAllLocalProductsFromBasket() =>
+      userDao.getAllLocalProductsFromBasket();
 }

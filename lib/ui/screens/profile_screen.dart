@@ -1,7 +1,6 @@
 import 'package:coffepedia/business_logic/me/me_cubit.dart';
 import 'package:coffepedia/constants/colors.dart';
 import 'package:coffepedia/data/repository/me_repository.dart';
-import 'package:coffepedia/data/repository/user_repository.dart';
 import 'package:coffepedia/data/web_services/me_web_services.dart';
 import 'package:coffepedia/database/database_provider.dart';
 import 'package:coffepedia/generated/assets.dart';
@@ -58,8 +57,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
   Widget build(BuildContext context) {
     BlocProvider.of<MeCubit>(context).getMe();
     return CheckInternetConnection(
-        screen: BlocBuilder<MeCubit, MeState>
-          (builder: (context, state) {
+        screen: BlocBuilder<MeCubit, MeState>(builder: (context, state) {
       if (state is MeIsLoaded) {
         return Scaffold(
           backgroundColor: Colors.white,
@@ -134,7 +132,8 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  translator.translate("profile_screen.welcome_back"),
+                                  translator
+                                      .translate("profile_screen.welcome_back"),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
@@ -164,7 +163,8 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                       children: [
                         //ordersHistory
                         ProfileItem(
-                          title: translator.translate("profile_screen.order_history"),
+                          title: translator
+                              .translate("profile_screen.order_history"),
                           onPress: () {
                             Navigator.push(
                               context,
@@ -178,7 +178,8 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         ),
                         //my wishlist
                         ProfileItem(
-                          title: translator.translate("profile_screen.my_wishlist"),
+                          title: translator
+                              .translate("profile_screen.my_wishlist"),
                           onPress: () {
                             Navigator.push(
                               context,
@@ -192,7 +193,8 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         ),
                         //address book
                         ProfileItem(
-                          title: translator.translate("profile_screen.address_book"),
+                          title: translator
+                              .translate("profile_screen.address_book"),
                           onPress: () {
                             Navigator.push(
                               context,
@@ -219,7 +221,8 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         // ),
                         //account settings
                         ProfileItem(
-                          title: translator.translate("profile_screen.account_settings"),
+                          title: translator
+                              .translate("profile_screen.account_settings"),
                           onPress: () {
                             Navigator.push(
                               context,
@@ -263,7 +266,8 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                       },
                       child: ListTile(
                         title: Text(
-                          translator.translate("profile_screen.switch_language"),
+                          translator
+                              .translate("profile_screen.switch_language"),
                           style:
                               Theme.of(context).textTheme.headline2!.copyWith(
                                     color: Color(0xff231F20),
@@ -383,7 +387,8 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  translator.translate("profile_screen.welcome"),
+                                  translator
+                                      .translate("profile_screen.welcome"),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
@@ -408,7 +413,8 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                       children: [
                         //my wishlist
                         ProfileItem(
-                          title: translator.translate("profile_screen.my_wishlist"),
+                          title: translator
+                              .translate("profile_screen.my_wishlist"),
                           onPress: () {
                             Navigator.push(
                               context,
@@ -450,7 +456,8 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                       },
                       child: ListTile(
                         title: Text(
-                          translator.translate("profile_screen.switch_language"),
+                          translator
+                              .translate("profile_screen.switch_language"),
                           style:
                               Theme.of(context).textTheme.headline2!.copyWith(
                                     color: Color(0xff231F20),
