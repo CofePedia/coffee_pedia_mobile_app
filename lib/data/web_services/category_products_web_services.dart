@@ -10,6 +10,7 @@ class CategoryProductsWebServices {
   final userDao = UserDao();
 
   Future<CategoryProducts> getCategoryProducts({
+    int? vendorId,
     int? limit,
     int? page,
     int? subCategoryId,
@@ -19,7 +20,7 @@ class CategoryProductsWebServices {
     Map<String, String?>? singleMap,
   }) async {
     final Map<String, dynamic> queryParameters = {
-      'category': categoryId.toString(),
+      // 'category': categoryId.toString(),
     };
 
     if (multiMap!.isNotEmpty) {
@@ -31,18 +32,28 @@ class CategoryProductsWebServices {
     if (singleMap!.isNotEmpty) {
       queryParameters.addAll(singleMap);
     }
-
+    if (categoryId != -1) {
+      queryParameters.addAll({
+        'category': categoryId.toString(),
+      });
+    }
     if (subCategoryId != -1) {
       queryParameters.addAll({
         'subCategory': subCategoryId.toString(),
       });
     }
-    if (page != -1) {
+    if (vendorId != -1) {
+      queryParameters.addAll({
+        'vendor': vendorId.toString(),
+      });
+    }
+
+    if (page != null) {
       queryParameters.addAll({
         'page': page.toString(),
       });
     }
-    if (limit != -1) {
+    if (limit != null) {
       queryParameters.addAll({
         'limit': limit.toString(),
       });
@@ -55,12 +66,10 @@ class CategoryProductsWebServices {
 
     final http.Response response = await http.get(
       uri,
-      headers: {'Authorization': 'Bearer ' + token!.getToken!},
+      // TODO: Check token again if needed
+      // headers: {'Authorization': 'Bearer ' + token!.getToken!},
     );
-    // var list =  as List;
-    // print("response categoryProducts length = ${list.length.toString()}");
     print("response categoryProducts ${response.body}");
-
     if (response.statusCode == 200) {
       return CategoryProducts.fromJson(
         json.decode(response.body),
@@ -73,4 +82,24 @@ class CategoryProductsWebServices {
       );
     }
   }
+
+// Future<VendorDetails> getVendorDetails(int vendorId) async {
+//   final url = Uri.parse(baseUrl + '/vendor_details/$vendorId');
+//
+//   final http.Response response = await http.get(
+//     url,
+//   );
+//   print("response vendor details ${response.body}");
+//
+//   if (response.statusCode == 200) {
+//     return VendorDetails.fromJson(
+//       json.decode(response.body),
+//     );
+//   } else {
+//     print("vendor details error = " + (response.body).toString());
+//     throw Exception(
+//       json.decode(response.body),
+//     );
+//   }
+// }
 }

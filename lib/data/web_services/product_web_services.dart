@@ -13,11 +13,11 @@ class ProductWebServices {
     final url = Uri.parse(baseUrl + 'product/$id');
     GetTokenDatabase? token = await userDao.getUserToken();
 
-    //print("token product " + token!.getToken!);
+    print("token product " + token!.getToken!);
 
     final http.Response response = await http.get(
       url,
-      //headers: {'Authorization': 'Bearer ' + token!.getToken!},
+      headers: {'Authorization': 'Bearer ' + token.getToken!},
     );
     print("response product ${response.body}");
 
@@ -26,7 +26,7 @@ class ProductWebServices {
         json.decode(response.body),
       );
     } else {
-      print("get products = " +response.body);
+      print("get products = " + response.body);
       print('response exception ${json.decode(response.body).toString()}');
       throw Exception(
         json.decode(response.body),

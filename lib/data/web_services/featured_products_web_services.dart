@@ -10,11 +10,13 @@ class FeaturedProductsWebServices {
   final userDao = UserDao();
   Future<FeaturedProducts> getFeaturedProducts() async {
     final url = Uri.parse(baseUrl + 'products/featured');
-    //GetTokenDatabase? token = await userDao.getUserToken();
+
+    GetTokenDatabase? token = await userDao.getUserToken();
 
     final http.Response response = await http.get(
       url,
-      //headers: {'Authorization': 'Bearer ' + token!.getToken!},
+      headers:
+          token != null ? {'Authorization': 'Bearer ' + token.getToken!} : null,
     );
     print("response featuredProducts ${response.body}");
 

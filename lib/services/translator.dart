@@ -9,10 +9,13 @@ import 'package:intl/intl.dart' as intl;
 
 class Translator with ChangeNotifier {
   // ---- Config ---- //
-  List<String> langsList = ['en', 'ar'];
-  late Locale _locale ;
+  List<String> langsList = [
+    'en',
+    'ar',
+  ];
+  late Locale _locale;
 
-  late Map<dynamic, dynamic> _values;// define languages
+  late Map<dynamic, dynamic> _values; // define languages
   String langDirectory = 'assets/langs/'; // define directory
   ///------------------------------------------------
   /// delegatess
@@ -24,13 +27,14 @@ class Translator with ChangeNotifier {
     DefaultCupertinoLocalizations.delegate,
   ];
 
-  Translator(){
+  Translator() {
     if (Prefs.getString('currentLang') != null) {
       _locale = Locale(Prefs.getString('currentLang')!, "");
     } else {
       _locale = Locale(langsList[0]);
     }
   }
+
   ///------------------------------------------------
   /// Locals List
   ///------------------------------------------------
@@ -42,16 +46,16 @@ class Translator with ChangeNotifier {
   /// Transle : [key]
   ///------------------------------------------------
   String translate(String key, [Map<String, String>? arguments]) {
-
-    String value = (_values == null || _values[key] == null) ? '$key' : _values[key];
-    if(key.toString().contains(".")){
+    String value =
+        (_values == null || _values[key] == null) ? '$key' : _values[key];
+    if (key.toString().contains(".")) {
       // print("AAAA");
       List<String> keys = key.split(".");
-      if(_values == null ){
+      if (_values == null) {
         value = '$key';
-      }else{
+      } else {
         // value = _values["wishlist_screen"]["egp"];
-        if(_values[keys.elementAt(0)][keys.elementAt(1)] == null)
+        if (_values[keys.elementAt(0)][keys.elementAt(1)] == null)
           value = '$key';
         else
           value = _values[keys.elementAt(0)][keys.elementAt(1)];
@@ -85,12 +89,12 @@ class Translator with ChangeNotifier {
   ///------------------------------------------------
   /// Active Language Code (String)
   ///------------------------------------------------
-  String get currentLanguage => _locale.languageCode ?? langsList[0];
+  String get currentLanguage => _locale.languageCode;
 
   ///------------------------------------------------
   /// Active Locale
   ///------------------------------------------------
-  Locale get locale => _locale ?? Locale(langsList[0]);
+  Locale get locale => _locale;
 
   ///------------------------------------------------
   /// Initialize Plugin
@@ -126,6 +130,7 @@ class Translator with ChangeNotifier {
   /// Determine Active Layout (bool)
   ///------------------------------------------------
   isDirectionRTL(BuildContext context) {
-    return intl.Bidi.isRtlLanguage(Localizations.localeOf(context).languageCode);
+    return intl.Bidi.isRtlLanguage(
+        Localizations.localeOf(context).languageCode);
   }
 }

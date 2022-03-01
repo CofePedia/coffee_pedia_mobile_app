@@ -11,6 +11,7 @@ class CategoryProductsCubit extends Cubit<CategoryProductsState> {
       : super(CategoryProductsInitial());
 
   getCategoryProducts({
+    int? vendorId,
     int? limit,
     int? page,
     int? subCategoryId,
@@ -19,7 +20,9 @@ class CategoryProductsCubit extends Cubit<CategoryProductsState> {
     Map<String, String?>? rangeMap,
     Map<String, String?>? singleMap,
   }) {
-    categoryProductsRepository.getCategoryProducts(
+    categoryProductsRepository
+        .getCategoryProducts(
+      vendorId: vendorId,
       limit: limit,
       page: page,
       subCategoryId: subCategoryId,
