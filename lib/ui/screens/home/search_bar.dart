@@ -93,6 +93,8 @@ class _SearchBarState extends State<SearchBar> {
                                 onTap: () {
                                   setState(() {});
                                   _searchTextController.clear();
+                                  BlocProvider.of<SearchCubit>(context)
+                                      .getSearch("");
                                 },
                                 child: Icon(Icons.close),
                               ),
