@@ -1,7 +1,10 @@
 import 'package:coffepedia/business_logic/orders_history/orders_history_cubit.dart';
 import 'package:coffepedia/data/repository/orders_history_repository.dart';
 import 'package:coffepedia/data/web_services/order_history_web_services.dart';
+import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
+import 'package:coffepedia/ui/screens/home_page.dart';
+import 'package:coffepedia/ui/widgets/empty_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -332,9 +335,22 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                             ),
                           ),
                         )
-                      : Text(
-                          translator.translate(
-                              "order_history_screen.no_orders_history"),
+                      : EmptyWidgets(
+                          image: Assets.noOrdersHistory,
+                          title: "Your Wallet is Empty",
+                          onPress: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const HomePage(currentIndex: 0);
+                                },
+                              ),
+                            );
+                          },
+                          description:
+                              "Make a purchase and gain credit to your wallet",
+                          buttonTitle: "Shop now",
                         );
                 } else {
                   return Center(

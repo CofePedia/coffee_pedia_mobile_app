@@ -42,8 +42,17 @@ class Assets {
   static const String iconsStarActive = 'assets/icons/star_active.svg';
   static const String fullscreenIcon = 'assets/icons/fullscreen_icon.svg';
   static const String shoppingBasket = 'assets/images/shopping_basket.svg';
-  static const String noInternetConnectionImage = 'assets/images/no_internet.png';
+  static const String noInternetConnectionImage =
+      'assets/images/no_internet.png';
+  static const String noAddressHistory = 'assets/images/no_address_history.svg';
+  static const String noItems = 'assets/images/no_items.svg';
+  static const String noOrdersHistory = 'assets/images/no_orders_history.svg';
+  static const String noWishlist = 'assets/images/no_wishlist.svg';
 
+  static const String aboutImage = 'assets/images/about.png';
+  static const String blogImage = 'assets/images/blog.png';
+  static const String coffeeShopImage = 'assets/images/coffee_shops.png';
+  static const String recipesImage = 'assets/images/recipes.png';
 
   static const String imagesBitmap = 'assets/images/Bitmap.png';
   static const String fawryImage = 'assets/images/fawry.svg';
@@ -58,6 +67,8 @@ class Assets {
   static const String imagesMastercardLogo = 'assets/images/MastercardLogo.svg';
   static const String imagesPack = 'assets/images/Pack.png';
   static const String successIcon = 'assets/images/success_icon.svg';
+  static const String paymentFiledIcon = 'assets/images/payment_failed.png';
+
   static const String userPhote = 'assets/images/user_photo.svg';
 
   static const String imagesPartnerLogo = 'assets/images/partnerLogo.png';

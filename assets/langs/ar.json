@@ -127,7 +127,10 @@
     "coffee_shops" : "Coffee shops",
     "blog" : "Blog",
     "recipes" : "Recipes",
-    "about" : "About"
+    "about" : "About",
+    "Explore nearby Coffee shops" : "Explore nearby Coffee shops",
+    "Share your love" : "Share your love",
+    "Prepare it by yourself" : "Prepare it by yourself"
   },
   "map_widget" : {
     "show" : "Show",
@@ -154,8 +157,7 @@
     "subtotal" : "Subtotal",
     "discount" : "Discount",
     "cod" : "COD",
-    "total" : "Total",
-    "no_orders_history" : "No orders history"
+    "total" : "Total"
   },
   "payment_info_screen" : {
     "pay_now" : "Pay Now",
@@ -195,10 +197,15 @@
     "track_order" : "Track your order",
     "continue_shopping" : "Continue Shopping"
   },
+  "failed_payment_screen" : {
+    "Transaction Failed" : "Transaction Failed!",
+    "Failed_msg" : "An Unknown Error Occurred!,",
+    "Try_again_msg" : "Please Try Again Later.",
+    "back_to_home" : "Back to Home"
+  },
   "wishlist_screen" : {
     "my_wishlist" : "My wishlist",
-    "egp" : "EGP",
-    "no_wishlist_items" : "No wishlist items"
+    "egp" : "EGP"
   },
   "login_registration_screen" : {
     "login" : "Login",

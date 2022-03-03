@@ -37,11 +37,11 @@ void main() async {
       runApp(
         EasyLocalization(
           supportedLocales: [
-            Locale('ar'),
             Locale('en'),
+            Locale('ar'),
           ],
           path: 'assets/translations',
-          fallbackLocale: Locale('ar'),
+          fallbackLocale: Locale('en'),
           child: RepositoryProvider(
             create: (_) {
               return UserRepository(AuthWebServices());

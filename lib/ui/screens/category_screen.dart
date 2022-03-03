@@ -9,6 +9,7 @@ import 'package:coffepedia/ui/screens/filters_screen.dart';
 import 'package:coffepedia/ui/screens/home/search_bar.dart';
 import 'package:coffepedia/ui/shared/custom_outline_button.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
+import 'package:coffepedia/ui/widgets/empty_widgets.dart';
 import 'package:coffepedia/ui/widgets/seller_details_widget.dart';
 import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
@@ -164,6 +165,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      //appbar
                       widget.vendorId != -1
                           ? Padding(
                               padding: EdgeInsets.only(
@@ -230,11 +232,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       SizedBox(
                         height: 15.h,
                       ),
+                      // seller details
                       widget.vendorId != -1
                           ? SellerDetailsWidget(
                               vendorId: widget.vendorId,
                             )
                           : SizedBox.shrink(),
+
+                      // subCategory
                       widget.vendorId != -1
                           ? Container(
                               height: 78.h,
@@ -489,6 +494,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     );
                                   }),
                             ),
+
+                      // category name
                       Padding(
                         padding:
                             EdgeInsets.only(top: 31.h, right: 15.w, left: 15.w),
@@ -558,37 +565,40 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           ],
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        child: GridView.builder(
-                            padding: EdgeInsets.only(top: 40.h, bottom: 15.h),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 16.h,
-                              crossAxisSpacing: 8.w,
-                              childAspectRatio: 164.5.w / 305.h,
-                            ),
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: products.length,
-                            itemBuilder: (context, index) {
-                              print('products length ${products.length}');
-                              print(
-                                  'total ${state.categoryProducts!.data!.paginate!.total}');
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return ProductProvider(
-                                          id: products[index]!.id!,
+
+                      products.length > 0
+                          ? Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              child: GridView.builder(
+                                  padding:
+                                      EdgeInsets.only(top: 40.h, bottom: 15.h),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    mainAxisSpacing: 16.h,
+                                    crossAxisSpacing: 8.w,
+                                    childAspectRatio: 164.5.w / 305.h,
+                                  ),
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: products.length,
+                                  itemBuilder: (context, index) {
+                                    print('products length ${products.length}');
+                                    print(
+                                        'total ${state.categoryProducts!.data!.paginate!.total}');
+                                    return InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) {
+                                              return ProductProvider(
+                                                id: products[index]!.id!,
+                                              );
+                                            },
+                                          ),
                                         );
                                       },
-                                    ),
-                                  );
-                                },
 // onTap: () async {
 //   final hasData = await Navigator.push(
 //     context,
@@ -607,185 +617,199 @@ class _CategoryScreenState extends State<CategoryScreen> {
 //             0, widget.categoriesId, widget.multiMap);
 //   }
 // },
-                                child: Container(
-                                  height: 305.h,
-                                  width: 164.5.w,
-                                  child: Stack(
-                                    fit: StackFit.expand,
-                                    children: [
-                                      Container(
-                                        height: 280.h,
+                                      child: Container(
+                                        height: 305.h,
                                         width: 164.5.w,
-                                        child: Image.asset(
-                                          Assets.imagesCard,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Positioned(
-                                        right: 17.w,
-                                        child: Container(
-                                          child: Image.network(
-                                            products[index]!.image!,
-                                            width: 75.w,
-                                            height: 136.h,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      products[index]!.rate! != 0
-                                          ? Positioned(
-                                              top: 30.h,
-                                              left: 20.w,
-                                              child: Row(
-                                                children: [
-                                                  SvgPicture.asset(
-                                                      Assets.iconsStarActive),
-                                                  SizedBox(
-                                                    width: 5.w,
-                                                  ),
-                                                  Text(
-                                                    products[index]!
-                                                        .rate
-                                                        .toString(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText2!
-                                                        .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
-                                                  ),
-                                                ],
+                                        child: Stack(
+                                          fit: StackFit.expand,
+                                          children: [
+                                            Container(
+                                              height: 280.h,
+                                              width: 164.5.w,
+                                              child: Image.asset(
+                                                Assets.imagesCard,
+                                                fit: BoxFit.cover,
                                               ),
-                                            )
-                                          : SizedBox.shrink(),
-                                      Positioned(
-                                        top: 152.h,
-                                        left: 12.w,
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 8.w),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              products[index]!.discount == 0
-                                                  ? SizedBox(
-                                                      height: 17.h,
-                                                      width: 55.w,
-                                                    )
-                                                  : Container(
-                                                      height: 17.h,
-                                                      width: 55.w,
-                                                      alignment:
-                                                          Alignment.center,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xffFFD008),
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                            12.5.r,
-                                                          ),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                            12.5.r,
-                                                          ),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                            12.5.r,
-                                                          ),
+                                            ),
+                                            Positioned(
+                                              right: 17.w,
+                                              child: Container(
+                                                child: Image.network(
+                                                  products[index]!.image!,
+                                                  width: 75.w,
+                                                  height: 136.h,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            products[index]!.rate! != 0
+                                                ? Positioned(
+                                                    top: 30.h,
+                                                    left: 20.w,
+                                                    child: Row(
+                                                      children: [
+                                                        SvgPicture.asset(Assets
+                                                            .iconsStarActive),
+                                                        SizedBox(
+                                                          width: 5.w,
                                                         ),
-                                                      ),
-                                                      child: Text(
-                                                        '${products[index]!.discount}% Off',
+                                                        Text(
+                                                          products[index]!
+                                                              .rate
+                                                              .toString(),
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyText2!
+                                                                  .copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                  ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                : SizedBox.shrink(),
+                                            Positioned(
+                                              top: 152.h,
+                                              left: 12.w,
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 8.w),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    products[index]!.discount ==
+                                                            0
+                                                        ? SizedBox(
+                                                            height: 17.h,
+                                                            width: 55.w,
+                                                          )
+                                                        : Container(
+                                                            height: 17.h,
+                                                            width: 55.w,
+                                                            alignment: Alignment
+                                                                .center,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xffFFD008),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                  12.5.r,
+                                                                ),
+                                                                bottomRight:
+                                                                    Radius
+                                                                        .circular(
+                                                                  12.5.r,
+                                                                ),
+                                                                bottomLeft: Radius
+                                                                    .circular(
+                                                                  12.5.r,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            child: Text(
+                                                              '${products[index]!.discount}% Off',
 // state.categoryProducts!.data!
 //     .filters![2]!.optionsSingle![2]
 //     .toString(),
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText1,
+                                                            ),
+                                                          ),
+                                                    SizedBox(
+                                                      height: 15.h,
+                                                    ),
+                                                    Container(
+                                                      width: 140.w,
+                                                      child: Text(
+                                                        products[index]!.name!,
+                                                        maxLines: 3,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .bodyText1,
+                                                            .headline1!
+                                                            .copyWith(
+                                                              fontSize: 14.sp,
+                                                            ),
                                                       ),
                                                     ),
-                                              SizedBox(
-                                                height: 15.h,
-                                              ),
-                                              Container(
-                                                width: 140.w,
-                                                child: Text(
-                                                  products[index]!.name!,
-                                                  maxLines: 3,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline1!
-                                                      .copyWith(
-                                                        fontSize: 14.sp,
-                                                      ),
+                                                    SizedBox(
+                                                      height: 12.h,
+                                                    ),
+                                                    Text(
+                                                      'EGP ${products[index]!.priceBeforeDiscount}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyText2!
+                                                          .copyWith(
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .lineThrough,
+                                                            color:
+                                                                Colors.black45,
+                                                          ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8.h,
+                                                    ),
+                                                    Text(
+                                                      'EGP ${products[index]!.price}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .subtitle1,
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              SizedBox(
-                                                height: 12.h,
+                                            ),
+                                            Positioned(
+                                              top: 240.h,
+                                              right: 18.w,
+                                              child: Container(
+                                                height: 38.h,
+                                                width: 38.w,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xffffffff),
+                                                  borderRadius:
+                                                      BorderRadius.circular(25),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Color.fromRGBO(
+                                                          0, 0, 0, 0.12),
+                                                      offset: Offset(0, 2),
+                                                      blurRadius: 11.sp,
+                                                    )
+                                                  ],
+                                                ),
+                                                child: WishlistIconWidget(
+                                                  productId: products[index]!
+                                                      .id!
+                                                      .toString(),
+                                                  isFavorite: products[index]!
+                                                      .inWishlist!,
+                                                ),
                                               ),
-                                              Text(
-                                                'EGP ${products[index]!.priceBeforeDiscount}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText2!
-                                                    .copyWith(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                      color: Colors.black45,
-                                                    ),
-                                              ),
-                                              SizedBox(
-                                                height: 8.h,
-                                              ),
-                                              Text(
-                                                'EGP ${products[index]!.price}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      Positioned(
-                                        top: 240.h,
-                                        right: 18.w,
-                                        child: Container(
-                                          height: 38.h,
-                                          width: 38.w,
-                                          decoration: BoxDecoration(
-                                            color: Color(0xffffffff),
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Color.fromRGBO(
-                                                    0, 0, 0, 0.12),
-                                                offset: Offset(0, 2),
-                                                blurRadius: 11.sp,
-                                              )
-                                            ],
-                                          ),
-                                          child: WishlistIconWidget(
-                                            productId:
-                                                products[index]!.id!.toString(),
-                                            isFavorite:
-                                                products[index]!.inWishlist!,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }),
-                      ),
+                                    );
+                                  }),
+                            )
+                          : EmptyWidgets(
+                              image: Assets.noItems,
+                              title: "No products found",
+                              description: "Check out what's trending"),
                     ],
                   ),
                 ),

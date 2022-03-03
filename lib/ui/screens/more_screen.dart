@@ -1,106 +1,132 @@
+import 'dart:ui';
+
+import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/about_screen.dart';
-import 'package:coffepedia/ui/screens/blog_screen.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
-import 'package:coffepedia/ui/screens/coffee_shops_screen.dart';
-import 'package:coffepedia/ui/screens/recipes_screen.dart';
+import 'package:coffepedia/ui/widgets/more_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../main.dart';
-import 'gridview_items.dart';
 
 class MoreScreen extends StatelessWidget {
-  const MoreScreen({Key? key}) : super(key: key);
+  MoreScreen({Key? key}) : super(key: key);
+
+  final List<String> title = [
+    'Coffee shops',
+    'Blog',
+    'Recipes',
+    "About",
+  ];
+  final List<String> subTitle = [
+    'Explore nearby Coffee shops',
+    'Share your love',
+    'Prepare it by yourself',
+    ""
+  ];
+
+  final List<String> backgroundImage = [
+    Assets.coffeeShopImage,
+    Assets.blogImage,
+    Assets.recipesImage,
+    Assets.aboutImage,
+  ];
 
   @override
   Widget build(BuildContext context) {
     return CheckInternetConnection(
         screen: Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                    top: 60.h, left: 16.w, right: 16.w, bottom: 27.h),
-                child: Text(
-                  translator.translate("more_screen.more"),
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
-                    fontSize: 18.sp,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 60.h, bottom: 37.h),
+              child: Text(
+                translator.translate("more_screen.more"),
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                      fontSize: 18.sp,
+                    ),
+              ),
+            ),
+            MoreItems(
+              onPress: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const AboutScreen();
+                    },
                   ),
+                );
+              },
+              title: translator.translate("About"),
+              image: Assets.aboutImage,
+            ),
+            ClipRRect(
+              child: ImageFiltered(
+                imageFilter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 0),
+                child: MoreItems(
+                  onPress: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) {
+                    //       return const CoffeeShopsScreen();
+                    //     },
+                    //   ),
+                    // );
+                  },
+                  subTitle: translator.translate("Explore nearby Coffee shops"),
+                  title: translator.translate("more_screen.coffee_shops"),
+                  image: Assets.coffeeShopImage,
                 ),
               ),
-              Expanded(
-                child: GridView(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 16.h,
-                    crossAxisSpacing: 13.w,
-                    childAspectRatio: 165.w / 110.h,
-                  ),
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    GridviewItems(
-                      onPress: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const CoffeeShopsScreen();
-                            },
-                          ),
-                        );
-                      },
-                      icon: Icons.store,
-                      title: translator.translate("more_screen.coffee_shops")
-                    ),
-                    GridviewItems(
-                      onPress: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const BlogScreen();
-                            },
-                          ),
-                        );
-                      },
-                      icon: Icons.eighteen_mp,
-                      title: translator.translate("more_screen.blog")
-                    ),
-                    GridviewItems(
-                      onPress: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const RecipesScreen();
-                            },
-                          ),
-                        );
-                      },
-                      icon: Icons.eighteen_mp,
-                      title: translator.translate("more_screen.recipes")
-                    ),
-                    GridviewItems(
-                      onPress: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const AboutScreen();
-                            },
-                          ),
-                        );
-                      },
-                      icon: Icons.eighteen_mp,
-                      title: translator.translate("more_screen.about")
-                    ),
-                  ],
+            ),
+            ClipRRect(
+              child: ImageFiltered(
+                imageFilter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 0),
+                child: MoreItems(
+                  onPress: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) {
+                    //       return const BlogScreen();
+                    //     },
+                    //   ),
+                    // );
+                  },
+                  subTitle: translator.translate("Share your love"),
+                  title: translator.translate("Blog"),
+                  image: Assets.blogImage,
                 ),
               ),
-            ],
-          ),
-        ));
+            ),
+            ClipRRect(
+              child: ImageFiltered(
+                imageFilter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 0),
+                child: MoreItems(
+                  onPress: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) {
+                    //       return const RecipesScreen();
+                    //     },
+                    //   ),
+                    // );
+                  },
+                  subTitle: translator.translate("Prepare it by yourself"),
+                  title: translator.translate("Recipes"),
+                  image: Assets.recipesImage,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ));
   }
 }

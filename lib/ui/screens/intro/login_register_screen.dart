@@ -203,9 +203,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                             alignment: Alignment.centerRight,
                             child: InkWell(
                               onTap: () {
-                                setState(() {
-                                  isLogin = !isLogin;
-                                });
+                                Navigator.of(context).pop();
                               },
                               child: Icon(
                                 Icons.close,
@@ -559,9 +557,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                             child: Text(
                               isLogin
                                   ? translator.translate(
-                                      "login_registration_screen.login")
+                                      "login_registration_screen.create_account")
                                   : translator.translate(
-                                      "login_registration_screen.create_account"),
+                                      "login_registration_screen.login"),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline2!
