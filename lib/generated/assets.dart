@@ -30,7 +30,7 @@ class Assets {
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsLogoHor = 'assets/icons/LogoHor.svg';
   static const String locationPin = 'assets/icons/location_pin.svg';
-  static const String iconsHomeLogo = 'assets/icons/home_logo.svg';
+  static const String iconsHomeLogo = 'assets/images/home_logo.svg';
 
   static const String iconsMinus = 'assets/icons/minus.svg';
   static const String iconsMore = 'assets/icons/More.svg';

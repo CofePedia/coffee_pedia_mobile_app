@@ -6,7 +6,7 @@ import 'package:coffepedia/data/web_services/category_products_web_services.dart
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/screens/filters_screen.dart';
-import 'package:coffepedia/ui/screens/home/search_bar.dart';
+import 'package:coffepedia/ui/screens/home/search_widget.dart';
 import 'package:coffepedia/ui/shared/custom_outline_button.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
 import 'package:coffepedia/ui/widgets/empty_widgets.dart';
@@ -222,7 +222,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     color: Color(0xff000000),
                                   ),
                                   Expanded(
-                                    child: SearchBarProvider(
+                                    child: SearchWidget(
                                       width: 309.w,
                                     ),
                                   ),
