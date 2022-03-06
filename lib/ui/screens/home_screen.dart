@@ -11,7 +11,7 @@ import 'package:coffepedia/ui/screens/home/brands_icons.dart';
 import 'package:coffepedia/ui/screens/home/card_category.dart';
 import 'package:coffepedia/ui/screens/home/card_featured_products.dart';
 import 'package:coffepedia/ui/screens/home/card_recent_products.dart';
-import 'package:coffepedia/ui/screens/home/search_bar.dart';
+import 'package:coffepedia/ui/screens/home/search_widget.dart';
 import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 4.h,
                     ),
                     Expanded(
-                      child: SearchBarProvider(
+                      child: SearchWidget(
                         width: 345.w,
                       ),
                     ),

@@ -9,10 +9,7 @@ import 'package:intl/intl.dart' as intl;
 
 class Translator with ChangeNotifier {
   // ---- Config ---- //
-  List<String> langsList = [
-    'en',
-    'ar',
-  ];
+  List<String> langsList = ['en', 'ar'];
   late Locale _locale;
 
   late Map<dynamic, dynamic> _values; // define languages

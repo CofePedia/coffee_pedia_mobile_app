@@ -4,6 +4,8 @@ import 'package:coffepedia/data/repository/wishlist_repository.dart';
 import 'package:coffepedia/data/web_services/wishlist_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
+import 'package:coffepedia/ui/screens/home_page.dart';
+import 'package:coffepedia/ui/widgets/empty_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -274,11 +276,21 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                   },
                                 ),
                               )
-                            : Container(
-                                child: Text(
-                                  translator.translate(
-                                      "wishlist_screen.no_wishlist_items"),
-                                ),
+                            : EmptyWidgets(
+                                image: Assets.noWishlist,
+                                title: "Wishlist is Empty",
+                                onPress: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return const HomePage(currentIndex: 0);
+                                      },
+                                    ),
+                                  );
+                                },
+                                description: "Check out what's trending",
+                                buttonTitle: "Shop now",
                               );
                       } else {
                         return Center(

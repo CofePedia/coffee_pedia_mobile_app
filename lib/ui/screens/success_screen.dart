@@ -1,17 +1,12 @@
 import 'package:coffepedia/business_logic/make_order/make_order_cubit.dart';
 import 'package:coffepedia/data/repository/make_order_repository.dart';
 import 'package:coffepedia/data/web_services/make_order_web_services.dart';
-import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
-import 'package:coffepedia/ui/screens/home_page.dart';
-import 'package:coffepedia/ui/screens/orders_history_screen.dart';
-import 'package:coffepedia/ui/shared/custom_button.dart';
+import 'package:coffepedia/ui/widgets/failed_payment_widget.dart';
+import 'package:coffepedia/ui/widgets/success_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../main.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class SuccessScreenProvider extends StatelessWidget {
   final int paymentId;
@@ -53,6 +48,9 @@ class SuccessScreen extends StatefulWidget {
 }
 
 class _SuccessScreenState extends State<SuccessScreen> {
+  InAppWebViewController? webView;
+  double progress = 0;
+
   @override
   void initState() {
     BlocProvider.of<MakeOrderCubit>(context).getMakeOrder(
@@ -70,97 +68,171 @@ class _SuccessScreenState extends State<SuccessScreen> {
       body: BlocBuilder<MakeOrderCubit, MakeOrderState>(
         builder: (context, state) {
           if (state is MakeOrderIsLoaded) {
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    translator.translate("success_screen.thank_you"),
-                    style: Theme.of(context).textTheme.caption!.copyWith(
-                          fontSize: 22.sp,
-                        ),
-                  ),
-                  SizedBox(
-                    height: 17.h,
-                  ),
-                  Text(
-                    state.makeOrder!.data!.msg!,
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  SvgPicture.asset(
-                    Assets.successIcon,
-                    height: 102.h,
-                    width: 102.w,
-                  ),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  Text(
-                    '${translator.translate("success_screen.order_id")} #${state.makeOrder!.data!.orderId!}',
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  Text(
-                    translator.translate("success_screen.success_msg"),
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 12.sp,
-                        ),
-                  ),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  CustomButton(
-                    onPress: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return OrdersHistoryProvider();
-                          },
-                        ),
-                      );
-                    },
-                    title: translator.translate("success_screen.track_order"),
-                    height: 50.h,
-                    width: 345.w,
-                    imageWidth: 0,
-                    imageHeight: 0,
-                    buttonColor: Theme.of(context).primaryColor,
-                    borderRadius: 25.sp,
-                    imageColor: Colors.transparent,
-                  ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return const HomePage(currentIndex: 0);
-                          },
-                        ),
-                      );
-                    },
-                    child: Text(
-                      translator.translate("success_screen.continue_shopping"),
-                      style: Theme.of(context).textTheme.headline2!.copyWith(
-                            color: Color(0xff007CC6),
+            if (state.makeOrder!.data!.cashierUrl != null) {
+              return SafeArea(
+                child: Column(
+                  children: [
+                    (progress != 1.0)
+                        ? LinearProgressIndicator(
+                            value: progress,
+                            backgroundColor: Colors.grey[200],
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xff1DCF9F),
+                            ),
+                          )
+                        : Container(),
+                    Expanded(
+                      child: Container(
+                        color: Colors.white,
+                        child: InAppWebView(
+                          initialUrlRequest: URLRequest(
+                            url: Uri.parse(
+                              state.makeOrder!.data!.cashierUrl!,
+                            ),
                           ),
+
+                          initialOptions: InAppWebViewGroupOptions(
+                            crossPlatform: InAppWebViewOptions(
+                              useShouldOverrideUrlLoading: true,
+                              mediaPlaybackRequiresUserGesture: false,
+                            ),
+                            android: AndroidInAppWebViewOptions(
+                              useHybridComposition: true,
+                            ),
+                            ios: IOSInAppWebViewOptions(
+                              allowsInlineMediaPlayback: true,
+                            ),
+                          ),
+                          onWebViewCreated:
+                              (InAppWebViewController controller) {
+                            webView = controller;
+                          },
+                          onLoadStop: (InAppWebViewController controller, url) {
+                            if (url.toString().contains("/api/opay/return")) {
+                              print('amrStop');
+                              print("paymentUrlAmrStop $url");
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SuccessWidget(
+                                    message: state.makeOrder!.data!.msg!,
+                                    orderId: state.makeOrder!.data!.orderId!
+                                        .toString(),
+                                  ),
+                                ),
+                              );
+                            } else if (url
+                                .toString()
+                                .contains("api/opay/cancel")) {
+                              print('azzamStop');
+                              print("paymentUrlAzzamStop $url");
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FailedPaymentWidget(
+                                    message: state.makeOrder!.data!.msg!,
+                                    orderId: state.makeOrder!.data!.orderId!
+                                        .toString(),
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                          onLoadStart:
+                              (InAppWebViewController controller, url) {
+                            if (url.toString().contains("/api/opay/return")) {
+                              print('amrStart');
+                              print("paymentUrlAmrStart $url");
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SuccessWidget(
+                                    message: state.makeOrder!.data!.msg!,
+                                    orderId: state.makeOrder!.data!.orderId!
+                                        .toString(),
+                                  ),
+                                ),
+                              );
+                            } else if (url
+                                .toString()
+                                .contains("api/opay/cancel")) {
+                              print('azzamStart');
+                              print("paymentUrlAzzamStart $url");
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FailedPaymentWidget(
+                                    message: state.makeOrder!.data!.msg!,
+                                    orderId: state.makeOrder!.data!.orderId!
+                                        .toString(),
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+
+                          // onLoadError: (InAppWebViewController controller, url,
+                          //     int status, String code) {
+                          //   if (url.toString().contains("/api/opay/return")) {
+                          //     print('amrError');
+                          //     print("paymentUrlAmrError $url");
+                          //
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) =>
+                          //                 DeliveryInfoScreenProvider()));
+                          //   } else if (url.toString().contains("api/opay/cancel")) {
+                          //     print('azzamError');
+                          //     print("paymentUrlAzzamError $url");
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) =>
+                          //                 DeliveryInfoScreenProvider()));
+                          //   }
+                          // },
+                          // onLoadStart: (InAppWebViewController controller, url) {
+                          //   if (url.toString().contains("/api/opay/return")) {
+                          //     print('amrStart');
+                          //     print("paymentUrlAmrStart $url");
+                          //
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) =>
+                          //                 DeliveryInfoScreenProvider()));
+                          //   } else if (url.toString().contains("api/opay/cancel")) {
+                          //     print('azzamStart');
+                          //     print("paymentUrlAzzamStart $url");
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) =>
+                          //                 DeliveryInfoScreenProvider()));
+                          //   }
+                          // },
+                          onProgressChanged: (InAppWebViewController controller,
+                              int progress) {
+                            setState(() {
+                              this.progress = progress / 100;
+                              print('onProgressChangeAmr $progress');
+                            });
+                          },
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
+                  ],
+                ),
+              );
+            } else {
+              return SuccessWidget(
+                message: state.makeOrder!.data!.msg!,
+                orderId: state.makeOrder!.data!.orderId!.toString(),
+              );
+            }
           } else {
             return Center(
               child: CircularProgressIndicator(),
