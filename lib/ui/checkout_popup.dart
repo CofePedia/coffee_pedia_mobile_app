@@ -88,11 +88,12 @@ class CheckoutPopUp extends StatelessWidget {
     // return Container(
     return CheckInternetConnection(
         screen: Container(
-      height: 222.h,
+      height: 240.h,
       width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(bottom: 20.h),
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Container(
             height: 60.h,
@@ -139,7 +140,8 @@ class CheckoutPopUp extends StatelessWidget {
                       height: 16.h,
                     ),
                     Text(
-                      translator.translate("checkout_popup.egp") + totalPrice!,
+                      translator.translate("checkout_popup.egp") +
+                          " $totalPrice",
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             color: Theme.of(context).primaryColor,
                           ),
@@ -296,15 +298,17 @@ class CheckoutPopUp extends StatelessWidget {
               },
             ),
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text(
-              translator.translate("checkout_popup.continue_shopping"),
-              style: Theme.of(context).textTheme.headline2!.copyWith(
-                    color: Theme.of(context).primaryColor,
-                  ),
+          Container(
+            child: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                translator.translate("checkout_popup.continue_shopping"),
+                style: Theme.of(context).textTheme.headline2!.copyWith(
+                      color: Theme.of(context).primaryColor,
+                    ),
+              ),
             ),
           ),
         ],

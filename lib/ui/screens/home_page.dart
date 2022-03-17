@@ -13,7 +13,10 @@ import 'more_screen.dart';
 import 'profile_screen.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.currentIndex}) : super(key: key);
+  const HomePage({
+    Key? key,
+    required this.currentIndex,
+  }) : super(key: key);
   final int currentIndex;
 
   @override
@@ -53,6 +56,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Map<int, GlobalKey> navigatorKeys = {
+    0: GlobalKey(),
+    1: GlobalKey(),
+    2: GlobalKey(),
+    3: GlobalKey(),
+  };
   @override
   Widget build(BuildContext context) {
     return CheckInternetConnection(
@@ -104,14 +113,28 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        body: IndexedStack(
-          index: currentIndex,
-          children: [
-            HomeScreenProvider(),
-            CheckoutItemsScreenProvider(),
-            ProfileScreen(),
-            MoreScreen(),
-          ],
+        body: WillPopScope(
+          onWillPop: () async {
+            if (currentIndex == 1 || currentIndex == 2 || currentIndex == 3) {
+              return !await Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomePage(currentIndex: 0)),
+                ModalRoute.withName('/'),
+              );
+            } else {
+              return true;
+            }
+          },
+          child: IndexedStack(
+            index: currentIndex,
+            children: [
+              HomeScreenProvider(),
+              CheckoutItemsScreenProvider(),
+              ProfileScreen(),
+              MoreScreen(),
+            ],
+          ),
         ),
       ),
     );

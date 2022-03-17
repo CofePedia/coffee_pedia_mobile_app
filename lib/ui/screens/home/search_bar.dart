@@ -4,6 +4,7 @@ import 'package:coffepedia/data/web_services/search_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/main.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
+import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
 import 'package:coffepedia/ui/widgets/empty_widgets.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -188,15 +189,23 @@ class _SearchBarState extends State<SearchBar> {
                                         ),
                                         Positioned(
                                           right: 17.w,
-                                          child: Container(
-                                            child: Image.network(
-                                              state
-                                                  .search!.data![index]!.image!,
-                                              width: 75.w,
-                                              height: 136.h,
-                                              fit: BoxFit.cover,
-                                            ),
+                                          child: CustomNetworkImage(
+                                            imageUrl: state
+                                                .search!.data![index]!.image!,
+                                            width: 75.w,
+                                            height: 136.h,
+                                            radius: 2,
+                                            fit: BoxFit.cover,
                                           ),
+                                          // child: Container(
+                                          //   child: Image.network(
+                                          //     state
+                                          //         .search!.data![index]!.image!,
+                                          //     width: 75.w,
+                                          //     height: 136.h,
+                                          //     fit: BoxFit.cover,
+                                          //   ),
+                                          // ),
                                         ),
                                         state.search!.data![index]!.rate! != 0
                                             ? Positioned(

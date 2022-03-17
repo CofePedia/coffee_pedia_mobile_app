@@ -225,7 +225,31 @@ class CategoryProductsShimmerWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 230.h,
+              height: 140.h,
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 24.h),
+              width: MediaQuery.of(context).size.width,
+              height: 80.h,
+              child: ListView.builder(
+                itemCount: 5,
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.symmetric(horizontal: 11.w),
+                itemBuilder: (context, index) {
+                  return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 6.w),
+                      child: Container(
+                        height: 80.h,
+                        width: 150.w,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(
+                            7.r,
+                          ),
+                        ),
+                      ));
+                },
+              ),
             ),
             Container(
               height: 20.h,
@@ -238,9 +262,7 @@ class CategoryProductsShimmerWidget extends StatelessWidget {
               height: 10.h,
             ),
             Container(
-              // padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: GridView.builder(
-                  // padding: EdgeInsets.only(top: 40.h, bottom: 15.h),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 28.h,
@@ -258,6 +280,91 @@ class CategoryProductsShimmerWidget extends StatelessWidget {
                       ),
                     );
                   }),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SellerInfoShimmerWidget extends StatelessWidget {
+  const SellerInfoShimmerWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 0.w),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width / 3,
+                  child: CircleAvatar(
+                    radius: 40.sp,
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 20.h,
+                      width: 200.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0.r),
+                          color: Colors.white),
+                    ),
+                    SizedBox(
+                      height: 6.h,
+                    ),
+                    Container(
+                      height: 20.h,
+                      width: 200.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0.r),
+                          color: Colors.white),
+                    ),
+                    SizedBox(
+                      height: 14.74.h,
+                    ),
+                    Container(
+                      // width: 100.w,
+                      height: 28.h,
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4.w),
+                          child: Container(
+                            width: 100.w,
+                            height: 28.h,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 3.h, horizontal: 12.w),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Color(
+                                0xffE9E7E7,
+                              ),
+                              borderRadius: BorderRadius.circular(17.5.r),
+                            ),
+                          ),
+                        ),
+                        itemCount: 2,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),

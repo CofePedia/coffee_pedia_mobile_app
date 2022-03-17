@@ -56,9 +56,9 @@
     "address_details" : "Address Details"
   },
   "range_filter_slider": {
-    "from" : "FROM",
+    "from" : "From",
     "to" : "To",
-    "to" : "EGP"
+    "egp" : "EGP"
   },
   "account_settings": {
     "account_settings" : "Account settings",
@@ -108,7 +108,7 @@
   },
   "filter_screen" : {
     "clear_all" : "Clear all",
-    "show_data" : "Show results",
+    "show_result" : "Show results",
     "enter_data" : "Enter Data",
     "close" : "Close"
   },
@@ -159,7 +159,8 @@
     "subtotal" : "Subtotal",
     "discount" : "Discount",
     "cod" : "COD",
-    "total" : "Total"
+    "total" : "Total",
+    "egp": "EGP"
   },
   "payment_info_screen" : {
     "pay_now" : "Pay Now",

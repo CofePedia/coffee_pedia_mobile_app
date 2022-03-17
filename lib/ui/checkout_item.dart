@@ -5,6 +5,7 @@ import 'package:coffepedia/data/repository/wishlist_repository.dart';
 import 'package:coffepedia/data/web_services/wishlist_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
+import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -84,16 +85,16 @@ class CheckoutItem extends StatefulWidget {
 class _CheckoutItemState extends State<CheckoutItem> {
   @override
   Widget build(BuildContext context) {
-
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            height: 80.h,
+            // height: 120.h,
+            // color: Colors.red,
             margin: EdgeInsets.only(bottom: 12.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,7 +115,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
                       ),
                     ),
                     SizedBox(
-                      height: 4.h,
+                      height: 12.h,
                     ),
                     Text(
                       "${translator.translate("checkout_items_screen.egp")} ${widget.priceBeforeDiscount}",
@@ -138,24 +139,20 @@ class _CheckoutItemState extends State<CheckoutItem> {
                     ),
                   ],
                 ),
-                Container(
-                  width: 60.w,
-                  height: 60.h,
-                  decoration: BoxDecoration(
-                    color: Color(0xffF4F4F4),
-                    borderRadius: BorderRadius.circular(7.r),
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 17.w, vertical: 6.h),
-                  margin: EdgeInsets.only(right: 12.w),
-                  child: Image.network(
-                    widget.image,
-                  ),
+                CustomNetworkImage(
+                  imageUrl: widget.image,
+                  height: 70.h,
+                  width: 70.w,
+                  radius: 2.r,
                 ),
               ],
             ),
           ),
-          Text(translator.translate("checkout_items_screen.sold_by"), style: Theme.of(context).textTheme.bodyText1),
+          SizedBox(
+            height: 12.h,
+          ),
+          Text(translator.translate("checkout_items_screen.sold_by"),
+              style: Theme.of(context).textTheme.bodyText1),
           SizedBox(
             height: 4.h,
           ),
@@ -169,11 +166,12 @@ class _CheckoutItemState extends State<CheckoutItem> {
                 onTap: () {
                   setState(() {
                     //if(widget.isLocal){
-                      BlocProvider.of<BasketCubit>(context)
-                          .updateQuantityInLocalBasket(int.parse(widget.productId.toString()) ,
-                          int.parse(widget.quantity.toString())+1);
+                    BlocProvider.of<BasketCubit>(context)
+                        .updateQuantityInLocalBasket(
+                            int.parse(widget.productId.toString()),
+                            int.parse(widget.quantity.toString()) + 1);
                     //}else
-                     // widget.quantity++;
+                    // widget.quantity++;
                   });
                 },
                 child: CircleAvatar(
@@ -201,10 +199,11 @@ class _CheckoutItemState extends State<CheckoutItem> {
               InkWell(
                 onTap: () {
                   setState(() {
-                    if(/*widget.isLocal && */widget.quantity > 1){
+                    if (/*widget.isLocal && */ widget.quantity > 1) {
                       BlocProvider.of<BasketCubit>(context)
-                          .updateQuantityInLocalBasket(int.parse(widget.productId.toString()) ,
-                          int.parse(widget.quantity.toString())-1);
+                          .updateQuantityInLocalBasket(
+                              int.parse(widget.productId.toString()),
+                              int.parse(widget.quantity.toString()) - 1);
                     }
                     // else
                     //   if (widget.quantity > 1) widget.quantity--;
@@ -234,11 +233,12 @@ class _CheckoutItemState extends State<CheckoutItem> {
                   builder: (context, state) {
                     return InkWell(
                       onTap: () {
-                        if(!widget.isLocal){
+                        if (!widget.isLocal) {
                           BlocProvider.of<WishlistCubit>(context)
                               .getToggleProductsInWishlist(widget.productId);
-                        }else{
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage()));
+                        } else {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (_) => LoginPage()));
                         }
                       },
                       child: Row(
@@ -253,7 +253,8 @@ class _CheckoutItemState extends State<CheckoutItem> {
                             width: 8.w,
                           ),
                           Text(
-                            translator.translate("checkout_items_screen.move_to_wishlist"),
+                            translator.translate(
+                                "checkout_items_screen.move_to_wishlist"),
                             style:
                                 Theme.of(context).textTheme.headline4!.copyWith(
                                       color: Theme.of(context).primaryColor,
@@ -279,7 +280,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
               InkWell(
                 onTap: () {
                   BlocProvider.of<BasketCubit>(context)
-                    .deleteFromLocalBasket(int.parse(widget.productId));
+                      .deleteFromLocalBasket(int.parse(widget.productId));
                   /*if(widget.isLocal){
 
                   }else {

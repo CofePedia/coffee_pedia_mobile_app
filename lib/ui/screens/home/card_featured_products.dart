@@ -3,7 +3,9 @@ import 'package:coffepedia/data/repository/featured_products_repository.dart';
 import 'package:coffepedia/data/web_services/featured_products_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
+import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
+import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -99,14 +101,12 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                           ),
                           Positioned(
                             right: 17.w,
-                            child: Container(
-                              child: Image.network(
-                                state.featuredProducts!.data!.data![index]!
-                                    .image!,
-                                width: 85.w,
-                                height: 130.h,
-                                fit: BoxFit.fill,
-                              ),
+                            child: CustomNetworkImage(
+                              imageUrl: state
+                                  .featuredProducts!.data!.data![index]!.image!,
+                              height: 130.h,
+                              width: 85.w,
+                              radius: 2,
                             ),
                           ),
                           state.featuredProducts!.data!.data![index]!.rate == 0
@@ -232,9 +232,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
             ),
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return FeaturedProductsShimmerWidget();
         }
       },
     );

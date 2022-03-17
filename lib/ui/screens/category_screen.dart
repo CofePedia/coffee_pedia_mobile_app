@@ -7,6 +7,7 @@ import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/screens/filters_screen.dart';
 import 'package:coffepedia/ui/screens/home/search_widget.dart';
+import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:coffepedia/ui/shared/custom_outline_button.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
 import 'package:coffepedia/ui/widgets/empty_widgets.dart';
@@ -328,12 +329,22 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               bottom: 4.h,
                                               right: 4.w,
                                               left: 80.w,
-                                              child: Image.network(
-                                                state.categoryProducts!.data!
-                                                    .subCategory![index]!.icon!,
+                                              child: CustomNetworkImage(
+                                                imageUrl: state
+                                                    .categoryProducts!
+                                                    .data!
+                                                    .subCategory![index]!
+                                                    .icon!,
                                                 height: 64.h,
                                                 width: 50.w,
+                                                radius: 2,
                                               ),
+                                              // child: Image.network(
+                                              //   state.categoryProducts!.data!
+                                              //       .subCategory![index]!.icon!,
+                                              //   height: 64.h,
+                                              //   width: 50.w,
+                                              // ),
                                             ),
                                             Positioned(
                                               top: 12.6.h,
@@ -461,11 +472,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               bottom: 4.h,
                                               right: 4.w,
                                               left: 80.w,
-                                              child: Image.network(
-                                                widget.subCategories![index]!
+                                              child: CustomNetworkImage(
+                                                imageUrl: widget
+                                                    .subCategories![index]!
                                                     .icon!,
                                                 height: 64.h,
                                                 width: 50.w,
+                                                radius: 2.r,
                                               ),
                                             ),
                                             Positioned(
@@ -549,6 +562,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                         state.categoryProducts!.data!.filters!,
                                     categoriesId: widget.categoriesId,
                                     subCategories: widget.subCategories,
+                                    vendorId: widget.vendorId,
+                                    categoryName: widget.categoryName,
                                   ),
                                 );
                               },
@@ -633,13 +648,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                             ),
                                             Positioned(
                                               right: 17.w,
-                                              child: Container(
-                                                child: Image.network(
-                                                  products[index]!.image!,
-                                                  width: 75.w,
-                                                  height: 136.h,
-                                                  fit: BoxFit.cover,
-                                                ),
+                                              child: CustomNetworkImage(
+                                                imageUrl:
+                                                    products[index]!.image!,
+                                                height: 136.h,
+                                                width: 75.w,
+                                                radius: 2.r,
                                               ),
                                             ),
                                             products[index]!.rate! != 0
@@ -816,7 +830,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
             );
           } else {
-            return CategoryProductsShimmerWidget();
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  widget.vendorId != -1
+                      ? SizedBox(
+                          height: 100.h,
+                        )
+                      : SizedBox.shrink(),
+                  CategoryProductsShimmerWidget(),
+                ],
+              ),
+            );
           }
         },
       ),

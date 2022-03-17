@@ -2,6 +2,7 @@ import 'package:coffepedia/business_logic/vendor/vendor_cubit.dart';
 import 'package:coffepedia/constants/colors.dart';
 import 'package:coffepedia/data/repository/vendor_repository.dart';
 import 'package:coffepedia/data/web_services/vendor_web_services.dart';
+import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -165,9 +166,7 @@ class _SellerDetailsState extends State<SellerDetails> {
             ],
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return SellerInfoShimmerWidget();
         }
       },
     );

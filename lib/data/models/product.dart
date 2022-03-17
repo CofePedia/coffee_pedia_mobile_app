@@ -230,7 +230,7 @@ class ProductData {
   List<String?>? images;
   ProductDataVendor? vendor;
   ProductDataOverview? overview;
-  ProductDataOverview2? overview2;
+  List<ProductDataOverview2?>? overview2;
   int? price;
   int? stock;
   bool? inWishlist;
@@ -283,9 +283,14 @@ class ProductData {
     overview = (json['overview'] != null)
         ? ProductDataOverview.fromJson(json['overview'])
         : null;
-    overview2 = (json['overview2'] != null)
-        ? ProductDataOverview2.fromJson(json['overview2'])
-        : null;
+    if (json['overview2'] != null) {
+      final v = json['overview2'];
+      final arr0 = <ProductDataOverview2>[];
+      v.forEach((v) {
+        arr0.add(ProductDataOverview2.fromJson(v));
+      });
+      overview2 = arr0;
+    }
     price = json['price']?.toInt();
     stock = json['stock']?.toInt();
     inWishlist = json['in_wishlist'];
@@ -321,7 +326,12 @@ class ProductData {
       data['overview'] = overview!.toJson();
     }
     if (overview2 != null) {
-      data['overview2'] = overview2!.toJson();
+      final v = overview2;
+      final arr0 = [];
+      v!.forEach((v) {
+        arr0.add(v!.toJson());
+      });
+      data['overview2'] = arr0;
     }
     data['price'] = price;
     data['stock'] = stock;

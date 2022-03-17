@@ -10,6 +10,7 @@ class CustomInput extends StatelessWidget {
     this.icon = false,
     this.padding = true,
     this.onChanged,
+    this.textInputType,
     Key? key,
   }) : super(key: key);
 
@@ -20,6 +21,7 @@ class CustomInput extends StatelessWidget {
   final bool padding;
   final ValueNotifier<bool> changeObscure = ValueNotifier(true);
   final Function(String)? onChanged;
+  final TextInputType? textInputType;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -46,6 +48,7 @@ class CustomInput extends StatelessWidget {
                 child: TextFormField(
                   controller: textEditingController,
                   obscureText: !icon ? !value : value,
+                  keyboardType: textInputType ?? TextInputType.name,
                   style: TextStyle(fontSize: 18.sp, color: Colors.black),
                   onChanged: onChanged!,
                   decoration: InputDecoration(

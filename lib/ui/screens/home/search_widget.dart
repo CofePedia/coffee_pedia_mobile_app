@@ -21,6 +21,7 @@ class _SearchWidgetState extends State<SearchWidget> {
       height: 43.h,
       width: widget.width,
       child: TextField(
+        readOnly: true,
         onTap: () {
           Navigator.push(
             context,

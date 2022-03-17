@@ -1,6 +1,8 @@
 import 'package:coffepedia/business_logic/brands/brands_cubit.dart';
 import 'package:coffepedia/data/repository/brands_repository.dart';
 import 'package:coffepedia/data/web_services/brands_web_services.dart';
+import 'package:coffepedia/ui/shared/custom_network_image.dart';
+import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,29 +50,27 @@ class _BrandsIconsState extends State<BrandsIcons> {
               padding: EdgeInsets.all(0),
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) {
-                    //     return ProductProvider();
-                    //   }),
-                    // );
-                  },
+                  onTap: () {},
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 12.w),
-                    child: Image.network(
-                      state.brands!.data!.data![index]!.logo!,
+                    child: CustomNetworkImage(
+                      imageUrl: state.brands!.data!.data![index]!.logo!,
+                      width: 80.w,
+                      height: 30.h,
                       fit: BoxFit.contain,
+                      radius: 2.h,
                     ),
+                    // child: Image.network(
+                    //   state.brands!.data!.data![index]!.logo!,
+                    //   fit: BoxFit.contain,
+                    // ),
                   ),
                 );
               },
             ),
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return BrandsShimmerWidget();
         }
       },
     );

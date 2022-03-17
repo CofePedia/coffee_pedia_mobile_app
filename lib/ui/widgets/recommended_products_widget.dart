@@ -3,6 +3,7 @@ import 'package:coffepedia/data/repository/recommended_products_repository.dart'
 import 'package:coffepedia/data/web_services/recommended_products_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
+import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
 import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
@@ -99,14 +100,20 @@ class _RecommendedProductsState extends State<RecommendedProducts> {
                           ),
                           Positioned(
                             right: 17.w,
-                            child: Container(
-                              child: Image.network(
-                                result[index]!.image!,
-                                width: 85.w,
-                                height: 130.h,
-                                fit: BoxFit.fill,
-                              ),
+                            child: CustomNetworkImage(
+                              imageUrl: result[index]!.image!,
+                              height: 130.h,
+                              width: 85.w,
+                              radius: 2.r,
                             ),
+                            // child: Container(
+                            //   child: Image.network(
+                            //     result[index]!.image!,
+                            //     width: 85.w,
+                            //     height: 130.h,
+                            //     fit: BoxFit.fill,
+                            //   ),
+                            // ),
                           ),
                           result[index]!.rate == 0
                               ? SizedBox.shrink()
@@ -172,16 +179,19 @@ class _RecommendedProductsState extends State<RecommendedProducts> {
                                 SizedBox(
                                   height: 6.h,
                                 ),
-                                Text(
-                                  'EGP ${result[index]!.priceBeforeDiscount}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText2!
-                                      .copyWith(
-                                        decoration: TextDecoration.lineThrough,
-                                        color: Colors.black45,
+                                result[index]!.priceBeforeDiscount == 0
+                                    ? SizedBox.shrink()
+                                    : Text(
+                                        'EGP ${result[index]!.priceBeforeDiscount}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                              decoration:
+                                                  TextDecoration.lineThrough,
+                                              color: Colors.black45,
+                                            ),
                                       ),
-                                ),
                                 SizedBox(
                                   height: 8.h,
                                 ),
