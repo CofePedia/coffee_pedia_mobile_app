@@ -1,7 +1,6 @@
 import 'package:coffepedia/business_logic/auth/auth_bloc.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
-import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,27 +28,27 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (_, state) {
-        if (state is AuthenticationAuthenticated) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return HomePage(
-                  currentIndex: 0,
-                );
-              },
-            ),
-          );
-        } else if (state is AuthenticationUnauthenticated) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return LoginPage();
-              },
-            ),
-          );
-        }
+        // if (state is AuthenticationAuthenticated) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return HomePage(
+                currentIndex: 0,
+              );
+            },
+          ),
+        );
+        // } else if (state is AuthenticationUnauthenticated) {
+        //   Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) {
+        //         return LoginPage();
+        //       },
+        //     ),
+        //   );
+        // }
       },
       child: Scaffold(
         body: Container(

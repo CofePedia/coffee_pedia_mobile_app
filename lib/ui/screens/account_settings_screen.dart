@@ -167,7 +167,7 @@ class _AccountSettingsState extends State<AccountSettings> {
             padding: EdgeInsets.only(
               left: 23.w,
               top: 68.86.h,
-              right: 170.w,
+              // right: 170.w,
               bottom: 30.h,
             ),
             child: Row(

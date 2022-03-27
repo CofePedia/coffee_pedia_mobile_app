@@ -1,3 +1,4 @@
+import 'package:appmetrica_sdk/appmetrica_sdk.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
 import 'package:coffepedia/business_logic/me/me_cubit.dart';
@@ -107,12 +108,12 @@ class CheckoutPopUp extends StatelessWidget {
                   width: 60.w,
                   height: 60.h,
                   decoration: BoxDecoration(
-                    color: Color(0xffF4F4F4),
+                    // color: Color(0xffF4F4F4),
                     borderRadius: BorderRadius.circular(7.r),
                   ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 17.w, vertical: 6.h),
-                  margin: EdgeInsets.only(right: 12.w),
+                  // padding:
+                  //     EdgeInsets.symmetric(horizontal: 17.w, vertical: 6.h),
+                  margin: EdgeInsets.only(right: 6.w),
                   child: Image.network(
                     image!,
                   ),
@@ -244,6 +245,9 @@ class CheckoutPopUp extends StatelessWidget {
                                 name: basketLocal!.name,
                                 priceBeforeDiscount:
                                     basketLocal!.priceBeforeDiscount));
+                        AppmetricaSdk()
+                            .reportEvent(name: 'Added to Server Cart');
+
                         /*//TODO 2) get all items from the local database..
                         List<Map<String, int>> basket = [];
                         print("A 1");
@@ -279,6 +283,8 @@ class CheckoutPopUp extends StatelessWidget {
                                 name: basketLocal!.name,
                                 priceBeforeDiscount:
                                     basketLocal!.priceBeforeDiscount));
+                        AppmetricaSdk()
+                            .reportEvent(name: 'Added to Local Cart');
                       }
                     },
                     style: ButtonStyle(

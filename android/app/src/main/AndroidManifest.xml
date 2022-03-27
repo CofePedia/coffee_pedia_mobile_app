@@ -30,6 +30,8 @@
             <meta-data
                 android:name="io.flutter.embedding.android.SplashScreenDrawable"
                 android:resource="@drawable/launch_background" />
+            <meta-data android:name="com.pushwoosh.appid" android:value="110FF-9CE72" />
+            <meta-data android:name="com.pushwoosh.senderid" android:value="177929575410" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

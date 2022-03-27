@@ -9,11 +9,11 @@ import 'package:http/http.dart' as http;
 class AuthWebServices {
   final userDao = UserDao();
 
-  Future<LoginData> getToken(String email, String password) async {
+  Future<LoginData> getToken(String password, String mobile) async {
     final url = Uri.parse(baseUrl + 'auth/login');
     final http.Response response = await http.post(
       url,
-      body: {'email': email, 'password': password},
+      body: {'password': password, 'mobile': mobile},
     );
     print("response ${response.body}");
 
@@ -29,13 +29,14 @@ class AuthWebServices {
     }
   }
 
-  Future<Signup> signUp(
-    String firstName,
-    String lastName,
-    String email,
-    String password,
-    String passwordConfirmation,
-  ) async {
+  Future<Signup> signUp({
+    String? firstName,
+    String? lastName,
+    String? email,
+    String? password,
+    String? passwordConfirmation,
+    String? mobile,
+  }) async {
     final url = Uri.parse(baseUrl + 'auth/register');
     final http.Response response = await http.post(
       url,
@@ -45,6 +46,7 @@ class AuthWebServices {
         'email': email,
         'password': password,
         'password_confirmation': passwordConfirmation,
+        'mobile': mobile
       },
     );
     print("response ${response.body}");

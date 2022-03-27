@@ -65,7 +65,7 @@ class _SellerDetailsState extends State<SellerDetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        state.vendorDetails!.data!.companyName!,
+                        state.vendorDetails!.data!.companyName ?? "",
                         style: Theme.of(context)
                             .textTheme
                             .headline1!

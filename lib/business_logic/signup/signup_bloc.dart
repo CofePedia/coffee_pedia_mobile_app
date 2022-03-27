@@ -31,6 +31,10 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     } else if (event is SignupEmailChanged) {
       yield state.copyWith(email: event.email);
 
+      // mobile updated
+    } else if (event is SignupMobileChanged) {
+      yield state.copyWith(mobile: event.mobile);
+
       // Password updated
     } else if (event is SignupPasswordChanged) {
       yield state.copyWith(password: event.password);
@@ -43,8 +47,14 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     } else if (event is SignupSubmitted) {
       yield state.copyWith(formStatus: FormSubmitting());
       try {
-        await userRepository.signUp(state.firstName!, state.lastName!,
-            state.email!, state.password!, state.passwordConfirmation!);
+        await userRepository.signUp(
+          firstName: state.firstName!,
+          lastName: state.lastName!,
+          email: state.email!,
+          password: state.password!,
+          passwordConfirmation: state.passwordConfirmation!,
+          mobile: state.mobile!,
+        );
         yield state.copyWith(
           formStatus: SubmissionSuccess(),
         );

@@ -46,6 +46,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   TextEditingController _firstName = TextEditingController();
   TextEditingController _lastName = TextEditingController();
   TextEditingController _password = TextEditingController();
+  TextEditingController _mobile = TextEditingController();
   TextEditingController _confirmPassword = TextEditingController();
 
   bool selected = false;
@@ -58,6 +59,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     _lastName.dispose();
     _password.dispose();
     _confirmPassword.dispose();
+    _mobile.dispose();
     super.dispose();
   }
 
@@ -66,14 +68,27 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
       LoginButtonPressed(
         email: _email.text,
         password: _password.text,
+        mobile: _mobile.text,
       ),
     );
   }
 
   _signupButtonPressed() {
-    BlocProvider.of<SignupBloc>(context).add(
-      SignupSubmitted(),
-    );
+    if (selected) {
+      BlocProvider.of<SignupBloc>(context).add(
+        SignupSubmitted(),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            translator.translate(
+                "login_registration_screen.You must accept our terms & conditions and privacy policy"),
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -389,18 +404,35 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                       )
                                     ],
                                   ),
+                            isLogin
+                                ? SizedBox.shrink()
+                                : CustomInput(
+                                    padding: false,
+                                    title: translator.translate(
+                                        "login_registration_screen.email_address"),
+                                    hint: translator.translate(
+                                        "login_registration_screen.email_address"),
+                                    textEditingController: _email,
+                                    onChanged: (value) {
+                                      return context.read<SignupBloc>().add(
+                                            SignupEmailChanged(email: value),
+                                          );
+                                    }),
                             CustomInput(
-                              padding: false,
+                              textInputType: TextInputType.number,
                               title: translator.translate(
-                                  "login_registration_screen.email_address"),
+                                  "login_registration_screen.mobile"),
                               hint: translator.translate(
-                                  "login_registration_screen.email_address"),
-                              textEditingController: _email,
+                                  "login_registration_screen.mobile"),
+                              textEditingController: _mobile,
+                              icon: false,
+                              padding: false,
                               onChanged: (value) =>
                                   context.read<SignupBloc>().add(
-                                        SignupEmailChanged(email: value),
+                                        SignupMobileChanged(mobile: value),
                                       ),
                             ),
+
                             CustomInput(
                               title: translator.translate(
                                   "login_registration_screen.password"),
@@ -414,6 +446,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                         SignupPasswordChanged(password: value),
                                       ),
                             ),
+
                             isLogin
                                 ? SizedBox.shrink()
                                 : CustomInput(
