@@ -38,12 +38,16 @@ class BasketWebServices {
 
   Future<AddToBasket> getAddToBasket(List<Map<String, int>> productsMap) async {
     GetTokenDatabase? token = await userDao.getUserToken();
-    print("my token = " + token!.token.toString());
+    // print("my token = " + token!.token.toString());
     var headers = {
-      'Authorization': 'Bearer ' + token.getToken!,
+      'Authorization': 'Bearer ' + token!.getToken!,
       'Content-Type': 'application/json'
     };
+    if (productsMap.length == 0) {
+      print("productsMap is empty");
+    }
     print("productsMap = " + productsMap.toString());
+
     var request = http.Request('POST', Uri.parse(baseUrl + '/cart/add'));
     request.body = json.encode({"products": productsMap}
         //     {

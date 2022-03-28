@@ -47,6 +47,7 @@ class _RecommendedProductsState extends State<RecommendedProducts> {
 
   @override
   Widget build(BuildContext context) {
+    print("RecommendedProducts called");
     return BlocBuilder<RecommendedProductsCubit, RecommendedProductsState>(
       builder: (context, state) {
         if (state is RecommendedProductsLoaded) {
