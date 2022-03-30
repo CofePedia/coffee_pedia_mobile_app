@@ -4,50 +4,60 @@
 class SignupDataUser {
 /*
 {
-  "first_name": "Islam",
-  "last_name": "Osama",
-  "email": "amrazzam3561@waffarha.com",
-  "updated_at": "2021-12-20T12:29:10.000000Z",
-  "created_at": "2021-12-20T12:29:10.000000Z",
-  "id": 26,
-  "name": "Islam Osama"
+  "first_name": "Amr",
+  "last_name": "Azzam",
+  "email": "amrazzam101@waffarha.com",
+  "mobile": "01063608396",
+  "updated_at": "2022-03-20T09:21:12.000000Z",
+  "created_at": "2022-03-20T09:21:12.000000Z",
+  "id": 77,
+  "code": 5521,
+  "name": "Amr Azzam"
 }
 */
 
-  late String firstName;
-  late String lastName;
-  late String email;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? mobile;
   String? updatedAt;
   String? createdAt;
-  late int id;
-  late String name;
+  int? id;
+  int? code;
+  String? name;
 
   SignupDataUser({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.mobile,
     this.updatedAt,
     this.createdAt,
-    required this.id,
-    required this.name,
+    this.id,
+    this.code,
+    this.name,
   });
   SignupDataUser.fromJson(Map<String, dynamic> json) {
-    firstName = json['first_name'].toString();
-    lastName = json['last_name'].toString();
-    email = json['email'].toString();
+    firstName = json['first_name']?.toString();
+    lastName = json['last_name']?.toString();
+    email = json['email']?.toString();
+    mobile = json['mobile']?.toString();
     updatedAt = json['updated_at']?.toString();
     createdAt = json['created_at']?.toString();
-    id = json['id'].toInt();
-    name = json['name'].toString();
+    id = json['id']?.toInt();
+    code = json['code']?.toInt();
+    name = json['name']?.toString();
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['first_name'] = firstName;
     data['last_name'] = lastName;
     data['email'] = email;
+    data['mobile'] = mobile;
     data['updated_at'] = updatedAt;
     data['created_at'] = createdAt;
     data['id'] = id;
+    data['code'] = code;
     data['name'] = name;
     return data;
   }
@@ -57,32 +67,37 @@ class SignupData {
 /*
 {
   "user": {
-    "first_name": "Islam",
-    "last_name": "Osama",
-    "email": "amrazzam3561@waffarha.com",
-    "updated_at": "2021-12-20T12:29:10.000000Z",
-    "created_at": "2021-12-20T12:29:10.000000Z",
-    "id": 26,
-    "name": "Islam Osama"
+    "first_name": "Amr",
+    "last_name": "Azzam",
+    "email": "amrazzam101@waffarha.com",
+    "mobile": "01063608396",
+    "updated_at": "2022-03-20T09:21:12.000000Z",
+    "created_at": "2022-03-20T09:21:12.000000Z",
+    "id": 77,
+    "code": 5521,
+    "name": "Amr Azzam"
   },
   "message": "CREATED"
 }
 */
 
-  late SignupDataUser user;
+  SignupDataUser? user;
   String? message;
 
   SignupData({
-    required this.user,
+    this.user,
     this.message,
   });
   SignupData.fromJson(Map<String, dynamic> json) {
-    user = SignupDataUser.fromJson(json['user']);
+    user =
+        (json['user'] != null) ? SignupDataUser.fromJson(json['user']) : null;
     message = json['message']?.toString();
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-
+    if (user != null) {
+      data['user'] = user!.toJson();
+    }
     data['message'] = message;
     return data;
   }
@@ -93,26 +108,28 @@ class Signup {
 {
   "data": {
     "user": {
-      "first_name": "Islam",
-      "last_name": "Osama",
-      "email": "amrazzam3561@waffarha.com",
-      "updated_at": "2021-12-20T12:29:10.000000Z",
-      "created_at": "2021-12-20T12:29:10.000000Z",
-      "id": 26,
-      "name": "Islam Osama"
+      "first_name": "Amr",
+      "last_name": "Azzam",
+      "email": "amrazzam101@waffarha.com",
+      "mobile": "01063608396",
+      "updated_at": "2022-03-20T09:21:12.000000Z",
+      "created_at": "2022-03-20T09:21:12.000000Z",
+      "id": 77,
+      "code": 5521,
+      "name": "Amr Azzam"
     },
     "message": "CREATED"
   }
 }
 */
 
-  late SignupData data;
+  SignupData? data;
 
   Signup({
-    required this.data,
+    this.data,
   });
   Signup.fromJson(Map<String, dynamic> json) {
-    data = SignupData.fromJson(json['data']);
+    data = (json['data'] != null) ? SignupData.fromJson(json['data']) : null;
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};

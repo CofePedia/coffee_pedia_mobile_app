@@ -81,6 +81,11 @@ class _SuccessScreenState extends State<SuccessScreen> {
                             ),
                           )
                         : Container(),
+                    // IconButton(
+                    //     onPressed: () {
+                    //       Navigator.of(context).pop();
+                    //     },
+                    //     icon: Icon(Icons.close)),
                     Expanded(
                       child: Container(
                         color: Colors.white,

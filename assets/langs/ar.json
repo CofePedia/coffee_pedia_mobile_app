@@ -55,9 +55,9 @@
     "address_details" : "Address Details"
   },
   "range_filter_slider": {
-    "from" : "FROM",
+    "from" : "From",
     "to" : "To",
-    "to" : "EGP"
+    "egp" : "EGP"
   },
   "account_settings": {
     "account_settings" : "Account settings",
@@ -107,7 +107,7 @@
   },
   "filter_screen" : {
     "clear_all" : "Clear all",
-    "show_data" : "Show results",
+    "show_result" : "Show results",
     "enter_data" : "Enter Data",
     "close" : "Close"
   },
@@ -157,7 +157,8 @@
     "subtotal" : "Subtotal",
     "discount" : "Discount",
     "cod" : "COD",
-    "total" : "Total"
+    "total" : "Total",
+    "egp": "EGP"
   },
   "payment_info_screen" : {
     "pay_now" : "Pay Now",
@@ -213,13 +214,15 @@
     "first_name" : "First Name",
     "last_name" : "Last Name",
     "email_address" : "Email Address",
+    "mobile" : "Mobile",
     "password" : "Password",
     "confirm_password" : "Confirm Password",
     "forget_password" : "Forgot Password?",
-    "accept_msg" : "By creating account, you accept our",
+    "accept_msg" : "By creating account, you accept our ",
     "terms_n_conditions" : "terms and conditions",
     "and" : "and",
     "privacy_policy" : "privacy policy",
+    "You must accept our terms & conditions and privacy policy": "You must accept our terms & conditions and privacy policy.",
     "dont_have_account" : "Don’t have an Account",
     "have_an_account" : "Have an Account"
   },

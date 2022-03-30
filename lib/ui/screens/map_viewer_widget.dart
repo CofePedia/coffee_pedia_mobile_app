@@ -134,11 +134,11 @@ class _MapViewerWidgetState extends State<MapViewerWidget> {
                       },
                     ),
                     Positioned(
-                      top: 35.h,
+                      top: 31.h,
                       left: 21.w,
                       right: 21.w,
                       child: Container(
-                        height: 66.h,
+                        height: 70.h,
                         width: 301.w,
                         padding: EdgeInsets.symmetric(
                             horizontal: 18.w, vertical: 8.h),
@@ -150,22 +150,33 @@ class _MapViewerWidgetState extends State<MapViewerWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 SvgPicture.asset(Assets.locationPin),
-                                Text(
-                                    '760 Hattie Ways Suite 680- Montreal, Quebec'),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    '760 Hattie Ways Suite 680- Montreal, Quebec',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
                               ],
                             ),
-                            Container(
-                              margin: EdgeInsets.only(left: 200.w),
-                              child: CustomButton(
-                                onPress: () {},
-                                width: 74.w,
-                                height: 25.h,
-                                title: translator.translate("map_widget.show"),
-                                borderRadius: 12.5.r,
-                                buttonColor: Theme.of(context).primaryColor,
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: Container(
+                                width: 77.w,
+                                child: CustomButton(
+                                  onPress: () {},
+                                  width: 77.w,
+                                  height: 25.h,
+                                  title:
+                                      translator.translate("map_widget.show"),
+                                  borderRadius: 12.5.r,
+                                  buttonColor: Theme.of(context).primaryColor,
+                                ),
                               ),
                             ),
                           ],

@@ -11,25 +11,30 @@ class UserRepository {
   final AuthWebServices authWebServices;
   UserRepository(this.authWebServices);
 
-  Future<LoginData> getToken(String email, String password) async {
-    final userData = await authWebServices.getToken(email, password);
+  Future<LoginData> getToken(
+    String password,
+    String mobile,
+  ) async {
+    final userData = await authWebServices.getToken(password, mobile);
 
     return userData;
   }
 
-  Future<Signup> signUp(
-    String firstName,
-    String lastName,
-    String email,
-    String password,
-    String passwordConfirmation,
-  ) async {
+  Future<Signup> signUp({
+    String? firstName,
+    String? lastName,
+    String? email,
+    String? password,
+    String? passwordConfirmation,
+    String? mobile,
+  }) async {
     final signUpUserData = await authWebServices.signUp(
-      firstName,
-      lastName,
-      email,
-      password,
-      passwordConfirmation,
+      firstName: firstName!,
+      lastName: lastName!,
+      email: email!,
+      password: password!,
+      passwordConfirmation: passwordConfirmation!,
+      mobile: mobile!,
     );
     return signUpUserData;
   }

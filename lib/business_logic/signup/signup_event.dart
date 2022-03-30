@@ -20,6 +20,12 @@ class SignupEmailChanged extends SignupEvent {
   SignupEmailChanged({this.email});
 }
 
+class SignupMobileChanged extends SignupEvent {
+  final String? mobile;
+
+  SignupMobileChanged({this.mobile});
+}
+
 class SignupPasswordChanged extends SignupEvent {
   final String? password;
 

@@ -3,6 +3,8 @@ import 'package:coffepedia/data/repository/categories_repository.dart';
 import 'package:coffepedia/data/web_services/categories_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/category_screen.dart';
+import 'package:coffepedia/ui/shared/custom_network_image.dart';
+import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -109,23 +111,34 @@ class _CardCategoryState extends State<CardCategory> {
                           ),
                         ),
                         Positioned(
-                          left: 11.w,
+                          left: 7.w,
                           top: 30.h,
-                          child: Text(
-                            state.categories!.data![index]!.name!,
-                            style:
-                                Theme.of(context).textTheme.headline5!.copyWith(
-                                      color: Color(0xffFFD008),
-                                    ),
+                          child: Container(
+                            width: 80.w,
+                            child: Text(
+                              state.categories!.data![index]!.name!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(
+                                    color: Color(0xffFFD008),
+                                  ),
+                            ),
                           ),
                         ),
                         Positioned(
-                          right: 12.5.w,
-                          child: Image.network(
-                            state.categories!.data![index]!.icon!,
-                            width: 42.w,
+                          right: 7.w,
+                          child: CustomNetworkImage(
+                            imageUrl: state.categories!.data![index]!.icon!,
                             height: 76.h,
+                            width: 50.w,
+                            radius: 2.h,
                           ),
+                          // child: Image.network(
+                          //   state.categories!.data![index]!.icon!,
+                          //   width: 42.w,
+                          //   height: 76.h,
+                          // ),
                         ),
                       ],
                     ),
@@ -135,9 +148,7 @@ class _CardCategoryState extends State<CardCategory> {
             ),
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return CategoryShimmerWidget();
         }
       },
     );

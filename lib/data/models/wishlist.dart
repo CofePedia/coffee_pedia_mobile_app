@@ -43,138 +43,6 @@ class WishlistDataCategory {
   }
 }
 
-class WishlistDataOverview2 {
-/*
-{
-  "brand": "Wacaco"
-}
-*/
-
-  String? brand;
-
-  WishlistDataOverview2({
-    this.brand,
-  });
-  WishlistDataOverview2.fromJson(Map<String, dynamic> json) {
-    brand = json['brand']?.toString();
-  }
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['brand'] = brand;
-    return data;
-  }
-}
-
-class WishlistDataOverview {
-/*
-{
-  "region": "",
-  "brand": "Wacaco",
-  "roast": "",
-  "flavor": ""
-}
-*/
-
-  String? region;
-  String? brand;
-  String? roast;
-  String? flavor;
-
-  WishlistDataOverview({
-    this.region,
-    this.brand,
-    this.roast,
-    this.flavor,
-  });
-  WishlistDataOverview.fromJson(Map<String, dynamic> json) {
-    region = json['region']?.toString();
-    brand = json['brand']?.toString();
-    roast = json['roast']?.toString();
-    flavor = json['flavor']?.toString();
-  }
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['region'] = region;
-    data['brand'] = brand;
-    data['roast'] = roast;
-    data['flavor'] = flavor;
-    return data;
-  }
-}
-
-class WishlistDataVendor {
-/*
-{
-  "id": 61,
-  "logo": "https://api-staging.coffepidia.com/saved_images/logo/8XxG4OE8eDPhdD5cHyOFkJkr9M9b8VND8AZ9h3bn.jpg",
-  "feature": [
-    "Takeaway"
-  ],
-  "company_name": "my comamy",
-  "cover_photo": "https://api-staging.coffepidia.com/saved_images/cover_photo/tVHLNO9XqmHo4CYFufWD7iZegswXTdjf0zNh4waZ.jpg",
-  "description": null,
-  "address": "Address English",
-  "map": null
-}
-*/
-
-  int? id;
-  String? logo;
-  List<String?>? feature;
-  String? companyName;
-  String? coverPhoto;
-  String? description;
-  String? address;
-  String? map;
-
-  WishlistDataVendor({
-    this.id,
-    this.logo,
-    this.feature,
-    this.companyName,
-    this.coverPhoto,
-    this.description,
-    this.address,
-    this.map,
-  });
-  WishlistDataVendor.fromJson(Map<String, dynamic> json) {
-    id = json['id']?.toInt();
-    logo = json['logo']?.toString();
-    if (json['feature'] != null) {
-      final v = json['feature'];
-      final arr0 = <String>[];
-      v.forEach((v) {
-        arr0.add(v.toString());
-      });
-      feature = arr0;
-    }
-    companyName = json['company_name']?.toString();
-    coverPhoto = json['cover_photo']?.toString();
-    description = json['description']?.toString();
-    address = json['address']?.toString();
-    map = json['map']?.toString();
-  }
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['id'] = id;
-    data['logo'] = logo;
-    if (feature != null) {
-      final v = feature;
-      final arr0 = [];
-      v!.forEach((v) {
-        arr0.add(v);
-      });
-      data['feature'] = arr0;
-    }
-    data['company_name'] = companyName;
-    data['cover_photo'] = coverPhoto;
-    data['description'] = description;
-    data['address'] = address;
-    data['map'] = map;
-    return data;
-  }
-}
-
 class WishlistData {
 /*
 {
@@ -237,9 +105,7 @@ class WishlistData {
   int? brandId;
   int? vendorId;
   String? image;
-  WishlistDataVendor? vendor;
-  WishlistDataOverview? overview;
-  WishlistDataOverview2? overview2;
+
   int? price;
   int? stock;
   bool? inWishlist;
@@ -259,9 +125,6 @@ class WishlistData {
     this.brandId,
     this.vendorId,
     this.image,
-    this.vendor,
-    this.overview,
-    this.overview2,
     this.price,
     this.stock,
     this.inWishlist,
@@ -281,15 +144,7 @@ class WishlistData {
     brandId = json['brand_id']?.toInt();
     vendorId = json['vendor_id']?.toInt();
     image = json['image']?.toString();
-    vendor = (json['vendor'] != null)
-        ? WishlistDataVendor.fromJson(json['vendor'])
-        : null;
-    overview = (json['overview'] != null)
-        ? WishlistDataOverview.fromJson(json['overview'])
-        : null;
-    overview2 = (json['overview2'] != null)
-        ? WishlistDataOverview2.fromJson(json['overview2'])
-        : null;
+
     price = json['price']?.toInt();
     stock = json['stock']?.toInt();
     inWishlist = json['in_wishlist'];
@@ -312,15 +167,7 @@ class WishlistData {
     data['brand_id'] = brandId;
     data['vendor_id'] = vendorId;
     data['image'] = image;
-    if (vendor != null) {
-      data['vendor'] = vendor!.toJson();
-    }
-    if (overview != null) {
-      data['overview'] = overview!.toJson();
-    }
-    if (overview2 != null) {
-      data['overview2'] = overview2!.toJson();
-    }
+
     data['price'] = price;
     data['stock'] = stock;
     data['in_wishlist'] = inWishlist;

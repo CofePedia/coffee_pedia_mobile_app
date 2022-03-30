@@ -45,7 +45,7 @@ class DatabaseProvider {
 
     var database = await openDatabase(
       path,
-      version: 5,
+      version: 6,
       onCreate: initDB,
       onUpgrade: onUpgrade,
     );

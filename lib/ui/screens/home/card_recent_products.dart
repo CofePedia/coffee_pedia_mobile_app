@@ -3,6 +3,8 @@ import 'package:coffepedia/data/repository/most_recent_repository.dart';
 import 'package:coffepedia/data/web_services/most_recent_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
+import 'package:coffepedia/ui/shared/custom_network_image.dart';
+import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -95,12 +97,12 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                           ),
                           Positioned(
                             right: 22.w,
-                            child: Container(
-                              child: Image.network(
-                                state.mostRecent!.data!.data![index]!.image!,
-                                width: 90.w,
-                                height: 101.h,
-                              ),
+                            child: CustomNetworkImage(
+                              imageUrl:
+                                  state.mostRecent!.data!.data![index]!.image!,
+                              width: 90.w,
+                              height: 101.h,
+                              radius: 2.h,
                             ),
                           ),
                           state.mostRecent!.data!.data![index]!.rate! == 0
@@ -156,9 +158,7 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
             ),
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return RecentProductsShimmerWidget();
         }
       },
     );

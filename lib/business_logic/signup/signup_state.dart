@@ -10,6 +10,9 @@ class SignupState {
   final String? email;
   bool get isValidEmail => email!.contains('@');
 
+  final String? mobile;
+  bool get isValidMobile => mobile!.length < 11;
+
   final String? password;
   bool get isValidPassword => password!.length > 8;
 
@@ -22,6 +25,7 @@ class SignupState {
     this.firstName = '',
     this.lastName = '',
     this.email = '',
+    this.mobile = '',
     this.password = '',
     this.passwordConfirmation = '',
     this.formStatus = const InitialFormStatus(),
@@ -31,6 +35,7 @@ class SignupState {
     String? firstName,
     String? lastName,
     String? email,
+    String? mobile,
     String? password,
     String? passwordConfirmation,
     FormSubmissionStatus? formStatus,
@@ -39,6 +44,7 @@ class SignupState {
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       email: email ?? this.email,
+      mobile: mobile ?? this.mobile,
       password: password ?? this.password,
       passwordConfirmation: passwordConfirmation ?? this.passwordConfirmation,
       formStatus: formStatus ?? FormSubmitting(),

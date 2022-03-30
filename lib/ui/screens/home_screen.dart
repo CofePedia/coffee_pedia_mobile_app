@@ -3,23 +3,21 @@ import 'package:coffepedia/business_logic/home_ads/home_ads_cubit.dart';
 import 'package:coffepedia/data/repository/home_ads_repository.dart';
 import 'package:coffepedia/data/web_services/home_ads_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/main.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
-import 'package:coffepedia/ui/screens/home/ad_banner.dart';
-import 'package:coffepedia/ui/screens/home/ad_slider.dart';
-import 'package:coffepedia/ui/screens/home/ads.dart';
 import 'package:coffepedia/ui/screens/home/brands_icons.dart';
 import 'package:coffepedia/ui/screens/home/card_category.dart';
 import 'package:coffepedia/ui/screens/home/card_featured_products.dart';
 import 'package:coffepedia/ui/screens/home/card_recent_products.dart';
 import 'package:coffepedia/ui/screens/home/search_widget.dart';
+import 'package:coffepedia/ui/screens/home/section_name.dart';
+import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../main.dart';
-import 'home/section_name.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:pushwoosh/pushwoosh.dart';
 
 class HomeScreenProvider extends StatelessWidget {
   const HomeScreenProvider({Key? key}) : super(key: key);
@@ -51,6 +49,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     BlocProvider.of<HomeAdsCubit>(context).getHomeAds();
+    Pushwoosh.getInstance.onPushReceived.listen((event) {
+      print("onPushReceived ${event.toString()}");
+    });
+    Pushwoosh.getInstance.onPushAccepted.listen((event) {
+      print("onPushAccepted ${event.toString()}");
+    });
     super.initState();
   }
 
@@ -114,24 +118,31 @@ class _HomeScreenState extends State<HomeScreen> {
                             scrollDirection: Axis.horizontal,
                             padding: EdgeInsets.only(left: 10.w, right: 10.w),
                             itemBuilder: (context, index) {
-                              return AdSlider(
-                                adImage: state
-                                    .homeAds!.data!.besideSlider![index].image!,
-                                onPress: onTap,
+                              return Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                                child: CustomNetworkImage(
+                                    imageUrl: state.homeAds!.data!
+                                        .besideSlider![index].image!,
+                                    height: 170.h,
+                                    width: 343.w,
+                                    radius: 7.0.r),
                               );
                             },
                           ),
                         ),
                         Container(
-                          height: 100.h,
+                          height: 60.h,
                           child: ListView.builder(
                             itemCount: state.homeAds!.data!.topHeader!.length,
                             scrollDirection: Axis.horizontal,
                             padding: EdgeInsets.zero,
-                            itemBuilder: (context, index) => AdBanner(
-                              adImageBackground:
-                                  state.homeAds!.data!.topHeader![index].image,
-                              onPress: onTap,
+                            itemBuilder: (context, index) => CustomNetworkImage(
+                              imageUrl:
+                                  state.homeAds!.data!.topHeader![index].image!,
+                              height: 60.h,
+                              width: MediaQuery.of(context).size.width,
+                              radius: 0.r,
+                              fit: BoxFit.fill,
                             ),
                           ),
                         ),
@@ -142,7 +153,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 },
               ),
-
+              SizedBox(
+                height: 16.h,
+              ),
               SectionName(
                   sectionName:
                       translator.translate("home_screen.shop_by_category")),
@@ -168,10 +181,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.vertical,
                         padding: EdgeInsets.only(left: 8.w, right: 8.w),
                         itemBuilder: (context, index) {
-                          return Ads(
-                            adImageBackground:
-                                state.homeAds!.data!.inPage![index].image,
-                          );
+                          return CustomNetworkImage(
+                              imageUrl:
+                                  state.homeAds!.data!.inPage![index].image!,
+                              height: 205.h,
+                              width: 344.w,
+                              radius: 11.0.r);
+                          // return Ads(
+                          //   adImageBackground: state
+                          //       .homeAds!.data!.inPage![index].image,
+                          // );
                         },
                       ),
                     );

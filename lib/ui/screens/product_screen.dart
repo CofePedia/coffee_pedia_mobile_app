@@ -7,7 +7,9 @@ import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/checkout_popup.dart';
 import 'package:coffepedia/ui/screens/category_screen.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
+import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
+import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:coffepedia/ui/shared/rating_bar.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
 import 'package:flutter/material.dart';
@@ -197,8 +199,8 @@ class _ProductScreenState extends State<ProductScreen> {
           builder: (context, state) {
             if (state is ProductLoaded) {
               return Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+                //width: MediaQuery.of(context).size.width,
+                //   height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -242,7 +244,15 @@ class _ProductScreenState extends State<ProductScreen> {
                               color: Color(0xff000000),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        HomePage(currentIndex: 1),
+                                  ),
+                                );
+                              },
                               child: SvgPicture.asset(
                                 Assets.iconsShoppingBasket,
                                 width: 24.w,
@@ -286,12 +296,17 @@ class _ProductScreenState extends State<ProductScreen> {
                                   ),
                                   items:
                                       state.product!.data!.images!.map((image) {
-                                    return Image.network(
-                                      image!,
-                                      fit: BoxFit.fill,
-                                      // height: 260.h,
-                                      // width: 142.w,
-                                    );
+                                    return CustomNetworkImage(
+                                        imageUrl: image!,
+                                        height: 260.h,
+                                        width: 142.w,
+                                        radius: 2.r);
+                                    // return Image.network(
+                                    //   image!,
+                                    //   fit: BoxFit.fill,
+                                    //   // height: 260.h,
+                                    //   // width: 142.w,
+                                    // );
                                   }).toList(),
                                 ),
                               ),
@@ -478,138 +493,140 @@ class _ProductScreenState extends State<ProductScreen> {
                             ),
                             // TODO: it needs to be handled from backend first
                             Padding(
-                              padding: EdgeInsets.only(top: 15.h),
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 15.w),
-                                child: GridView.builder(
-                                  padding: EdgeInsets.zero,
-                                  itemCount: 4,
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    mainAxisSpacing: 8.h,
-                                    childAspectRatio: 130.w / 30.h,
-                                  ),
-                                  // children: [
-                                  //   Column(
-                                  //     crossAxisAlignment:
-                                  //         CrossAxisAlignment.start,
-                                  //     children: [
-                                  //       Text(
-                                  //         'Brand',
-                                  //         style: Theme.of(context)
-                                  //             .textTheme
-                                  //             .subtitle2!
-                                  //             .copyWith(
-                                  //               color: Color(
-                                  //                 0xff8A8A8A,
-                                  //               ),
-                                  //             ),
-                                  //       ),
-                                  //       Text(
-                                  //         state.product!.data!.overview!.brand!,
-                                  //         style: Theme.of(context)
-                                  //             .textTheme
-                                  //             .subtitle2,
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  //   Column(
-                                  //     crossAxisAlignment:
-                                  //         CrossAxisAlignment.start,
-                                  //     children: [
-                                  //       Text(
-                                  //         'Flavor',
-                                  //         style: Theme.of(context)
-                                  //             .textTheme
-                                  //             .subtitle2!
-                                  //             .copyWith(
-                                  //               color: Color(
-                                  //                 0xff8A8A8A,
-                                  //               ),
-                                  //             ),
-                                  //       ),
-                                  //       Text(
-                                  //         state.product!.data!.overview!.flavor!,
-                                  //         style: Theme.of(context)
-                                  //             .textTheme
-                                  //             .subtitle2,
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  //   Column(
-                                  //     crossAxisAlignment:
-                                  //         CrossAxisAlignment.start,
-                                  //     children: [
-                                  //       Text(
-                                  //         'Region',
-                                  //         style: Theme.of(context)
-                                  //             .textTheme
-                                  //             .subtitle2!
-                                  //             .copyWith(
-                                  //               color: Color(
-                                  //                 0xff8A8A8A,
-                                  //               ),
-                                  //             ),
-                                  //       ),
-                                  //       Text(
-                                  //         state.product!.data!.overview!.region!,
-                                  //         style: Theme.of(context)
-                                  //             .textTheme
-                                  //             .subtitle2,
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  //   Column(
-                                  //     crossAxisAlignment:
-                                  //         CrossAxisAlignment.start,
-                                  //     children: [
-                                  //       Text(
-                                  //         'Roast',
-                                  //         style: Theme.of(context)
-                                  //             .textTheme
-                                  //             .subtitle2!
-                                  //             .copyWith(
-                                  //               color: Color(
-                                  //                 0xff8A8A8A,
-                                  //               ),
-                                  //             ),
-                                  //       ),
-                                  //       Text(
-                                  //         state.product!.data!.overview!.roast!,
-                                  //         style: Theme.of(context)
-                                  //             .textTheme
-                                  //             .subtitle2,
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ],
-                                  itemBuilder: (context, index) => Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        translator
-                                            .translate("product_screen.brand"),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2!
-                                            .copyWith(
-                                              color: Color(
-                                                0xff8A8A8A,
-                                              ),
+                              padding: EdgeInsets.only(
+                                top: 15.h,
+                                right: 15.w,
+                                left: 15.w,
+                              ),
+                              child: GridView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount:
+                                    state.product!.data!.overview2!.length,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 10.h,
+                                  childAspectRatio: 130.w / 30.h,
+                                ),
+                                // children: [
+                                //   Column(
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.start,
+                                //     children: [
+                                //       Text(
+                                //         'Brand',
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2!
+                                //             .copyWith(
+                                //               color: Color(
+                                //                 0xff8A8A8A,
+                                //               ),
+                                //             ),
+                                //       ),
+                                //       Text(
+                                //         state.product!.data!.overview!.brand!,
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2,
+                                //       ),
+                                //     ],
+                                //   ),
+                                //   Column(
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.start,
+                                //     children: [
+                                //       Text(
+                                //         'Flavor',
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2!
+                                //             .copyWith(
+                                //               color: Color(
+                                //                 0xff8A8A8A,
+                                //               ),
+                                //             ),
+                                //       ),
+                                //       Text(
+                                //         state.product!.data!.overview!.flavor!,
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2,
+                                //       ),
+                                //     ],
+                                //   ),
+                                //   Column(
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.start,
+                                //     children: [
+                                //       Text(
+                                //         'Region',
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2!
+                                //             .copyWith(
+                                //               color: Color(
+                                //                 0xff8A8A8A,
+                                //               ),
+                                //             ),
+                                //       ),
+                                //       Text(
+                                //         state.product!.data!.overview!.region!,
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2,
+                                //       ),
+                                //     ],
+                                //   ),
+                                //   Column(
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.start,
+                                //     children: [
+                                //       Text(
+                                //         'Roast',
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2!
+                                //             .copyWith(
+                                //               color: Color(
+                                //                 0xff8A8A8A,
+                                //               ),
+                                //             ),
+                                //       ),
+                                //       Text(
+                                //         state.product!.data!.overview!.roast!,
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .subtitle2,
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ],
+                                itemBuilder: (context, index) => Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      // translator
+                                      //     .translate("product_screen.brand"),
+                                      "Brand",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle2!
+                                          .copyWith(
+                                            color: Color(
+                                              0xff8A8A8A,
                                             ),
-                                      ),
-                                      Text(
-                                        'Starbucks',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2,
-                                      ),
-                                    ],
-                                  ),
+                                          ),
+                                    ),
+                                    Text(
+                                      state.product!.data!.overview2![index]!
+                                          .brand!,
+                                      style:
+                                          Theme.of(context).textTheme.subtitle2,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),

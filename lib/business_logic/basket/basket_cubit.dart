@@ -2,8 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:coffepedia/data/models/add_to_basket.dart';
 import 'package:coffepedia/data/models/basket.dart';
 import 'package:coffepedia/data/models/coupon.dart';
+import 'package:coffepedia/data/models/gettoken_database.dart';
 import 'package:coffepedia/data/models/remove_from_basket.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
+import 'package:coffepedia/database/database_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -74,6 +76,7 @@ class BasketCubit extends Cubit<BasketState> {
   }
 
   Future addProductInLocalBasket(BasketLocal basketLocal) async {
+    //get all from local basket...
     List<BasketLocal> baskets =
         await basketRepository.getAllLocalProductsFromBasket();
     ///////prints
@@ -85,13 +88,17 @@ class BasketCubit extends Cubit<BasketState> {
     ///////prints
     bool itemFound = false;
     baskets.forEach((element) async {
+      print(
+          "Elements ID .. ${element.productId} new basket ID .. ${basketLocal.productId}");
       if (element.productId == basketLocal.productId) {
         print("update in cubit ");
         // update this row..
         itemFound = true;
+        print("ITEM FOUNT!! " + basketLocal.productId.toString());
+        int newQuantity = int.parse(basketLocal.quantity.toString()) +
+            int.parse(element.quantity.toString());
         await basketRepository
-            .updateQuantityInLocalBasket(
-                basketLocal.productId!, basketLocal.quantity!)
+            .updateQuantityInLocalBasket(basketLocal.productId!, newQuantity)
             .then(
               (value) => emit(
                 UpdateLocalBasket(),
@@ -147,6 +154,7 @@ class BasketCubit extends Cubit<BasketState> {
 
   void deleteFromLocalBasket(int productId) async {
     await basketRepository.deleteFromLocalBasket(productId).then((value) async {
+      print("RemoveFromLocalBasketIsPressed is called from cubit");
       emit(
         RemoveFromLocalBasketIsPressed(),
       );
@@ -172,18 +180,22 @@ class BasketCubit extends Cubit<BasketState> {
         print("A 2--");
       }
       print("A 3");
-      //TODO 3) send all the products to the database..
-      if (basket.length > 0) {
-        basketRepository.getAddToBasket(basket).then((value) {
-          emit(AddToBasketIsPressed(value));
-        });
-      } else {
-        basketRepository
-            .getRemoveFromBasket(productId.toString())
-            .then((value) {
-          emit(RemoveFromLocalBasketIsPressed());
-        });
+      final userDao = UserDao();
+      GetTokenDatabase? token = await userDao.getUserToken();
+      if (token != null) {
+        if (basket.length > 0) {
+          basketRepository.getAddToBasket(basket).then((value) {
+            emit(AddToBasketIsPressed(value));
+          });
+        } else {
+          basketRepository
+              .getRemoveFromBasket(productId.toString())
+              .then((value) {
+            emit(RemoveFromLocalBasketIsPressed());
+          });
+        }
       }
+      //TODO 3) send all the products to the database..
     }).catchError((error) {
       print("update local basket error $error");
       emit(DeleteLocalBasketError(error.toString()));
@@ -219,9 +231,16 @@ class BasketCubit extends Cubit<BasketState> {
       }
       print("A 3");
       //TODO 3) send all the products to the database..
-      basketRepository.getAddToBasket(basket).then((value) {
+      //TODO check if the token not = to null ..
+      final userDao = UserDao();
+      GetTokenDatabase? token = await userDao.getUserToken();
+      if (token != null) {
+        basketRepository.getAddToBasket(basket).then((value) {
+          emit(AddToBasketIsPressed(value));
+        });
+      } else {
         emit(AddToBasketIsPressed(value));
-      });
+      }
     }).catchError((error) {
       print("delete local basket error $error");
       emit(UpdateLocalBasketError(error.toString()));

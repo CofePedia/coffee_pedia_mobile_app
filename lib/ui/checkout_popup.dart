@@ -1,3 +1,4 @@
+import 'package:appmetrica_sdk/appmetrica_sdk.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
 import 'package:coffepedia/business_logic/me/me_cubit.dart';
@@ -88,11 +89,12 @@ class CheckoutPopUp extends StatelessWidget {
     // return Container(
     return CheckInternetConnection(
         screen: Container(
-      height: 222.h,
+      height: 240.h,
       width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(bottom: 20.h),
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Container(
             height: 60.h,
@@ -106,12 +108,12 @@ class CheckoutPopUp extends StatelessWidget {
                   width: 60.w,
                   height: 60.h,
                   decoration: BoxDecoration(
-                    color: Color(0xffF4F4F4),
+                    // color: Color(0xffF4F4F4),
                     borderRadius: BorderRadius.circular(7.r),
                   ),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 17.w, vertical: 6.h),
-                  margin: EdgeInsets.only(right: 12.w),
+                  // padding:
+                  //     EdgeInsets.symmetric(horizontal: 17.w, vertical: 6.h),
+                  margin: EdgeInsets.only(right: 6.w),
                   child: Image.network(
                     image!,
                   ),
@@ -139,7 +141,8 @@ class CheckoutPopUp extends StatelessWidget {
                       height: 16.h,
                     ),
                     Text(
-                      translator.translate("checkout_popup.egp") + totalPrice!,
+                      translator.translate("checkout_popup.egp") +
+                          " $totalPrice",
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             color: Theme.of(context).primaryColor,
                           ),
@@ -242,6 +245,9 @@ class CheckoutPopUp extends StatelessWidget {
                                 name: basketLocal!.name,
                                 priceBeforeDiscount:
                                     basketLocal!.priceBeforeDiscount));
+                        AppmetricaSdk()
+                            .reportEvent(name: 'Added to Server Cart');
+
                         /*//TODO 2) get all items from the local database..
                         List<Map<String, int>> basket = [];
                         print("A 1");
@@ -277,6 +283,8 @@ class CheckoutPopUp extends StatelessWidget {
                                 name: basketLocal!.name,
                                 priceBeforeDiscount:
                                     basketLocal!.priceBeforeDiscount));
+                        AppmetricaSdk()
+                            .reportEvent(name: 'Added to Local Cart');
                       }
                     },
                     style: ButtonStyle(
@@ -296,15 +304,17 @@ class CheckoutPopUp extends StatelessWidget {
               },
             ),
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text(
-              translator.translate("checkout_popup.continue_shopping"),
-              style: Theme.of(context).textTheme.headline2!.copyWith(
-                    color: Theme.of(context).primaryColor,
-                  ),
+          Container(
+            child: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                translator.translate("checkout_popup.continue_shopping"),
+                style: Theme.of(context).textTheme.headline2!.copyWith(
+                      color: Theme.of(context).primaryColor,
+                    ),
+              ),
             ),
           ),
         ],

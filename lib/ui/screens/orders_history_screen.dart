@@ -4,6 +4,7 @@ import 'package:coffepedia/data/web_services/order_history_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
+import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:coffepedia/ui/widgets/empty_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -124,7 +125,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                                           .orderHistory!
                                                           .data![index]!
                                                           .statusColor !=
-                                                      'null'
+                                                      ''
                                                   ? HexColor(state
                                                       .orderHistory!
                                                       .data![index]!
@@ -224,21 +225,15 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                               .headline4,
                                         ),
                                       ),
-                                      trailing: Container(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 6.h, horizontal: 17.w),
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffF4F4F4),
-                                          borderRadius:
-                                              BorderRadius.circular(7.sp),
-                                        ),
-                                        child: Image.network(
-                                          state.orderHistory!.data![index]!
-                                              .items![itemsIndex]!.image!,
-                                          fit: BoxFit.cover,
-                                          height: 48.h,
-                                          width: 26.w,
-                                        ),
+                                      trailing: CustomNetworkImage(
+                                        imageUrl: state
+                                            .orderHistory!
+                                            .data![index]!
+                                            .items![itemsIndex]!
+                                            .image!,
+                                        height: 48.h,
+                                        width: 40.w,
+                                        radius: 2,
                                       ),
                                     ),
                                   ),
@@ -311,7 +306,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                           height: 10.h,
                                         ),
                                         Text(
-                                          '${translator.translate("order_history_screen.cod")}            ${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.deliveryCharge}',
+                                          '${translator.translate("order_history_screen.cod")}                    ${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.deliveryCharge}',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline3!
@@ -321,7 +316,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                           height: 10.h,
                                         ),
                                         Text(
-                                          '${translator.translate("order_history_screen.total")}            ${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.totalPrice}',
+                                          '${translator.translate("order_history_screen.total")}                ${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.totalPrice}',
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1!

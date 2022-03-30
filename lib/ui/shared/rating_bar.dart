@@ -15,7 +15,7 @@ class RatingBarComponent extends StatelessWidget {
       ),
       itemCount: 5, itemPadding: EdgeInsets.zero,
       unratedColor: Colors.grey.shade400,
-      itemSize: 20,
+      itemSize: 15,
       //itemSize: 50.0,
       direction: Axis.horizontal,
     );
