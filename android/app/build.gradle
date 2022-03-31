@@ -41,7 +41,7 @@ android {
     }
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.waffarha.coffepedia"
+        applicationId "com.waffarha.cofePedia"
         minSdkVersion 20
         multiDexEnabled true
         targetSdkVersion 30
