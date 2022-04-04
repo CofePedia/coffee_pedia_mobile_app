@@ -213,7 +213,7 @@ class CheckoutPopUp extends StatelessWidget {
                   } else
                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                       builder: (context) {
-                        return const HomePage(currentIndex: 1);
+                        return const HomePageProvider(currentIndex: 1);
                       },
                     ), (route) => false);
                 },

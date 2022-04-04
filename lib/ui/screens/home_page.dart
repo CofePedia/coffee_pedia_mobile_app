@@ -1,7 +1,11 @@
 import 'package:badges/badges.dart';
+import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
+import 'package:coffepedia/data/repository/basket_repository.dart';
+import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -11,6 +15,24 @@ import '../checkout_items_screen.dart';
 import 'home_screen.dart';
 import 'more_screen.dart';
 import 'profile_screen.dart';
+
+class HomePageProvider extends StatelessWidget {
+  final int currentIndex;
+  const HomePageProvider({required this.currentIndex, Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => BasketCubit(
+        BasketRepository(BasketWebServices()),
+      ),
+      child: HomePage(
+        currentIndex: currentIndex,
+      ),
+    );
+  }
+}
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -28,6 +50,11 @@ class _HomePageState extends State<HomePage> {
 
   _HomePageState(this.currentIndex);
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   BottomNavigationBarItem getItem(String image, String title, int index) {
     return BottomNavigationBarItem(
       icon: Container(
@@ -37,10 +64,22 @@ class _HomePageState extends State<HomePage> {
           badgeColor: kYellow,
           showBadge: index == 1 ? true : false,
           // font change
-          badgeContent: Text(
-            '3',
-            style:
-                Theme.of(context).textTheme.headline5!.copyWith(color: kGrey5),
+          badgeContent: BlocBuilder<BasketCubit, BasketState>(
+            builder: (context, state) {
+              if (state is LocalBasketLoaded) {
+                return Text(
+                  state.basketLocalList.length.toString(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5!
+                      .copyWith(color: kGrey5),
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
           ),
           child: SvgPicture.asset(
             image,
@@ -64,6 +103,8 @@ class _HomePageState extends State<HomePage> {
   };
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
+
     return CheckInternetConnection(
       screen: Scaffold(
         extendBody: true,
@@ -119,7 +160,7 @@ class _HomePageState extends State<HomePage> {
               return !await Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => HomePage(currentIndex: 0)),
+                    builder: (context) => HomePageProvider(currentIndex: 0)),
                 ModalRoute.withName('/'),
               );
             } else {

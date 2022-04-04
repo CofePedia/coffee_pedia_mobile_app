@@ -101,7 +101,7 @@ class _AccountSettingsState extends State<AccountSettings> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return HomePage(
+            return HomePageProvider(
               currentIndex: 2,
             );
           },

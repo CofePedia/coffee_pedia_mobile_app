@@ -249,7 +249,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        HomePage(currentIndex: 1),
+                                        HomePageProvider(currentIndex: 1),
                                   ),
                                 );
                               },
@@ -510,107 +510,14 @@ class _ProductScreenState extends State<ProductScreen> {
                                   mainAxisSpacing: 10.h,
                                   childAspectRatio: 130.w / 30.h,
                                 ),
-                                // children: [
-                                //   Column(
-                                //     crossAxisAlignment:
-                                //         CrossAxisAlignment.start,
-                                //     children: [
-                                //       Text(
-                                //         'Brand',
-                                //         style: Theme.of(context)
-                                //             .textTheme
-                                //             .subtitle2!
-                                //             .copyWith(
-                                //               color: Color(
-                                //                 0xff8A8A8A,
-                                //               ),
-                                //             ),
-                                //       ),
-                                //       Text(
-                                //         state.product!.data!.overview!.brand!,
-                                //         style: Theme.of(context)
-                                //             .textTheme
-                                //             .subtitle2,
-                                //       ),
-                                //     ],
-                                //   ),
-                                //   Column(
-                                //     crossAxisAlignment:
-                                //         CrossAxisAlignment.start,
-                                //     children: [
-                                //       Text(
-                                //         'Flavor',
-                                //         style: Theme.of(context)
-                                //             .textTheme
-                                //             .subtitle2!
-                                //             .copyWith(
-                                //               color: Color(
-                                //                 0xff8A8A8A,
-                                //               ),
-                                //             ),
-                                //       ),
-                                //       Text(
-                                //         state.product!.data!.overview!.flavor!,
-                                //         style: Theme.of(context)
-                                //             .textTheme
-                                //             .subtitle2,
-                                //       ),
-                                //     ],
-                                //   ),
-                                //   Column(
-                                //     crossAxisAlignment:
-                                //         CrossAxisAlignment.start,
-                                //     children: [
-                                //       Text(
-                                //         'Region',
-                                //         style: Theme.of(context)
-                                //             .textTheme
-                                //             .subtitle2!
-                                //             .copyWith(
-                                //               color: Color(
-                                //                 0xff8A8A8A,
-                                //               ),
-                                //             ),
-                                //       ),
-                                //       Text(
-                                //         state.product!.data!.overview!.region!,
-                                //         style: Theme.of(context)
-                                //             .textTheme
-                                //             .subtitle2,
-                                //       ),
-                                //     ],
-                                //   ),
-                                //   Column(
-                                //     crossAxisAlignment:
-                                //         CrossAxisAlignment.start,
-                                //     children: [
-                                //       Text(
-                                //         'Roast',
-                                //         style: Theme.of(context)
-                                //             .textTheme
-                                //             .subtitle2!
-                                //             .copyWith(
-                                //               color: Color(
-                                //                 0xff8A8A8A,
-                                //               ),
-                                //             ),
-                                //       ),
-                                //       Text(
-                                //         state.product!.data!.overview!.roast!,
-                                //         style: Theme.of(context)
-                                //             .textTheme
-                                //             .subtitle2,
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ],
                                 itemBuilder: (context, index) => Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      // translator
-                                      //     .translate("product_screen.brand"),
-                                      "Brand",
+                                      state.product!.data!.overview2![index]!
+                                          .key!,
                                       style: Theme.of(context)
                                           .textTheme
                                           .subtitle2!
@@ -622,9 +529,13 @@ class _ProductScreenState extends State<ProductScreen> {
                                     ),
                                     Text(
                                       state.product!.data!.overview2![index]!
-                                          .brand!,
-                                      style:
-                                          Theme.of(context).textTheme.subtitle2,
+                                          .value!,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle2!
+                                          .copyWith(height: 1.h),
                                     ),
                                   ],
                                 ),

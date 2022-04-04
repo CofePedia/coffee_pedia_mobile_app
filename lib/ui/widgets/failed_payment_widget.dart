@@ -71,7 +71,7 @@ class FailedPaymentWidget extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return const HomePage(currentIndex: 0);
+                        return const HomePageProvider(currentIndex: 0);
                       },
                     ),
                   );

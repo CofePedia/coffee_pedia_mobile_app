@@ -47,21 +47,26 @@ class ProductDataCategory {
 class ProductDataOverview2 {
 /*
 {
-  "brand": "Wacaco"
+  "key": "brand",
+  "value": "Wacaco"
 }
 */
 
-  String? brand;
+  String? key;
+  String? value;
 
   ProductDataOverview2({
-    this.brand,
+    this.key,
+    this.value,
   });
   ProductDataOverview2.fromJson(Map<String, dynamic> json) {
-    brand = json['brand']?.toString();
+    key = json['key']?.toString();
+    value = json['value']?.toString();
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data['brand'] = brand;
+    data['key'] = key;
+    data['value'] = value;
     return data;
   }
 }

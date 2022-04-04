@@ -32,7 +32,7 @@ class BasketEmptyScreen extends StatelessWidget {
                 top: 31.h, bottom: 45.h, left: 16.w, right: 16.w),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 100.h,
+              height: 110.h,
               padding: EdgeInsets.all(16.h),
               decoration: BoxDecoration(
                 color: Color(0xffF3FCFE),

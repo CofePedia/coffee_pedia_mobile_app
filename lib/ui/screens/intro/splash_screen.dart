@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return HomePage(
+              return HomePageProvider(
                 currentIndex: 0,
               );
             },

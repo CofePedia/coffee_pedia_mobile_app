@@ -95,8 +95,10 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return await Navigator.push(context,
-            MaterialPageRoute(builder: (context) => HomePage(currentIndex: 0)));
+        return await Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HomePageProvider(currentIndex: 0)));
       },
       child: Scaffold(
         body: MultiBlocListener(
@@ -168,7 +170,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => HomePage(
+                      builder: (context) => HomePageProvider(
                         currentIndex: 0,
                       ),
                     ),
@@ -191,7 +193,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 } else if (state.formStatus is SubmissionSuccess) {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => HomePage(
+                      builder: (context) => HomePageProvider(
                         currentIndex: 0,
                       ),
                     ),
@@ -225,7 +227,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                 onTap: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (context) => HomePage(
+                                      builder: (context) => HomePageProvider(
                                         currentIndex: 0,
                                       ),
                                     ),

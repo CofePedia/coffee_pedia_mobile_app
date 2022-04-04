@@ -95,35 +95,42 @@ class _SellerDetailsState extends State<SellerDetails> {
                       SizedBox(
                         height: 14.74.h,
                       ),
-                      Container(
-                        // width: 100,
-                        height: 28.h,
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 4.w),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 3.h, horizontal: 12.w),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Color(
-                                  0xffE9E7E7,
+                      state.vendorDetails!.data!.feature != null
+                          ? Container(
+                              // width: 100,
+                              height: 28.h,
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) => Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 4.w),
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 3.h, horizontal: 12.w),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: Color(
+                                        0xffE9E7E7,
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.circular(17.5.r),
+                                    ),
+                                    child: Text(
+                                      state.vendorDetails!.data!
+                                          .feature![index]!,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                  ),
                                 ),
-                                borderRadius: BorderRadius.circular(17.5.r),
+                                itemCount:
+                                    state.vendorDetails!.data!.feature!.length,
                               ),
-                              child: Text(
-                                state.vendorDetails!.data!.feature![index]!,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ),
-                          ),
-                          itemCount: state.vendorDetails!.data!.feature!.length,
-                        ),
-                      ),
+                            )
+                          : SizedBox.shrink(),
                       // SizedBox(
                       //   height: 12.h,
                       // ),
