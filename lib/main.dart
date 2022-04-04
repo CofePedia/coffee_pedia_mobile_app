@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pushwoosh/pushwoosh.dart';
 
 import 'business_logic/auth/auth_bloc.dart';
 import 'data/web_services/auth_web_services.dart';
@@ -19,8 +20,8 @@ late Translator translator;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Pushwoosh.initialize({"app_id": "110FF-9CE72", "sender_id": "177929575410"});
-  // Pushwoosh.getInstance.registerForPushNotifications();
+  Pushwoosh.initialize({"app_id": "110FF-9CE72", "sender_id": "177929575410"});
+  Pushwoosh.getInstance.registerForPushNotifications();
 
   await AppmetricaSdk()
       .activate(apiKey: '315bc60f-eca2-4714-882c-57bd59719f9c');
