@@ -5,25 +5,36 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
 
 class MapViewerWidget extends StatefulWidget {
-  const MapViewerWidget({Key? key}) : super(key: key);
+  final String latitude;
+  final String longitude;
+  final String address;
+  final MapController controller;
+  const MapViewerWidget(
+      {required this.latitude,
+      required this.address,
+      required this.longitude,
+      required this.controller,
+      Key? key})
+      : super(key: key);
 
   @override
   _MapViewerWidgetState createState() => _MapViewerWidgetState();
 }
 
 class _MapViewerWidgetState extends State<MapViewerWidget> {
-  final controller = MapController(
-    location: LatLng(35.68, 51.41),
-  );
+  // final controller = MapController(
+  //   // location: LatLng(30.033333, 31.233334),
+  //   location: LatLng(30.033333, 31.233334),
+  // );
 
   void _onDoubleTap() {
-    controller.zoom += 0.5;
+    widget.controller.zoom += 0.5;
     setState(() {});
   }
 
@@ -39,16 +50,16 @@ class _MapViewerWidgetState extends State<MapViewerWidget> {
     _scaleStart = details.scale;
 
     if (scaleDiff > 0) {
-      controller.zoom += 0.02;
+      widget.controller.zoom += 0.02;
       setState(() {});
     } else if (scaleDiff < 0) {
-      controller.zoom -= 0.02;
+      widget.controller.zoom -= 0.02;
       setState(() {});
     } else {
       final now = details.focalPoint;
       final diff = now - _dragStart!;
       _dragStart = now;
-      controller.drag(diff.dx, diff.dy);
+      widget.controller.drag(diff.dx, diff.dy);
       setState(() {});
     }
   }
@@ -61,6 +72,16 @@ class _MapViewerWidgetState extends State<MapViewerWidget> {
       height: 24.h,
       child: Icon(Icons.location_on, color: color),
     );
+  }
+
+  Future<void> openMap() async {
+    String googleUrl =
+        'https://www.google.com/maps/search/?api=1&query=${widget.latitude},${widget.longitude}';
+    if (await canLaunch(googleUrl)) {
+      await launch(googleUrl);
+    } else {
+      throw 'Could not open the map.';
+    }
   }
 
   @override
@@ -83,7 +104,7 @@ class _MapViewerWidgetState extends State<MapViewerWidget> {
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: MapLayoutBuilder(
-          controller: controller,
+          controller: widget.controller,
           builder: (context, transformer) {
             final centerLocation = Offset(
               transformer.constraints.biggest.width / 2,
@@ -115,14 +136,14 @@ class _MapViewerWidgetState extends State<MapViewerWidget> {
                   if (event is PointerScrollEvent) {
                     final delta = event.scrollDelta;
 
-                    controller.zoom -= delta.dy / 1000.0;
+                    widget.controller.zoom -= delta.dy / 1000.0;
                     setState(() {});
                   }
                 },
                 child: Stack(
                   children: [
                     Map(
-                      controller: controller,
+                      controller: widget.controller,
                       builder: (context, x, y, z) {
                         //Google Maps
                         final darkUrl =
@@ -157,7 +178,7 @@ class _MapViewerWidgetState extends State<MapViewerWidget> {
                                 ),
                                 Flexible(
                                   child: Text(
-                                    '760 Hattie Ways Suite 680- Montreal, Quebec',
+                                    widget.address,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -169,7 +190,9 @@ class _MapViewerWidgetState extends State<MapViewerWidget> {
                               child: Container(
                                 width: 77.w,
                                 child: CustomButton(
-                                  onPress: () {},
+                                  onPress: () {
+                                    openMap();
+                                  },
                                   width: 77.w,
                                   height: 25.h,
                                   title:

@@ -71,12 +71,6 @@ class _ProductScreenState extends State<ProductScreen> {
                 height: 107.h,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.04),
-                      blurRadius: 2.r,
-                    )
-                  ],
                   color: Color(0xffFFFFFF),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(22.r),

@@ -57,6 +57,9 @@ dependencies:
   flutter_inappwebview: 5.3.2
   pushwoosh: ^2.2.3
   appmetrica_sdk: ^0.0.7+1
+  url_launcher: ^6.0.20
+  latlng: ^0.1.0
+
 
 
 
