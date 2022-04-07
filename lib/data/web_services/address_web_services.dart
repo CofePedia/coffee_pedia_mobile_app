@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/constants/strings.dart';
 import 'package:coffepedia/data/models/add_address.dart';
 import 'package:coffepedia/data/models/areas.dart';
@@ -12,15 +14,24 @@ import 'package:coffepedia/data/models/update_address.dart';
 import 'package:coffepedia/database/database_provider.dart';
 import 'package:http/http.dart' as http;
 
+import '../../main.dart';
+
 class AddressWebServices {
   final userDao = UserDao();
 
   Future<Governorates> getGovernorates() async {
-    final url = Uri.parse(baseUrl + 'governorates');
-    final http.Response response = await http.get(
-      url,
+    final uri = Uri.https(
+      getBaseUrl,
+      '/governorates',
     );
-    print("response governorates ${response.body}");
+    final http.Response response = await http.get(
+      uri,
+      headers: {
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
+    );
 
     if (response.statusCode == 200) {
       return Governorates.fromJson(
@@ -36,12 +47,18 @@ class AddressWebServices {
   }
 
   Future<Cities> getCities(int governorateId) async {
-    final url = Uri.parse(baseUrl + 'cities/$governorateId');
-
-    final http.Response response = await http.get(
-      url,
+    final uri = Uri.https(
+      getBaseUrl,
+      '/cities/$governorateId',
     );
-    print("response cities ${response.body}");
+    final http.Response response = await http.get(
+      uri,
+      headers: {
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
+    );
 
     if (response.statusCode == 200) {
       return Cities.fromJson(
@@ -57,11 +74,18 @@ class AddressWebServices {
   }
 
   Future<Areas> getAreas(int cityId) async {
-    final url = Uri.parse(baseUrl + 'areas/$cityId');
-    final http.Response response = await http.get(
-      url,
+    final uri = Uri.https(
+      getBaseUrl,
+      '/areas/$cityId',
     );
-    print("response areas ${response.body}");
+    final http.Response response = await http.get(
+      uri,
+      headers: {
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
+    );
 
     if (response.statusCode == 200) {
       return Areas.fromJson(
@@ -87,11 +111,14 @@ class AddressWebServices {
     final url = Uri.parse(baseUrl + 'addAddress');
     GetTokenDatabase? token = await userDao.getUserToken();
 
-    //print("token = " + token!.getToken!);
-
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token!.getToken!},
+      headers: {
+        'Authorization': 'Bearer ' + token!.getToken!,
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
       body: {
         'governorate_id': governorateId,
         'city_id': cityId,
@@ -104,9 +131,11 @@ class AddressWebServices {
     print("response addAddress ${response.body}");
 
     if (response.statusCode == 200) {
-      return AddAddress.fromJson(
+      final address = AddAddress.fromJson(
         json.decode(response.body),
       );
+      BotToast.showText(text: address.data!.msg!);
+      return address;
     } else {
       print(json.decode(response.body).toString());
       throw Exception(
@@ -116,15 +145,21 @@ class AddressWebServices {
   }
 
   Future<MyAddresses> getMyAddresses() async {
-    final url = Uri.parse(baseUrl + 'myAddresses');
     GetTokenDatabase? token = await userDao.getUserToken();
-    //print("token myAddresses = " + token!.getToken!);
 
-    final http.Response response = await http.get(
-      url,
-      headers: {'Authorization': 'Bearer ' + token!.getToken!},
+    final uri = Uri.https(
+      getBaseUrl,
+      '/myAddresses',
     );
-    print("response myAddresses ${response.body}");
+    final http.Response response = await http.get(
+      uri,
+      headers: {
+        'Authorization': 'Bearer ' + token!.getToken!,
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
+    );
 
     if (response.statusCode == 200) {
       return MyAddresses.fromJson(
@@ -191,17 +226,24 @@ class AddressWebServices {
     final url = Uri.parse(baseUrl + 'updateAddress');
     GetTokenDatabase? token = await userDao.getUserToken();
 
-    //print("token updateAddress = " + token!.getToken!);
-
-    final http.Response response = await http.post(url,
-        headers: {'Authorization': 'Bearer ' + token!.getToken!},
-        body: queryParameters);
+    final http.Response response = await http.post(
+      url,
+      headers: {
+        'Authorization': 'Bearer ' + token!.getToken!,
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
+      body: queryParameters,
+    );
     print("response updateAddress ${response.body}");
 
     if (response.statusCode == 200) {
-      return UpdateAddress.fromJson(
+      final update = UpdateAddress.fromJson(
         json.decode(response.body),
       );
+      BotToast.showText(text: update.data!.msg!);
+      return update;
     } else {
       print(json.decode(response.body).toString());
       throw Exception(
@@ -215,12 +257,14 @@ class AddressWebServices {
   ) async {
     final url = Uri.parse(baseUrl + 'deleteAddress');
     GetTokenDatabase? token = await userDao.getUserToken();
-
-    //print("token deleteAddress = " + token!.getToken!);
-
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token!.getToken!},
+      headers: {
+        'Authorization': 'Bearer ' + token!.getToken!,
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
       body: {
         'address_id': addressId,
       },

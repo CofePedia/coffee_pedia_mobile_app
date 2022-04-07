@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:coffepedia/constants/strings.dart';
 import 'package:coffepedia/data/models/category_products.dart';
 import 'package:coffepedia/data/models/gettoken_database.dart';
 import 'package:coffepedia/database/database_provider.dart';
 import 'package:http/http.dart' as http;
+
+import '../../main.dart';
 
 class CategoryProductsWebServices {
   final userDao = UserDao();
@@ -20,7 +23,7 @@ class CategoryProductsWebServices {
     Map<String, String?>? singleMap,
   }) async {
     final Map<String, dynamic> queryParameters = {
-      // 'category': categoryId.toString(),
+      'lang': translator.currentLanguage,
     };
 
     if (multiMap!.isNotEmpty) {
@@ -66,6 +69,11 @@ class CategoryProductsWebServices {
 
     final http.Response response = await http.get(
       uri,
+      headers: {
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
       // TODO: Check token again if needed
       // headers: {'Authorization': 'Bearer ' + token!.getToken!},
     );

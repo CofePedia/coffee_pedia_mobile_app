@@ -284,10 +284,15 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                                     color: Color(0xff231F20),
                                   ),
                             ),
-                            trailing: Text(
-                              translator.translate("profile_screen.english"),
-                              style: Theme.of(context).textTheme.headline6,
+                            trailing: Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.black,
+                              size: 16.w,
                             ),
+                            // trailing: Text(
+                            //   translator.translate("profile_screen.english"),
+                            //   style: Theme.of(context).textTheme.headline6,
+                            // ),
                           ),
                         ),
                       ),

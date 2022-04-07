@@ -7,6 +7,8 @@ import 'package:coffepedia/data/models/update_profile.dart';
 import 'package:coffepedia/database/database_provider.dart';
 import 'package:http/http.dart' as http;
 
+import '../../main.dart';
+
 class UpdateProfileWebServices {
   final userDao = UserDao();
 
@@ -16,7 +18,12 @@ class UpdateProfileWebServices {
     GetTokenDatabase? token = await userDao.getUserToken();
     //print("token update profile = " + token!.getToken!);
 
-    var headers = {'Authorization': 'Bearer ' + token!.getToken!};
+    var headers = {
+      'Authorization': 'Bearer ' + token!.getToken!,
+      'Content-Language': translator.currentLanguage,
+      'platform': Platform.operatingSystem,
+      'OSVersion': Platform.operatingSystemVersion,
+    };
     var request = http.MultipartRequest('POST', url);
 
     request.fields.putIfAbsent('firstName', () => firstName!);

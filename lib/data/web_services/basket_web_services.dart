@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:coffepedia/constants/strings.dart';
 import 'package:coffepedia/data/models/add_to_basket.dart';
@@ -9,6 +10,8 @@ import 'package:coffepedia/data/models/remove_from_basket.dart';
 import 'package:coffepedia/database/database_provider.dart';
 import 'package:http/http.dart' as http;
 
+import '../../main.dart';
+
 class BasketWebServices {
   final userDao = UserDao();
 
@@ -16,11 +19,14 @@ class BasketWebServices {
     final url = Uri.parse(baseUrl + 'cart');
     GetTokenDatabase? token = await userDao.getUserToken();
 
-    print("token cart = " + token!.getToken!);
-
     final http.Response response = await http.get(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {
+        'Authorization': 'Bearer ' + token!.getToken!,
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
     );
     print("response Basket ${response.body}");
 
@@ -41,7 +47,10 @@ class BasketWebServices {
     // print("my token = " + token!.token.toString());
     var headers = {
       'Authorization': 'Bearer ' + token!.getToken!,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Content-Language': translator.currentLanguage,
+      'platform': Platform.operatingSystem,
+      'OSVersion': Platform.operatingSystemVersion,
     };
     if (productsMap.length == 0) {
       print("productsMap is empty");
@@ -79,7 +88,12 @@ class BasketWebServices {
 
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token!.getToken!},
+      headers: {
+        'Authorization': 'Bearer ' + token!.getToken!,
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
       body: {
         'product_id': productId,
       },
@@ -107,7 +121,12 @@ class BasketWebServices {
 
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token.getToken!},
+      headers: {
+        'Authorization': 'Bearer ' + token.getToken!,
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
       body: {
         'coupon': coupon,
       },

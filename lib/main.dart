@@ -3,6 +3,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/login/login_bloc.dart';
 import 'package:coffepedia/data/repository/user_repository.dart';
 import 'package:coffepedia/services/preferences.dart';
+import 'package:coffepedia/services/restart.dart';
 import 'package:coffepedia/services/translator.dart';
 import 'package:coffepedia/ui/screens/intro/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -50,15 +51,17 @@ void main() async {
           ],
           path: 'assets/translations',
           fallbackLocale: Locale('en'),
-          child: RepositoryProvider(
-            create: (_) {
-              return UserRepository(AuthWebServices());
-            },
-            child: BlocProvider(
-              create: (_) => AuthBloc(
-                RepositoryProvider.of<UserRepository>(_),
+          child: RestartWidget(
+            child: RepositoryProvider(
+              create: (_) {
+                return UserRepository(AuthWebServices());
+              },
+              child: BlocProvider(
+                create: (_) => AuthBloc(
+                  RepositoryProvider.of<UserRepository>(_),
+                ),
+                child: MyApp(),
               ),
-              child: MyApp(),
             ),
           ),
         ),
@@ -104,7 +107,8 @@ class MyApp extends StatelessWidget {
                     secondary: Color(0xffffffff),
                   ),
               primaryColor: Color(0xff107CC0),
-              fontFamily: 'Nexa',
+              fontFamily:
+                  translator.currentLanguage == 'ar' ? 'FrutigerLT' : 'Nexa',
               textTheme: TextTheme(
                 bodyText1: TextStyle(
                   fontSize: 10.sp,

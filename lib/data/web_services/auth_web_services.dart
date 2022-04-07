@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:coffepedia/constants/strings.dart';
 import 'package:coffepedia/data/models/login_data_user.dart';
 import 'package:coffepedia/data/models/signup_data_user.dart';
 import 'package:coffepedia/database/database_provider.dart';
 import 'package:http/http.dart' as http;
+
+import '../../main.dart';
 
 class AuthWebServices {
   final userDao = UserDao();
@@ -13,7 +16,15 @@ class AuthWebServices {
     final url = Uri.parse(baseUrl + 'auth/login');
     final http.Response response = await http.post(
       url,
-      body: {'password': password, 'mobile': mobile},
+      headers: {
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
+      body: {
+        'password': password,
+        'mobile': mobile,
+      },
     );
     print("response ${response.body}");
 
@@ -40,6 +51,11 @@ class AuthWebServices {
     final url = Uri.parse(baseUrl + 'auth/register');
     final http.Response response = await http.post(
       url,
+      headers: {
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
       body: {
         'firstName': firstName,
         'lastName': lastName,

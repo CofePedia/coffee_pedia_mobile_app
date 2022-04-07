@@ -281,8 +281,9 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                               .basket!.data!.items![index]!.id!
                                               .toString(),
                                           price: state.basket!.data!
-                                              .items![index]!.price!
-                                              .toString(),
+                                                  .items![index]!.price
+                                                  ?.toString() ??
+                                              '',
                                           title: state.basket!.data!
                                               .items![index]!.name!,
                                           priceBeforeDiscount: state
