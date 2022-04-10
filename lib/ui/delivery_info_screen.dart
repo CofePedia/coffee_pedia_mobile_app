@@ -197,7 +197,8 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 27.h),
                 child: Text(
-                  translator.translate("from_address_book"),
+                  translator
+                      .translate("delivery_info_screen.from_address_book"),
                   style: Theme.of(context).textTheme.caption,
                 ),
               ),
@@ -367,7 +368,8 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                         width: 8.w,
                       ),
                       Text(
-                        translator.translate("delivery_info_screen.add_new_address"),
+                        translator
+                            .translate("delivery_info_screen.add_new_address"),
                         style: Theme.of(context).textTheme.headline6,
                       ),
                     ],

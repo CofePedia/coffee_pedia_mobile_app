@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:coffepedia/constants/strings.dart';
 import 'package:coffepedia/data/models/gettoken_database.dart';
@@ -6,6 +7,8 @@ import 'package:coffepedia/data/models/logout.dart';
 import 'package:coffepedia/data/models/me.dart';
 import 'package:coffepedia/database/database_provider.dart';
 import 'package:http/http.dart' as http;
+
+import '../../main.dart';
 
 class MeWebServices {
   final userDao = UserDao();
@@ -17,7 +20,12 @@ class MeWebServices {
 
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token!.getToken!},
+      headers: {
+        'Authorization': 'Bearer ' + token!.getToken!,
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
     );
     print("response me ${response.body}");
 
@@ -41,7 +49,12 @@ class MeWebServices {
 
     final http.Response response = await http.post(
       url,
-      headers: {'Authorization': 'Bearer ' + token!.getToken!},
+      headers: {
+        'Authorization': 'Bearer ' + token!.getToken!,
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
     );
     print("response logout ${response.body}");
 

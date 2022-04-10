@@ -59,11 +59,10 @@ class _HomePageState extends State<HomePage> {
     return BottomNavigationBarItem(
       icon: Container(
         width: 24.w,
-        padding: EdgeInsets.only(bottom: 7.h),
+        padding: EdgeInsets.only(bottom: 5.h),
         child: Badge(
           badgeColor: kYellow,
           showBadge: index == 1 ? true : false,
-          // font change
           badgeContent: BlocBuilder<BasketCubit, BasketState>(
             builder: (context, state) {
               if (state is LocalBasketLoaded) {

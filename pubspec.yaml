@@ -121,6 +121,16 @@ flutter:
           weight: 900
         - asset: assets/fonts/Nexa_Regular_Regular.otf
           weight: 500
+    - family: FrutigerLT
+      fonts:
+        - asset: assets/fonts/FrutigerLTArabic-65Bold.ttf
+          weight: 700
+        - asset: assets/fonts/FrutigerLTArabic-75Black.ttf
+          weight: 900
+        - asset: assets/fonts/FrutigerLTArabic-55Roman.ttf
+          weight: 500
+        - asset: assets/fonts/FrutigerLTArabic-45Light.ttf
+          weight: 300
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

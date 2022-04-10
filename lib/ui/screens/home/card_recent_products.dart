@@ -75,23 +75,20 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                       width: 214.w,
                       child: Stack(
                         children: [
-                          Positioned(
-                            top: 13.h,
-                            child: Container(
-                              height: 170.h,
-                              width: 214.w,
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color.fromRGBO(0, 0, 0, 0.12),
-                                    blurRadius: 11.r,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(
-                                  11.r,
+                          Container(
+                            height: 187.h,
+                            width: 214.w,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromRGBO(0, 0, 0, 0.12),
+                                  blurRadius: 11.r,
+                                  offset: Offset(0, 2),
                                 ),
+                              ],
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(
+                                11.r,
                               ),
                             ),
                           ),

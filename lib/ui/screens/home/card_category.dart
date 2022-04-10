@@ -84,29 +84,26 @@ class _CardCategoryState extends State<CardCategory> {
                     margin: EdgeInsets.symmetric(horizontal: 6.w),
                     child: Stack(
                       children: [
-                        Positioned(
-                          top: 10.h,
-                          child: Container(
-                            height: 70.h,
-                            width: 150.w,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromRGBO(0, 0, 0, 0.12),
-                                  blurRadius: 11.r,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(
-                                7.r,
+                        Container(
+                          height: 84.h,
+                          width: 150.w,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromRGBO(0, 0, 0, 0.12),
+                                blurRadius: 11.r,
+                                offset: Offset(0, 2),
                               ),
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  Assets.imagesCardBlue,
-                                ),
-                                fit: BoxFit.fill,
+                            ],
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(
+                              7.r,
+                            ),
+                            image: DecorationImage(
+                              image: AssetImage(
+                                Assets.imagesCardBlue,
                               ),
+                              fit: BoxFit.fill,
                             ),
                           ),
                         ),
@@ -114,7 +111,7 @@ class _CardCategoryState extends State<CardCategory> {
                           left: 7.w,
                           top: 30.h,
                           child: Container(
-                            width: 80.w,
+                            width: 84.w,
                             child: Text(
                               state.categories!.data![index]!.name!,
                               style: Theme.of(context)
@@ -130,9 +127,10 @@ class _CardCategoryState extends State<CardCategory> {
                           right: 7.w,
                           child: CustomNetworkImage(
                             imageUrl: state.categories!.data![index]!.icon!,
-                            height: 76.h,
+                            height: 84.h,
                             width: 50.w,
                             radius: 2.h,
+                            fit: BoxFit.contain,
                           ),
                           // child: Image.network(
                           //   state.categories!.data![index]!.icon!,
