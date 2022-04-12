@@ -23,7 +23,7 @@ class CheckoutItemProvider extends StatelessWidget {
   final bool isLocal;
   final String image;
   final String price;
-  final String? priceBeforeDiscount;
+  final int? priceBeforeDiscount;
   final int quantity;
   final String vendor;
   final Function onRemoveItem;
@@ -105,7 +105,7 @@ class CheckoutItem extends StatefulWidget {
   final bool isLocal;
   final String image;
   final String price;
-  final String? priceBeforeDiscount;
+  final int? priceBeforeDiscount;
   int quantity;
   final String vendor;
   final String productId;
@@ -148,7 +148,6 @@ class _CheckoutItemState extends State<CheckoutItem> {
             Container(
               width: MediaQuery.of(context).size.width,
               // height: 120.h,
-              // color: Colors.red,
               margin: EdgeInsets.only(bottom: 12.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -174,19 +173,24 @@ class _CheckoutItemState extends State<CheckoutItem> {
                       SizedBox(
                         height: 12.h,
                       ),
-                      Text(
-                        "${translator.translate("checkout_items_screen.egp")} ${widget.priceBeforeDiscount}",
-                        maxLines: 2,
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            decoration: TextDecoration.lineThrough,
-                            color: Color(0xff606266)),
-                      ),
+                      widget.priceBeforeDiscount == 0
+                          ? Text(
+                              "${widget.priceBeforeDiscount} ${translator.translate("checkout_items_screen.egp")}",
+                              maxLines: 2,
+                              textAlign: TextAlign.start,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(
+                                      decoration: TextDecoration.lineThrough,
+                                      color: Color(0xff606266)),
+                            )
+                          : SizedBox.shrink(),
                       SizedBox(
                         height: 4.h,
                       ),
                       Text(
-                        "${translator.translate("checkout_items_screen.egp")} ${widget.price}",
+                        "${widget.price} ${translator.translate("checkout_items_screen.egp")} ",
                         maxLines: 2,
                         textAlign: TextAlign.start,
                         style: Theme.of(context)
@@ -208,12 +212,17 @@ class _CheckoutItemState extends State<CheckoutItem> {
             SizedBox(
               height: 12.h,
             ),
-            Text(translator.translate("checkout_items_screen.sold_by"),
-                style: Theme.of(context).textTheme.bodyText1),
+            Text(
+              translator.translate("checkout_items_screen.sold_by"),
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
             SizedBox(
               height: 4.h,
             ),
-            Text(widget.vendor, style: Theme.of(context).textTheme.bodyText1),
+            Text(
+              widget.vendor,
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
             SizedBox(
               height: 16.h,
             ),
@@ -243,6 +252,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
                     ),
                   ),
                 ),
+
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 4.71.w),
                   width: 34.w,

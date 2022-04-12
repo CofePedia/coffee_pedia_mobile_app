@@ -73,7 +73,7 @@ class DatabaseProvider {
         "$columnNameBasket TEXT, "
         "$columnVendorBasket TEXT, "
         "$columnImageBasket TEXT, "
-        "$columnPriceBeforeDiscountBasket TEXT "
+        "$columnPriceBeforeDiscountBasket integer "
         ")");
     await database.execute("CREATE TABLE $wishesTable ("
         "$columnIdWishes INTEGER PRIMARY KEY autoincrement, "

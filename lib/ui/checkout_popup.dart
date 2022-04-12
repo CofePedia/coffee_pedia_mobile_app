@@ -10,6 +10,7 @@ import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/data/web_services/me_web_services.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
+import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -91,58 +92,65 @@ class CheckoutPopUp extends StatelessWidget {
         screen: Container(
       height: 240.h,
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(bottom: 20.h),
+      // margin: EdgeInsets.only(bottom: 20.h),
       padding: EdgeInsets.symmetric(horizontal: 16.w),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25.0.w),
+          topRight: Radius.circular(25.0.w),
+        ),
+        color: Colors.white,
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Container(
-            height: 60.h,
+            height: 75.h,
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.only(top: 24.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 60.w,
-                  height: 60.h,
-                  decoration: BoxDecoration(
-                    // color: Color(0xffF4F4F4),
-                    borderRadius: BorderRadius.circular(7.r),
-                  ),
-                  // padding:
-                  //     EdgeInsets.symmetric(horizontal: 17.w, vertical: 6.h),
-                  margin: EdgeInsets.only(right: 6.w),
-                  child: Image.network(
-                    image!,
-                  ),
+                CustomNetworkImage(
+                  imageUrl: image!,
+                  height: 75.h,
+                  width: 75.w,
+                  radius: 2.r,
+                ),
+                SizedBox(
+                  width: 8.w,
                 ),
                 Expanded(
                   child: Text(
                     title!,
-                    maxLines: 2,
-                    textAlign: TextAlign.start,
+                    maxLines: 3,
                     style: Theme.of(context)
                         .textTheme
                         .headline2!
                         .copyWith(color: Color(0xff231F20), height: 1.5.h),
                   ),
                 ),
+                SizedBox(
+                  width: 8.w,
+                ),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       translator.translate("checkout_popup.total"),
-                      style: Theme.of(context).textTheme.overline,
+                      style: Theme.of(context)
+                          .textTheme
+                          .overline!
+                          .copyWith(height: 1.5.h),
                     ),
                     SizedBox(
-                      height: 16.h,
+                      height: 8.h,
                     ),
                     Text(
-                      translator.translate("checkout_popup.egp") +
-                          " $totalPrice",
+                      "$totalPrice " +
+                          translator.translate("checkout_popup.egp"),
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             color: Theme.of(context).primaryColor,
                           ),
@@ -223,7 +231,6 @@ class CheckoutPopUp extends StatelessWidget {
               builder: (context, state) {
                 return Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(top: 22.h, bottom: 7.h),
                   height: 50.h,
                   child: ElevatedButton(
                     onPressed: () async {
@@ -305,6 +312,7 @@ class CheckoutPopUp extends StatelessWidget {
             ),
           ),
           Container(
+            margin: EdgeInsets.only(bottom: 20.h),
             child: InkWell(
               onTap: () {
                 Navigator.pop(context);

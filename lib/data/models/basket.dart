@@ -111,7 +111,9 @@ class BasketDataItems {
     name = json['name']?.toString();
     rate = json['rate'] == null ? 0 : json['rate'].toInt();
     discount = json['discount'] == null ? '0' : json['discount'].toString();
-    priceBeforeDiscount = json['price_before_discount']?.toInt();
+    priceBeforeDiscount = json['price_before_discount'] == null
+        ? 0
+        : json['price_before_discount'].toInt();
     flavorId = json['flavor_id']?.toInt();
     regionId = json['region_id']?.toInt();
     roastId = json['roast_id']?.toInt();
@@ -130,9 +132,9 @@ class BasketDataItems {
     overview = (json['overview'] != null)
         ? BasketDataItemsOverview.fromJson(json['overview'])
         : null;
-    price = json['price']?.toInt();
-    stock = json['stock']?.toInt();
-    quantity = json['quantity']?.toInt();
+    price = json['price'] == null ? 0 : json['price'].toInt();
+    stock = json['stock'] == null ? 0 : json['stock'].toInt();
+    quantity = json['quantity'] == null ? 0 : json['quantity'].toInt();
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -256,11 +258,18 @@ class BasketData {
   }
 }
 
-class BasketLocal{
+class BasketLocal {
   int? productId, quantity;
-  String? name , image , vendor , price, priceBeforeDiscount;
-  BasketLocal({this.productId, this.quantity, this.name, this.image,
-      this.vendor, this.price, this.priceBeforeDiscount});
+  String? name, image, vendor, price;
+  int? priceBeforeDiscount;
+  BasketLocal(
+      {this.productId,
+      this.quantity,
+      this.name,
+      this.image,
+      this.vendor,
+      this.price,
+      this.priceBeforeDiscount});
 }
 
 class Basket {

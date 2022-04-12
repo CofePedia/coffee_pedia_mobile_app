@@ -150,8 +150,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           BasketLocal basketLocal = BasketLocal(
                             productId: int.parse(element!.id.toString()),
                             quantity: int.parse(element.quantity.toString()),
-                            priceBeforeDiscount:
-                                element.priceBeforeDiscount.toString(),
+                            priceBeforeDiscount: element.priceBeforeDiscount,
                             image: (element.images != null &&
                                     element.images!.length > 0)
                                 ? element.images![0]

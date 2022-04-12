@@ -166,9 +166,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                   vendor:
                                       state.product!.data!.vendor!.companyName,
                                   name: state.product!.data!.name,
-                                  priceBeforeDiscount: state
-                                      .product!.data!.priceBeforeDiscount
-                                      .toString()),
+                                  priceBeforeDiscount:
+                                      state.product!.data!.priceBeforeDiscount),
                               title: state.product!.data!.name,
                               image: state.product!.data!.images![0],
                               totalPrice: state.product!.data!.price.toString(),

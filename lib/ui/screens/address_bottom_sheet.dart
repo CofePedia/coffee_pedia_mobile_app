@@ -154,13 +154,15 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                     height: 24.h,
                   ),
                   Align(
-                    alignment: Alignment.centerRight,
+                    alignment: translator.currentLanguage == 'ar'
+                        ? Alignment.centerLeft
+                        : Alignment.centerRight,
                     child: InkWell(
                       onTap: () {
                         Navigator.pop(context);
                       },
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        padding: EdgeInsetsDirectional.only(start: 0.w),
                         child: Text(
                           translator.translate("address.close"),
                           style:
