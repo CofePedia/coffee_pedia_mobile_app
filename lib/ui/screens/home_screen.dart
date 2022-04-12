@@ -111,7 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         Container(
                           margin: EdgeInsets.only(bottom: 24.h),
                           width: MediaQuery.of(context).size.width,
-                          height: 170.h,
+                          // color: Colors.red,
+                          height: 190.h,
                           child: ListView.builder(
                             itemCount:
                                 state.homeAds!.data!.besideSlider!.length,
@@ -124,28 +125,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                     imageUrl: state.homeAds!.data!
                                         .besideSlider![index].image!,
                                     height: 170.h,
-                                    width: 343.w,
+                                    width: 300.w,
                                     radius: 7.0.r),
                               );
                             },
                           ),
                         ),
-                        Container(
-                          height: 60.h,
-                          child: ListView.builder(
-                            itemCount: state.homeAds!.data!.topHeader!.length,
-                            scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.zero,
-                            itemBuilder: (context, index) => CustomNetworkImage(
-                              imageUrl:
-                                  state.homeAds!.data!.topHeader![index].image!,
-                              height: 60.h,
-                              width: MediaQuery.of(context).size.width,
-                              radius: 0.r,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   width: 300.w,
+                        //   height: 66.h,
+                        //   child: ListView.builder(
+                        //     itemCount: state.homeAds!.data!.topHeader!.length,
+                        //     scrollDirection: Axis.horizontal,
+                        //     padding: EdgeInsets.zero,
+                        //     itemBuilder: (context, index) => CustomNetworkImage(
+                        //       imageUrl:
+                        //           state.homeAds!.data!.topHeader![index].image!,
+                        //       height: 66.h,
+                        //       width: 250.w,
+                        //       radius: 0.r,
+                        //       // fit: BoxFit.fill,
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     );
                   } else {
@@ -184,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           return CustomNetworkImage(
                               imageUrl:
                                   state.homeAds!.data!.inPage![index].image!,
-                              height: 205.h,
+                              height: 270.h,
                               width: 344.w,
                               radius: 11.0.r);
                           // return Ads(

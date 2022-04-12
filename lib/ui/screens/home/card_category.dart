@@ -49,7 +49,7 @@ class _CardCategoryState extends State<CardCategory> {
           return Container(
             margin: EdgeInsets.only(bottom: 24.h),
             width: MediaQuery.of(context).size.width,
-            height: 80.h,
+            height: 90.h,
             child: ListView.builder(
               itemCount: state.categories!.data!.length,
               scrollDirection: Axis.horizontal,
@@ -80,12 +80,12 @@ class _CardCategoryState extends State<CardCategory> {
                   },
                   child: Container(
                     width: 150.w,
-                    height: 84.h,
+                    height: 90.h,
                     margin: EdgeInsets.symmetric(horizontal: 6.w),
                     child: Stack(
                       children: [
                         Container(
-                          height: 84.h,
+                          height: 90.h,
                           width: 150.w,
                           decoration: BoxDecoration(
                             boxShadow: [
@@ -124,11 +124,11 @@ class _CardCategoryState extends State<CardCategory> {
                           ),
                         ),
                         Positioned(
-                          right: 7.w,
+                          right: 1.w,
                           child: CustomNetworkImage(
                             imageUrl: state.categories!.data![index]!.icon!,
-                            height: 84.h,
-                            width: 50.w,
+                            height: 80.h,
+                            width: 70.w,
                             radius: 2.h,
                             fit: BoxFit.contain,
                           ),
