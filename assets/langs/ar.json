@@ -54,45 +54,37 @@
     "address_details" : "تفاصيل العنوان"
   },
   "range_filter_slider": {
-    "from" : "From",
-    "to" : "To",
-    "egp" : "EGP"
+    "from" : "من",
+    "to" : "إلي",
+    "egp" : "ج.م"
   },
   "account_settings": {
-    "account_settings" : "Account settings",
-    "add_photo" : "Add photo",
-    "personal_info" : "Personal info",
-    "cancel" : "Cancel",
-    "edit" : "Edit",
-    "first_name" : "First Name",
-    "last_name" : "Last Name",
-    "email_address" : "Email Address",
-    "password" : "Password",
-    "save" : "Save",
-    "shipping_address" : "Shipping Address",
-    "manage_addresses" : "Manage Addresses",
-    "primary" : "Primary"
+    "account_settings" : "إعدادات الحساب",
+    "add_photo" : "إضافة صورة",
+    "personal_info" : "معلومات شخصية",
+    "cancel" : "إلغاء",
+    "edit" : "تعديل",
+    "first_name" : "الاسم الأول",
+    "last_name" : "الاسم الأخير",
+    "email_address" : "عنوان البريد",
+    "password" : "الرقم السري",
+    "save" : "حفظ",
+    "shipping_address" : "عنوان الشحن",
+    "manage_addresses" : "إدارة العناوين",
+    "primary" : "أساسى"
   },
   "about_screen" : {
-    "about_coffePedia" : "About Coffepedia",
-    "our_story" : "Our Story",
-    "our_story_first_paragraph" : "We are a family-owned neighborhood breakfast and lunch restaurant located near Los Angeles International Airport (LAX). We take pride in providing friendly and swift service to our local patrons and those who are traveling or are \"on the go\". ",
-    "our_story_second_paragraph" : "It is also a very labor intensive process involving a vast intercontinental collaboration that starts with the coffee grower, moves from there to the picker, then to the mill workers who meticulously remove the fruit and dry the beans, then to those who clean and grade the beans, to those who roast them, to those consumers and baristas who finally grind the beans and prepare the beverage. Every act along the way can be performed either with passion and precision or with careless shoddiness. It is the cumulative quality of all of these creative contributions that together make the difference between a lackluster cup and a fine and distinctive one.",
-    "what_we_believe" : "What we belive",
-    "what_we_believe_first_paragraph" : "Our values shape the culture of our organization and define the character of our company. We live the core values through individual behaviors. They serve as the foundation for how we act and make decisions.",
-    "our_partners" : "Our partners",
-    "our_partners_first_paragraph" : "Our network includes a diverse group of development agencies, government organizations, local and national organizations, and other international NGOs. This network is a valuable asset in enabling ICP and its partners to achieve a better future for the millions of smallholder coffee farmer families worldwide.",
-    "contacts" : "Contacts",
-    "follow_us" : "Follow us"
+    "contacts" : "التواصل",
+    "follow_us" : "تابعنا"
   },
   "blog_screen" : {
-    "blog" : "Blog",
-    "article" : "Article",
-    "reviews" : "Reviews"
+    "blog" : "المدون",
+    "article" : "المقالة",
+    "reviews" : "التعليقات"
   },
   "categories_screen" : {
-    "item" : "Item",
-    "filter" : "Filter",
+    "item" : "منتج",
+    "filter" : "تصفية",
     "off" : "Off",
     "egp" : "EGP"
   },
