@@ -10,7 +10,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class SuccessScreenProvider extends StatelessWidget {
   final int paymentId;
-  final int addressId;
+  final String addressId;
   const SuccessScreenProvider({
     required this.addressId,
     required this.paymentId,
@@ -35,7 +35,7 @@ class SuccessScreenProvider extends StatelessWidget {
 
 class SuccessScreen extends StatefulWidget {
   final int paymentId;
-  final int addressId;
+  final String addressId;
 
   const SuccessScreen({
     required this.addressId,

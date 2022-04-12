@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../main.dart';
 
 class PaymentInfoScreenProvider extends StatelessWidget {
-  final int addressId;
+  final String addressId;
   const PaymentInfoScreenProvider({
     required this.addressId,
     Key? key,
@@ -33,7 +33,7 @@ class PaymentInfoScreenProvider extends StatelessWidget {
 }
 
 class PaymentInfoScreen extends StatefulWidget {
-  final int addressId;
+  final String addressId;
 
   const PaymentInfoScreen({
     required this.addressId,
@@ -86,6 +86,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
+                            print('add124 ${widget.addressId}');
                             return SuccessScreenProvider(
                               paymentId: _paymentId!,
                               addressId: widget.addressId,
@@ -169,6 +170,27 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                           SizedBox(
                             width: 8.w,
                           ),
+                          Container(
+                            height: 27.h,
+                            width: 27.w,
+                            alignment: Alignment.center,
+                            child: Text(
+                              '2',
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Theme.of(context).primaryColor,
+                                width: 2.w,
+                              ),
+                              borderRadius: BorderRadius.circular(
+                                25.r,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 8.w,
+                          ),
                           SizedBox(
                             width: 58.w,
                             child: Divider(
@@ -181,7 +203,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                             width: 27.w,
                             alignment: Alignment.center,
                             child: Text(
-                              '2',
+                              '3',
                               style: Theme.of(context).textTheme.headline6,
                             ),
                             decoration: BoxDecoration(
@@ -202,15 +224,23 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                       children: [
                         Text(
                           translator
-                              .translate("payment_info_screen.delivery_info"),
+                              .translate("delivery_info_screen.delivery_info"),
                           style: Theme.of(context).textTheme.headline6,
                         ),
                         SizedBox(
-                          width: 63.w,
+                          width: 8.w,
                         ),
                         Text(
                           translator
-                              .translate("payment_info_screen.payment_info"),
+                              .translate("checkout_items_screen.order_summary"),
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        SizedBox(
+                          width: 8.w,
+                        ),
+                        Text(
+                          translator
+                              .translate("delivery_info_screen.payment_info"),
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ],

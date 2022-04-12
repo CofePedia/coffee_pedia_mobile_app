@@ -2,7 +2,7 @@ import 'package:coffepedia/business_logic/address/address_cubit.dart';
 import 'package:coffepedia/data/repository/address_repository.dart';
 import 'package:coffepedia/data/web_services/address_web_services.dart';
 import 'package:coffepedia/ui/screens/address_bottom_sheet.dart';
-import 'package:coffepedia/ui/screens/payment_info_screen.dart';
+import 'package:coffepedia/ui/screens/order_summary_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,9 +74,12 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return PaymentInfoScreenProvider(
-                            addressId: _addressId!,
-                          );
+                          print("add123 ${_addressId.toString()}");
+                          return OrderSummaryProvider(
+                              addressId: _addressId!.toString());
+                          // return PaymentInfoScreenProvider(
+                          //   addressId: _addressId!,
+                          // );
                         },
                       ),
                     );
@@ -148,6 +151,27 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                     SizedBox(
                       width: 8.w,
                     ),
+                    Container(
+                      height: 27.h,
+                      width: 27.w,
+                      alignment: Alignment.center,
+                      child: Text(
+                        '2',
+                        style: Theme.of(context).textTheme.overline,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color(0xff9D9D9D),
+                          width: 2.w,
+                        ),
+                        borderRadius: BorderRadius.circular(
+                          25.r,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
                     SizedBox(
                       width: 58.w,
                       child: Divider(
@@ -160,7 +184,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                       width: 27.w,
                       alignment: Alignment.center,
                       child: Text(
-                        '2',
+                        '3',
                         style: Theme.of(context).textTheme.overline,
                       ),
                       decoration: BoxDecoration(
@@ -184,7 +208,16 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   SizedBox(
-                    width: 63.w,
+                    width: 8.w,
+                  ),
+                  Text(
+                    translator.translate("checkout_items_screen.order_summary"),
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                          color: Color(0xff9D9D9D),
+                        ),
+                  ),
+                  SizedBox(
+                    width: 8.w,
                   ),
                   Text(
                     translator.translate("delivery_info_screen.payment_info"),

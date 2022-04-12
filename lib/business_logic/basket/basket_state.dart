@@ -79,6 +79,11 @@ class CouponIsPressed extends BasketState {
   CouponIsPressed(this.coupon);
 }
 
+class OrderSummaryIsLoaded extends BasketState {
+  final OrderSummary? orderSummary;
+  OrderSummaryIsLoaded(this.orderSummary);
+}
+
 class CouponUnvalid extends BasketState {
   final Exception? error;
   CouponUnvalid(this.error);

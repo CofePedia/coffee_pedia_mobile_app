@@ -6,6 +6,7 @@ import 'package:coffepedia/data/models/add_to_basket.dart';
 import 'package:coffepedia/data/models/basket.dart';
 import 'package:coffepedia/data/models/coupon.dart';
 import 'package:coffepedia/data/models/gettoken_database.dart';
+import 'package:coffepedia/data/models/order_summary.dart';
 import 'package:coffepedia/data/models/remove_from_basket.dart';
 import 'package:coffepedia/database/database_provider.dart';
 import 'package:http/http.dart' as http;
@@ -135,6 +136,39 @@ class BasketWebServices {
 
     if (response.statusCode == 200) {
       return Coupon.fromJson(
+        json.decode(response.body),
+      );
+    } else {
+      print(json.decode(response.body).toString());
+      throw Exception(
+        json.decode(response.body),
+      );
+    }
+  }
+
+  Future<OrderSummary> postOrderSummary(String addressId) async {
+    final url = Uri.parse(baseUrl + '/order_summary');
+
+    GetTokenDatabase? token = await userDao.getUserToken();
+
+    print("token order summary = " + token!.getToken!);
+
+    final http.Response response = await http.post(
+      url,
+      headers: {
+        'Authorization': 'Bearer ' + token.getToken!,
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
+      body: {
+        'address_id': addressId,
+      },
+    );
+    print("response order summary ${response.body}");
+
+    if (response.statusCode == 200) {
+      return OrderSummary.fromJson(
         json.decode(response.body),
       );
     } else {

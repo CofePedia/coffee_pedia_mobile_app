@@ -28,7 +28,8 @@
     "delivery_charge" : "سعر التوصيل",
     "sold_by" : "من التاجر",
     "move_to_wishlist" : "أضف إلى المفضلة",
-    "remove" : "حذف"
+    "remove" : "حذف",
+    "order_summary": "تفاصيل الطلب"
   },
   "basket_empty": {
     "my_basket" : "السلة",

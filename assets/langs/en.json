@@ -2,7 +2,7 @@
   "msg" : "MMMMMMMM",
   "delivery_info_screen": {
     "continue" : "Continue",
-    "delivery_info" : "Delivery info",
+    "delivery_info" : "Delivery Info",
     "payment_info" : "Payment Info",
     "from_address_book" : "From Address Book",
     "add_new_address" : "Add New Address",
@@ -30,7 +30,9 @@
     "sold_by" : "Sold by",
     "move_to_wishlist" : "Move to Wishlist",
     "remove" : "Remove",
-    "proceed_to_checkout" : "Proceed to checkout"
+    "proceed_to_checkout" : "Proceed to checkout",
+    "order_summary": "Order Summary"
+
   },
   "basket_empty": {
       "my_basket" : "My Basket",

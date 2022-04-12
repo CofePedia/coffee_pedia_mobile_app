@@ -3,6 +3,7 @@ import 'package:coffepedia/data/models/add_to_basket.dart';
 import 'package:coffepedia/data/models/basket.dart';
 import 'package:coffepedia/data/models/coupon.dart';
 import 'package:coffepedia/data/models/gettoken_database.dart';
+import 'package:coffepedia/data/models/order_summary.dart';
 import 'package:coffepedia/data/models/remove_from_basket.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
 import 'package:coffepedia/database/database_provider.dart';
@@ -284,6 +285,14 @@ class BasketCubit extends Cubit<BasketState> {
         .catchError(
           (error) => emit(
             CouponUnvalid(error),
+          ),
+        );
+  }
+
+  void getOrderSummary(String addressId) {
+    basketRepository.postOrderSummary(addressId).then(
+          (value) => emit(
+            OrderSummaryIsLoaded(value),
           ),
         );
   }
