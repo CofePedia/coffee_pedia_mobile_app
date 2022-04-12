@@ -2,7 +2,6 @@ import 'package:coffepedia/business_logic/search/search_cubit.dart';
 import 'package:coffepedia/data/repository/search_repository.dart';
 import 'package:coffepedia/data/web_services/search_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
-import 'package:coffepedia/main.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
 import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:coffepedia/ui/shared/wishlist_icon.dart';
@@ -77,6 +76,7 @@ class _SearchBarState extends State<SearchBar> {
                           width: 300.w,
                           child: TextField(
                             controller: _searchTextController,
+                            autofocus: true,
                             onChanged: (searchedProduct) {
                               EasyDebounce.debounce(
                                   'search-key', Duration(seconds: 1), () {
@@ -86,8 +86,8 @@ class _SearchBarState extends State<SearchBar> {
                               print('searchedProduct $searchedProduct');
                             },
                             decoration: InputDecoration(
-                              hintText:
-                                  translator.translate("home_screen.search"),
+                              // hintText:
+                              //     translator.translate("home_screen.search"),
                               contentPadding: EdgeInsets.all(8.h),
                               border: InputBorder.none,
                               suffixIcon: InkWell(
@@ -103,14 +103,15 @@ class _SearchBarState extends State<SearchBar> {
                                 Assets.iconsSearch,
                                 fit: BoxFit.none,
                               ),
-                              hintStyle: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2!
-                                  .copyWith(
-                                    color: Colors.black54,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+
+                              // hintStyle: Theme.of(context)
+                              //     .textTheme
+                              //     .bodyText2!
+                              //     .copyWith(
+                              //       color: Colors.black54,
+                              //       fontSize: 14.sp,
+                              //       fontWeight: FontWeight.w700,
+                              //     ),
                             ),
                           ),
                           decoration: BoxDecoration(

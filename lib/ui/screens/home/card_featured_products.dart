@@ -94,16 +94,27 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                               ],
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(11.r),
+                              // image: DecorationImage(
+                              //   image: AssetImage(
+                              //     Assets.imagesCardWhite,
+                              //   ),
+                              //
+                              //   fit: BoxFit.fitHeight,
+                              // ),
                             ),
                           ),
                           Positioned(
                             right: 17.w,
-                            child: CustomNetworkImage(
-                              imageUrl: state
-                                  .featuredProducts!.data!.data![index]!.image!,
-                              height: 130.h,
-                              width: 85.w,
-                              radius: 2,
+                            child: Container(
+                              // color: Colors.red,
+                              child: CustomNetworkImage(
+                                imageUrl: state.featuredProducts!.data!
+                                    .data![index]!.image!,
+                                height: 130.h,
+                                width: 85.w,
+                                radius: 2,
+                                fit: BoxFit.contain,
+                              ),
                             ),
                           ),
                           state.featuredProducts!.data!.data![index]!.rate == 0
@@ -173,18 +184,27 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 6.h,
+                                  height: state.featuredProducts!.data!
+                                              .data![index]!.discount !=
+                                          0
+                                      ? 6.h
+                                      : 12.h,
                                 ),
-                                Text(
-                                  '${translator.translate("wishlist_screen.egp")} ${state.featuredProducts!.data!.data![index]!.priceBeforeDiscount}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText2!
-                                      .copyWith(
-                                        decoration: TextDecoration.lineThrough,
-                                        color: Colors.black45,
-                                      ),
-                                ),
+                                state.featuredProducts!.data!.data![index]!
+                                            .discount !=
+                                        0
+                                    ? Text(
+                                        '${translator.translate("wishlist_screen.egp")} ${state.featuredProducts!.data!.data![index]!.priceBeforeDiscount}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                              decoration:
+                                                  TextDecoration.lineThrough,
+                                              color: Colors.black45,
+                                            ),
+                                      )
+                                    : SizedBox.shrink(),
                                 SizedBox(
                                   height: 8.h,
                                 ),

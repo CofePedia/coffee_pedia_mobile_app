@@ -49,7 +49,7 @@ class _CardCategoryState extends State<CardCategory> {
           return Container(
             margin: EdgeInsets.only(bottom: 24.h),
             width: MediaQuery.of(context).size.width,
-            height: 90.h,
+            height: 110.h,
             child: ListView.builder(
               itemCount: state.categories!.data!.length,
               scrollDirection: Axis.horizontal,
@@ -80,36 +80,39 @@ class _CardCategoryState extends State<CardCategory> {
                   },
                   child: Container(
                     width: 150.w,
-                    height: 90.h,
+                    height: 110.h,
                     margin: EdgeInsets.symmetric(horizontal: 6.w),
                     child: Stack(
                       children: [
-                        Container(
-                          height: 90.h,
-                          width: 150.w,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(0, 0, 0, 0.12),
-                                blurRadius: 11.r,
-                                offset: Offset(0, 2),
+                        Positioned(
+                          top: 15.h,
+                          child: Container(
+                            height: 95.h,
+                            width: 150.w,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromRGBO(0, 0, 0, 0.12),
+                                  blurRadius: 11.r,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(
+                                7.r,
                               ),
-                            ],
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(
-                              7.r,
-                            ),
-                            image: DecorationImage(
-                              image: AssetImage(
-                                Assets.imagesCardBlue,
+                              image: DecorationImage(
+                                image: AssetImage(
+                                  Assets.imagesCardBlue,
+                                ),
+                                fit: BoxFit.fill,
                               ),
-                              fit: BoxFit.fill,
                             ),
                           ),
                         ),
                         Positioned(
                           left: 7.w,
-                          top: 30.h,
+                          top: 40.h,
                           child: Container(
                             width: 84.w,
                             child: Text(
@@ -125,12 +128,18 @@ class _CardCategoryState extends State<CardCategory> {
                         ),
                         Positioned(
                           right: 1.w,
-                          child: CustomNetworkImage(
-                            imageUrl: state.categories!.data![index]!.icon!,
-                            height: 80.h,
-                            width: 70.w,
-                            radius: 2.h,
-                            fit: BoxFit.contain,
+                          child: Container(
+                            // color: Colors.red,
+
+                            // child: Image.network(
+                            //     state.categories!.data![index]!.icon!),
+                            child: CustomNetworkImage(
+                              imageUrl: state.categories!.data![index]!.icon!,
+                              height: 110.h,
+                              width: 70.w,
+                              radius: 2.h,
+                              fit: BoxFit.contain,
+                            ),
                           ),
                           // child: Image.network(
                           //   state.categories!.data![index]!.icon!,
