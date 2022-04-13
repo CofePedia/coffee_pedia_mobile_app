@@ -1,14 +1,18 @@
 import 'package:circle_checkbox/redev_checkbox.dart';
+import 'package:coffepedia/business_logic/OTP/otp_cubit.dart';
 import 'package:coffepedia/business_logic/auth/auth_bloc.dart';
 import 'package:coffepedia/business_logic/login/login_bloc.dart';
 import 'package:coffepedia/business_logic/signup/form_submission_status.dart';
 import 'package:coffepedia/business_logic/signup/signup_bloc.dart';
 import 'package:coffepedia/data/models/basket.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
+import 'package:coffepedia/data/repository/otp_repository.dart';
 import 'package:coffepedia/data/repository/user_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
+import 'package:coffepedia/data/web_services/otp_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
+import 'package:coffepedia/ui/screens/intro/OTP_screen.dart';
 import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,11 +28,22 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SignupBloc>(
-      create: (_) => SignupBloc(
-        userRepository: RepositoryProvider.of<UserRepository>(context),
-        authBloc: BlocProvider.of<AuthBloc>(context),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SignupBloc>(
+          create: (_) => SignupBloc(
+            userRepository: RepositoryProvider.of<UserRepository>(context),
+            authBloc: BlocProvider.of<AuthBloc>(context),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => OtpCubit(
+            OTPRepository(
+              OTPWebServices(),
+            ),
+          ),
+        ),
+      ],
       child: LoginRegisterScreen(),
     );
   }
@@ -66,7 +81,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   _onLoginButtonPressed() {
     BlocProvider.of<LoginBloc>(context).add(
       LoginButtonPressed(
-        email: _email.text,
         password: _password.text,
         mobile: _mobile.text,
       ),
@@ -190,12 +204,18 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     ),
                   );
                 } else if (state.formStatus is SubmissionSuccess) {
+                  BlocProvider.of<OtpCubit>(context).postSendOTP(_mobile.text);
+
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => HomePageProvider(
-                        currentIndex: 0,
-                      ),
+                      builder: (context) =>
+                          OTPScreenProvider(mobile: _mobile.text),
                     ),
+                    // MaterialPageRoute(
+                    //   builder: (context) => HomePageProvider(
+                    //     currentIndex: 0,
+                    //   ),
+                    // ),
                   );
                   BlocProvider.of<SignupBloc>(context).close();
                 }

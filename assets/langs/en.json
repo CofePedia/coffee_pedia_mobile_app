@@ -220,7 +220,9 @@
     "privacy_policy" : "privacy policy",
     "You must accept our terms & conditions and privacy policy": "You must accept our terms & conditions and privacy policy.",
     "dont_have_account" : "Don’t have an Account",
-    "have_an_account" : "Have an Account"
+    "have_an_account" : "Have an Account",
+    "code_error": "Code Error"
+
   },
   "forget_password_screen" : {
     "forget_password" : "Forgot Password",

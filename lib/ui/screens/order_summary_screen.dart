@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
@@ -248,6 +249,8 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         state.coupon!.data!.deliveryCharge!.toString();
                     total = state.coupon!.data!.totalPrice!.toString();
                   }
+                } else if (state is CouponUnvalid) {
+                  BotToast.showText(text: state.error!.toString());
                 }
               },
               child: BlocBuilder<BasketCubit, BasketState>(

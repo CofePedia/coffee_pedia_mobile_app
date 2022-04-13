@@ -53,10 +53,6 @@ class BasketWebServices {
       'platform': Platform.operatingSystem,
       'OSVersion': Platform.operatingSystemVersion,
     };
-    if (productsMap.length == 0) {
-      print("productsMap is empty");
-    }
-    print("productsMap = " + productsMap.toString());
 
     var request = http.Request('POST', Uri.parse(baseUrl + '/cart/add'));
     request.body = json.encode({"products": productsMap}
