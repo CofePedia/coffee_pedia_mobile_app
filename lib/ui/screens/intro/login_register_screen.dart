@@ -429,6 +429,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                 ? SizedBox.shrink()
                                 : CustomInput(
                                     padding: false,
+                                    textInputType: TextInputType.emailAddress,
                                     title: translator.translate(
                                         "login_registration_screen.email_address"),
                                     hint: translator.translate(
@@ -460,6 +461,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                               hint: translator.translate(
                                   "login_registration_screen.password"),
                               textEditingController: _password,
+                              textInputType: TextInputType.visiblePassword,
                               icon: true,
                               padding: false,
                               onChanged: (value) =>
@@ -476,6 +478,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                     hint: translator.translate(
                                         "login_registration_screen.confirm_password"),
                                     textEditingController: _confirmPassword,
+                                    textInputType:
+                                        TextInputType.visiblePassword,
                                     padding: false,
                                     icon: true,
                                     onChanged: (value) =>
