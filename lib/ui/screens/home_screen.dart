@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   bottom: 9.h,
                   top: 53.h,
                 ),
-                height: 150.h,
+                height: 160.h,
                 width: MediaQuery.of(context).size.width,
                 color: Theme.of(context).primaryColor,
                 child: Column(
@@ -85,11 +85,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     SvgPicture.asset(
                       Assets.iconsHomeLogo,
-                      height: 40.h,
+                      height: 50.h,
                       width: 151.w,
                     ),
                     SizedBox(
-                      height: 4.h,
+                      height: 10.h,
                     ),
                     Expanded(
                       child: SearchWidget(

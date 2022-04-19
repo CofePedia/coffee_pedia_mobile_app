@@ -285,42 +285,98 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                         //   ],
                                         // ),
 
-                                        Text(
-                                          '${translator.translate("order_history_screen.subtotal")}            ${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.subTotal}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline3!
-                                              .copyWith(fontSize: 12.sp),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              translator.translate(
+                                                  "order_history_screen.subtotal"),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline3!
+                                                  .copyWith(fontSize: 12.sp),
+                                            ),
+                                            Text(
+                                              '${state.orderHistory!.data![index]!.subTotal} ${translator.translate("order_history_screen.egp")}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline3!
+                                                  .copyWith(fontSize: 12.sp),
+                                            ),
+                                          ],
                                         ),
                                         SizedBox(
                                           height: 10.h,
                                         ),
-                                        Text(
-                                          '${translator.translate("order_history_screen.discount")}            ${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.discount}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline3!
-                                              .copyWith(fontSize: 12.sp),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              translator.translate(
+                                                  "order_history_screen.discount"),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline3!
+                                                  .copyWith(fontSize: 12.sp),
+                                            ),
+                                            Text(
+                                              '${state.orderHistory!.data![index]!.discount} ${translator.translate("order_history_screen.egp")}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline3!
+                                                  .copyWith(fontSize: 12.sp),
+                                            ),
+                                          ],
                                         ),
                                         SizedBox(
                                           height: 10.h,
                                         ),
-                                        Text(
-                                          '${translator.translate("order_history_screen.cod")}                    ${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.deliveryCharge}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline3!
-                                              .copyWith(fontSize: 12.sp),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              translator.translate(
+                                                  "order_history_screen.cod"),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline3!
+                                                  .copyWith(fontSize: 12.sp),
+                                            ),
+                                            Text(
+                                              '${state.orderHistory!.data![index]!.deliveryCharge} ${translator.translate("order_history_screen.egp")}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline3!
+                                                  .copyWith(fontSize: 12.sp),
+                                            ),
+                                          ],
                                         ),
                                         SizedBox(
                                           height: 10.h,
                                         ),
-                                        Text(
-                                          '${translator.translate("order_history_screen.total")}                ${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.totalPrice}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(fontSize: 13.sp),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              translator.translate(
+                                                  "order_history_screen.total"),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1!
+                                                  .copyWith(fontSize: 13.sp),
+                                            ),
+                                            Text(
+                                              '${state.orderHistory!.data![index]!.totalPrice} ${translator.translate("order_history_screen.egp")}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1!
+                                                  .copyWith(fontSize: 13.sp),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -332,7 +388,8 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                         )
                       : EmptyWidgets(
                           image: Assets.noOrdersHistory,
-                          title: "Your Wallet is Empty",
+                          title: translator.translate(
+                              "order_history_screen.no_order_history"),
                           onPress: () {
                             Navigator.push(
                               context,
@@ -344,9 +401,10 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                               ),
                             );
                           },
-                          description:
-                              "Make a purchase and gain credit to your wallet",
-                          buttonTitle: "Shop now",
+                          description: translator.translate(
+                              "order_history_screen.check_out_what's_trending"),
+                          buttonTitle: translator
+                              .translate("order_history_screen.shop_now"),
                         );
                 } else {
                   return Center(

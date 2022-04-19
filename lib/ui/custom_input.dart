@@ -1,5 +1,6 @@
 import 'package:coffepedia/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomInput extends StatelessWidget {
@@ -11,6 +12,7 @@ class CustomInput extends StatelessWidget {
     this.padding = true,
     this.onChanged,
     this.textInputType,
+    this.max = false,
     Key? key,
   }) : super(key: key);
 
@@ -22,6 +24,7 @@ class CustomInput extends StatelessWidget {
   final ValueNotifier<bool> changeObscure = ValueNotifier(true);
   final Function(String)? onChanged;
   final TextInputType? textInputType;
+  final bool max;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,10 +52,18 @@ class CustomInput extends StatelessWidget {
                   controller: textEditingController,
                   obscureText: !icon ? !value : value,
                   keyboardType: textInputType ?? TextInputType.name,
-                  style: TextStyle(fontSize: 18.sp, color: Colors.black),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline2!
+                      .copyWith(color: kLightBlack),
                   onChanged: onChanged!,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(max ? 11 : null),
+                  ],
                   decoration: InputDecoration(
                     hintText: hint,
+
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                           color: kGrey3,
                         ),

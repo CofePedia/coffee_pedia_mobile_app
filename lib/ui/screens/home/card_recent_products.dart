@@ -106,8 +106,10 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                             ),
                           ),
                           Positioned(
-                            right: 17.w,
+                            left: 45.w,
+                            right: 45.w,
                             child: Container(
+                              // color: Colors.red,
                               child: CustomNetworkImage(
                                 imageUrl: state
                                     .mostRecent!.data!.data![index]!.image!,
@@ -118,54 +120,65 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                               ),
                             ),
                           ),
-                          state.mostRecent!.data!.data![index]!.rate == 0
-                              ? SizedBox.shrink()
-                              : Positioned(
-                                  top: 28.h,
-                                  left: 12.w,
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset(Assets.iconsStarActive),
-                                      SizedBox(
-                                        width: 6.14.w,
-                                      ),
-                                      Text(
-                                        state.mostRecent!.data!.data![index]!
-                                            .rate!
-                                            .toString(),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                           Positioned(
-                            top: 130.h,
+                            top: 135.h,
                             left: 12.w,
+                            right: 12.w,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 state.mostRecent!.data!.data![index]!
-                                            .discount ==
+                                            .discount !=
                                         0
                                     ? SizedBox.shrink()
-                                    : Container(
-                                        height: 17.h,
-                                        width: 55.h,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffFFD008),
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(12.5.h),
-                                              bottomRight:
-                                                  Radius.circular(12.5.h),
-                                              bottomLeft:
-                                                  Radius.circular(12.5.h)),
-                                        ),
-                                        child: Text(
-                                          '${state.mostRecent!.data!.data![index]!.discount}% Off',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
+                                    : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            height: 17.h,
+                                            width: 55.h,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xffFFD008),
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft:
+                                                      Radius.circular(12.5.h),
+                                                  bottomRight:
+                                                      Radius.circular(12.5.h),
+                                                  bottomLeft:
+                                                      Radius.circular(12.5.h)),
+                                            ),
+                                            child: Text(
+                                              '${state.mostRecent!.data!.data![index]!.discount}% ${translator.translate("product_screen.off")}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1,
+                                            ),
+                                          ),
+                                          state.mostRecent!.data!.data![index]!
+                                                      .rate !=
+                                                  0
+                                              ? SizedBox.shrink()
+                                              : Positioned(
+                                                  top: 28.h,
+                                                  left: 12.w,
+                                                  child: Row(
+                                                    children: [
+                                                      SvgPicture.asset(Assets
+                                                          .iconsStarActive),
+                                                      SizedBox(
+                                                        width: 6.14.w,
+                                                      ),
+                                                      Text(
+                                                        state.mostRecent!.data!
+                                                            .data![index]!.rate!
+                                                            .toString(),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                        ],
                                       ),
                                 SizedBox(
                                   height: 13.h,
@@ -194,7 +207,7 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                                             .discount !=
                                         0
                                     ? Text(
-                                        '${translator.translate("wishlist_screen.egp")} ${state.mostRecent!.data!.data![index]!.priceBeforeDiscount}',
+                                        '${state.mostRecent!.data!.data![index]!.priceBeforeDiscount} ${translator.translate("wishlist_screen.egp")}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText2!
@@ -209,7 +222,7 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                                   height: 8.h,
                                 ),
                                 Text(
-                                  '${translator.translate("wishlist_screen.egp")} ${state.mostRecent!.data!.data![index]!.price}',
+                                  '${state.mostRecent!.data!.data![index]!.price} ${translator.translate("wishlist_screen.egp")}',
                                   style: Theme.of(context).textTheme.subtitle1,
                                 ),
                               ],
@@ -217,7 +230,12 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                           ),
                           Positioned(
                             top: 208.h,
-                            right: 16.w,
+                            right: translator.currentLanguage == 'ar'
+                                ? null
+                                : 16.w,
+                            left: translator.currentLanguage == 'ar'
+                                ? 16.w
+                                : null,
                             child: Container(
                               height: 38.h,
                               width: 38.w,

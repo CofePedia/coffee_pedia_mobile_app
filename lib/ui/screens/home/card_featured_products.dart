@@ -9,7 +9,7 @@ import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../main.dart';
 
@@ -76,172 +76,181 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                       //       .getFeaturedProducts();
                       // }
                     },
-                    child: Container(
-                      height: 262.h,
-                      width: 214.w,
-                      child: Stack(
-                        children: [
-                          Container(
-                            height: 262.h,
-                            width: 214.w,
+                    child: Stack(
+                      children: [
+                        Container(
+                          height: 262.h,
+                          width: 214.w,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromRGBO(0, 0, 0, 0.12),
+                                blurRadius: 11.r,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(11.r),
+                            // image: DecorationImage(
+                            //   image: AssetImage(
+                            //     Assets.imagesCard,
+                            //   ),
+                            //   fit: BoxFit.cover,
+                            // ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 45.w,
+                          right: 45.w,
+                          child: Container(
+                            // color: Colors.red,
+                            child: CustomNetworkImage(
+                              imageUrl: state
+                                  .featuredProducts!.data!.data![index]!.image!,
+                              height: 130.h,
+                              width: 85.w,
+                              radius: 2,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 135.h,
+                          left: 12.w,
+                          right: 12.w,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              state.featuredProducts!.data!.data![index]!
+                                          .discount ==
+                                      0
+                                  ? SizedBox.shrink()
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          height: 17.h,
+                                          width: 55.h,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xffFFD008),
+                                            borderRadius: BorderRadius.only(
+                                                topLeft:
+                                                    Radius.circular(12.5.h),
+                                                bottomRight:
+                                                    Radius.circular(12.5.h),
+                                                bottomLeft:
+                                                    Radius.circular(12.5.h)),
+                                          ),
+                                          child: Text(
+                                            '${state.featuredProducts!.data!.data![index]!.discount}% ${translator.translate("product_screen.off")}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1,
+                                          ),
+                                        ),
+                                        state.featuredProducts!.data!
+                                                    .data![index]!.rate ==
+                                                0
+                                            ? SizedBox.shrink()
+                                            : Row(
+                                                children: [
+                                                  SvgPicture.asset(
+                                                      Assets.iconsStarActive),
+                                                  SizedBox(
+                                                    width: 6.14.w,
+                                                  ),
+                                                  Text(
+                                                    state
+                                                        .featuredProducts!
+                                                        .data!
+                                                        .data![index]!
+                                                        .rate!
+                                                        .toString(),
+                                                  ),
+                                                ],
+                                              ),
+                                      ],
+                                    ),
+                              SizedBox(
+                                height: 13.h,
+                              ),
+                              Container(
+                                width: 192.w,
+                                child: Text(
+                                  state.featuredProducts!.data!.data![index]!
+                                      .name!,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline1!
+                                      .copyWith(fontSize: 14.sp, height: 1.25),
+                                ),
+                              ),
+                              SizedBox(
+                                height: state.featuredProducts!.data!
+                                            .data![index]!.discount !=
+                                        0
+                                    ? 6.h
+                                    : 12.h,
+                              ),
+                              state.featuredProducts!.data!.data![index]!
+                                          .discount !=
+                                      0
+                                  ? Text(
+                                      '${state.featuredProducts!.data!.data![index]!.priceBeforeDiscount} ${translator.translate("wishlist_screen.egp")}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                            color: Colors.black45,
+                                          ),
+                                    )
+                                  : SizedBox.shrink(),
+                              SizedBox(
+                                height: 8.h,
+                              ),
+                              Text(
+                                '${state.featuredProducts!.data!.data![index]!.price} ${translator.translate("wishlist_screen.egp")}',
+                                style: Theme.of(context).textTheme.subtitle1,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          top: 208.h,
+                          right:
+                              translator.currentLanguage == 'ar' ? null : 16.w,
+                          left:
+                              translator.currentLanguage == 'ar' ? 16.w : null,
+                          // left: ,
+                          child: Container(
+                            height: 38.h,
+                            width: 38.w,
                             decoration: BoxDecoration(
+                              color: Color(0xffffffff),
+                              borderRadius: BorderRadius.circular(25),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Color.fromRGBO(0, 0, 0, 0.12),
-                                  blurRadius: 11.r,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(11.r),
-                              // image: DecorationImage(
-                              //   image: AssetImage(
-                              //     Assets.imagesCardWhite,
-                              //   ),
-                              //
-                              //   fit: BoxFit.fitHeight,
-                              // ),
-                            ),
-                          ),
-                          Positioned(
-                            right: 17.w,
-                            child: Container(
-                              // color: Colors.red,
-                              child: CustomNetworkImage(
-                                imageUrl: state.featuredProducts!.data!
-                                    .data![index]!.image!,
-                                height: 130.h,
-                                width: 85.w,
-                                radius: 2,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                          state.featuredProducts!.data!.data![index]!.rate == 0
-                              ? SizedBox.shrink()
-                              : Positioned(
-                                  top: 28.h,
-                                  left: 12.w,
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset(Assets.iconsStarActive),
-                                      SizedBox(
-                                        width: 6.14.w,
-                                      ),
-                                      Text(
-                                        state.featuredProducts!.data!
-                                            .data![index]!.rate!
-                                            .toString(),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                          Positioned(
-                            top: 130.h,
-                            left: 12.w,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                state.featuredProducts!.data!.data![index]!
-                                            .discount ==
-                                        0
-                                    ? SizedBox.shrink()
-                                    : Container(
-                                        height: 17.h,
-                                        width: 55.h,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffFFD008),
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(12.5.h),
-                                              bottomRight:
-                                                  Radius.circular(12.5.h),
-                                              bottomLeft:
-                                                  Radius.circular(12.5.h)),
-                                        ),
-                                        child: Text(
-                                          '${state.featuredProducts!.data!.data![index]!.discount}% Off',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                SizedBox(
-                                  height: 13.h,
-                                ),
-                                Container(
-                                  width: 192.w,
-                                  child: Text(
-                                    state.featuredProducts!.data!.data![index]!
-                                        .name!,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline1!
-                                        .copyWith(
-                                            fontSize: 14.sp, height: 1.25),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: state.featuredProducts!.data!
-                                              .data![index]!.discount !=
-                                          0
-                                      ? 6.h
-                                      : 12.h,
-                                ),
-                                state.featuredProducts!.data!.data![index]!
-                                            .discount !=
-                                        0
-                                    ? Text(
-                                        '${translator.translate("wishlist_screen.egp")} ${state.featuredProducts!.data!.data![index]!.priceBeforeDiscount}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                              decoration:
-                                                  TextDecoration.lineThrough,
-                                              color: Colors.black45,
-                                            ),
-                                      )
-                                    : SizedBox.shrink(),
-                                SizedBox(
-                                  height: 8.h,
-                                ),
-                                Text(
-                                  '${translator.translate("wishlist_screen.egp")} ${state.featuredProducts!.data!.data![index]!.price}',
-                                  style: Theme.of(context).textTheme.subtitle1,
-                                ),
+                                    color: Color.fromRGBO(0, 0, 0, 0.12),
+                                    offset: Offset(0, 2),
+                                    blurRadius: 11.sp)
                               ],
                             ),
-                          ),
-                          Positioned(
-                            top: 208.h,
-                            right: 16.w,
-                            child: Container(
-                              height: 38.h,
-                              width: 38.w,
-                              decoration: BoxDecoration(
-                                color: Color(0xffffffff),
-                                borderRadius: BorderRadius.circular(25),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color.fromRGBO(0, 0, 0, 0.12),
-                                      offset: Offset(0, 2),
-                                      blurRadius: 11.sp)
-                                ],
-                              ),
-                              child: WishlistIconWidget(
-                                productId: state
-                                    .featuredProducts!.data!.data![index]!.id!
-                                    .toString(),
-                                isFavorite: state.featuredProducts!.data!
-                                    .data![index]!.inWishlist!,
-                              ),
+                            child: WishlistIconWidget(
+                              productId: state
+                                  .featuredProducts!.data!.data![index]!.id!
+                                  .toString(),
+                              isFavorite: state.featuredProducts!.data!
+                                  .data![index]!.inWishlist!,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 );

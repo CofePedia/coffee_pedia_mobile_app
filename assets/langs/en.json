@@ -90,7 +90,8 @@
     "item" : "Item",
     "filter" : "Filter",
     "off" : "Off",
-    "egp" : "EGP"
+    "egp" : "EGP",
+    "seller_info": "Seller Info"
   },
   "coffeeShops_screen" : {
     "coffee_shops" : "Coffee shops",
@@ -154,7 +155,10 @@
     "discount" : "Discount",
     "cod" : "COD",
     "total" : "Total",
-    "egp": "EGP"
+    "egp": "EGP",
+    "no_order_history": "No Order History",
+    "check_out_what's_trending": "Check out what's trending",
+    "shop_now": "Shop now"
   },
   "payment_info_screen" : {
     "pay_now" : "Pay Now",
@@ -226,8 +230,15 @@
   },
   "forget_password_screen" : {
     "forget_password" : "Forgot Password",
-    "enter_email_msg" : "Please enter your email address",
-    "email_address" : "Email Address",
+    "enter_mobile_msg" : "Please enter your phone number",
+    "mobile" : "Phone Number",
     "send" : "Send"
+  },
+  "OTP_screen" : {
+    "verification_code" : "Verification code",
+    "please_enter_code_sent_to_your_mobile_phone" : "Please enter code sent to your mobile phone",
+    "submit" : "Submit",
+    "receive_code" : "Didn\\'t receive a code?",
+    "send_again" : "Send Again"
   }
 }

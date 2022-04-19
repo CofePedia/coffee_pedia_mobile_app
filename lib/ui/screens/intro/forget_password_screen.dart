@@ -12,7 +12,7 @@ class ForgetPasswordScreen extends StatefulWidget {
 }
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
-  TextEditingController _email = TextEditingController();
+  TextEditingController _mobile = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         bottom: 8.h,
                       ),
                       child: Text(
-                        translator.translate("forget_password_screen.forget_password"),
+                        translator.translate(
+                            "forget_password_screen.forget_password"),
                         style: Theme.of(context)
                             .textTheme
                             .subtitle1!
@@ -57,7 +58,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       ),
                     ),
                     Text(
-                      translator.translate("forget_password_screen.enter_email_msg"),
+                      translator
+                          .translate("forget_password_screen.enter_mobile_msg"),
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             color: Color(0xff231F20),
                           ),
@@ -68,9 +70,16 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         bottom: 18.h,
                       ),
                       child: CustomInput(
-                        title: translator.translate("forget_password_screen.email_address"),
-                        hint: translator.translate("forget_password_screen.email_address"),
-                        textEditingController: _email,
+                        title: translator
+                            .translate("forget_password_screen.mobile"),
+                        hint: translator
+                            .translate("forget_password_screen.mobile"),
+                        textEditingController: _mobile,
+                        onChanged: (value) {},
+                        max: true,
+                        icon: false,
+                        padding: false,
+                        textInputType: TextInputType.number,
                       ),
                     ),
                     Container(

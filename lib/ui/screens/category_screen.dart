@@ -4,6 +4,7 @@ import 'package:coffepedia/data/models/category_products.dart';
 import 'package:coffepedia/data/repository/category_products_repository.dart';
 import 'package:coffepedia/data/web_services/category_products_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/main.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/screens/filters_screen.dart';
 import 'package:coffepedia/ui/screens/home/search_widget.dart';
@@ -190,7 +191,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     width: 10.w,
                                   ),
                                   Text(
-                                    'Seller info',
+                                    translator.translate(
+                                        "categories_screen.seller_info"),
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline1!
@@ -206,21 +208,27 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               width: MediaQuery.of(context).size.width,
                               color: Theme.of(context).primaryColor,
                               padding: EdgeInsets.only(
-                                  top: 53.h, bottom: 9.h, right: 15.w),
+                                top: 53.h,
+                                bottom: 9.h,
+                                right: 15.w,
+                                left: 15.w,
+                              ),
                               child: Row(
                                 children: [
-                                  IconButton(
-                                    onPressed: () {
+                                  InkWell(
+                                    onTap: () {
                                       Navigator.pop(context, hasData = true);
                                     },
-                                    icon: Icon(
+                                    child: Icon(
                                       Icons.chevron_left,
                                       size: 22.w,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .secondary,
                                     ),
-                                    color: Color(0xff000000),
+                                  ),
+                                  SizedBox(
+                                    width: 5.w,
                                   ),
                                   Expanded(
                                     child: SearchWidget(
@@ -532,7 +540,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   ),
                                   TextSpan(
                                     text:
-                                        '(${state.categoryProducts!.data!.paginate!.total} Item)',
+                                        '(${state.categoryProducts!.data!.paginate!.total} ${translator.translate("categories_screen.item")})',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline1!
@@ -544,7 +552,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               ),
                             ),
                             CustomOutlineButton(
-                              title: 'Filter',
+                              title: translator
+                                  .translate("categories_screen.filter"),
                               onPress: () {
                                 showModalBottomSheet(
                                   enableDrag: false,
@@ -641,10 +650,23 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                             Container(
                                               height: 280.h,
                                               width: 164.5.w,
-                                              child: Image.asset(
-                                                Assets.imagesCard,
-                                                fit: BoxFit.cover,
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Color.fromRGBO(
+                                                        0, 0, 0, 0.12),
+                                                    blurRadius: 11.r,
+                                                    offset: Offset(0, 2),
+                                                  ),
+                                                ],
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(11.r),
                                               ),
+                                              // child: Image.asset(
+                                              //   Assets.imagesCard,
+                                              //   fit: BoxFit.cover,
+                                              // ),
                                             ),
                                             Positioned(
                                               right: 17.w,
@@ -654,12 +676,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                 height: 136.h,
                                                 width: 75.w,
                                                 radius: 2.r,
+                                                fit: BoxFit.contain,
                                               ),
                                             ),
                                             products[index]!.rate! != 0
                                                 ? Positioned(
-                                                    top: 30.h,
-                                                    left: 20.w,
+                                                    top: 28.h,
+                                                    left: 12.w,
                                                     child: Row(
                                                       children: [
                                                         SvgPicture.asset(Assets
@@ -685,110 +708,119 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                     ),
                                                   )
                                                 : SizedBox.shrink(),
-                                            Positioned(
-                                              top: 152.h,
-                                              left: 12.w,
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 8.w),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    products[index]!.discount ==
-                                                            0
-                                                        ? SizedBox(
-                                                            height: 17.h,
-                                                            width: 55.w,
-                                                          )
-                                                        : Container(
-                                                            height: 17.h,
-                                                            width: 55.w,
-                                                            alignment: Alignment
-                                                                .center,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0xffFFD008),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .only(
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                  12.5.r,
-                                                                ),
-                                                                bottomRight:
-                                                                    Radius
-                                                                        .circular(
-                                                                  12.5.r,
-                                                                ),
-                                                                bottomLeft: Radius
-                                                                    .circular(
-                                                                  12.5.r,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            child: Text(
-                                                              '${products[index]!.discount}% Off',
+                                            products[index]!.discount == 0
+                                                ? SizedBox(
+                                                    height: 17.h,
+                                                    width: 55.w,
+                                                  )
+                                                : Positioned(
+                                                    top: 152.h,
+                                                    left: 12.w,
+                                                    child: Container(
+                                                      height: 17.h,
+                                                      width: 55.w,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xffFFD008),
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                            12.5.r,
+                                                          ),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                            12.5.r,
+                                                          ),
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                            12.5.r,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        '${products[index]!.discount}% ${translator.translate("categories_screen.off")}',
 // state.categoryProducts!.data!
 //     .filters![2]!.optionsSingle![2]
 //     .toString(),
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .bodyText1,
-                                                            ),
-                                                          ),
-                                                    SizedBox(
-                                                      height: 15.h,
-                                                    ),
-                                                    Container(
-                                                      width: 140.w,
-                                                      child: Text(
-                                                        products[index]!.name!,
-                                                        maxLines: 3,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .headline1!
-                                                            .copyWith(
-                                                              fontSize: 14.sp,
-                                                            ),
+                                                            .bodyText1,
                                                       ),
                                                     ),
-                                                    SizedBox(
-                                                      height: 12.h,
-                                                    ),
-                                                    Text(
-                                                      'EGP ${products[index]!.priceBeforeDiscount}',
+                                                  ),
+                                            Positioned(
+                                              top: 160.h,
+                                              left: 12.w,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                    height: 15.h,
+                                                  ),
+                                                  Container(
+                                                    width: 140.w,
+                                                    child: Text(
+                                                      products[index]!.name!,
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .bodyText2!
+                                                          .headline1!
                                                           .copyWith(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .lineThrough,
-                                                            color:
-                                                                Colors.black45,
+                                                            fontSize: 14.sp,
                                                           ),
                                                     ),
-                                                    SizedBox(
-                                                      height: 8.h,
-                                                    ),
-                                                    Text(
-                                                      'EGP ${products[index]!.price}',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .subtitle1,
-                                                    ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                  // SizedBox(
+                                                  //   height: 12.h,
+                                                  // ),
+                                                  products[index]!.discount == 0
+                                                      ? SizedBox(
+                                                          height: 20.h,
+                                                        )
+                                                      : Text(
+                                                          '${products[index]!.priceBeforeDiscount} ${translator.translate("categories_screen.egp")}',
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyText2!
+                                                                  .copyWith(
+                                                                    decoration:
+                                                                        TextDecoration
+                                                                            .lineThrough,
+                                                                    color: Colors
+                                                                        .black45,
+                                                                  ),
+                                                        ),
+                                                  // SizedBox(
+                                                  //   height: 8.h,
+                                                  // ),
+                                                  Text(
+                                                    '${products[index]!.price} ${translator.translate("categories_screen.egp")}',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .subtitle1,
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                             Positioned(
-                                              top: 240.h,
-                                              right: 18.w,
+                                              top: 260.h,
+                                              right:
+                                                  translator.currentLanguage ==
+                                                          'ar'
+                                                      ? null
+                                                      : 18.w,
+                                              left:
+                                                  translator.currentLanguage ==
+                                                          'ar'
+                                                      ? 18.w
+                                                      : null,
                                               child: Container(
                                                 height: 38.h,
                                                 width: 38.w,

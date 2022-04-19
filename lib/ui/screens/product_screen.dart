@@ -178,7 +178,8 @@ class _ProductScreenState extends State<ProductScreen> {
                       height: 50.h,
                       assetName: Assets.iconsShoppingBasket,
                       borderRadius: 25.r,
-                      title: 'Add to basket',
+                      title:
+                          translator.translate("product_screen.add_to_basket"),
                       buttonColor: Theme.of(context).primaryColor,
                       imageColor: Theme.of(context).colorScheme.secondary,
                       imageHeight: 18.h,
@@ -258,10 +259,9 @@ class _ProductScreenState extends State<ProductScreen> {
                         outer: true,
                         itemCount: state.product!.data!.images!.length,
                         autoplay: true,
-                        itemWidth: 366.w,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                          return Container(
+                            // color: Colors.red,
                             child: CustomNetworkImage(
                               imageUrl: state.product!.data!.images![index]!,
                               height: 280.h,
@@ -364,7 +364,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             padding: EdgeInsets.only(
                                 top: 15.h, right: 15.w, left: 15.w),
                             child: Text(
-                              'EGP ${state.product!.data!.priceBeforeDiscount ?? ''}',
+                              '${state.product!.data!.priceBeforeDiscount ?? ''} ${translator.translate("product_screen.egp")}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
@@ -381,7 +381,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           right: 15.w,
                           left: 15.w),
                       child: Text(
-                        'EGP ${state.product!.data!.price!}',
+                        '${state.product!.data!.price!} ${translator.translate("product_screen.egp")}',
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                     ),
@@ -424,7 +424,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       padding:
                           EdgeInsets.only(top: 24.h, right: 15.w, left: 15.w),
                       child: Text(
-                        'About this item',
+                        translator.translate("product_screen.about_this_item"),
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ),
@@ -540,7 +540,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                 state.product!.data!.vendor!.coverPhoto!),
                           ),
                           title: Text(
-                            'Seller name',
+                            translator.translate("product_screen.seller_name"),
                             style:
                                 Theme.of(context).textTheme.subtitle2!.copyWith(
                                       color: Color(

@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/OTP/otp_cubit.dart';
 import 'package:coffepedia/data/repository/otp_repository.dart';
 import 'package:coffepedia/data/web_services/otp_web_services.dart';
+import 'package:coffepedia/main.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,7 @@ class OTPScreen extends StatelessWidget {
                   height: 132.h,
                 ),
                 Text(
-                  'Verification code',
+                  translator.translate("OTP_screen.verification_code"),
                   style: Theme.of(context)
                       .textTheme
                       .headline1!
@@ -90,7 +91,7 @@ class OTPScreen extends StatelessWidget {
                   height: 8.h,
                 ),
                 Text(
-                  'Please enter code sent to your mobile phone $mobile',
+                  '${translator.translate("OTP_screen.please_enter_code_sent_to_your_mobile_phone")} $mobile',
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
                 SizedBox(
@@ -122,7 +123,7 @@ class OTPScreen extends StatelessWidget {
                 BlocBuilder<OtpCubit, OtpState>(
                   builder: (context, state) {
                     return CustomButton(
-                      title: "Submit",
+                      title: translator.translate("OTP_screen.submit"),
                       onPress: () {
                         BlocProvider.of<OtpCubit>(context)
                             .postVerifyOTP(mobile, otp.text);
@@ -139,7 +140,7 @@ class OTPScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'Didn\'t receive a code?',
+                    translator.translate("OTP_screen.receive_code"),
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1!
@@ -152,7 +153,7 @@ class OTPScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'Send Again',
+                    translator.translate("OTP_screen.send_again"),
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),

@@ -268,7 +268,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                               ),
                             ),
                             Align(
-                              alignment: Alignment.centerLeft,
+                              alignment: translator.currentLanguage == "ar"
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
                               child: Padding(
                                 padding:
                                     EdgeInsets.only(top: 79.7.h, bottom: 32.h),
@@ -447,6 +449,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                               hint: translator.translate(
                                   "login_registration_screen.mobile"),
                               textEditingController: _mobile,
+                              max: true,
                               icon: false,
                               padding: false,
                               onChanged: (value) =>
@@ -552,7 +555,10 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                     height: 32.h,
                                   )
                                 : Directionality(
-                                    textDirection: TextDirection.rtl,
+                                    textDirection:
+                                        translator.currentLanguage == 'ar'
+                                            ? TextDirection.ltr
+                                            : TextDirection.rtl,
                                     child: CircleCheckboxListTile(
                                       title: RichText(
                                         textAlign: TextAlign.end,

@@ -61,12 +61,12 @@ class MoreScreen extends StatelessWidget {
                   ),
                 );
               },
-              title: translator.translate("About"),
+              title: translator.translate("more_screen.about"),
               image: Assets.aboutImage,
             ),
             ClipRRect(
               child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 0),
+                imageFilter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                 child: MoreItems(
                   onPress: () {
                     // Navigator.push(
@@ -78,7 +78,8 @@ class MoreScreen extends StatelessWidget {
                     //   ),
                     // );
                   },
-                  subTitle: translator.translate("Explore nearby Coffee shops"),
+                  subTitle: translator
+                      .translate("more_screen.Explore nearby Coffee shops"),
                   title: translator.translate("more_screen.coffee_shops"),
                   image: Assets.coffeeShopImage,
                 ),
@@ -86,7 +87,7 @@ class MoreScreen extends StatelessWidget {
             ),
             ClipRRect(
               child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 0),
+                imageFilter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                 child: MoreItems(
                   onPress: () {
                     // Navigator.push(
@@ -98,15 +99,15 @@ class MoreScreen extends StatelessWidget {
                     //   ),
                     // );
                   },
-                  subTitle: translator.translate("Share your love"),
-                  title: translator.translate("Blog"),
+                  subTitle: translator.translate("more_screen.Share your love"),
+                  title: translator.translate("more_screen.blog"),
                   image: Assets.blogImage,
                 ),
               ),
             ),
             ClipRRect(
               child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 0),
+                imageFilter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                 child: MoreItems(
                   onPress: () {
                     // Navigator.push(
@@ -118,8 +119,9 @@ class MoreScreen extends StatelessWidget {
                     //   ),
                     // );
                   },
-                  subTitle: translator.translate("Prepare it by yourself"),
-                  title: translator.translate("Recipes"),
+                  subTitle: translator
+                      .translate("more_screen.Prepare it by yourself"),
+                  title: translator.translate("more_screen.recipes"),
                   image: Assets.recipesImage,
                 ),
               ),

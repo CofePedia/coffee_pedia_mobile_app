@@ -45,7 +45,7 @@
     "edit" : "تعديل",
     "primary" : "أساسي",
     "address_book" : "عنواينك",
-    "close" : "غلق",
+    "close" : "إلغاء",
     "new_address" : "عنوان جديد",
     "edit_address" : "تعديل العنوان",
     "name" : "الاسم",
@@ -86,8 +86,9 @@
   "categories_screen" : {
     "item" : "منتج",
     "filter" : "تصفية",
-    "off" : "Off",
-    "egp" : "EGP"
+    "off" : "خصم",
+    "egp" : "ج.م",
+    "seller_info": "معلومات عن التاجر"
   },
   "coffeeShops_screen" : {
     "coffee_shops" : "Coffee shops",
@@ -98,35 +99,35 @@
     "filter" : "Filter"
   },
   "filter_screen" : {
-    "clear_all" : "Clear all",
-    "show_result" : "Show results",
-    "enter_data" : "Enter Data",
-    "close" : "Close"
+    "clear_all" : "مسح الكل",
+    "show_result" : "إظهار الكل",
+    "enter_data" : "برجاء ادخال البيانات",
+    "close" : "إلغاء"
   },
   "home_screen" : {
-    "home_tap" : "Shop",
-    "my_basket_tap" : "My Basket",
-    "profile_tap" : "Profile",
-    "shop_by_category" : "Shop By Category",
-    "featured_products" : "Featured Products",
-    "shop_by_brands" : "Shop By Brands",
-    "recent_products" : "Most Recent Products",
-    "search" : "Search Coffepedia",
-    "more_tap" : "More"
+    "home_tap" : "تسوق",
+    "my_basket_tap" : "السلة",
+    "profile_tap" : "حسابي",
+    "shop_by_category" : "تسوق بالفئة",
+    "featured_products" : "المنتجات المميزة",
+    "shop_by_brands" : "تسوق بالماركة",
+    "recent_products" : "العروض الحديثة",
+    "search" : "بحث",
+    "more_tap" : "المزيد"
   },
   "more_screen" : {
-    "more" : "More",
-    "coffee_shops" : "Coffee shops",
-    "blog" : "Blog",
-    "recipes" : "Recipes",
-    "about" : "About",
-    "Explore nearby Coffee shops" : "Explore nearby Coffee shops",
-    "Share your love" : "Share your love",
-    "Prepare it by yourself" : "Prepare it by yourself"
+    "more" : "المزيد",
+    "coffee_shops" : "محلات القهوة",
+    "blog" : "المدونات",
+    "recipes" : "الوصفات",
+    "about" : "عن كافي بيديا",
+    "Explore nearby Coffee shops" : "استكشف محلات القهوة القربية منك",
+    "Share your love" : "شارك حبك",
+    "Prepare it by yourself" : "حضرها بنفسك"
   },
   "map_widget" : {
-    "show" : "Show",
-    "show_on_map" : "Show on Map"
+    "show" : "عرض",
+    "show_on_map" : "عرض على الخريطة"
   },
   "wallet_screen" : {
     "my_wallet" : "My Wallet",
@@ -136,93 +137,103 @@
     "use_my_wallet_msg" : "Use my wallet balance when making order"
   },
   "no_internet_screen" : {
-    "no_internet_text1" : "No internet connection",
-    "no_internet_text2" : "System is offline and orders will not received,",
-    "no_internet_text3" : "Please check your internet connection and try again."
+    "no_internet_text1" : "لا يوجد اتصال بالانترنت",
+    "no_internet_text2" : "النظام غير متصل ولن يتم استلام الطلبات,",
+    "no_internet_text3" : "يرجى التحقق من اتصالك بالإنترنت وحاول مرة أخرى."
   },
   "order_history_screen" : {
-    "order_history" : "Orders History",
-    "status" : "Status",
-    "date" : "Date",
-    "order_id" : "Order ID",
-    "payment_method" : "Payment Method",
-    "subtotal" : "Subtotal",
-    "discount" : "Discount",
-    "cod" : "COD",
-    "total" : "Total",
-    "egp": "EGP"
+    "order_history" : "تاريخ الطلب",
+    "status" : "الحالة",
+    "date" : "التاريخ",
+    "order_id" : "رقم الطلب",
+    "payment_method" : "طريقة الدفع",
+    "subtotal" : "السعر الفرعي",
+    "discount" : "الخصم",
+    "cod" : "الدفع عند الاستلام",
+    "total" : "الإجمالي",
+    "egp": "ج.م",
+    "no_order_history": "لا يوجد لديك طلبات",
+    "check_out_what's_trending": "تحقق من ما هو شائع",
+    "shop_now": "تسوق الآن"
   },
   "payment_info_screen" : {
-    "pay_now" : "Pay Now",
-    "payment_info" : "Payment info",
-    "delivery_info" : "Delivery Info",
-    "from_address_book" : "From Address Book",
-    "payment_id" : "paymentID"
+    "pay_now" : "ادفع الآن",
+    "payment_info" : "معلومات الدفع",
+    "delivery_info" : "معلومات التوصيل",
+    "from_address_book" : "عناوينك",
+    "payment_id" : "رقم الدفع"
   },
   "product_screen" : {
-    "add_to_basket" : "Add to basket",
-    "off" : "Off",
-    "egp" : "EGP",
-    "about_this_item" : "About this item",
-    "product_overview" : "Product overview",
-    "brand" : "Brand",
-    "about_seller" : "About seller",
-    "seller_name" : "Seller name"
+    "add_to_basket" : "أضف إلى السلة",
+    "off" : "خصم",
+    "egp" : "ج.م",
+    "about_this_item" : "حول هذا المنتج",
+    "product_overview" : "تفاصيل الطلب",
+    "brand" : "الماركة",
+    "about_seller" : "عن التاجر",
+    "seller_name" : "اسم التاجر"
   },
   "profile_screen" : {
-    "my_profile" : "My Profile",
-    "welcome" : "Welcome",
-    "welcome_back" : "Welcome back",
-    "order_history" : "Orders History",
-    "my_wishlist" : "My wishlist",
-    "address_book" : "Address Book",
-    "account_settings" : "Account settings",
-    "switch_language" : "Switch Language",
+    "my_profile" : "حسابي",
+    "welcome" : "مرحبا",
+    "welcome_back" : "مرحبًا بعودتك",
+    "order_history" : "تاريخ الطلبات",
+    "my_wishlist" : "مفضلتك",
+    "address_book" : "العناوين",
+    "account_settings" : "إعدادت الحساب",
+    "switch_language" : "تغيير اللغة",
     "english" : "English",
-    "logout" : "Logout",
-    "login" : "Login",
-    "save" : "Save"
+    "logout" : "تسجيل خروج",
+    "login" : "تسجيل دخول",
+    "save" : "حفظ"
   },
   "success_screen" : {
-    "thank_you" : "Thank You",
-    "order_id" : "Order ID",
-    "success_msg" : "You will recieve an email with your order details and the expecting shipping date",
-    "track_order" : "Track your order",
-    "continue_shopping" : "Continue Shopping"
+    "thank_you" : "شكرًا لك",
+    "order_id" : "رقم الطلب",
+    "success_msg" : "ستتلقى رسالة بريد إلكتروني تحتوي على تفاصيل طلبك وتاريخ الشحن المتوقع.",
+    "track_order" : "تتبع طلبك",
+    "continue_shopping" : "تابع التسوق"
   },
   "failed_payment_screen" : {
-    "Transaction Failed" : "Transaction Failed!",
-    "Failed_msg" : "An Unknown Error Occurred!,",
-    "Try_again_msg" : "Please Try Again Later.",
-    "back_to_home" : "Back to Home"
+    "Transaction Failed" : "فشل الدفع!",
+    "Failed_msg" : "حدث خطأ ما!,",
+    "Try_again_msg" : "جرب مرة أخرى في وقت لاحق.",
+    "back_to_home" : "إلى الصفحة الرئيسية"
   },
   "wishlist_screen" : {
-    "my_wishlist" : "My wishlist",
-    "egp" : "EGP"
+    "my_wishlist" : "مفضلتي",
+    "egp" : "ج.م"
   },
   "login_registration_screen" : {
-    "login" : "Login",
-    "create_account" : "Create Account",
-    "first_name" : "First Name",
-    "last_name" : "Last Name",
-    "email_address" : "Email Address",
-    "mobile" : "Mobile",
-    "password" : "Password",
-    "confirm_password" : "Confirm Password",
-    "forget_password" : "Forgot Password?",
-    "accept_msg" : "By creating account, you accept our ",
-    "terms_n_conditions" : "terms and conditions",
-    "and" : "and",
-    "privacy_policy" : "privacy policy",
-    "You must accept our terms & conditions and privacy policy": "You must accept our terms & conditions and privacy policy.",
-    "dont_have_account" : "Don’t have an Account",
-    "have_an_account" : "Have an Account",
+    "login" : "تسجيل الدخول",
+    "create_account" : "انشاء حساب",
+    "first_name" : "الاسم الأول",
+    "last_name" : "الاسم الأخير",
+    "email_address" : "البريد الإلكتروني",
+    "mobile" : "رقم الموبايل",
+    "password" : "كلمة السر",
+    "confirm_password" : "تأكيد كلمة السر",
+    "forget_password" : "نسيت كلمة السر؟",
+    "accept_msg" : "بانشاء حساب جديد أنت موافق علي ",
+    "terms_n_conditions" : "الأحكام والشروط",
+    "and" : "و",
+    "privacy_policy" : "سياسية الخصوصية",
+    "You must accept our terms & conditions and privacy policy": "يجب عليك قبول الشروط والأحكام وسياسة الخصوصية الخاصة بنا.",
+    "dont_have_account" : "ليس لديك حساب؟",
+    "have_an_account" : "انشأ حساب",
     "code_error": "خطأ في الكود"
   },
   "forget_password_screen" : {
-    "forget_password" : "Forgot Password",
-    "enter_email_msg" : "Please enter your email address",
-    "email_address" : "Email Address",
-    "send" : "Send"
+    "forget_password" : "نسيت كلمة السر",
+    "enter_mobile_msg" : "برجاء ادخال رقم الهاتف",
+    "mobile" : "رقم الهاتف",
+    "send" : "إرسال"
+  },
+  "OTP_screen" : {
+    "verification_code" : "كود التأكيد",
+    "please_enter_code_sent_to_your_mobile_phone" : "الرجاء إدخال الرمز المرسل إلى هاتفك المحمول",
+    "submit" : "إرسال",
+    "receive_code" : "لم تستلم الكود؟",
+    "send_again" : "إرسال مرة أخرى"
   }
 }

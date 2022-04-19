@@ -5,6 +5,7 @@ import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/category_screen.dart';
 import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:coffepedia/ui/widgets/shimmer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,7 +50,7 @@ class _CardCategoryState extends State<CardCategory> {
           return Container(
             margin: EdgeInsets.only(bottom: 24.h),
             width: MediaQuery.of(context).size.width,
-            height: 110.h,
+            height: 130.h,
             child: ListView.builder(
               itemCount: state.categories!.data!.length,
               scrollDirection: Axis.horizontal,
@@ -79,16 +80,16 @@ class _CardCategoryState extends State<CardCategory> {
                     }
                   },
                   child: Container(
-                    width: 150.w,
-                    height: 110.h,
+                    width: 190.w,
+                    height: 130.h,
                     margin: EdgeInsets.symmetric(horizontal: 6.w),
                     child: Stack(
                       children: [
                         Positioned(
-                          top: 15.h,
+                          top: 20.h,
                           child: Container(
-                            height: 95.h,
-                            width: 150.w,
+                            height: 110.h,
+                            width: 190.w,
                             decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
@@ -111,41 +112,66 @@ class _CardCategoryState extends State<CardCategory> {
                           ),
                         ),
                         Positioned(
-                          left: 7.w,
-                          top: 40.h,
-                          child: Container(
-                            width: 84.w,
-                            child: Text(
-                              state.categories!.data![index]!.name!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5!
-                                  .copyWith(
-                                    color: Color(0xffFFD008),
-                                  ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
                           right: 1.w,
-                          child: Container(
-                            // color: Colors.red,
-
-                            // child: Image.network(
-                            //     state.categories!.data![index]!.icon!),
-                            child: CustomNetworkImage(
-                              imageUrl: state.categories!.data![index]!.icon!,
-                              height: 110.h,
-                              width: 70.w,
-                              radius: 2.h,
-                              fit: BoxFit.contain,
-                            ),
+                          child: Row(
+                            children: [
+                              state.categories!.data![index]!.name!
+                                      .contains(" ")
+                                  ? Container(
+                                      width: 90.w,
+                                      // color: Colors.yellow,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 3.w),
+                                      child: Text(
+                                        state.categories!.data![index]!.name!,
+                                        textDirection: TextDirection.ltr,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5!
+                                            .copyWith(
+                                              color: Color(0xffFFD008),
+                                              height: 1.25.h,
+                                              fontSize: 18.sp,
+                                              fontWeight: FontWeight.w900,
+                                            ),
+                                      ),
+                                    )
+                                  : Container(
+                                      width: 90.w,
+                                      // color: Colors.yellow,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 3.w),
+                                      child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          state.categories!.data![index]!.name!,
+                                          textDirection: TextDirection.ltr,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline5!
+                                              .copyWith(
+                                                color: Color(0xffFFD008),
+                                                height: 1.25.h,
+                                                fontSize: 18.sp,
+                                                fontWeight: FontWeight.w900,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                              Container(
+                                // color: Colors.red,
+                                // height: 120.h,
+                                child: CustomNetworkImage(
+                                  imageUrl:
+                                      state.categories!.data![index]!.icon!,
+                                  height: 120.h,
+                                  width: 90.w,
+                                  radius: 2.h,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ],
                           ),
-                          // child: Image.network(
-                          //   state.categories!.data![index]!.icon!,
-                          //   width: 42.w,
-                          //   height: 76.h,
-                          // ),
                         ),
                       ],
                     ),
