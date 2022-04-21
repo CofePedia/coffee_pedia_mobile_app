@@ -1,3 +1,4 @@
+import 'package:appmetrica_sdk/appmetrica_sdk.dart';
 import 'package:coffepedia/business_logic/address/address_cubit.dart';
 import 'package:coffepedia/data/repository/address_repository.dart';
 import 'package:coffepedia/data/web_services/address_web_services.dart';
@@ -74,7 +75,6 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          print("add123 ${_addressId.toString()}");
                           return OrderSummaryProvider(
                               addressId: _addressId!.toString());
                           // return PaymentInfoScreenProvider(
@@ -83,6 +83,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                         },
                       ),
                     );
+                    AppmetricaSdk().reportEvent(name: 'Address Id $_addressId');
                   },
             width: 345.w,
             height: 50.h,

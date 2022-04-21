@@ -1,3 +1,4 @@
+import 'package:appmetrica_sdk/appmetrica_sdk.dart';
 import 'package:coffepedia/business_logic/search/search_cubit.dart';
 import 'package:coffepedia/data/repository/search_repository.dart';
 import 'package:coffepedia/data/web_services/search_web_services.dart';
@@ -83,6 +84,9 @@ class _SearchBarState extends State<SearchBar> {
                                 BlocProvider.of<SearchCubit>(context)
                                     .getSearch(searchedProduct);
                               });
+                              AppmetricaSdk().reportEvent(
+                                  name:
+                                      'Search for a product $_searchTextController');
                               print('searchedProduct $searchedProduct');
                             },
                             decoration: InputDecoration(

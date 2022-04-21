@@ -233,7 +233,9 @@ class FeaturedProductsDataData {
     name = json['name']?.toString();
     rate = json['rate'] == null ? 0 : json['rate'].toInt();
     discount = json['discount'] == null ? 0 : json['discount'].toInt();
-    priceBeforeDiscount = json['price_before_discount']?.toInt();
+    priceBeforeDiscount = json['price_before_discount'] == null
+        ? 0
+        : json['price_before_discount'].toInt();
     flavorId = json['flavor_id']?.toInt();
     regionId = json['region_id']?.toInt();
     roastId = json['roast_id']?.toInt();
@@ -246,7 +248,7 @@ class FeaturedProductsDataData {
     overview = (json['overview'] != null)
         ? FeaturedProductsDataDataOverview.fromJson(json['overview'])
         : null;
-    price = json['price']?.toInt();
+    price = json['price'] == null ? 0 : json['price'].toInt();
     stock = json['stock']?.toInt();
     inWishlist = json['in_wishlist'];
   }

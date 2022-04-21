@@ -357,10 +357,11 @@ class CategoryProductsDataData {
     id = json['id']?.toInt();
     description = json['description']?.toString();
     name = json['name']?.toString();
-    // json['rate']?.toInt() ?
     rate = json['rate'] != null ? json['rate']?.toInt() : 0;
-    discount = json['discount']?.toInt();
-    priceBeforeDiscount = json['price_before_discount']?.toInt();
+    discount = json['discount'] == null ? 0 : json['discount'].toInt();
+    priceBeforeDiscount = json['price_before_discount'] == null
+        ? 0
+        : json['price_before_discount'].toInt();
     flavorId = json['flavor_id']?.toInt();
     regionId = json['region_id']?.toInt();
     roastId = json['roast_id']?.toInt();
@@ -371,7 +372,7 @@ class CategoryProductsDataData {
     overview = (json['overview'] != null)
         ? CategoryProductsDataDataOverview.fromJson(json['overview'])
         : null;
-    price = json['price']?.toInt();
+    price = json['price'] == null ? 0 : json['price'].toInt();
     stock = json['stock']?.toInt();
     inWishlist = json['in_wishlist'];
   }
@@ -486,7 +487,8 @@ class CategoryProductsData {
       });
       this.data = arr0;
     }
-    if(data != null) print("response categoryProducts ${data!.length.toString()}");
+    if (data != null)
+      print("response categoryProducts ${data!.length.toString()}");
     paginate = (json['paginate'] != null)
         ? CategoryProductsDataPaginate.fromJson(json['paginate'])
         : null;

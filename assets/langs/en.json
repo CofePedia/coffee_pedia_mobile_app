@@ -238,7 +238,13 @@
     "verification_code" : "Verification code",
     "please_enter_code_sent_to_your_mobile_phone" : "Please enter code sent to your mobile phone",
     "submit" : "Submit",
-    "receive_code" : "Didn\\'t receive a code?",
+    "receive_code" : "Didn't receive a code?",
     "send_again" : "Send Again"
+  },
+  "new_password_screen" : {
+    "new_password" : "New Password",
+    "please_enter_the_new_password" : "Please enter the new password",
+    "confirm_new_password" : "Confirm New Password",
+    "confirm" : "Confirm"
   }
 }

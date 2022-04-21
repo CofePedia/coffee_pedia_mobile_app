@@ -235,5 +235,11 @@
     "submit" : "إرسال",
     "receive_code" : "لم تستلم الكود؟",
     "send_again" : "إرسال مرة أخرى"
+  },
+  "new_password_screen" : {
+    "new_password" : "رقم سري جديد",
+    "please_enter_the_new_password" : "الرجاء إدخال رقمك السري الجديد",
+    "confirm_new_password" : "تأكيد الرقم السري",
+    "confirm" : "تأكيد"
   }
 }

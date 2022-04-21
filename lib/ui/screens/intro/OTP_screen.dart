@@ -1,9 +1,10 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:coffepedia/business_logic/OTP/otp_cubit.dart';
-import 'package:coffepedia/data/repository/otp_repository.dart';
-import 'package:coffepedia/data/web_services/otp_web_services.dart';
+import 'package:coffepedia/business_logic/forgot_password/forgot_password_cubit.dart';
+import 'package:coffepedia/data/repository/forgot_password_repository.dart';
+import 'package:coffepedia/data/web_services/forgot_password_web_services.dart';
 import 'package:coffepedia/main.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
+import 'package:coffepedia/ui/screens/intro/new_password_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,22 +13,25 @@ import 'package:pin_input_text_field/pin_input_text_field.dart';
 
 class OTPScreenProvider extends StatelessWidget {
   final String mobile;
+  final bool isForgotPassword;
 
   const OTPScreenProvider({
     required this.mobile,
+    this.isForgotPassword = false,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => OtpCubit(
-        OTPRepository(
-          OTPWebServices(),
+      create: (context) => ForgotPasswordCubit(
+        ForgotPasswordRepository(
+          ForgotPasswordWebServices(),
         ),
       ),
       child: OTPScreen(
         mobile: mobile,
+        isForgotPassword: isForgotPassword,
       ),
     );
   }
@@ -35,8 +39,10 @@ class OTPScreenProvider extends StatelessWidget {
 
 class OTPScreen extends StatelessWidget {
   final String mobile;
+  final bool isForgotPassword;
   OTPScreen({
     required this.mobile,
+    required this.isForgotPassword,
     Key? key,
   }) : super(key: key);
 
@@ -45,17 +51,32 @@ class OTPScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<OtpCubit, OtpState>(
+      body: BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
         listener: (context, state) {
           if (state is VerifyCodeIsSent) {
+            print('amr1');
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => HomePageProvider(
+              MaterialPageRoute(builder: (context) {
+                return HomePageProvider(
                   currentIndex: 0,
-                ),
-              ),
+                );
+              }),
             );
           } else if (state is VerifyCodeIsFalse) {
+            print('amr2');
+
+            BotToast.showText(text: state.error!.toString());
+          } else if (state is VerifyNewPasswordIsSent) {
+            print('amr3');
+
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) {
+                return NewPasswordScreenProvider(otp: otp.text, mobile: mobile);
+              }),
+            );
+          } else if (state is VerifyNewPasswordIsFalse) {
+            print('amr4');
+
             BotToast.showText(text: state.error!.toString());
           }
         },
@@ -120,13 +141,16 @@ class OTPScreen extends StatelessWidget {
                 SizedBox(
                   height: 32.h,
                 ),
-                BlocBuilder<OtpCubit, OtpState>(
+                BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
                   builder: (context, state) {
                     return CustomButton(
                       title: translator.translate("OTP_screen.submit"),
                       onPress: () {
-                        BlocProvider.of<OtpCubit>(context)
-                            .postVerifyOTP(mobile, otp.text);
+                        isForgotPassword
+                            ? BlocProvider.of<ForgotPasswordCubit>(context)
+                                .postVerifyNewPassword(mobile, otp.text)
+                            : BlocProvider.of<ForgotPasswordCubit>(context)
+                                .postVerifyOTP(mobile, otp.text);
                       },
                       height: 50.h,
                       width: 327.w,

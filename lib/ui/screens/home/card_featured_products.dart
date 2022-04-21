@@ -1,3 +1,4 @@
+import 'package:appmetrica_sdk/appmetrica_sdk.dart';
 import 'package:coffepedia/business_logic/featured_products/featured_products_cubit.dart';
 import 'package:coffepedia/data/repository/featured_products_repository.dart';
 import 'package:coffepedia/data/web_services/featured_products_web_services.dart';
@@ -71,6 +72,9 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                           },
                         ),
                       );
+                      AppmetricaSdk().reportEvent(
+                          name:
+                              'Featured products ${state.featuredProducts!.data!.data![index]!.name}');
                       // if (hasData == true) {
                       //   BlocProvider.of<FeaturedProductsCubit>(context)
                       //       .getFeaturedProducts();
@@ -121,15 +125,15 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              state.featuredProducts!.data!.data![index]!
-                                          .discount ==
-                                      0
-                                  ? SizedBox.shrink()
-                                  : Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  state.featuredProducts!.data!.data![index]!
+                                              .discount ==
+                                          0
+                                      ? SizedBox.shrink()
+                                      : Container(
                                           height: 17.h,
                                           width: 55.h,
                                           alignment: Alignment.center,
@@ -144,43 +148,42 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                                     Radius.circular(12.5.h)),
                                           ),
                                           child: Text(
-                                            '${state.featuredProducts!.data!.data![index]!.discount}% ${translator.translate("product_screen.off")}',
+                                            '${state.featuredProducts!.data!.data![index]!.discount ?? ""}% ${translator.translate("product_screen.off")}',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyText1,
                                           ),
                                         ),
-                                        state.featuredProducts!.data!
-                                                    .data![index]!.rate ==
-                                                0
-                                            ? SizedBox.shrink()
-                                            : Row(
-                                                children: [
-                                                  SvgPicture.asset(
-                                                      Assets.iconsStarActive),
-                                                  SizedBox(
-                                                    width: 6.14.w,
-                                                  ),
-                                                  Text(
-                                                    state
-                                                        .featuredProducts!
-                                                        .data!
-                                                        .data![index]!
-                                                        .rate!
-                                                        .toString(),
-                                                  ),
-                                                ],
-                                              ),
-                                      ],
-                                    ),
+                                  state.featuredProducts!.data!.data![index]!
+                                              .rate ==
+                                          0
+                                      ? SizedBox.shrink()
+                                      : Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                              Assets.iconsStarActive,
+                                            ),
+                                            SizedBox(
+                                              width: 6.14.w,
+                                            ),
+                                            Text(
+                                              state.featuredProducts!.data!
+                                                  .data![index]!.rate!
+                                                  .toString(),
+                                            ),
+                                          ],
+                                        ),
+                                ],
+                              ),
                               SizedBox(
-                                height: 13.h,
+                                height: 8.h,
                               ),
                               Container(
                                 width: 192.w,
                                 child: Text(
                                   state.featuredProducts!.data!.data![index]!
-                                      .name!,
+                                          .name ??
+                                      "",
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
@@ -194,10 +197,10 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                                             .data![index]!.discount !=
                                         0
                                     ? 6.h
-                                    : 12.h,
+                                    : 24.h,
                               ),
                               state.featuredProducts!.data!.data![index]!
-                                          .discount !=
+                                          .priceBeforeDiscount ==
                                       0
                                   ? Text(
                                       '${state.featuredProducts!.data!.data![index]!.priceBeforeDiscount} ${translator.translate("wishlist_screen.egp")}',

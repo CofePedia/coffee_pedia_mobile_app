@@ -23,7 +23,7 @@ class AuthWebServices {
       },
       body: {
         'password': password,
-        'mobile': mobile,
+        'mobile': "2" + mobile,
       },
     );
     print("response ${response.body}");
@@ -62,7 +62,7 @@ class AuthWebServices {
         'email': email,
         'password': password,
         'password_confirmation': passwordConfirmation,
-        'mobile': mobile
+        'mobile': "2" + mobile!
       },
     );
     print("response ${response.body}");

@@ -256,7 +256,7 @@ class RecommendedProductsData {
       });
       overview2 = arr0;
     }
-    price = json['price']?.toInt();
+    price = json['price'] == null ? 0 : json['price'].toInt();
     stock = json['stock']?.toInt();
     inWishlist = json['in_wishlist'];
   }

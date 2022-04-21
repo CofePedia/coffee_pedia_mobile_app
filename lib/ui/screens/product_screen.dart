@@ -142,37 +142,41 @@ class _ProductScreenState extends State<ProductScreen> {
                     CustomButton(
                       onPress: () {
                         showModalBottomSheet(
-                          enableDrag: false,
-                          isDismissible: true,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(25.r),
-                              topRight: Radius.circular(25.r),
+                            enableDrag: false,
+                            isDismissible: true,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(25.r),
+                                topRight: Radius.circular(25.r),
+                              ),
                             ),
-                          ),
-                          context: context,
-                          isScrollControlled: true,
-                          builder: (context) => CheckoutPopUpProvider(
-                              basketLocal: BasketLocal(
-                                  productId: int.parse(
-                                      state.product!.data!.id.toString()),
-                                  quantity: counter,
-                                  image: (state.product!.data!.images != null &&
-                                          state.product!.data!.images!
-                                              .isNotEmpty)
-                                      ? state.product!.data!.images![0]
-                                      : "",
-                                  price: state.product!.data!.price.toString(),
-                                  vendor:
-                                      state.product!.data!.vendor!.companyName,
-                                  name: state.product!.data!.name,
-                                  priceBeforeDiscount:
-                                      state.product!.data!.priceBeforeDiscount),
-                              title: state.product!.data!.name,
-                              image: state.product!.data!.images![0],
-                              totalPrice: state.product!.data!.price.toString(),
-                              state: state),
-                        );
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (context) {
+                              return CheckoutPopUpProvider(
+                                  basketLocal: BasketLocal(
+                                      productId: int.parse(
+                                          state.product!.data!.id.toString()),
+                                      quantity: counter,
+                                      image: (state.product!.data!.images !=
+                                                  null &&
+                                              state.product!.data!.images!
+                                                  .isNotEmpty)
+                                          ? state.product!.data!.images![0]
+                                          : "",
+                                      price:
+                                          state.product!.data!.price.toString(),
+                                      vendor: state
+                                          .product!.data!.vendor!.companyName,
+                                      name: state.product!.data!.name,
+                                      priceBeforeDiscount: state
+                                          .product!.data!.priceBeforeDiscount),
+                                  title: state.product!.data!.name,
+                                  image: state.product!.data!.images![0],
+                                  totalPrice:
+                                      state.product!.data!.price.toString(),
+                                  state: state);
+                            });
                       },
                       width: 170.w,
                       height: 50.h,

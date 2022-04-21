@@ -1,3 +1,4 @@
+import 'package:appmetrica_sdk/appmetrica_sdk.dart';
 import 'package:coffepedia/business_logic/most_recent/most_recent_cubit.dart';
 import 'package:coffepedia/data/repository/most_recent_repository.dart';
 import 'package:coffepedia/data/web_services/most_recent_web_services.dart';
@@ -73,6 +74,9 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                           },
                         ),
                       );
+                      AppmetricaSdk().reportEvent(
+                          name:
+                              'Most Recent Products ${state.mostRecent!.data!.data![index]!.name}');
                       // if (hasData == true) {
                       //   BlocProvider.of<FeaturedProductsCubit>(context)
                       //       .getFeaturedProducts();
@@ -108,16 +112,13 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                           Positioned(
                             left: 45.w,
                             right: 45.w,
-                            child: Container(
-                              // color: Colors.red,
-                              child: CustomNetworkImage(
-                                imageUrl: state
-                                    .mostRecent!.data!.data![index]!.image!,
-                                height: 130.h,
-                                width: 85.w,
-                                radius: 2,
-                                fit: BoxFit.contain,
-                              ),
+                            child: CustomNetworkImage(
+                              imageUrl:
+                                  state.mostRecent!.data!.data![index]!.image!,
+                              height: 130.h,
+                              width: 85.w,
+                              radius: 2,
+                              fit: BoxFit.contain,
                             ),
                           ),
                           Positioned(
@@ -127,15 +128,15 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                state.mostRecent!.data!.data![index]!
-                                            .discount !=
-                                        0
-                                    ? SizedBox.shrink()
-                                    : Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    state.mostRecent!.data!.data![index]!
+                                                .discount ==
+                                            0
+                                        ? SizedBox.shrink()
+                                        : Container(
                                             height: 17.h,
                                             width: 55.h,
                                             alignment: Alignment.center,
@@ -156,30 +157,26 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                                                   .bodyText1,
                                             ),
                                           ),
-                                          state.mostRecent!.data!.data![index]!
-                                                      .rate !=
-                                                  0
-                                              ? SizedBox.shrink()
-                                              : Positioned(
-                                                  top: 28.h,
-                                                  left: 12.w,
-                                                  child: Row(
-                                                    children: [
-                                                      SvgPicture.asset(Assets
-                                                          .iconsStarActive),
-                                                      SizedBox(
-                                                        width: 6.14.w,
-                                                      ),
-                                                      Text(
-                                                        state.mostRecent!.data!
-                                                            .data![index]!.rate!
-                                                            .toString(),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                        ],
-                                      ),
+                                    state.mostRecent!.data!.data![index]!
+                                                .rate ==
+                                            0
+                                        ? SizedBox.shrink()
+                                        : Row(
+                                            children: [
+                                              SvgPicture.asset(
+                                                  Assets.iconsStarActive),
+                                              SizedBox(
+                                                width: 6.14.w,
+                                              ),
+                                              Text(
+                                                state.mostRecent!.data!
+                                                    .data![index]!.rate!
+                                                    .toString(),
+                                              ),
+                                            ],
+                                          ),
+                                  ],
+                                ),
                                 SizedBox(
                                   height: 13.h,
                                 ),
@@ -201,7 +198,7 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                                               .discount !=
                                           0
                                       ? 6.h
-                                      : 12.h,
+                                      : 24.h,
                                 ),
                                 state.mostRecent!.data!.data![index]!
                                             .discount !=

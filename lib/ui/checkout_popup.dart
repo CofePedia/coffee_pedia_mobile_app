@@ -176,48 +176,6 @@ class CheckoutPopUp extends StatelessWidget {
                         text: 'state.addToBasket!.data!.msg![0]!');
                   else if (state is AddedLocalBasket) {
                     BotToast.showText(text: 'added to local');
-                  } else if (state is AddToCartPressed) {
-                    /*if (isLoggedIn) {
-                      print("MyQuerySoundEffectsEnabled  proceed button with a user");
-                      //TODO 1) add the item to the local db..
-                      await BlocProvider.of<BasketCubit>(context)
-                          .addProductInLocalBasket(BasketLocal(
-                          productId: basketLocal!.productId,
-                          quantity: basketLocal!.quantity,
-                          image: basketLocal!.image,
-                          price: basketLocal!.price,
-                          vendor: basketLocal!.vendor,
-                          name: basketLocal!.name,
-                          priceBeforeDiscount:
-                          basketLocal!.priceBeforeDiscount)
-                      );
-                      //TODO 2) get all items from the local database..
-                      List<Map<String, int>> basket = [];
-                      print("A 1");
-                      await BlocProvider.of<BasketCubit>(context)
-                          .getAllLocalProductsFromBasket().then((basketInLocal) {
-                        print("A 2++");
-                        if(basketInLocal == null ) print(" A 2++ null" );
-                        if (basketInLocal != null && basketInLocal.isNotEmpty) {
-                          print("A 2 inside if");
-                          print("A 2 " + basketInLocal.length.toString());
-                          basketInLocal.forEach((element) {
-                            Map<String, int> basketMap = {
-                              "product_id": int.parse(element.productId.toString()),
-                              "quantity": int.parse(element.quantity.toString())
-                            };
-                            basket.add(basketMap);
-                          });
-                        }else{
-                          print("A 2--");
-                        }
-                      });
-                      print("A 3");
-                      //TODO 3) send all the products to the database..
-                      BlocProvider.of<BasketCubit>(context).getAddToBasket(basket);
-                    }
-                    else
-                      print("No user detected");*/
                   } else
                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                       builder: (context) {

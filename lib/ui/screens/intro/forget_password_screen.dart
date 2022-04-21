@@ -1,8 +1,29 @@
+import 'package:coffepedia/business_logic/forgot_password/forgot_password_cubit.dart';
+import 'package:coffepedia/data/repository/forgot_password_repository.dart';
+import 'package:coffepedia/data/web_services/forgot_password_web_services.dart';
+import 'package:coffepedia/ui/screens/intro/OTP_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../main.dart';
 import '../../custom_input.dart';
+
+class ForgetPasswordScreenProvider extends StatelessWidget {
+  const ForgetPasswordScreenProvider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ForgotPasswordCubit(
+        ForgotPasswordRepository(
+          ForgotPasswordWebServices(),
+        ),
+      ),
+      child: ForgetPasswordScreen(),
+    );
+  }
+}
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({Key? key}) : super(key: key);
@@ -13,6 +34,11 @@ class ForgetPasswordScreen extends StatefulWidget {
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   TextEditingController _mobile = TextEditingController();
+  @override
+  void dispose() {
+    _mobile.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +46,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          //height: MediaQuery.of(context).size.height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -87,7 +112,22 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       margin: EdgeInsets.only(top: 16.h, bottom: 32.h),
                       height: 50.h,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: _mobile.text.length < 11
+                            ? () {}
+                            : () {
+                                BlocProvider.of<ForgotPasswordCubit>(context)
+                                    .postForgotMobile(_mobile.text);
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => OTPScreenProvider(
+                                      mobile: _mobile.text,
+                                      isForgotPassword: true,
+                                    ),
+                                  ),
+                                );
+                              },
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(

@@ -1,3 +1,4 @@
+import 'package:appmetrica_sdk/appmetrica_sdk.dart';
 import 'package:coffepedia/business_logic/categories/categories_cubit.dart';
 import 'package:coffepedia/data/repository/categories_repository.dart';
 import 'package:coffepedia/data/web_services/categories_web_services.dart';
@@ -75,6 +76,9 @@ class _CardCategoryState extends State<CardCategory> {
                         },
                       ),
                     );
+                    AppmetricaSdk().reportEvent(
+                        name:
+                            'category ${state.categories!.data![index]!.name}');
                     if (hasData == true) {
                       BlocProvider.of<CategoriesCubit>(context).getCategories();
                     }

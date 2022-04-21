@@ -670,32 +670,82 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                             ),
                                             Positioned(
                                               right: 17.w,
+                                              left: 17.w,
                                               child: CustomNetworkImage(
                                                 imageUrl:
                                                     products[index]!.image!,
-                                                height: 136.h,
-                                                width: 75.w,
+                                                height: 155.h,
+                                                width: 80.w,
                                                 radius: 2.r,
                                                 fit: BoxFit.contain,
                                               ),
                                             ),
-                                            products[index]!.rate! != 0
-                                                ? Positioned(
-                                                    top: 28.h,
-                                                    left: 12.w,
-                                                    child: Row(
-                                                      children: [
-                                                        SvgPicture.asset(Assets
-                                                            .iconsStarActive),
-                                                        SizedBox(
-                                                          width: 5.w,
+                                            Positioned(
+                                              top: 160.h,
+                                              left: 12.w,
+                                              right: 12.w,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  products[index]!.discount == 0
+                                                      ? SizedBox(
+                                                          height: 17.h,
+                                                          width: 55.w,
+                                                        )
+                                                      : Container(
+                                                          height: 17.h,
+                                                          width: 55.w,
+                                                          alignment:
+                                                              Alignment.center,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Color(
+                                                                0xffFFD008),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                12.5.r,
+                                                              ),
+                                                              bottomRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                12.5.r,
+                                                              ),
+                                                              bottomLeft: Radius
+                                                                  .circular(
+                                                                12.5.r,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          child: Text(
+                                                            '${products[index]!.discount ?? ""}% ${translator.translate("categories_screen.off")}',
+// state.categoryProducts!.data!
+//     .filters![2]!.optionsSingle![2]
+//     .toString(),
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .bodyText1,
+                                                          ),
                                                         ),
-                                                        Text(
-                                                          products[index]!
-                                                              .rate
-                                                              .toString(),
-                                                          style:
-                                                              Theme.of(context)
+                                                  products[index]!.rate! != 0
+                                                      ? Row(
+                                                          children: [
+                                                            SvgPicture.asset(Assets
+                                                                .iconsStarActive),
+                                                            SizedBox(
+                                                              width: 5.w,
+                                                            ),
+                                                            Text(
+                                                              products[index]!
+                                                                  .rate
+                                                                  .toString(),
+                                                              style: Theme.of(
+                                                                      context)
                                                                   .textTheme
                                                                   .bodyText2!
                                                                   .copyWith(
@@ -703,56 +753,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                                         FontWeight
                                                                             .w700,
                                                                   ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
-                                                : SizedBox.shrink(),
-                                            products[index]!.discount == 0
-                                                ? SizedBox(
-                                                    height: 17.h,
-                                                    width: 55.w,
-                                                  )
-                                                : Positioned(
-                                                    top: 152.h,
-                                                    left: 12.w,
-                                                    child: Container(
-                                                      height: 17.h,
-                                                      width: 55.w,
-                                                      alignment:
-                                                          Alignment.center,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xffFFD008),
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                            12.5.r,
-                                                          ),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                            12.5.r,
-                                                          ),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                            12.5.r,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      child: Text(
-                                                        '${products[index]!.discount}% ${translator.translate("categories_screen.off")}',
-// state.categoryProducts!.data!
-//     .filters![2]!.optionsSingle![2]
-//     .toString(),
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodyText1,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      : SizedBox.shrink(),
+                                                ],
+                                              ),
+                                            ),
                                             Positioned(
-                                              top: 160.h,
+                                              top: 180.h,
                                               left: 12.w,
                                               child: Column(
                                                 crossAxisAlignment:
@@ -764,8 +773,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                   Container(
                                                     width: 140.w,
                                                     child: Text(
-                                                      products[index]!.name!,
-                                                      maxLines: 2,
+                                                      products[index]!.name ??
+                                                          "",
+                                                      maxLines: 3,
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       style: Theme.of(context)
@@ -776,15 +786,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                           ),
                                                     ),
                                                   ),
-                                                  // SizedBox(
-                                                  //   height: 12.h,
-                                                  // ),
+                                                  SizedBox(
+                                                    height: 12.h,
+                                                  ),
                                                   products[index]!.discount == 0
                                                       ? SizedBox(
-                                                          height: 20.h,
+                                                          height: 12.h,
                                                         )
                                                       : Text(
-                                                          '${products[index]!.priceBeforeDiscount} ${translator.translate("categories_screen.egp")}',
+                                                          '${products[index]!.priceBeforeDiscount ?? ""} ${translator.translate("categories_screen.egp")}',
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -797,11 +807,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                                         .black45,
                                                                   ),
                                                         ),
-                                                  // SizedBox(
-                                                  //   height: 8.h,
-                                                  // ),
+                                                  SizedBox(
+                                                    height: 8.h,
+                                                  ),
                                                   Text(
-                                                    '${products[index]!.price} ${translator.translate("categories_screen.egp")}',
+                                                    '${products[index]!.price ?? ""} ${translator.translate("categories_screen.egp")}',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .subtitle1,

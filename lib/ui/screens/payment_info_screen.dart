@@ -1,3 +1,4 @@
+import 'package:appmetrica_sdk/appmetrica_sdk.dart';
 import 'package:coffepedia/business_logic/payments/payments_cubit.dart';
 import 'package:coffepedia/data/repository/payments_repository.dart';
 import 'package:coffepedia/data/web_services/payments_web_services.dart';
@@ -95,6 +96,8 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                         ),
                         ModalRoute.withName('/'),
                       );
+                      AppmetricaSdk()
+                          .reportEvent(name: 'Payment id $_paymentId');
                     },
               width: 345.w,
               height: 50.h,

@@ -1,15 +1,15 @@
 import 'package:circle_checkbox/redev_checkbox.dart';
-import 'package:coffepedia/business_logic/OTP/otp_cubit.dart';
 import 'package:coffepedia/business_logic/auth/auth_bloc.dart';
+import 'package:coffepedia/business_logic/forgot_password/forgot_password_cubit.dart';
 import 'package:coffepedia/business_logic/login/login_bloc.dart';
 import 'package:coffepedia/business_logic/signup/form_submission_status.dart';
 import 'package:coffepedia/business_logic/signup/signup_bloc.dart';
 import 'package:coffepedia/data/models/basket.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
-import 'package:coffepedia/data/repository/otp_repository.dart';
+import 'package:coffepedia/data/repository/forgot_password_repository.dart';
 import 'package:coffepedia/data/repository/user_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
-import 'package:coffepedia/data/web_services/otp_web_services.dart';
+import 'package:coffepedia/data/web_services/forgot_password_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/screens/intro/OTP_screen.dart';
@@ -37,9 +37,9 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          create: (context) => OtpCubit(
-            OTPRepository(
-              OTPWebServices(),
+          create: (context) => ForgotPasswordCubit(
+            ForgotPasswordRepository(
+              ForgotPasswordWebServices(),
             ),
           ),
         ),
@@ -204,12 +204,15 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     ),
                   );
                 } else if (state.formStatus is SubmissionSuccess) {
-                  BlocProvider.of<OtpCubit>(context).postSendOTP(_mobile.text);
+                  BlocProvider.of<ForgotPasswordCubit>(context)
+                      .postSendOTP(_mobile.text);
 
-                  Navigator.of(context).pushReplacement(
+                  Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) =>
-                          OTPScreenProvider(mobile: _mobile.text),
+                      builder: (context) => OTPScreenProvider(
+                        mobile: _mobile.text,
+                        isForgotPassword: false,
+                      ),
                     ),
                     // MaterialPageRoute(
                     //   builder: (context) => HomePageProvider(
@@ -503,7 +506,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) {
-                                                return ForgetPasswordScreen();
+                                                return ForgetPasswordScreenProvider();
                                               },
                                             ),
                                           );

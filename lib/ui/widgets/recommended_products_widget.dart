@@ -97,7 +97,8 @@ class _RecommendedProductsState extends State<RecommendedProducts> {
                             ),
                           ),
                           Positioned(
-                            right: 17.w,
+                            right: 45.w,
+                            left: 45.w,
                             child: CustomNetworkImage(
                               imageUrl: result[index]!.image!,
                               height: 130.h,
@@ -113,58 +114,63 @@ class _RecommendedProductsState extends State<RecommendedProducts> {
                             //   ),
                             // ),
                           ),
-                          result[index]!.rate == 0
-                              ? SizedBox.shrink()
-                              : Positioned(
-                                  top: 28.h,
-                                  left: 12.w,
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset(Assets.iconsStarActive),
-                                      SizedBox(
-                                        width: 6.14.w,
-                                      ),
-                                      Text(
-                                        result[index]!.rate!.toString(),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                           Positioned(
-                            top: 130.h,
+                            top: 135.h,
                             left: 12.w,
+                            right: 12.w,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                result[index]!.discount == 0
-                                    ? SizedBox.shrink()
-                                    : Container(
-                                        height: 17.h,
-                                        width: 55.h,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffFFD008),
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(12.5.h),
-                                              bottomRight:
-                                                  Radius.circular(12.5.h),
-                                              bottomLeft:
-                                                  Radius.circular(12.5.h)),
-                                        ),
-                                        child: Text(
-                                          '${result[index]!.discount}% Off',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
-                                      ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    result[index]!.discount == 0
+                                        ? SizedBox.shrink()
+                                        : Container(
+                                            height: 17.h,
+                                            width: 55.h,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xffFFD008),
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft:
+                                                      Radius.circular(12.5.h),
+                                                  bottomRight:
+                                                      Radius.circular(12.5.h),
+                                                  bottomLeft:
+                                                      Radius.circular(12.5.h)),
+                                            ),
+                                            child: Text(
+                                              '${result[index]!.discount}% Off',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1,
+                                            ),
+                                          ),
+                                    result[index]!.rate == 0
+                                        ? SizedBox.shrink()
+                                        : Row(
+                                            children: [
+                                              SvgPicture.asset(
+                                                  Assets.iconsStarActive),
+                                              SizedBox(
+                                                width: 6.14.w,
+                                              ),
+                                              Text(
+                                                result[index]!.rate!.toString(),
+                                              ),
+                                            ],
+                                          ),
+                                  ],
+                                ),
                                 SizedBox(
                                   height: 13.h,
                                 ),
                                 Container(
                                   width: 192.w,
                                   child: Text(
-                                    result[index]!.name!,
+                                    result[index]!.name ?? "",
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
@@ -175,12 +181,13 @@ class _RecommendedProductsState extends State<RecommendedProducts> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 6.h,
+                                  height:
+                                      result[index]!.discount != 0 ? 6.h : 24.h,
                                 ),
                                 result[index]!.priceBeforeDiscount == 0
                                     ? SizedBox.shrink()
                                     : Text(
-                                        'EGP ${result[index]!.priceBeforeDiscount}',
+                                        '${result[index]!.priceBeforeDiscount ?? ""} ${translator.translate("checkout_items_screen.egp")}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText2!
@@ -194,7 +201,7 @@ class _RecommendedProductsState extends State<RecommendedProducts> {
                                   height: 8.h,
                                 ),
                                 Text(
-                                  '${translator.translate("checkout_items_screen.egp")} ${result[index]!.price}',
+                                  '${result[index]!.price ?? ""} ${translator.translate("checkout_items_screen.egp")}',
                                   style: Theme.of(context).textTheme.subtitle1,
                                 ),
                               ],
