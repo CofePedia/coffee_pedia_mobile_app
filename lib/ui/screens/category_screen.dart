@@ -644,56 +644,49 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       child: Container(
                                         height: 305.h,
                                         width: 164.5.w,
-                                        child: Stack(
-                                          fit: StackFit.expand,
-                                          children: [
-                                            Container(
-                                              height: 280.h,
-                                              width: 164.5.w,
-                                              decoration: BoxDecoration(
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Color.fromRGBO(
-                                                        0, 0, 0, 0.12),
-                                                    blurRadius: 11.r,
-                                                    offset: Offset(0, 2),
-                                                  ),
-                                                ],
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(11.r),
-                                              ),
-                                              // child: Image.asset(
-                                              //   Assets.imagesCard,
-                                              //   fit: BoxFit.cover,
-                                              // ),
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Color.fromRGBO(0, 0, 0, 0.12),
+                                              blurRadius: 11.r,
+                                              offset: Offset(0, 2),
                                             ),
-                                            Positioned(
-                                              right: 17.w,
-                                              left: 17.w,
-                                              child: CustomNetworkImage(
-                                                imageUrl:
-                                                    products[index]!.image!,
-                                                height: 155.h,
-                                                width: 80.w,
-                                                radius: 2.r,
-                                                fit: BoxFit.contain,
+                                          ],
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(11.r),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10.w),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: CustomNetworkImage(
+                                                  imageUrl:
+                                                      products[index]!.image!,
+                                                  height: 140.h,
+                                                  width: 100.w,
+                                                  radius: 2.r,
+                                                  fit: BoxFit.contain,
+                                                ),
                                               ),
-                                            ),
-                                            Positioned(
-                                              top: 160.h,
-                                              left: 12.w,
-                                              right: 12.w,
-                                              child: Row(
+                                              Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
                                                   products[index]!.discount == 0
-                                                      ? SizedBox(
-                                                          height: 17.h,
-                                                          width: 55.w,
-                                                        )
+                                                      ? SizedBox.shrink(
+                                                          // height: 17.h,
+                                                          // width: 55.w,
+                                                          )
                                                       : Container(
                                                           height: 17.h,
                                                           width: 55.w,
@@ -759,104 +752,86 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                       : SizedBox.shrink(),
                                                 ],
                                               ),
-                                            ),
-                                            Positioned(
-                                              top: 180.h,
-                                              left: 12.w,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  SizedBox(
-                                                    height: 15.h,
-                                                  ),
-                                                  Container(
-                                                    width: 140.w,
-                                                    child: Text(
-                                                      products[index]!.name ??
-                                                          "",
-                                                      maxLines: 3,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
+                                              SizedBox(
+                                                height: 8.h,
+                                              ),
+                                              Container(
+                                                width: 154.5.w,
+                                                child: Text(
+                                                  products[index]!.name ?? "",
+                                                  maxLines: 3,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline1!
+                                                      .copyWith(
+                                                          fontSize: 14.sp,
+                                                          height: 1.5.h),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 6.h,
+                                              ),
+                                              products[index]!.discount == 0
+                                                  ? SizedBox.shrink(
+                                                      // height: 12.h,
+                                                      )
+                                                  : Text(
+                                                      '${products[index]!.priceBeforeDiscount ?? ""} ${translator.translate("categories_screen.egp")}',
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .headline1!
+                                                          .bodyText2!
                                                           .copyWith(
-                                                            fontSize: 14.sp,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .lineThrough,
+                                                            color:
+                                                                Colors.black45,
                                                           ),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 12.h,
-                                                  ),
-                                                  products[index]!.discount == 0
-                                                      ? SizedBox(
-                                                          height: 12.h,
-                                                        )
-                                                      : Text(
-                                                          '${products[index]!.priceBeforeDiscount ?? ""} ${translator.translate("categories_screen.egp")}',
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .bodyText2!
-                                                                  .copyWith(
-                                                                    decoration:
-                                                                        TextDecoration
-                                                                            .lineThrough,
-                                                                    color: Colors
-                                                                        .black45,
-                                                                  ),
-                                                        ),
-                                                  SizedBox(
-                                                    height: 8.h,
-                                                  ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
                                                   Text(
                                                     '${products[index]!.price ?? ""} ${translator.translate("categories_screen.egp")}',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .subtitle1,
                                                   ),
+                                                  Container(
+                                                    height: 38.h,
+                                                    width: 38.w,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xffffffff),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Color.fromRGBO(
+                                                              0, 0, 0, 0.12),
+                                                          offset: Offset(0, 2),
+                                                          blurRadius: 11.sp,
+                                                        )
+                                                      ],
+                                                    ),
+                                                    child: WishlistIconWidget(
+                                                      productId:
+                                                          products[index]!
+                                                              .id!
+                                                              .toString(),
+                                                      isFavorite:
+                                                          products[index]!
+                                                              .inWishlist!,
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
-                                            ),
-                                            Positioned(
-                                              top: 260.h,
-                                              right:
-                                                  translator.currentLanguage ==
-                                                          'ar'
-                                                      ? null
-                                                      : 18.w,
-                                              left:
-                                                  translator.currentLanguage ==
-                                                          'ar'
-                                                      ? 18.w
-                                                      : null,
-                                              child: Container(
-                                                height: 38.h,
-                                                width: 38.w,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xffffffff),
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Color.fromRGBO(
-                                                          0, 0, 0, 0.12),
-                                                      offset: Offset(0, 2),
-                                                      blurRadius: 11.sp,
-                                                    )
-                                                  ],
-                                                ),
-                                                child: WishlistIconWidget(
-                                                  productId: products[index]!
-                                                      .id!
-                                                      .toString(),
-                                                  isFavorite: products[index]!
-                                                      .inWishlist!,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );
