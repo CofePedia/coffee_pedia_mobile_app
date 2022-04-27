@@ -283,12 +283,12 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   height: 132.h,
                   width: 375.w,
                   decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromRGBO(0, 0, 0, 0.18),
-                        blurRadius: 2.r,
-                      ),
-                    ],
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     color: Color.fromRGBO(0, 0, 0, 0.18),
+                    //     blurRadius: 2.r,
+                    //   ),
+                    // ],
                     color: Color(0xffFFFFFF),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(22.r),
@@ -338,7 +338,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                         width: 345.w,
                         imageWidth: 0,
                         imageHeight: 0,
-                        buttonColor: Theme.of(context).primaryColor,
+                        // buttonColor: Theme.of(context).primaryColor,
                         borderRadius: 25.r,
                         imageColor: Colors.transparent,
                       ),

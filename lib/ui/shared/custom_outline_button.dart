@@ -10,7 +10,7 @@ class CustomOutlineButton extends StatelessWidget {
     this.height,
     this.borderRadius,
     this.borderColor,
-    this.shadowColor,
+    // this.shadowColor,
     this.assetName,
     this.imageColor,
     this.imageHeight,
@@ -23,7 +23,7 @@ class CustomOutlineButton extends StatelessWidget {
   final double? borderRadius;
   final VoidCallback onPress;
   final Color? borderColor;
-  final BoxShadow? shadowColor;
+  // final BoxShadow? shadowColor;
   final String? assetName;
   final double? imageWidth;
   final double? imageHeight;
@@ -36,7 +36,7 @@ class CustomOutlineButton extends StatelessWidget {
         height: height!,
         width: width!,
         decoration: BoxDecoration(
-          boxShadow: [shadowColor!],
+          // boxShadow: [shadowColor!],
           color: Colors.white,
         ),
         child: OutlinedButton(

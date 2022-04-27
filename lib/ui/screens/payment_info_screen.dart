@@ -66,12 +66,12 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
             height: 107.h,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.04),
-                  blurRadius: 2.r,
-                )
-              ],
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Color.fromRGBO(0, 0, 0, 0.04),
+              //     blurRadius: 2.r,
+              //   )
+              // ],
               color: Color(0xffFFFFFF),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(22.r),
@@ -125,8 +125,8 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                             Navigator.of(context).pop();
                           },
                           icon: Icon(
-                            Icons.chevron_left,
-                            size: 24.w,
+                            Icons.arrow_back_ios,
+                            size: 20.w,
                           ),
                           color: Color(0xff000000),
                         ),
@@ -147,7 +147,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                         children: [
                           Container(
                             height: 27.h,
-                            width: 27.w,
+                            width: 25.w,
                             alignment: Alignment.center,
                             child: Text(
                               '1',
@@ -175,7 +175,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                           ),
                           Container(
                             height: 27.h,
-                            width: 27.w,
+                            width: 25.w,
                             alignment: Alignment.center,
                             child: Text(
                               '2',
@@ -203,7 +203,7 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                           ),
                           Container(
                             height: 27.h,
-                            width: 27.w,
+                            width: 25.w,
                             alignment: Alignment.center,
                             child: Text(
                               '3',
@@ -228,7 +228,10 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                         Text(
                           translator
                               .translate("delivery_info_screen.delivery_info"),
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(fontSize: 12.sp),
                         ),
                         SizedBox(
                           width: 8.w,
@@ -236,7 +239,10 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                         Text(
                           translator
                               .translate("checkout_items_screen.order_summary"),
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(fontSize: 12.sp),
                         ),
                         SizedBox(
                           width: 8.w,
@@ -244,7 +250,10 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                         Text(
                           translator
                               .translate("delivery_info_screen.payment_info"),
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6!
+                              .copyWith(fontSize: 12.sp),
                         ),
                       ],
                     ),
@@ -252,8 +261,8 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                       padding: EdgeInsets.symmetric(
                           horizontal: 15.w, vertical: 27.h),
                       child: Text(
-                        translator
-                            .translate("payment_info_screen.from_address_book"),
+                        translator.translate(
+                            "payment_info_screen.select_payment_method"),
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ),
@@ -272,14 +281,14 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(6.r),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: _selectedIndex == index
-                                      ? Color.fromRGBO(16, 124, 192, 0.41)
-                                      : Colors.transparent,
-                                  blurRadius: 7.r,
-                                ),
-                              ],
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //     color: _selectedIndex == index
+                              //         ? Color.fromRGBO(16, 124, 192, 0.41)
+                              //         : Colors.transparent,
+                              //     blurRadius: 7.r,
+                              //   ),
+                              // ],
                             ),
                             child: OutlinedButton(
                               onPressed: () {

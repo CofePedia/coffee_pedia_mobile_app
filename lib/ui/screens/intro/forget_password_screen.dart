@@ -2,6 +2,7 @@ import 'package:coffepedia/business_logic/forgot_password/forgot_password_cubit.
 import 'package:coffepedia/data/repository/forgot_password_repository.dart';
 import 'package:coffepedia/data/web_services/forgot_password_web_services.dart';
 import 'package:coffepedia/ui/screens/intro/OTP_screen.dart';
+import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -111,8 +112,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       width: MediaQuery.of(context).size.width,
                       margin: EdgeInsets.only(top: 16.h, bottom: 32.h),
                       height: 50.h,
-                      child: ElevatedButton(
-                        onPressed: _mobile.text.length < 11
+                      child: CustomButton(
+                        title:
+                            translator.translate("forget_password_screen.send"),
+                        onPress: _mobile.text.length < 11
                             ? () {}
                             : () {
                                 BlocProvider.of<ForgotPasswordCubit>(context)
@@ -128,18 +131,41 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                   ),
                                 );
                               },
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25.r),
-                            ),
-                          ),
-                        ),
-                        child: Text(
-                          translator.translate("forget_password_screen.send"),
-                          style: Theme.of(context).textTheme.headline2,
-                        ),
+                        width: 345.w,
+                        height: 50.h,
+                        borderRadius: 25.r,
+                        // buttonColor: Theme.of(context).primaryColor,
                       ),
+
+                      // child: ElevatedButton(
+                      //   onPressed: _mobile.text.length < 11
+                      //       ? () {}
+                      //       : () {
+                      //           BlocProvider.of<ForgotPasswordCubit>(context)
+                      //               .postForgotMobile(_mobile.text);
+                      //
+                      //           Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //               builder: (context) => OTPScreenProvider(
+                      //                 mobile: _mobile.text,
+                      //                 isForgotPassword: true,
+                      //               ),
+                      //             ),
+                      //           );
+                      //         },
+                      //   style: ButtonStyle(
+                      //     shape: MaterialStateProperty.all(
+                      //       RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(25.r),
+                      //       ),
+                      //     ),
+                      //   ),
+                      //   child: Text(
+                      //     translator.translate("forget_password_screen.send"),
+                      //     style: Theme.of(context).textTheme.headline2,
+                      //   ),
+                      // ),
                     ),
                   ],
                 ),

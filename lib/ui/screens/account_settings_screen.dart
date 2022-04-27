@@ -178,8 +178,8 @@ class _AccountSettingsState extends State<AccountSettings> {
                     _onWillPop();
                   },
                   child: Icon(
-                    Icons.chevron_left,
-                    size: 24.w,
+                    Icons.arrow_back_ios,
+                    size: 20.w,
                   ),
                 ),
                 SizedBox(
@@ -279,13 +279,13 @@ class _AccountSettingsState extends State<AccountSettings> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(6.sp),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.12),
-                  offset: Offset(0, 2),
-                  blurRadius: 11.r,
-                ),
-              ],
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Color.fromRGBO(0, 0, 0, 0.12),
+              //     offset: Offset(0, 2),
+              //     blurRadius: 11.r,
+              //   ),
+              // ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -499,6 +499,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                                   width: 75.w,
                                   height: 35.h,
                                   borderRadius: 25.sp,
+                                  // buttonColor: Theme.of(context).primaryColor,
                                 ),
                                 // ElevatedButton(
                                 //   style: ButtonStyle(
@@ -547,13 +548,13 @@ class _AccountSettingsState extends State<AccountSettings> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(6.sp),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromRGBO(0, 0, 0, 0.12),
-                        offset: Offset(0, 2),
-                        blurRadius: 11.r,
-                      ),
-                    ],
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     color: Color.fromRGBO(0, 0, 0, 0.12),
+                    //     offset: Offset(0, 2),
+                    //     blurRadius: 11.r,
+                    //   ),
+                    // ],
                   ),
                   child: Padding(
                     padding:

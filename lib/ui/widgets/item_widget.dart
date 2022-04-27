@@ -40,21 +40,20 @@ class ItemWidget extends StatelessWidget {
           width: 214.w,
           margin: EdgeInsets.only(bottom: 8.h),
           decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.12),
-                blurRadius: 11.r,
-                offset: Offset(0, 2),
-              ),
-            ],
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Color.fromRGBO(0, 0, 0, 0.12),
+            //     blurRadius: 11.r,
+            //     offset: Offset(0, 2),
+            //   ),
+            // ],
             color: Colors.white,
             borderRadius: BorderRadius.circular(11.r),
             // image: DecorationImage(
             //   image: AssetImage(
             //     Assets.imagesCardWhite,
             //   ),
-            //
-            //   fit: BoxFit.fitHeight,
+            //   fit: BoxFit.cover,
             // ),
           ),
           child: Padding(
@@ -155,12 +154,12 @@ class ItemWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Color(0xffffffff),
                         borderRadius: BorderRadius.circular(25),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Color.fromRGBO(0, 0, 0, 0.12),
-                              offset: Offset(0, 2),
-                              blurRadius: 11.sp)
-                        ],
+                        // boxShadow: [
+                        //   BoxShadow(
+                        //       color: Color.fromRGBO(0, 0, 0, 0.12),
+                        //       offset: Offset(0, 2),
+                        //       blurRadius: 11.sp)
+                        // ],
                       ),
                       child: WishlistIconWidget(
                         productId: productId,

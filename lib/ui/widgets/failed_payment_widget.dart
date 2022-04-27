@@ -82,7 +82,7 @@ class FailedPaymentWidget extends StatelessWidget {
                 width: 345.w,
                 imageWidth: 0,
                 imageHeight: 0,
-                buttonColor: Theme.of(context).primaryColor,
+                // buttonColor: Theme.of(context).primaryColor,
                 borderRadius: 25.sp,
                 imageColor: Colors.transparent,
               ),

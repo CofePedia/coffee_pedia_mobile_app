@@ -29,8 +29,8 @@ class RecipesScreen extends StatelessWidget {
                         Navigator.of(context).pop();
                       },
                       child: Icon(
-                        Icons.chevron_left,
-                        size: 24.w,
+                        Icons.arrow_back_ios,
+                        size: 20.w,
                       ),
                     ),
                     SizedBox(
@@ -165,15 +165,16 @@ class RecipesScreen extends StatelessWidget {
                     padding: EdgeInsets.all(12.h),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7.r),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromRGBO(0, 0, 0, 0.12),
-                            offset: Offset(0, 2),
-                            blurRadius: 11.r,
-                          )
-                        ]),
+                      borderRadius: BorderRadius.circular(7.r),
+                      color: Colors.white,
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: Color.fromRGBO(0, 0, 0, 0.12),
+                      //     offset: Offset(0, 2),
+                      //     blurRadius: 11.r,
+                      //   )
+                      // ],
+                    ),
                     child: Row(
                       children: [
                         Container(

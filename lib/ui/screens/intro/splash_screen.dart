@@ -61,6 +61,9 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(
+                height: 130.h,
+              ),
               SvgPicture.asset(
                 Assets.assetsIconsCoffePediaLogo,
                 width: 199.w,

@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Categories extends StatelessWidget {
   const Categories({Key? key}) : super(key: key);
@@ -94,85 +95,59 @@ class _CardCategoryState extends State<CardCategory> {
                           child: Container(
                             height: 110.h,
                             width: 190.w,
+                            child: SvgPicture.asset(Assets.iconsCofePediaLogo),
+                            alignment: Alignment.topLeft,
                             decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromRGBO(0, 0, 0, 0.12),
-                                  blurRadius: 11.r,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                              color: Colors.white,
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //     color: Color.fromRGBO(0, 0, 0, 0.12),
+                              //     blurRadius: 11.r,
+                              //     offset: Offset(0, 2),
+                              //   ),
+                              // ],
+                              color: Color(0xff4470C1),
                               borderRadius: BorderRadius.circular(
                                 7.r,
                               ),
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  Assets.imagesCardBlue,
-                                ),
-                                fit: BoxFit.fill,
-                              ),
+                              // image: DecorationImage(
+                              //   image: AssetImage(
+                              //     Assets.iconsCofePediaLogo,
+                              //   ),
+                              //   fit: BoxFit.fill,
+                              // ),
                             ),
                           ),
                         ),
                         Positioned(
                           right: 1.w,
+                          left: 1.w,
                           child: Row(
                             children: [
-                              state.categories!.data![index]!.name!
-                                      .contains(" ")
-                                  ? Container(
-                                      width: 90.w,
-                                      // color: Colors.yellow,
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 3.w),
-                                      child: Text(
-                                        state.categories!.data![index]!.name!,
-                                        textDirection: TextDirection.ltr,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline5!
-                                            .copyWith(
-                                              color: Color(0xffFFD008),
-                                              height: 1.25.h,
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.w900,
-                                            ),
-                                      ),
-                                    )
-                                  : Container(
-                                      width: 90.w,
-                                      // color: Colors.yellow,
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 3.w),
-                                      child: FittedBox(
-                                        fit: BoxFit.scaleDown,
-                                        child: Text(
-                                          state.categories!.data![index]!.name!,
-                                          textDirection: TextDirection.ltr,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5!
-                                              .copyWith(
-                                                color: Color(0xffFFD008),
-                                                height: 1.25.h,
-                                                fontSize: 18.sp,
-                                                fontWeight: FontWeight.w900,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
                               Container(
-                                // color: Colors.red,
-                                // height: 120.h,
-                                child: CustomNetworkImage(
-                                  imageUrl:
-                                      state.categories!.data![index]!.icon!,
-                                  height: 120.h,
-                                  width: 90.w,
-                                  radius: 2.h,
-                                  fit: BoxFit.contain,
+                                width: 96.w,
+                                alignment: Alignment.centerLeft,
+                                margin: EdgeInsets.symmetric(horizontal: 3.w),
+                                padding: EdgeInsets.symmetric(horizontal: 7.w),
+                                child: Text(
+                                  state.categories!.data![index]!.name!,
+                                  textDirection: TextDirection.ltr,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline5!
+                                      .copyWith(
+                                        color: Color(0xffFFD008),
+                                        height: 1.25.h,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w900,
+                                      ),
                                 ),
+                              ),
+                              CustomNetworkImage(
+                                imageUrl: state.categories!.data![index]!.icon!,
+                                height: 120.h,
+                                width: 86.w,
+                                radius: 2.h,
+                                fit: BoxFit.contain,
                               ),
                             ],
                           ),

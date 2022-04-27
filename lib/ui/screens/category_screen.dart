@@ -10,14 +10,13 @@ import 'package:coffepedia/ui/screens/filters_screen.dart';
 import 'package:coffepedia/ui/screens/home/search_widget.dart';
 import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:coffepedia/ui/shared/custom_outline_button.dart';
-import 'package:coffepedia/ui/shared/wishlist_icon.dart';
+import 'package:coffepedia/ui/widgets/category_item_widget.dart';
 import 'package:coffepedia/ui/widgets/empty_widgets.dart';
 import 'package:coffepedia/ui/widgets/seller_details_widget.dart';
 import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'product_screen.dart';
@@ -183,8 +182,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       Navigator.of(context).pop();
                                     },
                                     child: Icon(
-                                      Icons.chevron_left,
-                                      size: 24.w,
+                                      Icons.arrow_back_ios,
+                                      size: 20.w,
                                     ),
                                   ),
                                   SizedBox(
@@ -210,8 +209,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               padding: EdgeInsets.only(
                                 top: 53.h,
                                 bottom: 9.h,
-                                right: 15.w,
-                                left: 15.w,
+                                right: 10.w,
+                                left: 10.w,
                               ),
                               child: Row(
                                 children: [
@@ -220,19 +219,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       Navigator.pop(context, hasData = true);
                                     },
                                     child: Icon(
-                                      Icons.chevron_left,
-                                      size: 22.w,
+                                      Icons.arrow_back_ios,
+                                      size: 20.w,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .secondary,
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 5.w,
+                                    width: 8.w,
                                   ),
                                   Expanded(
                                     child: SearchWidget(
-                                      width: 309.w,
+                                      width: 312.w,
                                     ),
                                   ),
                                 ],
@@ -388,13 +387,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               width: MediaQuery.of(context).size.width,
                               child: ListView.builder(
                                   padding:
-                                      EdgeInsets.only(left: 11.w, right: 11.w),
+                                      EdgeInsets.symmetric(horizontal: 3.w),
                                   scrollDirection: Axis.horizontal,
                                   itemCount: widget.subCategories!.length,
                                   itemBuilder: (context, index) {
                                     return Container(
-                                      width: 158.w,
-                                      padding:
+                                      margin:
                                           EdgeInsets.symmetric(horizontal: 4.w),
                                       child: OutlinedButton(
                                         onPressed: () {
@@ -519,7 +517,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       // category name
                       Padding(
                         padding:
-                            EdgeInsets.only(top: 31.h, right: 15.w, left: 15.w),
+                            EdgeInsets.only(top: 31.h, right: 10.w, left: 10.w),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -579,7 +577,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               height: 40.h,
                               width: 100.w,
                               borderRadius: 9.r,
-                              shadowColor: BoxShadow(color: Colors.transparent),
+                              // shadowColor: BoxShadow(color: Colors.transparent),
                               imageColor: Theme.of(context).primaryColor,
                               assetName: Assets.iconsFilter,
                               borderColor: Theme.of(context).primaryColor,
@@ -610,8 +608,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     print('products length ${products.length}');
                                     print(
                                         'total ${state.categoryProducts!.data!.paginate!.total}');
-                                    return InkWell(
-                                      onTap: () {
+                                    return CategoryItemWidget(
+                                      onPress: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -623,224 +621,259 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           ),
                                         );
                                       },
-// onTap: () async {
-//   final hasData = await Navigator.push(
-//     context,
-//     MaterialPageRoute(
-//       builder: (context) {
-//         return ProductProvider(
-//           id: state.categoryProducts!.data!
-//               .data![index]!.id!,
-//         );
-//       },
-//     ),
-//   );
-//   if (hasData == true) {
-//     BlocProvider.of<CategoryProductsCubit>(context)
-//         .getCategoryProducts(
-//             0, widget.categoriesId, widget.multiMap);
-//   }
-// },
-                                      child: Container(
-                                        height: 305.h,
-                                        width: 164.5.w,
-                                        decoration: BoxDecoration(
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Color.fromRGBO(0, 0, 0, 0.12),
-                                              blurRadius: 11.r,
-                                              offset: Offset(0, 2),
-                                            ),
-                                          ],
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(11.r),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10.w),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: CustomNetworkImage(
-                                                  imageUrl:
-                                                      products[index]!.image!,
-                                                  height: 140.h,
-                                                  width: 100.w,
-                                                  radius: 2.r,
-                                                  fit: BoxFit.contain,
-                                                ),
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  products[index]!.discount == 0
-                                                      ? SizedBox.shrink(
-                                                          // height: 17.h,
-                                                          // width: 55.w,
-                                                          )
-                                                      : Container(
-                                                          height: 17.h,
-                                                          width: 55.w,
-                                                          alignment:
-                                                              Alignment.center,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Color(
-                                                                0xffFFD008),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .only(
-                                                              topLeft: Radius
-                                                                  .circular(
-                                                                12.5.r,
-                                                              ),
-                                                              bottomRight:
-                                                                  Radius
-                                                                      .circular(
-                                                                12.5.r,
-                                                              ),
-                                                              bottomLeft: Radius
-                                                                  .circular(
-                                                                12.5.r,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          child: Text(
-                                                            '${products[index]!.discount ?? ""}% ${translator.translate("categories_screen.off")}',
-// state.categoryProducts!.data!
-//     .filters![2]!.optionsSingle![2]
-//     .toString(),
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyText1,
-                                                          ),
-                                                        ),
-                                                  products[index]!.rate! != 0
-                                                      ? Row(
-                                                          children: [
-                                                            SvgPicture.asset(Assets
-                                                                .iconsStarActive),
-                                                            SizedBox(
-                                                              width: 5.w,
-                                                            ),
-                                                            Text(
-                                                              products[index]!
-                                                                  .rate
-                                                                  .toString(),
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .bodyText2!
-                                                                  .copyWith(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        )
-                                                      : SizedBox.shrink(),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 8.h,
-                                              ),
-                                              Container(
-                                                width: 154.5.w,
-                                                child: Text(
-                                                  products[index]!.name ?? "",
-                                                  maxLines: 3,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline1!
-                                                      .copyWith(
-                                                          fontSize: 14.sp,
-                                                          height: 1.5.h),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 6.h,
-                                              ),
-                                              products[index]!.discount == 0
-                                                  ? SizedBox.shrink(
-                                                      // height: 12.h,
-                                                      )
-                                                  : Text(
-                                                      '${products[index]!.priceBeforeDiscount ?? ""} ${translator.translate("categories_screen.egp")}',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyText2!
-                                                          .copyWith(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .lineThrough,
-                                                            color:
-                                                                Colors.black45,
-                                                          ),
-                                                    ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    '${products[index]!.price ?? ""} ${translator.translate("categories_screen.egp")}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .subtitle1,
-                                                  ),
-                                                  Container(
-                                                    height: 38.h,
-                                                    width: 38.w,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0xffffffff),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              25),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Color.fromRGBO(
-                                                              0, 0, 0, 0.12),
-                                                          offset: Offset(0, 2),
-                                                          blurRadius: 11.sp,
-                                                        )
-                                                      ],
-                                                    ),
-                                                    child: WishlistIconWidget(
-                                                      productId:
-                                                          products[index]!
-                                                              .id!
-                                                              .toString(),
-                                                      isFavorite:
-                                                          products[index]!
-                                                              .inWishlist!,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                      image: products[index]!.image!,
+                                      discount: products[index]!.discount!,
+                                      rate: products[index]!.rate!,
+                                      price: products[index]!.price!,
+                                      title: products[index]!.name!,
+                                      priceBeforeDiscount:
+                                          products[index]!.priceBeforeDiscount!,
+                                      productId: products[index]!.id!,
+                                      isFavorite: products[index]!.inWishlist!,
                                     );
+//                                     return InkWell(
+//                                       onTap: () {
+//                                         Navigator.push(
+//                                           context,
+//                                           MaterialPageRoute(
+//                                             builder: (context) {
+//                                               return ProductProvider(
+//                                                 id: products[index]!.id!,
+//                                               );
+//                                             },
+//                                           ),
+//                                         );
+//                                       },
+// // onTap: () async {
+// //   final hasData = await Navigator.push(
+// //     context,
+// //     MaterialPageRoute(
+// //       builder: (context) {
+// //         return ProductProvider(
+// //           id: state.categoryProducts!.data!
+// //               .data![index]!.id!,
+// //         );
+// //       },
+// //     ),
+// //   );
+// //   if (hasData == true) {
+// //     BlocProvider.of<CategoryProductsCubit>(context)
+// //         .getCategoryProducts(
+// //             0, widget.categoriesId, widget.multiMap);
+// //   }
+// // },
+//                                       child: Container(
+//                                         height: 305.h,
+//                                         width: 164.5.w,
+//                                         decoration: BoxDecoration(
+//                                           boxShadow: [
+//                                             BoxShadow(
+//                                               color:
+//                                                   Color.fromRGBO(0, 0, 0, 0.12),
+//                                               blurRadius: 11.r,
+//                                               offset: Offset(0, 2),
+//                                             ),
+//                                           ],
+//                                           color: Colors.white,
+//                                           borderRadius:
+//                                               BorderRadius.circular(11.r),
+//                                         ),
+//                                         child: Padding(
+//                                           padding: EdgeInsets.symmetric(
+//                                             horizontal: 10.w,
+//                                           ),
+//                                           child: Column(
+//                                             crossAxisAlignment:
+//                                                 CrossAxisAlignment.start,
+//                                             children: [
+//                                               Align(
+//                                                 alignment: Alignment.center,
+//                                                 child: CustomNetworkImage(
+//                                                   imageUrl:
+//                                                       products[index]!.image!,
+//                                                   height: 140.h,
+//                                                   width: 100.w,
+//                                                   radius: 2.r,
+//                                                   fit: BoxFit.contain,
+//                                                 ),
+//                                               ),
+//                                               products[index]!.discount == 0 &&
+//                                                       products[index]!.rate! ==
+//                                                           0
+//                                                   ? SizedBox(
+//                                                       height: 16.h,
+//                                                     )
+//                                                   : Row(
+//                                                       mainAxisAlignment:
+//                                                           MainAxisAlignment
+//                                                               .spaceBetween,
+//                                                       children: [
+//                                                         products[index]!
+//                                                                     .discount ==
+//                                                                 0
+//                                                             ? SizedBox.shrink()
+//                                                             : Container(
+//                                                                 height: 17.h,
+//                                                                 width: 55.w,
+//                                                                 alignment:
+//                                                                     Alignment
+//                                                                         .center,
+//                                                                 decoration:
+//                                                                     BoxDecoration(
+//                                                                   color: Color(
+//                                                                       0xffFFD008),
+//                                                                   borderRadius:
+//                                                                       BorderRadius
+//                                                                           .only(
+//                                                                     topLeft: Radius
+//                                                                         .circular(
+//                                                                       12.5.r,
+//                                                                     ),
+//                                                                     bottomRight:
+//                                                                         Radius
+//                                                                             .circular(
+//                                                                       12.5.r,
+//                                                                     ),
+//                                                                     bottomLeft:
+//                                                                         Radius
+//                                                                             .circular(
+//                                                                       12.5.r,
+//                                                                     ),
+//                                                                   ),
+//                                                                 ),
+//                                                                 child: Text(
+//                                                                   '${products[index]!.discount ?? ""}% ${translator.translate("categories_screen.off")}',
+// // state.categoryProducts!.data!
+// //     .filters![2]!.optionsSingle![2]
+// //     .toString(),
+//                                                                   style: Theme.of(
+//                                                                           context)
+//                                                                       .textTheme
+//                                                                       .bodyText1,
+//                                                                 ),
+//                                                               ),
+//                                                         products[index]!
+//                                                                     .rate! !=
+//                                                                 0
+//                                                             ? Row(
+//                                                                 children: [
+//                                                                   SvgPicture.asset(
+//                                                                       Assets
+//                                                                           .iconsStarActive),
+//                                                                   SizedBox(
+//                                                                     width: 5.w,
+//                                                                   ),
+//                                                                   Text(
+//                                                                     products[
+//                                                                             index]!
+//                                                                         .rate
+//                                                                         .toString(),
+//                                                                     style: Theme.of(
+//                                                                             context)
+//                                                                         .textTheme
+//                                                                         .bodyText2!
+//                                                                         .copyWith(
+//                                                                           fontWeight:
+//                                                                               FontWeight.w700,
+//                                                                         ),
+//                                                                   ),
+//                                                                 ],
+//                                                               )
+//                                                             : SizedBox.shrink(),
+//                                                       ],
+//                                                     ),
+//                                               SizedBox(
+//                                                 height: 8.h,
+//                                               ),
+//                                               Container(
+//                                                 width: 154.5.w,
+//                                                 child: Text(
+//                                                   products[index]!.name ?? "",
+//                                                   maxLines: 3,
+//                                                   overflow:
+//                                                       TextOverflow.ellipsis,
+//                                                   style: Theme.of(context)
+//                                                       .textTheme
+//                                                       .headline1!
+//                                                       .copyWith(
+//                                                           fontSize: 14.sp,
+//                                                           height: 1.5.h),
+//                                                 ),
+//                                               ),
+//                                               SizedBox(
+//                                                 height: 6.h,
+//                                               ),
+//                                               products[index]!.discount == 0
+//                                                   ? SizedBox(
+//                                                       height: 8.h,
+//                                                     )
+//                                                   : Text(
+//                                                       '${products[index]!.priceBeforeDiscount ?? ""} ${translator.translate("categories_screen.egp")}',
+//                                                       style: Theme.of(context)
+//                                                           .textTheme
+//                                                           .bodyText2!
+//                                                           .copyWith(
+//                                                             decoration:
+//                                                                 TextDecoration
+//                                                                     .lineThrough,
+//                                                             color:
+//                                                                 Colors.black45,
+//                                                           ),
+//                                                     ),
+//                                               Row(
+//                                                 mainAxisAlignment:
+//                                                     MainAxisAlignment
+//                                                         .spaceBetween,
+//                                                 children: [
+//                                                   Text(
+//                                                     '${products[index]!.price ?? ""} ${translator.translate("categories_screen.egp")}',
+//                                                     style: Theme.of(context)
+//                                                         .textTheme
+//                                                         .subtitle1,
+//                                                   ),
+//                                                   Container(
+//                                                     height: 38.h,
+//                                                     width: 38.w,
+//                                                     decoration: BoxDecoration(
+//                                                       color: Color(0xffffffff),
+//                                                       borderRadius:
+//                                                           BorderRadius.circular(
+//                                                               25),
+//                                                       boxShadow: [
+//                                                         BoxShadow(
+//                                                           color: Color.fromRGBO(
+//                                                               0, 0, 0, 0.12),
+//                                                           offset: Offset(0, 2),
+//                                                           blurRadius: 11.sp,
+//                                                         )
+//                                                       ],
+//                                                     ),
+//                                                     child: WishlistIconWidget(
+//                                                       productId:
+//                                                           products[index]!
+//                                                               .id!
+//                                                               .toString(),
+//                                                       isFavorite:
+//                                                           products[index]!
+//                                                               .inWishlist!,
+//                                                     ),
+//                                                   ),
+//                                                 ],
+//                                               ),
+//                                             ],
+//                                           ),
+//                                         ),
+//                                       ),
+//                                     );
                                   }),
                             )
                           : EmptyWidgets(
                               image: Assets.noItems,
-                              title: "No products found",
-                              description: "Check out what's trending"),
+                              title: translator.translate(
+                                  "categories_screen.No products found"),
+                              description: translator.translate(
+                                  "categories_screen.Check out what's trending"),
+                            ),
                     ],
                   ),
                 ),

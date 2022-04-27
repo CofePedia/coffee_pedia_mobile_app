@@ -62,13 +62,13 @@ class _SearchWidgetState extends State<SearchWidget> {
             color: Colors.black12,
           ),
           color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.23),
-              blurRadius: 11.r,
-              offset: Offset(0, 2),
-            ),
-          ],
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Color.fromRGBO(0, 0, 0, 0.23),
+          //     blurRadius: 11.r,
+          //     offset: Offset(0, 2),
+          //   ),
+          // ],
         ),
         child: Row(
           children: [

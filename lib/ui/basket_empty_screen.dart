@@ -39,7 +39,7 @@ class BasketEmptyScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.r),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
@@ -48,6 +48,9 @@ class BasketEmptyScreen extends StatelessWidget {
                       Assets.shoppingBasket,
                       fit: BoxFit.contain,
                     ),
+                  ),
+                  SizedBox(
+                    width: 30.w,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,

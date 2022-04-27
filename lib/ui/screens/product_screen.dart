@@ -71,12 +71,12 @@ class _ProductScreenState extends State<ProductScreen> {
                 height: 107.h,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.04),
-                      blurRadius: 2.r,
-                    )
-                  ],
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: Color.fromRGBO(0, 0, 0, 0.04),
+                  //     blurRadius: 2.r,
+                  //   )
+                  // ],
                   color: Color(0xffFFFFFF),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(22.r),
@@ -89,14 +89,14 @@ class _ProductScreenState extends State<ProductScreen> {
                     InkWell(
                       onTap: () {
                         setState(() {
-                          counter++;
+                          if (counter > 1) counter--;
                         });
                       },
                       child: CircleAvatar(
                         backgroundColor: Color(0xffF2F2F2),
                         radius: 27.h,
                         child: Icon(
-                          Icons.add,
+                          Icons.remove,
                           size: 20.r,
                           color: Color(0xff606266),
                         ),
@@ -126,14 +126,14 @@ class _ProductScreenState extends State<ProductScreen> {
                     InkWell(
                       onTap: () {
                         setState(() {
-                          if (counter > 1) counter--;
+                          counter++;
                         });
                       },
                       child: CircleAvatar(
                         backgroundColor: Color(0xffF2F2F2),
                         radius: 27.h,
                         child: Icon(
-                          Icons.remove,
+                          Icons.add,
                           size: 20.r,
                           color: Color(0xff606266),
                         ),
@@ -184,7 +184,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       borderRadius: 25.r,
                       title:
                           translator.translate("product_screen.add_to_basket"),
-                      buttonColor: Theme.of(context).primaryColor,
+                      // buttonColor: Theme.of(context).primaryColor,
                       imageColor: Theme.of(context).colorScheme.secondary,
                       imageHeight: 18.h,
                       imageWidth: 24.w,
@@ -212,12 +212,12 @@ class _ProductScreenState extends State<ProductScreen> {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          vertical: 23.h, horizontal: 16.w),
+                          vertical: 23.h, horizontal: 15.w),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          IconButton(
-                            onPressed: () {
+                          InkWell(
+                            onTap: () {
                               Navigator.pop(
                                 context,
                                 //    hasData = true,
@@ -231,11 +231,10 @@ class _ProductScreenState extends State<ProductScreen> {
                               //   ),
                               // );
                             },
-                            icon: Icon(
-                              Icons.chevron_left,
-                              size: 30.w,
+                            child: Icon(
+                              Icons.arrow_back_ios,
+                              size: 20.w,
                             ),
-                            color: Color(0xff000000),
                           ),
                           InkWell(
                             onTap: () {
@@ -324,12 +323,12 @@ class _ProductScreenState extends State<ProductScreen> {
                             decoration: BoxDecoration(
                               color: Color(0xffffffff),
                               borderRadius: BorderRadius.circular(25.r),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Color.fromRGBO(0, 0, 0, 0.12),
-                                    offset: Offset(0, 2),
-                                    blurRadius: 11.r)
-                              ],
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //       color: Color.fromRGBO(0, 0, 0, 0.12),
+                              //       offset: Offset(0, 2),
+                              //       blurRadius: 11.r)
+                              // ],
                             ),
                             child: WishlistIconWidget(
                               productId: state.product!.data!.id.toString(),

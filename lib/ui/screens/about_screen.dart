@@ -73,8 +73,8 @@ class _AboutScreenState extends State<AboutScreen> {
                                 Navigator.of(context).pop();
                               },
                               child: Icon(
-                                Icons.chevron_left,
-                                size: 24.w,
+                                Icons.arrow_back_ios,
+                                size: 20.w,
                               ),
                             ),
                             SizedBox(

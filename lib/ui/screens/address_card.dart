@@ -34,13 +34,13 @@ class AddressCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(6.sp),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.12),
-                      offset: Offset(0, 2),
-                      blurRadius: 11.r,
-                    ),
-                  ],
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: Color.fromRGBO(0, 0, 0, 0.12),
+                  //     offset: Offset(0, 2),
+                  //     blurRadius: 11.r,
+                  //   ),
+                  // ],
                 ),
                 child: Padding(
                   padding:

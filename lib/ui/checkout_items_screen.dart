@@ -9,6 +9,7 @@ import 'package:coffepedia/main.dart';
 import 'package:coffepedia/ui/basket_empty_screen.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
+import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -169,7 +170,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                         padding: EdgeInsets.only(bottom: 69.h),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 92.h,
+                          height: 130.h,
                           padding: EdgeInsets.symmetric(
                             vertical: 21.h,
                             horizontal: 15.w,
@@ -181,29 +182,46 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                               topRight: Radius.circular(22.r),
                             ),
                           ),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return const DeliveryInfoScreenProvider();
-                                  },
-                                ),
-                              );
-                            },
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25.r),
-                                ),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    translator.translate(
+                                        "checkout_items_screen.total_price"),
+                                    style: Theme.of(context).textTheme.caption,
+                                  ),
+                                  Text(
+                                    "${state.basket!.data!.total} ${translator.translate("checkout_items_screen.egp")}",
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
+                                  ),
+                                ],
                               ),
-                            ),
-                            child: Text(
-                              translator.translate(
-                                  "checkout_items_screen.shopping_basket"),
-                              style: Theme.of(context).textTheme.headline2,
-                            ),
+                              SizedBox(
+                                height: 14.h,
+                              ),
+                              CustomButton(
+                                title: translator.translate(
+                                    "checkout_items_screen.shopping_basket"),
+                                onPress: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return const DeliveryInfoScreenProvider();
+                                      },
+                                    ),
+                                  );
+                                },
+                                width: 345.w,
+                                height: 50.h,
+                                borderRadius: 25.r,
+                                // buttonColor: Theme.of(context).primaryColor,
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -557,7 +575,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                 });
               }
               int discountM = totalPriceBeforeDiscount - totalPrice;
-              totalPrice = totalPrice + 50;
+              totalPrice = totalPrice;
               String? subTotal = totalPriceBeforeDiscount.toString();
               String? discount = discountM.toString();
               String? deliveryCharge = "50";
@@ -571,7 +589,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                         padding: EdgeInsets.only(bottom: 69.h),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 92.h,
+                          height: 130.h,
                           padding: EdgeInsets.symmetric(
                             vertical: 21.h,
                             horizontal: 15.w,
@@ -583,41 +601,93 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                               topRight: Radius.circular(22.r),
                             ),
                           ),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (isLoggedIn) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return const DeliveryInfoScreenProvider();
-                                    },
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    translator.translate(
+                                        "checkout_items_screen.total_price"),
+                                    style: Theme.of(context).textTheme.caption,
                                   ),
-                                );
-                              } else {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return const LoginPage();
-                                    },
+                                  Text(
+                                    "$total ${translator.translate("checkout_items_screen.egp")}",
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
                                   ),
-                                );
-                              }
-                            },
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25.r),
-                                ),
+                                ],
                               ),
-                            ),
-                            child: Text(
-                              translator.translate(
-                                  "checkout_popup.proceed_to_checkout"),
-                              style: Theme.of(context).textTheme.headline2,
-                            ),
+                              SizedBox(
+                                height: 14.h,
+                              ),
+                              CustomButton(
+                                title: translator.translate(
+                                    "checkout_popup.proceed_to_checkout"),
+                                onPress: () {
+                                  if (isLoggedIn) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return const DeliveryInfoScreenProvider();
+                                        },
+                                      ),
+                                    );
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return const LoginPage();
+                                        },
+                                      ),
+                                    );
+                                  }
+                                },
+                                width: 345.w,
+                                height: 50.h,
+                                borderRadius: 25.r,
+                                // buttonColor: Theme.of(context).primaryColor,
+                              ),
+                            ],
                           ),
+                          // child: ElevatedButton(
+                          //   onPressed: () {
+                          //     if (isLoggedIn) {
+                          //       Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //           builder: (context) {
+                          //             return const DeliveryInfoScreenProvider();
+                          //           },
+                          //         ),
+                          //       );
+                          //     } else {
+                          //       Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //           builder: (context) {
+                          //             return const LoginPage();
+                          //           },
+                          //         ),
+                          //       );
+                          //     }
+                          //   },
+                          //   style: ButtonStyle(
+                          //     shape: MaterialStateProperty.all(
+                          //       RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.circular(25.r),
+                          //       ),
+                          //     ),
+                          //   ),
+                          //   child: Text(
+                          //     translator.translate(
+                          //         "checkout_popup.proceed_to_checkout"),
+                          //     style: Theme.of(context).textTheme.headline2,
+                          //   ),
+                          // ),
                         ),
                       ),
                       body: SingleChildScrollView(

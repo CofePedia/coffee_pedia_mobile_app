@@ -88,7 +88,9 @@
     "filter" : "تصفية",
     "off" : "خصم",
     "egp" : "ج.م",
-    "seller_info": "معلومات عن التاجر"
+    "seller_info": "معلومات عن التاجر",
+    "No products found": "لا توجد منتجات",
+    "Check out what's trending": "اكتشف ماهو شائع"
   },
   "coffeeShops_screen" : {
     "coffee_shops" : "Coffee shops",
@@ -160,7 +162,7 @@
     "pay_now" : "ادفع الآن",
     "payment_info" : "معلومات الدفع",
     "delivery_info" : "معلومات التوصيل",
-    "from_address_book" : "عناوينك",
+    "select_payment_method" : "اختار طريقة الدفع",
     "payment_id" : "رقم الدفع"
   },
   "product_screen" : {
@@ -202,7 +204,11 @@
   },
   "wishlist_screen" : {
     "my_wishlist" : "مفضلتي",
-    "egp" : "ج.م"
+    "egp" : "ج.م",
+    "wishlist_is_empty": "مفضلتك فارغة",
+    "check_out_what's_trending": "اكتشف ماهو شائع",
+    "shop_now":"تسوق الآن"
+
   },
   "login_registration_screen" : {
     "login" : "تسجيل الدخول",
@@ -241,5 +247,8 @@
     "please_enter_the_new_password" : "الرجاء إدخال رقمك السري الجديد",
     "confirm_new_password" : "تأكيد الرقم السري",
     "confirm" : "تأكيد"
+  },
+  "search_screen" : {
+    "cancel" : "إلغاء"
   }
 }

@@ -198,7 +198,7 @@ class _MapViewerWidgetState extends State<MapViewerWidget> {
                                   title:
                                       translator.translate("map_widget.show"),
                                   borderRadius: 12.5.r,
-                                  buttonColor: Theme.of(context).primaryColor,
+                                  // buttonColor: Theme.of(context).primaryColor,
                                 ),
                               ),
                             ),

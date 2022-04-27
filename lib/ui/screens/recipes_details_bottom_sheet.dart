@@ -207,7 +207,7 @@ class _RecipesDetailsBottomSheetState extends State<RecipesDetailsBottomSheet> {
                   assetName: Assets.iconsShoppingBasket,
                   borderRadius: 25.r,
                   title: 'Add to basket',
-                  buttonColor: Theme.of(context).primaryColor,
+                  // buttonColor: Theme.of(context).primaryColor,
                   imageColor: Theme.of(context).colorScheme.secondary,
                   imageHeight: 18.h,
                   imageWidth: 24.w,

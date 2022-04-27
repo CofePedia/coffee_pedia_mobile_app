@@ -54,12 +54,12 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
           height: 107.h,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.04),
-                blurRadius: 2.r,
-              )
-            ],
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Color.fromRGBO(0, 0, 0, 0.04),
+            //     blurRadius: 2.r,
+            //   )
+            // ],
             color: Color(0xffFFFFFF),
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(22.r),
@@ -106,8 +106,8 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                       Navigator.of(context).pop();
                     },
                     icon: Icon(
-                      Icons.chevron_left,
-                      size: 24.w,
+                      Icons.arrow_back_ios,
+                      size: 20.w,
                     ),
                     color: Color(0xff000000),
                   ),
@@ -126,7 +126,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                   children: [
                     Container(
                       height: 27.h,
-                      width: 27.w,
+                      width: 25.w,
                       alignment: Alignment.center,
                       child: Text(
                         '1',
@@ -154,7 +154,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                     ),
                     Container(
                       height: 27.h,
-                      width: 27.w,
+                      width: 25.w,
                       alignment: Alignment.center,
                       child: Text(
                         '2',
@@ -182,7 +182,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                     ),
                     Container(
                       height: 27.h,
-                      width: 27.w,
+                      width: 25.w,
                       alignment: Alignment.center,
                       child: Text(
                         '3',
@@ -206,30 +206,35 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                 children: [
                   Text(
                     translator.translate("delivery_info_screen.delivery_info"),
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(fontSize: 12.sp),
                   ),
                   SizedBox(
                     width: 8.w,
                   ),
                   Text(
                     translator.translate("checkout_items_screen.order_summary"),
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color: Color(0xff9D9D9D),
-                        ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: Color(0xff9D9D9D), fontSize: 12.sp),
                   ),
                   SizedBox(
                     width: 8.w,
                   ),
                   Text(
                     translator.translate("delivery_info_screen.payment_info"),
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color: Color(0xff9D9D9D),
-                        ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: Color(0xff9D9D9D), fontSize: 12.sp),
                   ),
                 ],
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 27.h),
+                padding: EdgeInsets.symmetric(vertical: 27.h, horizontal: 15.w),
                 child: Text(
                   translator
                       .translate("delivery_info_screen.from_address_book"),
@@ -249,21 +254,21 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 12.h),
+                                vertical: 12.h, horizontal: 15.w),
                             child: Container(
                               height: 111.h,
                               width: 343.w,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(6.r),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: _selectedIndex == index
-                                        ? Color.fromRGBO(16, 124, 192, 0.41)
-                                        : Colors.transparent,
-                                    blurRadius: 7.r,
-                                  ),
-                                ],
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: _selectedIndex == index
+                                //         ? Color.fromRGBO(16, 124, 192, 0.41)
+                                //         : Colors.transparent,
+                                //     blurRadius: 7.r,
+                                //   ),
+                                // ],
                               ),
                               child: OutlinedButton(
                                 onPressed: () {
@@ -390,7 +395,7 @@ class _DeliveryInfoScreenState extends State<DeliveryInfoScreen> {
                 },
                 child: Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
+                      EdgeInsets.symmetric(vertical: 12.h, horizontal: 15.w),
                   child: Row(
                     children: [
                       Icon(

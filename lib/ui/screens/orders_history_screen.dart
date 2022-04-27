@@ -55,8 +55,8 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                     Navigator.of(context).pop();
                   },
                   icon: Icon(
-                    Icons.chevron_left,
-                    size: 24.w,
+                    Icons.arrow_back_ios,
+                    size: 20.w,
                   ),
                   color: Color(0xff000000),
                 ),
@@ -84,13 +84,13 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(6.r),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color.fromRGBO(0, 0, 0, 0.12),
-                                    offset: Offset(0, 2),
-                                    blurRadius: 11.sp,
-                                  ),
-                                ],
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: Color.fromRGBO(0, 0, 0, 0.12),
+                                //     offset: Offset(0, 2),
+                                //     blurRadius: 11.sp,
+                                //   ),
+                                // ],
                                 color: Colors.white,
                               ),
                               child: ExpansionTile(

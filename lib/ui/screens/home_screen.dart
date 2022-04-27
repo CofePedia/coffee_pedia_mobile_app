@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/home_ads/home_ads_cubit.dart';
 import 'package:coffepedia/data/repository/home_ads_repository.dart';
 import 'package:coffepedia/data/web_services/home_ads_web_services.dart';
@@ -109,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(bottom: 24.h),
+                          margin: EdgeInsets.only(bottom: 19.h),
                           width: MediaQuery.of(context).size.width,
                           // color: Colors.red,
                           height: 190.h,
@@ -155,8 +154,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 },
               ),
+
+              BlocBuilder<HomeAdsCubit, HomeAdsState>(
+                builder: (context, state) {
+                  if (state is HomeAdsLoaded) {
+                    return Container(
+                      height: 60.h,
+                      width: MediaQuery.of(context).size.width,
+                      child: ListView.builder(
+                        itemCount: state.homeAds!.data!.topHeader!.length,
+                        scrollDirection: Axis.horizontal,
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (context, index) => Image.network(
+                          state.homeAds!.data!.topHeader![index].image!,
+                          fit: BoxFit.fill,
+                          width: MediaQuery.of(context).size.width,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return SlidersShimmerWidget();
+                  }
+                },
+              ),
               SizedBox(
-                height: 16.h,
+                height: 19.h,
               ),
               SectionName(
                   sectionName:
@@ -184,11 +206,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.only(left: 8.w, right: 8.w),
                         itemBuilder: (context, index) {
                           return CustomNetworkImage(
-                              imageUrl:
-                                  state.homeAds!.data!.inPage![index].image!,
-                              height: 270.h,
-                              width: 344.w,
-                              radius: 11.0.r);
+                            imageUrl:
+                                state.homeAds!.data!.inPage![index].image!,
+                            height: 270.h,
+                            width: 344.w,
+                            radius: 0.r,
+                          );
                           // return Ads(
                           //   adImageBackground: state
                           //       .homeAds!.data!.inPage![index].image,
@@ -210,9 +233,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     ));
-  }
-
-  onTap() {
-    BotToast.showText(text: "ad slider");
   }
 }

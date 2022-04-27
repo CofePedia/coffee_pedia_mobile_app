@@ -513,12 +513,12 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                   topRight: Radius.circular(22.r),
                   topLeft: Radius.circular(22.r),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 6.r,
-                    color: Color.fromARGB(4, 0, 0, 0),
-                  ),
-                ],
+                // boxShadow: [
+                //   BoxShadow(
+                //     blurRadius: 6.r,
+                //     color: Color.fromARGB(4, 0, 0, 0),
+                //   ),
+                // ],
               ),
               child: ElevatedButton(
                 onPressed: _selectedGovernorate == null ||
@@ -556,6 +556,8 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                       borderRadius: BorderRadius.circular(25.r),
                     ),
                   ),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Theme.of(context).primaryColor),
                 ),
                 child: Text(
                   widget.address != null

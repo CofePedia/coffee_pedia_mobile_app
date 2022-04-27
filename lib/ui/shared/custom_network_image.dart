@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CustomNetworkImage extends StatelessWidget {
   const CustomNetworkImage(
@@ -18,23 +19,27 @@ class CustomNetworkImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      imageUrl: imageUrl,
-      width: width,
-      height: height,
-      imageBuilder: (context, imageProvider) => Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius),
-          image: DecorationImage(
-            image: imageProvider, fit: fit ?? BoxFit.fill,
+        imageUrl: imageUrl,
+        width: width,
+        height: height,
+        imageBuilder: (context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(radius),
+                image: DecorationImage(
+                  image: imageProvider, fit: fit ?? BoxFit.fill,
 
-            // fit: BoxFit.cover,
-          ),
-        ),
-      ),
-      errorWidget: (context, url, error) => const Icon(Icons.broken_image),
-      placeholder: (context, url) => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+                  // fit: BoxFit.cover,
+                ),
+              ),
+            ),
+        errorWidget: (context, url, error) => const Icon(Icons.broken_image),
+        placeholder: (context, url) => Shimmer.fromColors(
+              baseColor: Colors.grey.shade300,
+              highlightColor: Colors.grey.shade100,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+            ));
   }
 }

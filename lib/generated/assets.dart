@@ -40,6 +40,8 @@ class Assets {
   static const String iconsShoppingBasket =
       'assets/icons/icons_shopping_basket.svg';
   static const String iconsStarActive = 'assets/icons/star_active.svg';
+  static const String iconsCofePediaLogo = 'assets/icons/cp-logo.svg';
+
   static const String fullscreenIcon = 'assets/icons/fullscreen_icon.svg';
   static const String shoppingBasket = 'assets/images/shopping_basket.svg';
   static const String noInternetConnectionImage =

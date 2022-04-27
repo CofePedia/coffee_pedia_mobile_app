@@ -6,7 +6,7 @@
 
     <application
         android:icon="@mipmap/launcher_icon"
-        android:label="Coffepedia"
+        android:label="CofePedia"
         android:requestLegacyExternalStorage="true">
         <activity
             android:name=".MainActivity"

@@ -91,7 +91,9 @@
     "filter" : "Filter",
     "off" : "Off",
     "egp" : "EGP",
-    "seller_info": "Seller Info"
+    "seller_info": "Seller Info",
+    "No products found": "No products found",
+    "Check out what's trending": "Check out what's trending"
   },
   "coffeeShops_screen" : {
     "coffee_shops" : "Coffee shops",
@@ -164,7 +166,7 @@
     "pay_now" : "Pay Now",
     "payment_info" : "Payment info",
     "delivery_info" : "Delivery Info",
-    "from_address_book" : "From Address Book",
+    "select_payment_method" : "Select payment method",
     "payment_id" : "paymentID"
   },
   "product_screen" : {
@@ -206,7 +208,10 @@
   },
   "wishlist_screen" : {
     "my_wishlist" : "My wishlist",
-    "egp" : "EGP"
+    "egp" : "EGP",
+    "wishlist_is_empty": "Wishlist is Empty",
+    "check_out_what's_trending": "Check out what's trending",
+    "shop_now":"Shop Now"
   },
   "login_registration_screen" : {
     "login" : "Login",
@@ -246,5 +251,8 @@
     "please_enter_the_new_password" : "Please enter the new password",
     "confirm_new_password" : "Confirm New Password",
     "confirm" : "Confirm"
+  },
+  "search_screen" : {
+    "cancel" : "Cancel"
   }
 }

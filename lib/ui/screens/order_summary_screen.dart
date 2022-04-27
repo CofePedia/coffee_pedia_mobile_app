@@ -68,12 +68,12 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
         height: 107.h,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.04),
-              blurRadius: 2.r,
-            )
-          ],
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Color.fromRGBO(0, 0, 0, 0.04),
+          //     blurRadius: 2.r,
+          //   )
+          // ],
           color: Color(0xffFFFFFF),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(22.r),
@@ -97,7 +97,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
           width: 345.w,
           height: 50.h,
           borderRadius: 25.r,
-          buttonColor: Theme.of(context).primaryColor,
+          // buttonColor: Theme.of(context).primaryColor,
         ),
       ),
       body: CheckInternetConnection(
@@ -113,8 +113,8 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                     Navigator.of(context).pop();
                   },
                   icon: Icon(
-                    Icons.chevron_left,
-                    size: 24.w,
+                    Icons.arrow_back_ios,
+                    size: 20.w,
                   ),
                   color: Color(0xff000000),
                 ),
@@ -133,7 +133,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                 children: [
                   Container(
                     height: 27.h,
-                    width: 27.w,
+                    width: 25.w,
                     alignment: Alignment.center,
                     child: Text(
                       '1',
@@ -161,7 +161,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                   ),
                   Container(
                     height: 27.h,
-                    width: 27.w,
+                    width: 25.w,
                     alignment: Alignment.center,
                     child: Text(
                       '2',
@@ -189,7 +189,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                   ),
                   Container(
                     height: 27.h,
-                    width: 27.w,
+                    width: 25.w,
                     alignment: Alignment.center,
                     child: Text(
                       '3',
@@ -213,23 +213,29 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
               children: [
                 Text(
                   translator.translate("delivery_info_screen.delivery_info"),
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                        fontSize: 12.sp,
+                      ),
                 ),
                 SizedBox(
                   width: 8.w,
                 ),
                 Text(
                   translator.translate("checkout_items_screen.order_summary"),
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(fontSize: 12.sp),
                 ),
                 SizedBox(
                   width: 8.w,
                 ),
                 Text(
                   translator.translate("delivery_info_screen.payment_info"),
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
-                        color: Color(0xff9D9D9D),
-                      ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(color: Color(0xff9D9D9D), fontSize: 12.sp),
                 ),
               ],
             ),
@@ -292,7 +298,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                 decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   filled: true,
-                                  contentPadding: EdgeInsets.all(8.h),
+                                  contentPadding: EdgeInsets.all(12.h),
                                   hintText: translator.translate(
                                       "checkout_items_screen.coupon_code"),
                                   hintStyle: Theme.of(context)
