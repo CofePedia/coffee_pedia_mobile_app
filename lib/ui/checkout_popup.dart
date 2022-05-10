@@ -2,7 +2,6 @@ import 'package:appmetrica_sdk/appmetrica_sdk.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
 import 'package:coffepedia/business_logic/me/me_cubit.dart';
-import 'package:coffepedia/business_logic/product/product_cubit.dart';
 import 'package:coffepedia/data/models/basket.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
 import 'package:coffepedia/data/repository/me_repository.dart';
@@ -23,13 +22,13 @@ class CheckoutPopUpProvider extends StatelessWidget {
   final String? image;
   final String? title;
   final String? totalPrice;
-  final ProductLoaded state;
+  // final ProductLoaded state;
 
   const CheckoutPopUpProvider({
     required this.image,
     required this.totalPrice,
     required this.title,
-    required this.state,
+    // required this.state,
     required this.basketLocal,
     Key? key,
   }) : super(key: key);
@@ -57,19 +56,19 @@ class CheckoutPopUpProvider extends StatelessWidget {
         image: image,
         title: title,
         totalPrice: totalPrice,
-        state: state,
+        // state: state,
         basketLocal: basketLocal!,
       ),
     );
   }
 }
 
-class CheckoutPopUp extends StatelessWidget {
+class CheckoutPopUp extends StatefulWidget {
   CheckoutPopUp({
     required this.title,
     required this.totalPrice,
     required this.image,
-    required this.state,
+    // required this.state,
     required this.basketLocal,
     Key? key,
   }) : super(key: key);
@@ -80,8 +79,13 @@ class CheckoutPopUp extends StatelessWidget {
   final String? image;
   final String? title;
   final String? totalPrice;
-  final ProductLoaded state;
+  // final ProductLoaded state;
 
+  @override
+  State<CheckoutPopUp> createState() => _CheckoutPopUpState();
+}
+
+class _CheckoutPopUpState extends State<CheckoutPopUp> {
   bool isLoggedIn = false;
 
   @override
@@ -114,7 +118,7 @@ class CheckoutPopUp extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomNetworkImage(
-                  imageUrl: image!,
+                  imageUrl: widget.image!,
                   height: 75.h,
                   width: 75.w,
                   radius: 2.r,
@@ -124,7 +128,7 @@ class CheckoutPopUp extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    title!,
+                    widget.title!,
                     maxLines: 3,
                     style: Theme.of(context)
                         .textTheme
@@ -150,7 +154,7 @@ class CheckoutPopUp extends StatelessWidget {
                       height: 8.h,
                     ),
                     Text(
-                      "$totalPrice " +
+                      "${widget.totalPrice} " +
                           translator.translate("checkout_popup.egp"),
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             color: Theme.of(context).primaryColor,
@@ -180,7 +184,9 @@ class CheckoutPopUp extends StatelessWidget {
                   } else
                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                       builder: (context) {
-                        return const HomePageProvider(currentIndex: 1);
+                        return HomePageProvider(
+                          currentIndex: 1,
+                        );
                       },
                     ), (route) => false);
                 },
@@ -204,15 +210,18 @@ class CheckoutPopUp extends StatelessWidget {
                             "MyQuerySoundEffectsEnabled  proceed button with a user");
                         //TODO 1) add the item to the local db..
                         await BlocProvider.of<BasketCubit>(context)
-                            .addProductInLocalBasket(BasketLocal(
-                                productId: basketLocal!.productId,
-                                quantity: basketLocal!.quantity,
-                                image: basketLocal!.image,
-                                price: basketLocal!.price,
-                                vendor: basketLocal!.vendor,
-                                name: basketLocal!.name,
-                                priceBeforeDiscount:
-                                    basketLocal!.priceBeforeDiscount));
+                            .addProductInLocalBasket(
+                          BasketLocal(
+                            productId: widget.basketLocal!.productId,
+                            quantity: widget.basketLocal!.quantity,
+                            image: widget.basketLocal!.image,
+                            price: widget.basketLocal!.price,
+                            vendor: widget.basketLocal!.vendor,
+                            name: widget.basketLocal!.name,
+                            priceBeforeDiscount:
+                                widget.basketLocal!.priceBeforeDiscount,
+                          ),
+                        );
                         AppmetricaSdk()
                             .reportEvent(name: 'Added to Server Cart');
 
@@ -242,15 +251,18 @@ class CheckoutPopUp extends StatelessWidget {
                         print(
                             "MyQuerySoundEffectsEnabled  proceed button with local");
                         await BlocProvider.of<BasketCubit>(context)
-                            .addProductInLocalBasket(BasketLocal(
-                                productId: basketLocal!.productId,
-                                quantity: basketLocal!.quantity,
-                                image: basketLocal!.image,
-                                price: basketLocal!.price,
-                                vendor: basketLocal!.vendor,
-                                name: basketLocal!.name,
-                                priceBeforeDiscount:
-                                    basketLocal!.priceBeforeDiscount));
+                            .addProductInLocalBasket(
+                          BasketLocal(
+                            productId: widget.basketLocal!.productId,
+                            quantity: widget.basketLocal!.quantity,
+                            image: widget.basketLocal!.image,
+                            price: widget.basketLocal!.price,
+                            vendor: widget.basketLocal!.vendor,
+                            name: widget.basketLocal!.name,
+                            priceBeforeDiscount:
+                                widget.basketLocal!.priceBeforeDiscount,
+                          ),
+                        );
                         AppmetricaSdk()
                             .reportEvent(name: 'Added to Local Cart');
                       }

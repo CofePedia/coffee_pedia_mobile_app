@@ -427,28 +427,28 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                         height: 17.h,
                       ),
                       // menu container
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        child: Column(
-                          children: [
-                            //my wishlist
-                            ProfileItem(
-                              title: translator
-                                  .translate("profile_screen.my_wishlist"),
-                              onPress: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return const WishlistScreenProvider();
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      //   child: Column(
+                      //     children: [
+                      //       //my wishlist
+                      //       ProfileItem(
+                      //         title: translator
+                      //             .translate("profile_screen.my_wishlist"),
+                      //         onPress: () {
+                      //           Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //               builder: (context) {
+                      //                 return const WishlistScreenProvider();
+                      //               },
+                      //             ),
+                      //           );
+                      //         },
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       Container(
                         width: MediaQuery.of(context).size.width,
                         height: 5.h,

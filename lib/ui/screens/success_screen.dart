@@ -119,7 +119,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => SuccessWidget(
+                                  builder: (context) => SuccessWidgetProvider(
                                     message: state.makeOrder!.data!.msg!,
                                     orderId: state.makeOrder!.data!.orderId!
                                         .toString(),
@@ -152,7 +152,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => SuccessWidget(
+                                  builder: (context) => SuccessWidgetProvider(
                                     message: state.makeOrder!.data!.msg!,
                                     orderId: state.makeOrder!.data!.orderId!
                                         .toString(),
@@ -233,7 +233,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                 ),
               );
             } else {
-              return SuccessWidget(
+              return SuccessWidgetProvider(
                 message: state.makeOrder!.data!.msg!,
                 orderId: state.makeOrder!.data!.orderId!.toString(),
               );

@@ -33,10 +33,8 @@ class AuthWebServices {
         json.decode(response.body)["data"],
       );
     } else {
-      print(json.decode(response.body).toString());
-      throw Exception(
-        json.decode(response.body),
-      );
+      print(json.decode(response.body)["data"]['error']);
+      throw json.decode(response.body)["data"]['error'];
     }
   }
 
@@ -72,10 +70,11 @@ class AuthWebServices {
         json.decode(response.body),
       );
     } else {
-      print(json.decode(response.body).toString());
-      throw Exception(
-        json.decode(response.body),
-      );
+      final data = jsonDecode(response.body);
+      data.forEach((key, value) {
+        throw value[0];
+      });
+      throw 'Error, Please try again';
     }
   }
 }

@@ -1,20 +1,51 @@
+import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
+import 'package:coffepedia/data/repository/basket_repository.dart';
+import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/main.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/screens/orders_history_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SuccessWidget extends StatelessWidget {
+class SuccessWidgetProvider extends StatelessWidget {
   final String message;
   final String orderId;
-  const SuccessWidget({required this.message, required this.orderId, Key? key})
+  const SuccessWidgetProvider(
+      {required this.message, required this.orderId, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => BasketCubit(
+        BasketRepository(
+          BasketWebServices(),
+        ),
+      ),
+      child: SuccessWidget(
+        orderId: orderId,
+        message: message,
+      ),
+    );
+  }
+}
+
+class SuccessWidget extends StatelessWidget {
+  final String message;
+  final String orderId;
+  const SuccessWidget({
+    required this.message,
+    required this.orderId,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    BlocProvider.of<BasketCubit>(context).deleteAllDatabase();
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w),

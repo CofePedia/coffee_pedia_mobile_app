@@ -3,6 +3,7 @@ import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/services/preferences.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,11 +51,6 @@ class _HomePageState extends State<HomePage> {
 
   _HomePageState(this.currentIndex);
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   BottomNavigationBarItem getItem(String image, String title, int index) {
     return BottomNavigationBarItem(
       icon: Container(
@@ -67,7 +63,7 @@ class _HomePageState extends State<HomePage> {
             builder: (context, state) {
               if (state is LocalBasketLoaded) {
                 return Text(
-                  state.basketLocalList.length.toString(),
+                  Prefs.getString("totalItems") ?? "",
                   style: Theme.of(context)
                       .textTheme
                       .headline5!
@@ -170,7 +166,11 @@ class _HomePageState extends State<HomePage> {
             index: currentIndex,
             children: [
               HomeScreenProvider(),
-              CheckoutItemsScreenProvider(),
+              CheckoutItemsScreenProvider(
+                onAddPressed: () {
+                  setState(() {});
+                },
+              ),
               ProfileScreen(),
               MoreScreen(),
             ],

@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
 import 'package:coffepedia/business_logic/me/me_cubit.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
@@ -6,6 +5,7 @@ import 'package:coffepedia/data/repository/me_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/data/web_services/me_web_services.dart';
 import 'package:coffepedia/main.dart';
+import 'package:coffepedia/services/preferences.dart';
 import 'package:coffepedia/ui/basket_empty_screen.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
@@ -19,7 +19,9 @@ import 'checkout_item.dart';
 import 'delivery_info_screen.dart';
 
 class CheckoutItemsScreenProvider extends StatelessWidget {
-  const CheckoutItemsScreenProvider({Key? key}) : super(key: key);
+  Function? onAddPressed;
+
+  CheckoutItemsScreenProvider({this.onAddPressed, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +42,16 @@ class CheckoutItemsScreenProvider extends StatelessWidget {
           ),
         ),
       ],
-      child: CheckoutItemsScreen(),
+      child: CheckoutItemsScreen(
+        onAddPressed: onAddPressed!,
+      ),
     );
   }
 }
 
 class CheckoutItemsScreen extends StatefulWidget {
-  const CheckoutItemsScreen({Key? key}) : super(key: key);
-
+  CheckoutItemsScreen({required this.onAddPressed});
+  Function onAddPressed;
   @override
   State<CheckoutItemsScreen> createState() => _CheckoutItemsScreenState();
 }
@@ -56,30 +60,37 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
   @override
   void initState() {
     super.initState();
-    init();
+    // init();
+    BlocProvider.of<MeCubit>(context).getMe();
   }
 
   bool isLoggedIn = false;
 
-  final TextEditingController coupon = TextEditingController();
-  bool discountLoading = false;
+  // final TextEditingController coupon = TextEditingController();
+  // bool discountLoading = false;
   bool isPressed = false;
-  String? subTotal;
-  String? discount;
-  String? deliveryCharge;
-  String? total;
+  // String? subTotal;
+  // String? discount;
+  // String? deliveryCharge;
+  // String? total;
 
-  init() async {
-    BlocProvider.of<MeCubit>(context).getMe();
-    //final userDao = UserDao();
-    //GetTokenDatabase? token = await userDao.getUserToken();
-  }
+  // init() async {
+  //   BlocProvider.of<MeCubit>(context).getMe();
+  //   //final userDao = UserDao();
+  //   //GetTokenDatabase? token = await userDao.getUserToken();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    if (!isLoggedIn)
+    if (!isLoggedIn) {
       BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
-    if (isLoggedIn) BlocProvider.of<BasketCubit>(context).getBasket();
+      // widget.onAddPressed();
+    }
+    if (isLoggedIn) {
+      BlocProvider.of<BasketCubit>(context).getBasket();
+      // widget.onAddPressed();
+    }
+
     return CheckInternetConnection(
       screen: MultiBlocListener(
         listeners: [
@@ -91,58 +102,6 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
               } else {
                 BlocProvider.of<BasketCubit>(context)
                     .getAllLocalProductsFromBasket();
-              }
-            } else if (state is CouponUnvalid) {
-              BotToast.showText(text: state.error!.toString());
-              if (isLoggedIn) BlocProvider.of<BasketCubit>(context).getBasket();
-              setState(() {
-                isPressed = false;
-              });
-            } else if (state is CouponIsPressed) {
-              setState(() {
-                isPressed = true;
-              });
-              if (isLoggedIn) BlocProvider.of<BasketCubit>(context).getBasket();
-              if (isPressed == true) {
-                subTotal = state.coupon!.data!.subTotal!.toString();
-                discount = state.coupon!.data!.discount!.toString();
-                deliveryCharge = state.coupon!.data!.deliveryCharge!.toString();
-                total = state.coupon!.data!.totalPrice!.toString();
-              } else if (state is RemoveFromBasketIsPressed) {
-                //BotToast.showText(text: state.removeFromBasket!.data!.msg!);
-                if (isLoggedIn) {
-                  BlocProvider.of<BasketCubit>(context).getBasket();
-                } else {
-                  BlocProvider.of<BasketCubit>(context)
-                      .getAllLocalProductsFromBasket();
-                }
-                /*print("MyQuerySoundEffectsEnabled 2");
-                if (isLoggedIn)
-                  BlocProvider.of<BasketCubit>(context).getBasket();*/
-              } else if (state is RemoveFromLocalBasketIsPressed) {
-                print("RemoveFromLocalBasketIsPressed is called from screen");
-                if (isLoggedIn) {
-                  BlocProvider.of<BasketCubit>(context).getBasket();
-                } else {
-                  BlocProvider.of<BasketCubit>(context)
-                      .getAllLocalProductsFromBasket();
-                }
-              } else if (state is UpdateLocalBasket) {
-                print("MyQuerySoundEffectsEnabled 2");
-                BotToast.showText(text: "updated to basket");
-                if (!isLoggedIn)
-                  BlocProvider.of<BasketCubit>(context)
-                      .getAllLocalProductsFromBasket();
-                else
-                  BlocProvider.of<BasketCubit>(context).getBasket();
-              } else if (state is AddedLocalBasket) {
-                print("MyQuerySoundEffectsEnabled 3");
-                BotToast.showText(text: "added to basket");
-                if (!isLoggedIn)
-                  BlocProvider.of<BasketCubit>(context)
-                      .getAllLocalProductsFromBasket();
-                else
-                  BlocProvider.of<BasketCubit>(context).getBasket();
               }
             }
           }),
@@ -316,6 +275,8 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                       isLocal: isLoggedIn ? false : true,
                                       onRemoveItem: () {
                                         setState(() {});
+                                        BlocProvider.of<BasketCubit>(context)
+                                            .getBasket();
                                       },
                                       onItemAdded: () {
                                         setState(() {});
@@ -563,23 +524,27 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
             if (state is LocalBasketLoaded) {
               print("basket loaded in local");
               int totalPrice = 0; //total price
-              int totalPriceBeforeDiscount = 0; //subtotal
+              int totalItems = 0;
+
+              // int totalPriceBeforeDiscount = 0; //subtotal
               if (state.basketLocalList.length > 0) {
                 state.basketLocalList.forEach((element) {
                   totalPrice = totalPrice + int.parse(element.price.toString());
-                  totalPriceBeforeDiscount = totalPriceBeforeDiscount +
-                      int.parse(element.priceBeforeDiscount.toString());
+                  // totalPriceBeforeDiscount = totalPriceBeforeDiscount +
+                  //     int.parse(element.priceBeforeDiscount.toString());
                   totalPrice = totalPrice * element.quantity!;
-                  totalPriceBeforeDiscount =
-                      totalPriceBeforeDiscount * element.quantity!;
+                  totalItems = totalItems + element.quantity!;
+                  // totalPriceBeforeDiscount =
+                  //     totalPriceBeforeDiscount * element.quantity!;
                 });
               }
-              int discountM = totalPriceBeforeDiscount - totalPrice;
-              totalPrice = totalPrice;
-              String? subTotal = totalPriceBeforeDiscount.toString();
-              String? discount = discountM.toString();
-              String? deliveryCharge = "50";
-              String? total = totalPrice.toString();
+              Prefs.setString("totalItems", totalItems.toString());
+              // int discountM = totalPriceBeforeDiscount - totalPrice;
+              // totalPrice = totalPrice;
+              // String? subTotal = totalPriceBeforeDiscount.toString();
+              // String? discount = discountM.toString();
+              // String? deliveryCharge = "50";
+              // String? total = totalPrice.toString();
 
               //TODO: LOCAL
               return state.basketLocalList.length > 0 && isLoggedIn == false
@@ -613,7 +578,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                     style: Theme.of(context).textTheme.caption,
                                   ),
                                   Text(
-                                    "$total ${translator.translate("checkout_items_screen.egp")}",
+                                    "${totalPrice.toString()} ${translator.translate("checkout_items_screen.egp")}",
                                     style:
                                         Theme.of(context).textTheme.headline4,
                                   ),
@@ -734,7 +699,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                           width: 5.w,
                                         ),
                                         Text(
-                                          "(${state.basketLocalList.length} ${translator.translate("checkout_items_screen.item")})",
+                                          "($totalItems ${translator.translate("checkout_items_screen.item")})",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline4!
@@ -781,9 +746,11 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                       isLocal: isLoggedIn ? false : true,
                                       onRemoveItem: () {
                                         setState(() {});
+                                        widget.onAddPressed();
                                       },
                                       onItemAdded: () {
                                         setState(() {});
+                                        widget.onAddPressed();
                                       },
                                     ),
                                   );

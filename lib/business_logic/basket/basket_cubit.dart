@@ -24,13 +24,13 @@ class BasketCubit extends Cubit<BasketState> {
     );
   }
 
-  void getBasketFromLocal() {
-    basketRepository.getBasket().then(
-      (value) {
-        emit(BasketLoaded(value));
-      },
-    );
-  }
+  // void getBasketFromLocal() {
+  //   basketRepository.getBasket().then(
+  //     (value) {
+  //       emit(BasketLoaded(value));
+  //     },
+  //   );
+  // }
 
   void getAddToBasket(List<Map<String, int>> productsMap) {
     basketRepository.getAddToBasket(productsMap).then(
@@ -201,6 +201,10 @@ class BasketCubit extends Cubit<BasketState> {
       print("update local basket error $error");
       emit(DeleteLocalBasketError(error.toString()));
     });
+  }
+
+  void deleteAllDatabase() async {
+    await basketRepository.truncateLocalBasket();
   }
 
   void updateQuantityInLocalBasket(int productId, int quantity) async {

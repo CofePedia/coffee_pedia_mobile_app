@@ -4,6 +4,7 @@ import 'package:coffepedia/data/models/basket.dart';
 import 'package:coffepedia/data/repository/product_repository.dart';
 import 'package:coffepedia/data/web_services/product_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/services/preferences.dart';
 import 'package:coffepedia/ui/checkout_popup.dart';
 import 'package:coffepedia/ui/screens/category_screen.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
@@ -141,42 +142,46 @@ class _ProductScreenState extends State<ProductScreen> {
                     ),
                     CustomButton(
                       onPress: () {
+                        String oldQuantity =
+                            Prefs.getString("totalItems") ?? "0";
+                        Prefs.setString("totalItems",
+                            (int.parse(oldQuantity) + counter).toString());
+
                         showModalBottomSheet(
-                            enableDrag: false,
-                            isDismissible: true,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(25.r),
-                                topRight: Radius.circular(25.r),
-                              ),
+                          enableDrag: false,
+                          isDismissible: true,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25.r),
+                              topRight: Radius.circular(25.r),
                             ),
-                            context: context,
-                            isScrollControlled: true,
-                            builder: (context) {
-                              return CheckoutPopUpProvider(
-                                  basketLocal: BasketLocal(
-                                      productId: int.parse(
-                                          state.product!.data!.id.toString()),
-                                      quantity: counter,
-                                      image: (state.product!.data!.images !=
-                                                  null &&
-                                              state.product!.data!.images!
-                                                  .isNotEmpty)
-                                          ? state.product!.data!.images![0]
-                                          : "",
-                                      price:
-                                          state.product!.data!.price.toString(),
-                                      vendor: state
-                                          .product!.data!.vendor!.companyName,
-                                      name: state.product!.data!.name,
-                                      priceBeforeDiscount: state
-                                          .product!.data!.priceBeforeDiscount),
-                                  title: state.product!.data!.name,
-                                  image: state.product!.data!.images![0],
-                                  totalPrice:
-                                      state.product!.data!.price.toString(),
-                                  state: state);
-                            });
+                          ),
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) {
+                            return CheckoutPopUpProvider(
+                              basketLocal: BasketLocal(
+                                productId: int.parse(
+                                    state.product!.data!.id.toString()),
+                                quantity: counter,
+                                image: (state.product!.data!.images != null &&
+                                        state.product!.data!.images!.isNotEmpty)
+                                    ? state.product!.data!.images![0]
+                                    : "",
+                                price: state.product!.data!.price.toString(),
+                                vendor:
+                                    state.product!.data!.vendor!.companyName,
+                                name: state.product!.data!.name,
+                                priceBeforeDiscount:
+                                    state.product!.data!.priceBeforeDiscount,
+                              ),
+                              title: state.product!.data!.name,
+                              image: state.product!.data!.images![0],
+                              totalPrice: state.product!.data!.price.toString(),
+                              // state: state,
+                            );
+                          },
+                        );
                       },
                       width: 170.w,
                       height: 50.h,

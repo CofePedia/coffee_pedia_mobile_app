@@ -14,6 +14,7 @@ import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/screens/intro/OTP_screen.dart';
 import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
+import 'package:coffepedia/ui/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,6 +67,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
   bool selected = false;
   bool isLogin = true;
+  bool pass = false;
 
   @override
   void dispose() {
@@ -79,19 +81,26 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   }
 
   _onLoginButtonPressed() {
-    BlocProvider.of<LoginBloc>(context).add(
-      LoginButtonPressed(
-        password: _password.text,
-        mobile: _mobile.text,
-      ),
-    );
+    if (!pass)
+      BlocProvider.of<LoginBloc>(context).add(
+        LoginButtonPressed(
+          password: _password.text,
+          mobile: _mobile.text,
+        ),
+      );
+    setState(() {
+      pass = true;
+    });
   }
 
   _signupButtonPressed() {
-    if (selected) {
+    if (selected && !pass) {
       BlocProvider.of<SignupBloc>(context).add(
         SignupSubmitted(),
       );
+      setState(() {
+        pass = true;
+      });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -126,6 +135,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                       backgroundColor: Colors.red,
                     ),
                   );
+                  setState(() {
+                    pass = false;
+                  });
                 } else if (state is LoginSuccess) {
                   /*// we need to get the basket and put it all(replace the existing) inside the local database
                   //1) delete all items from database.
@@ -189,6 +201,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     ),
                   );
                   BlocProvider.of<SignupBloc>(context).close();
+                  setState(() {
+                    pass = false;
+                  });
                 }
               },
             ),
@@ -203,6 +218,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                       backgroundColor: Colors.red,
                     ),
                   );
+                  setState(() {
+                    pass = false;
+                  });
                 } else if (state.formStatus is SubmissionSuccess) {
                   BlocProvider.of<ForgotPasswordCubit>(context)
                       .postSendOTP(_mobile.text);
@@ -221,6 +239,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     // ),
                   );
                   BlocProvider.of<SignupBloc>(context).close();
+                  setState(() {
+                    pass = false;
+                  });
                 }
               },
             ),
@@ -446,35 +467,41 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                           );
                                     }),
                             CustomInput(
-                              textInputType: TextInputType.number,
-                              title: translator.translate(
-                                  "login_registration_screen.mobile"),
-                              hint: translator.translate(
-                                  "login_registration_screen.mobile"),
-                              textEditingController: _mobile,
-                              max: true,
-                              icon: false,
-                              padding: false,
-                              onChanged: (value) =>
+                                textInputType: TextInputType.number,
+                                title: translator.translate(
+                                    "login_registration_screen.mobile"),
+                                hint: translator.translate(
+                                    "login_registration_screen.mobile"),
+                                textEditingController: _mobile,
+                                max: true,
+                                icon: false,
+                                padding: false,
+                                onChanged: (value) {
+                                  setState(() {
+                                    pass = false;
+                                  });
                                   context.read<SignupBloc>().add(
                                         SignupMobileChanged(mobile: value),
-                                      ),
-                            ),
+                                      );
+                                }),
 
                             CustomInput(
-                              title: translator.translate(
-                                  "login_registration_screen.password"),
-                              hint: translator.translate(
-                                  "login_registration_screen.password"),
-                              textEditingController: _password,
-                              textInputType: TextInputType.visiblePassword,
-                              icon: true,
-                              padding: false,
-                              onChanged: (value) =>
+                                title: translator.translate(
+                                    "login_registration_screen.password"),
+                                hint: translator.translate(
+                                    "login_registration_screen.password"),
+                                textEditingController: _password,
+                                textInputType: TextInputType.visiblePassword,
+                                icon: true,
+                                padding: false,
+                                onChanged: (value) {
+                                  setState(() {
+                                    pass = false;
+                                  });
                                   context.read<SignupBloc>().add(
                                         SignupPasswordChanged(password: value),
-                                      ),
-                            ),
+                                      );
+                                }),
 
                             isLogin
                                 ? SizedBox.shrink()
@@ -529,11 +556,13 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                   top: isLogin ? 10.h : 16.h, bottom: 32.h),
                               height: 50.h,
                               child: ElevatedButton(
-                                onPressed: !isLogin
-                                    ? _signupButtonPressed
-                                    : state is! LoginLoading
-                                        ? _onLoginButtonPressed
-                                        : null,
+                                onPressed: pass
+                                    ? null
+                                    : !isLogin
+                                        ? _signupButtonPressed
+                                        : state is! LoginLoading
+                                            ? _onLoginButtonPressed
+                                            : null,
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
                                       Theme.of(context).primaryColor),
@@ -552,6 +581,10 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                   style: Theme.of(context).textTheme.headline2,
                                 ),
                               ),
+                            ),
+                            Visibility(
+                              visible: pass,
+                              child: SmallLoader(),
                             ),
                             isLogin
                                 ? SizedBox(

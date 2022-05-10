@@ -32,9 +32,11 @@ class BasketWebServices {
     print("response Basket ${response.body}");
 
     if (response.statusCode == 200) {
-      return Basket.fromJson(
+      final result = Basket.fromJson(
         json.decode(response.body),
       );
+
+      return result;
     } else {
       print("response.body = " + (response.body).toString());
       throw Exception(
