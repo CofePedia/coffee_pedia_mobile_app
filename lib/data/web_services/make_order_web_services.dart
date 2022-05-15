@@ -12,7 +12,8 @@ import '../../main.dart';
 class MakeOrderWebServices {
   final userDao = UserDao();
 
-  Future<MakeOrder> getMakeOrder(String addressId, String paymentId) async {
+  Future<MakeOrder> getMakeOrder(
+      String addressId, String paymentId, String coupon) async {
     final url = Uri.parse(baseUrl + 'makeOrder');
 
     GetTokenDatabase? token = await userDao.getUserToken();
@@ -30,6 +31,7 @@ class MakeOrderWebServices {
       body: {
         'address_id': addressId,
         'payment_id': paymentId,
+        'coupon': coupon
       },
     );
     print("response makeOrder ${response.body}");

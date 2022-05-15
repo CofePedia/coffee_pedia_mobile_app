@@ -88,29 +88,7 @@ class BasketCubit extends Cubit<BasketState> {
     }
     ///////prints
     bool itemFound = false;
-    baskets.forEach((element) async {
-      print(
-          "Elements ID .. ${element.productId} new basket ID .. ${basketLocal.productId}");
-      if (element.productId == basketLocal.productId) {
-        print("update in cubit ");
-        // update this row..
-        itemFound = true;
-        print("ITEM FOUNT!! " + basketLocal.productId.toString());
-        int newQuantity = int.parse(basketLocal.quantity.toString()) +
-            int.parse(element.quantity.toString());
-        await basketRepository
-            .updateQuantityInLocalBasket(basketLocal.productId!, newQuantity)
-            .then(
-              (value) => emit(
-                UpdateLocalBasket(),
-              ),
-            )
-            .catchError((error) {
-          print("local basket error $error");
-          emit(UpdateLocalBasketError(error.toString()));
-        });
-      }
-    });
+
     if (!itemFound) {
       print("new row in cubit ");
       // new row..
@@ -150,6 +128,32 @@ class BasketCubit extends Cubit<BasketState> {
     //TODO 3) send all the products to the database..
     basketRepository.getAddToBasket(basket).then((value) {
       emit(AddToBasketIsPressed(value));
+    });
+
+    baskets.forEach((element) async {
+      print(
+          "Elements ID .. ${element.productId} element quantity .. ${element.quantity}");
+      print("BASKET COUNT .. ${baskets.length} ");
+
+      if (element.productId == basketLocal.productId) {
+        print("update in cubit ");
+        // update this row..
+        itemFound = true;
+        print("ITEM FOUNT!! " + basketLocal.productId.toString());
+        int newQuantity = int.parse(basketLocal.quantity.toString()) +
+            int.parse(element.quantity.toString());
+        await basketRepository
+            .updateQuantityInLocalBasket(basketLocal.productId!, newQuantity)
+            .then(
+              (value) => emit(
+                UpdateLocalBasket(),
+              ),
+            )
+            .catchError((error) {
+          print("local basket error $error");
+          emit(UpdateLocalBasketError(error.toString()));
+        });
+      }
     });
   }
 
@@ -280,9 +284,9 @@ class BasketCubit extends Cubit<BasketState> {
     });
   }
 
-  void getCoupon(String coupon) {
+  void getCoupon(String coupon, String addressId) {
     basketRepository
-        .postCoupon(coupon)
+        .postCoupon(coupon, addressId)
         .then((value) => emit(
               CouponIsPressed(value),
             ))

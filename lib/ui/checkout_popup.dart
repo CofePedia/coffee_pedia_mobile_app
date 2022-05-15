@@ -22,13 +22,14 @@ class CheckoutPopUpProvider extends StatelessWidget {
   final String? image;
   final String? title;
   final String? totalPrice;
+  final bool meLoaded;
   // final ProductLoaded state;
 
   const CheckoutPopUpProvider({
     required this.image,
     required this.totalPrice,
     required this.title,
-    // required this.state,
+    required this.meLoaded,
     required this.basketLocal,
     Key? key,
   }) : super(key: key);
@@ -56,7 +57,7 @@ class CheckoutPopUpProvider extends StatelessWidget {
         image: image,
         title: title,
         totalPrice: totalPrice,
-        // state: state,
+        meLoaded: meLoaded,
         basketLocal: basketLocal!,
       ),
     );
@@ -68,7 +69,7 @@ class CheckoutPopUp extends StatefulWidget {
     required this.title,
     required this.totalPrice,
     required this.image,
-    // required this.state,
+    required this.meLoaded,
     required this.basketLocal,
     Key? key,
   }) : super(key: key);
@@ -79,7 +80,7 @@ class CheckoutPopUp extends StatefulWidget {
   final String? image;
   final String? title;
   final String? totalPrice;
-  // final ProductLoaded state;
+  final bool meLoaded;
 
   @override
   State<CheckoutPopUp> createState() => _CheckoutPopUpState();
@@ -87,11 +88,14 @@ class CheckoutPopUp extends StatefulWidget {
 
 class _CheckoutPopUpState extends State<CheckoutPopUp> {
   bool isLoggedIn = false;
+  @override
+  void initState() {
+    BlocProvider.of<MeCubit>(context).getMe();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<MeCubit>(context).getMe();
-
     // return Container(
     return CheckInternetConnection(
         screen: Container(
@@ -201,11 +205,8 @@ class _CheckoutPopUpState extends State<CheckoutPopUp> {
                     title: translator
                         .translate("checkout_popup.proceed_to_checkout"),
                     onPress: () async {
-                      final BasketRepository basketRepository =
-                          BasketRepository(
-                        BasketWebServices(),
-                      );
-                      if (state is MeIsLoaded) {
+                      print("MOOOOI");
+                      if (widget.meLoaded == true) {
                         print(
                             "MyQuerySoundEffectsEnabled  proceed button with a user");
                         //TODO 1) add the item to the local db..
@@ -247,7 +248,7 @@ class _CheckoutPopUpState extends State<CheckoutPopUp> {
                         print("A 3");
                         //TODO 3) send all the products to the database..
                         BlocProvider.of<BasketCubit>(context).getAddToBasket(basket);*/
-                      } else if (state is MeIsNotExist) {
+                      } else if (widget.meLoaded == false) {
                         print(
                             "MyQuerySoundEffectsEnabled  proceed button with local");
                         await BlocProvider.of<BasketCubit>(context)

@@ -19,9 +19,10 @@ import 'checkout_item.dart';
 import 'delivery_info_screen.dart';
 
 class CheckoutItemsScreenProvider extends StatelessWidget {
-  Function? onAddPressed;
+  final Function? onAddPressed;
 
-  CheckoutItemsScreenProvider({this.onAddPressed, Key? key}) : super(key: key);
+  const CheckoutItemsScreenProvider({this.onAddPressed, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +51,8 @@ class CheckoutItemsScreenProvider extends StatelessWidget {
 }
 
 class CheckoutItemsScreen extends StatefulWidget {
-  CheckoutItemsScreen({required this.onAddPressed});
-  Function onAddPressed;
+  const CheckoutItemsScreen({required this.onAddPressed});
+  final Function onAddPressed;
   @override
   State<CheckoutItemsScreen> createState() => _CheckoutItemsScreenState();
 }
@@ -68,7 +69,6 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
 
   // final TextEditingController coupon = TextEditingController();
   // bool discountLoading = false;
-  bool isPressed = false;
   // String? subTotal;
   // String? discount;
   // String? deliveryCharge;
@@ -96,7 +96,6 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
         listeners: [
           BlocListener<BasketCubit, BasketState>(listener: (context, state) {
             if (state is AddToBasketIsPressed) {
-              print("AddToBasketIsPressed");
               if (isLoggedIn) {
                 BlocProvider.of<BasketCubit>(context).getBasket();
               } else {
@@ -129,7 +128,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                         padding: EdgeInsets.only(bottom: 69.h),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 130.h,
+                          height: 145.h,
                           padding: EdgeInsets.symmetric(
                             vertical: 21.h,
                             horizontal: 15.w,
@@ -277,9 +276,23 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                         setState(() {});
                                         BlocProvider.of<BasketCubit>(context)
                                             .getBasket();
+                                        print("ashrooof");
+                                        widget.onAddPressed();
                                       },
                                       onItemAdded: () {
+                                        print("ashrooof1");
+                                        print("AddToBasketIsPressed---");
+                                        bool isDialogLoading =
+                                            Prefs.getBool("dialogLoading") ??
+                                                false;
+                                        if (isDialogLoading) {
+                                          print("AddToBasketIsPressed--- 1");
+                                          // dismissDialog(context);
+                                          // Navigator.popUntil(context, (route) => false);
+                                          Prefs.setBool("dialogLoading", false);
+                                        }
                                         setState(() {});
+                                        widget.onAddPressed();
                                       },
                                     ),
                                   );
@@ -554,7 +567,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                         padding: EdgeInsets.only(bottom: 69.h),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 130.h,
+                          height: 145.h,
                           padding: EdgeInsets.symmetric(
                             vertical: 21.h,
                             horizontal: 15.w,
@@ -589,7 +602,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                               ),
                               CustomButton(
                                 title: translator.translate(
-                                    "checkout_popup.proceed_to_checkout"),
+                                    "checkout_items_screen.shopping_basket"),
                                 onPress: () {
                                   if (isLoggedIn) {
                                     Navigator.push(
@@ -985,6 +998,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                         ),
                       ),
                     )
+                  //
                   : BasketEmptyScreen(
                       isLoggedIn: isLoggedIn,
                     );

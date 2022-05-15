@@ -32,7 +32,7 @@ class BasketEmptyScreen extends StatelessWidget {
                 top: 31.h, bottom: 45.h, left: 16.w, right: 16.w),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 110.h,
+              height: 118.h,
               padding: EdgeInsets.all(16.h),
               decoration: BoxDecoration(
                 color: Color(0xffF3FCFE),
@@ -40,7 +40,7 @@ class BasketEmptyScreen extends StatelessWidget {
               ),
               child: Row(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CircleAvatar(
                     radius: 23.sp,
@@ -50,10 +50,10 @@ class BasketEmptyScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 30.w,
+                    width: 20.w,
                   ),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(

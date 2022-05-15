@@ -111,7 +111,7 @@ class BasketWebServices {
     }
   }
 
-  Future<Coupon> postCoupon(String coupon) async {
+  Future<Coupon> postCoupon(String coupon, String addressId) async {
     final url = Uri.parse(baseUrl + '/checkCoupon');
 
     GetTokenDatabase? token = await userDao.getUserToken();
@@ -126,9 +126,7 @@ class BasketWebServices {
         'platform': Platform.operatingSystem,
         'OSVersion': Platform.operatingSystemVersion,
       },
-      body: {
-        'coupon': coupon,
-      },
+      body: {'coupon': coupon, 'address_id': addressId},
     );
     print("response coupon ${response.body}");
 
@@ -138,9 +136,13 @@ class BasketWebServices {
       );
     } else {
       print(json.decode(response.body).toString());
-      throw Exception(
-        json.decode(response.body),
-      );
+      // throw json.decode(response.body)["coupon"];
+
+      final data = jsonDecode(response.body);
+      data.forEach((key, value) {
+        throw value[0];
+      });
+      throw 'Error, Please try again';
     }
   }
 

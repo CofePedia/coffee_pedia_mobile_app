@@ -85,6 +85,6 @@ class OrderSummaryIsLoaded extends BasketState {
 }
 
 class CouponUnvalid extends BasketState {
-  final Exception? error;
+  final String? error;
   CouponUnvalid(this.error);
 }

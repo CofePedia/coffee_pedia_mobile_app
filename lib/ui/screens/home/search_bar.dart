@@ -62,7 +62,7 @@ class _SearchBarState extends State<SearchBar> {
                 children: [
                   Container(
                     height: 43.h,
-                    width: 300.w,
+                    width: 295.w,
                     child: TextField(
                       controller: _searchTextController,
                       autofocus: true,

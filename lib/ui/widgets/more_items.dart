@@ -9,12 +9,14 @@ class MoreItems extends StatelessWidget {
     this.subTitle,
     required this.title,
     required this.image,
+    this.isAbout = false,
     Key? key,
   }) : super(key: key);
   final VoidCallback onPress;
   final String? subTitle;
   final String title;
   final String image;
+  final bool isAbout;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -38,14 +40,17 @@ class MoreItems extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 16.sp),
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                      fontSize: 16.sp,
+                      color: isAbout ? Color(0xff000000) : Color(0xffBBB7B8),
+                    ),
               ),
               Text(
                 subTitle ?? '',
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4!
+                    .copyWith(color: Color(0xffBBB7B8)),
               ),
             ],
           ),

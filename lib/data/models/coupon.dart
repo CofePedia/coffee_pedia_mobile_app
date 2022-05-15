@@ -1,50 +1,3 @@
-class CouponDataCoupon {
-/*
-{
-  "id": 1,
-  "code": "Shad10",
-  "discount": 0,
-  "min_order": 80,
-  "type": "percentage",
-  "capping": 50
-}
-*/
-
-  int? id;
-  String? code;
-  int? discount;
-  int? minOrder;
-  String? type;
-  int? capping;
-
-  CouponDataCoupon({
-    this.id,
-    this.code,
-    this.discount,
-    this.minOrder,
-    this.type,
-    this.capping,
-  });
-  CouponDataCoupon.fromJson(Map<String, dynamic> json) {
-    id = json['id']?.toInt();
-    code = json['code']?.toString();
-    discount = json['discount']?.toInt();
-    minOrder = json['min_order']?.toInt();
-    type = json['type']?.toString();
-    capping = json['capping']?.toInt();
-  }
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['id'] = id;
-    data['code'] = code;
-    data['discount'] = discount;
-    data['min_order'] = minOrder;
-    data['type'] = type;
-    data['capping'] = capping;
-    return data;
-  }
-}
-
 class CouponData {
 /*
 {
@@ -63,33 +16,27 @@ class CouponData {
 }
 */
 
-  CouponDataCoupon? coupon;
   int? subTotal;
   int? discount;
   int? deliveryCharge;
   int? totalPrice;
 
   CouponData({
-    this.coupon,
     this.subTotal,
     this.discount,
     this.deliveryCharge,
     this.totalPrice,
   });
   CouponData.fromJson(Map<String, dynamic> json) {
-    coupon = (json['coupon'] != null)
-        ? CouponDataCoupon.fromJson(json['coupon'])
-        : null;
     subTotal = json['sub_total']?.toInt();
-    discount = json['discount']?.toInt();
-    deliveryCharge = json['delivery_charge']?.toInt();
+    discount = json['discount'] == null ? 0 : json['discount'].toInt();
+    deliveryCharge =
+        json['delivery_charge'] == null ? 0 : json['delivery_charge'].toInt();
     totalPrice = json['total_price']?.toInt();
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    if (coupon != null) {
-      data['coupon'] = coupon!.toJson();
-    }
+
     data['sub_total'] = subTotal;
     data['discount'] = discount;
     data['delivery_charge'] = deliveryCharge;

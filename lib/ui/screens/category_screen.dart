@@ -328,13 +328,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10.r),
-                                                color: Color(0xffEED2BB),
+                                                color: Color(0xffD2E2FF),
                                               ),
                                             ),
                                             Positioned(
                                               top: 4.h,
                                               bottom: 4.h,
-                                              right: 4.w,
+                                              right: 0.w,
                                               left: 80.w,
                                               child: CustomNetworkImage(
                                                 imageUrl: state
@@ -370,7 +370,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                   style: TextStyle(
                                                     fontSize: 12.sp,
                                                     color: Color(
-                                                      0xff3A1008,
+                                                      0xff4470c1,
                                                     ),
                                                   ),
                                                 ),
@@ -470,13 +470,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10.r),
-                                                color: Color(0xffEED2BB),
+                                                color: Color(0xffD2E2FF),
                                               ),
                                             ),
                                             Positioned(
                                               top: 4.h,
                                               bottom: 4.h,
-                                              right: 4.w,
+                                              right: 0.w,
                                               left: 80.w,
                                               child: CustomNetworkImage(
                                                 imageUrl: widget
@@ -501,7 +501,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                   style: TextStyle(
                                                     fontSize: 12.sp,
                                                     color: Color(
-                                                      0xff3A1008,
+                                                      0xff4470c1,
                                                     ),
                                                   ),
                                                 ),

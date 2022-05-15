@@ -89,6 +89,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                 builder: (context) {
                   return PaymentInfoScreenProvider(
                     addressId: widget.addressId,
+                    coupon: coupon.text,
                   );
                 },
               ),
@@ -101,364 +102,374 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
         ),
       ),
       body: CheckInternetConnection(
-        screen: Column(
-          children: [
-            SizedBox(
-              height: 60.h,
-            ),
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    size: 20.w,
-                  ),
-                  color: Color(0xff000000),
-                ),
-                Text(
-                  translator.translate("checkout_items_screen.order_summary"),
-                  style: Theme.of(context).textTheme.headline1!.copyWith(
-                        fontSize: 18.sp,
-                      ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 33.h, bottom: 8.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+        screen: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 60.h,
+              ),
+              Row(
                 children: [
-                  Container(
-                    height: 27.h,
-                    width: 25.w,
-                    alignment: Alignment.center,
-                    child: Text(
-                      '1',
-                      style: Theme.of(context).textTheme.headline6,
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      size: 20.w,
                     ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Theme.of(context).primaryColor,
-                        width: 2.w,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        25.r,
-                      ),
-                    ),
+                    color: Color(0xff000000),
                   ),
-                  SizedBox(
-                    width: 58.w,
-                    child: Divider(
-                      thickness: 2.h,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  Container(
-                    height: 27.h,
-                    width: 25.w,
-                    alignment: Alignment.center,
-                    child: Text(
-                      '2',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Theme.of(context).primaryColor,
-                        width: 2.w,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        25.r,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  SizedBox(
-                    width: 58.w,
-                    child: Divider(
-                      thickness: 2.h,
-                      color: Color(0xff9D9D9D),
-                    ),
-                  ),
-                  Container(
-                    height: 27.h,
-                    width: 25.w,
-                    alignment: Alignment.center,
-                    child: Text(
-                      '3',
-                      style: Theme.of(context).textTheme.overline,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xff9D9D9D),
-                        width: 2.w,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        25.r,
-                      ),
-                    ),
+                  Text(
+                    translator.translate("checkout_items_screen.order_summary"),
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                          fontSize: 18.sp,
+                        ),
                   ),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  translator.translate("delivery_info_screen.delivery_info"),
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
-                        fontSize: 12.sp,
+              Padding(
+                padding: EdgeInsets.only(top: 33.h, bottom: 8.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 27.h,
+                      width: 25.w,
+                      alignment: Alignment.center,
+                      child: Text(
+                        '1',
+                        style: Theme.of(context).textTheme.headline6,
                       ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                          width: 2.w,
+                        ),
+                        borderRadius: BorderRadius.circular(
+                          25.r,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 58.w,
+                      child: Divider(
+                        thickness: 2.h,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    Container(
+                      height: 27.h,
+                      width: 25.w,
+                      alignment: Alignment.center,
+                      child: Text(
+                        '2',
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                          width: 2.w,
+                        ),
+                        borderRadius: BorderRadius.circular(
+                          25.r,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    SizedBox(
+                      width: 58.w,
+                      child: Divider(
+                        thickness: 2.h,
+                        color: Color(0xff9D9D9D),
+                      ),
+                    ),
+                    Container(
+                      height: 27.h,
+                      width: 25.w,
+                      alignment: Alignment.center,
+                      child: Text(
+                        '3',
+                        style: Theme.of(context).textTheme.overline,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color(0xff9D9D9D),
+                          width: 2.w,
+                        ),
+                        borderRadius: BorderRadius.circular(
+                          25.r,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: 8.w,
-                ),
-                Text(
-                  translator.translate("checkout_items_screen.order_summary"),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(fontSize: 12.sp),
-                ),
-                SizedBox(
-                  width: 8.w,
-                ),
-                Text(
-                  translator.translate("delivery_info_screen.payment_info"),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: Color(0xff9D9D9D), fontSize: 12.sp),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 27.h,
-            ),
-            BlocListener<BasketCubit, BasketState>(
-              listener: (context, state) {
-                if (state is CouponIsPressed) {
-                  setState(() {
-                    isPressed = true;
-                  });
-                  if (isPressed == true) {
-                    subTotal = state.coupon!.data!.subTotal!.toString();
-                    discount = state.coupon!.data!.discount!.toString();
-                    deliveryCharge =
-                        state.coupon!.data!.deliveryCharge!.toString();
-                    total = state.coupon!.data!.totalPrice!.toString();
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    translator.translate("delivery_info_screen.delivery_info"),
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                          fontSize: 12.sp,
+                        ),
+                  ),
+                  SizedBox(
+                    width: 8.w,
+                  ),
+                  Text(
+                    translator.translate("checkout_items_screen.order_summary"),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(fontSize: 12.sp),
+                  ),
+                  SizedBox(
+                    width: 8.w,
+                  ),
+                  Text(
+                    translator.translate("delivery_info_screen.payment_info"),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: Color(0xff9D9D9D), fontSize: 12.sp),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 27.h,
+              ),
+              BlocListener<BasketCubit, BasketState>(
+                listener: (context, state) {
+                  if (state is CouponIsPressed) {
+                    setState(() {
+                      isPressed = true;
+                    });
+                    if (isPressed == true) {
+                      subTotal = state.coupon!.data!.subTotal!.toString();
+                      discount = state.coupon!.data!.discount!.toString();
+                      deliveryCharge =
+                          state.coupon!.data!.deliveryCharge!.toString();
+                      total = state.coupon!.data!.totalPrice!.toString();
+                    }
+                  } else if (state is CouponUnvalid) {
+                    BotToast.showText(text: state.error!.toString());
                   }
-                } else if (state is CouponUnvalid) {
-                  BotToast.showText(text: state.error!.toString());
-                }
-              },
-              child: BlocBuilder<BasketCubit, BasketState>(
-                builder: (context, state) {
-                  if (state is OrderSummaryIsLoaded) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      color: Color(0xffF8F8F8),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16.w,
-                        vertical: 16.h,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            translator
-                                .translate("checkout_items_screen.have_coupon"),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(fontSize: 14.sp),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16.h),
-                            child: Container(
-                              height: 40.h,
-                              child: TextFormField(
-                                maxLines: 1,
-                                controller: coupon,
-                                showCursor: true,
-                                cursorColor: Theme.of(context).primaryColor,
-                                keyboardType: TextInputType.text,
-                                style: TextStyle(color: Colors.black45),
-                                inputFormatters: [
-                                  WhiteSpacesInputFormatter(),
-                                ],
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  contentPadding: EdgeInsets.all(12.h),
-                                  hintText: translator.translate(
-                                      "checkout_items_screen.coupon_code"),
-                                  hintStyle: Theme.of(context)
-                                      .textTheme
-                                      .headline4!
-                                      .copyWith(
-                                        color: Color(0xffcccccc),
-                                      ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.w),
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.w,
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.w),
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.w,
-                                    ),
-                                  ),
-                                  alignLabelWithHint: true,
-                                  suffixIcon: InkWell(
-                                    onTap: () {
-                                      if (coupon.text.trim().isNotEmpty) {
-                                        BlocProvider.of<BasketCubit>(context)
-                                            .getCoupon(coupon.text);
-                                      }
-                                    },
-                                    child: Container(
-                                      height: 40.h,
-                                      width: 90.w,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                          5.r,
+                },
+                child: BlocBuilder<BasketCubit, BasketState>(
+                  builder: (context, state) {
+                    if (state is OrderSummaryIsLoaded) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        color: Color(0xffF8F8F8),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16.w,
+                          vertical: 16.h,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              translator.translate(
+                                  "checkout_items_screen.have_coupon"),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(fontSize: 14.sp),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 16.h),
+                              child: Container(
+                                height: 40.h,
+                                child: TextFormField(
+                                  maxLines: 1,
+                                  controller: coupon,
+                                  showCursor: true,
+                                  cursorColor: Theme.of(context).primaryColor,
+                                  keyboardType: TextInputType.text,
+                                  style: TextStyle(color: Colors.black45),
+                                  inputFormatters: [
+                                    WhiteSpacesInputFormatter(),
+                                  ],
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 10.w),
+                                    hintText: translator.translate(
+                                        "checkout_items_screen.coupon_code"),
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .headline4!
+                                        .copyWith(
+                                          color: Color(0xffcccccc),
                                         ),
-                                        color: Color(0xff107CC0),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.w),
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.w,
                                       ),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        translator.translate(
-                                            "checkout_items_screen.apply"),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2!
-                                            .copyWith(
-                                              fontWeight: FontWeight.w500,
-                                            ),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.w),
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.w,
+                                      ),
+                                    ),
+                                    alignLabelWithHint: true,
+                                    suffixIcon: InkWell(
+                                      onTap: () {
+                                        if (coupon.text.trim().isNotEmpty) {
+                                          BlocProvider.of<BasketCubit>(context)
+                                              .getCoupon(coupon.text,
+                                                  widget.addressId);
+                                        }
+                                      },
+                                      child: Container(
+                                        height: 40.h,
+                                        width: 90.w,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            5.r,
+                                          ),
+                                          color: Color(0xff107CC0),
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          translator.translate(
+                                              "checkout_items_screen.apply"),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2!
+                                              .copyWith(
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                  translator.translate(
-                                      "checkout_items_screen.subtotal"),
-                                  style: Theme.of(context).textTheme.headline4),
-                              Text(
-                                isPressed == false
-                                    ? "${state.orderSummary!.data!.subTotal} ${translator.translate("checkout_items_screen.egp")}"
-                                    : "$subTotal ${translator.translate("checkout_items_screen.egp")}",
-                                style: Theme.of(context).textTheme.headline4,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                  translator.translate(
-                                      "checkout_items_screen.discount"),
-                                  style: Theme.of(context).textTheme.headline4),
-                              Text(
-                                  isPressed == false
-                                      ? "- ${state.orderSummary!.data!.discount} ${translator.translate("checkout_items_screen.egp")}"
-                                      : "- $discount ${translator.translate("checkout_items_screen.egp")}",
-                                  style: Theme.of(context).textTheme.headline4),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                  translator.translate(
-                                      "checkout_items_screen.delivery_charge"),
-                                  style: Theme.of(context).textTheme.headline4),
-                              Text(
-                                isPressed == false
-                                    ? "${state.orderSummary!.data!.deliveryCharge} ${translator.translate("checkout_items_screen.egp")}"
-                                    : "$deliveryCharge ${translator.translate("checkout_items_screen.egp")}",
-                                style: Theme.of(context).textTheme.headline4,
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 16.h, bottom: 28.h),
-                            child: Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  translator.translate(
-                                      "checkout_items_screen.total_price"),
-                                  style: Theme.of(context).textTheme.headline4,
-                                ),
+                                    translator.translate(
+                                        "checkout_items_screen.subtotal"),
+                                    style:
+                                        Theme.of(context).textTheme.headline4),
                                 Text(
                                   isPressed == false
-                                      ? " ${state.orderSummary!.data!.total} ${translator.translate("checkout_items_screen.egp")}"
-                                      : " $total ${translator.translate("checkout_items_screen.egp")}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .caption!
-                                      .copyWith(
-                                        color: Color(0xff107CC0),
-                                      ),
+                                      ? "${state.orderSummary!.data!.subTotal} ${translator.translate("checkout_items_screen.egp")}"
+                                      : "$subTotal ${translator.translate("checkout_items_screen.egp")}",
+                                  style: Theme.of(context).textTheme.headline4,
                                 ),
                               ],
                             ),
-                          ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     SvgPicture.asset(
-                          //       Assets.imagesVisaLogo,
-                          //       width: 53.w,
-                          //       height: 25.h,
-                          //     ),
-                          //     SizedBox(
-                          //       width: 7.w,
-                          //     ),
-                          //     SvgPicture.asset(
-                          //       Assets.imagesMastercardLogo,
-                          //       width: 44.w,
-                          //       height: 28.h,
-                          //     ),
-                          //   ],
-                          // )
-                        ],
-                      ),
-                    );
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                    translator.translate(
+                                        "checkout_items_screen.discount"),
+                                    style:
+                                        Theme.of(context).textTheme.headline4),
+                                Text(
+                                    isPressed == false
+                                        ? "- ${state.orderSummary!.data!.discount} ${translator.translate("checkout_items_screen.egp")}"
+                                        : "- $discount ${translator.translate("checkout_items_screen.egp")}",
+                                    style:
+                                        Theme.of(context).textTheme.headline4),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                    translator.translate(
+                                        "checkout_items_screen.delivery_charge"),
+                                    style:
+                                        Theme.of(context).textTheme.headline4),
+                                Text(
+                                  isPressed == false
+                                      ? "${state.orderSummary!.data!.deliveryCharge} ${translator.translate("checkout_items_screen.egp")}"
+                                      : "$deliveryCharge ${translator.translate("checkout_items_screen.egp")}",
+                                  style: Theme.of(context).textTheme.headline4,
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 16.h, bottom: 28.h),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    translator.translate(
+                                        "checkout_items_screen.total_price"),
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
+                                  ),
+                                  Text(
+                                    isPressed == false
+                                        ? " ${state.orderSummary!.data!.total} ${translator.translate("checkout_items_screen.egp")}"
+                                        : " $total ${translator.translate("checkout_items_screen.egp")}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .caption!
+                                        .copyWith(
+                                          color: Color(0xff107CC0),
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     SvgPicture.asset(
+                            //       Assets.imagesVisaLogo,
+                            //       width: 53.w,
+                            //       height: 25.h,
+                            //     ),
+                            //     SizedBox(
+                            //       width: 7.w,
+                            //     ),
+                            //     SvgPicture.asset(
+                            //       Assets.imagesMastercardLogo,
+                            //       width: 44.w,
+                            //       height: 28.h,
+                            //     ),
+                            //   ],
+                            // )
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

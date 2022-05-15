@@ -13,8 +13,10 @@ import '../../main.dart';
 
 class PaymentInfoScreenProvider extends StatelessWidget {
   final String addressId;
+  final String coupon;
   const PaymentInfoScreenProvider({
     required this.addressId,
+    required this.coupon,
     Key? key,
   }) : super(key: key);
 
@@ -26,18 +28,18 @@ class PaymentInfoScreenProvider extends StatelessWidget {
           PaymentsWebServices(),
         ),
       ),
-      child: PaymentInfoScreen(
-        addressId: addressId,
-      ),
+      child: PaymentInfoScreen(addressId: addressId, coupon: coupon),
     );
   }
 }
 
 class PaymentInfoScreen extends StatefulWidget {
   final String addressId;
+  final String coupon;
 
   const PaymentInfoScreen({
     required this.addressId,
+    required this.coupon,
     Key? key,
   }) : super(key: key);
 
@@ -89,9 +91,9 @@ class _PaymentInfoScreenState extends State<PaymentInfoScreen> {
                           builder: (context) {
                             print('add124 ${widget.addressId}');
                             return SuccessScreenProvider(
-                              paymentId: _paymentId!,
-                              addressId: widget.addressId,
-                            );
+                                paymentId: _paymentId!,
+                                addressId: widget.addressId,
+                                coupon: widget.coupon);
                           },
                         ),
                         ModalRoute.withName('/'),

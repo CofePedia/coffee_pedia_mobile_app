@@ -6,8 +6,10 @@ class MakeOrderRepository {
 
   MakeOrderRepository(this.makeOrderWebServices);
 
-  Future<MakeOrder> getMakeOrder(String addressId, String paymentId) async {
-    final makeOrder = makeOrderWebServices.getMakeOrder(addressId, paymentId);
+  Future<MakeOrder> getMakeOrder(
+      String addressId, String paymentId, String coupon) async {
+    final makeOrder =
+        makeOrderWebServices.getMakeOrder(addressId, paymentId, coupon);
     return makeOrder;
   }
 }

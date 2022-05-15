@@ -30,8 +30,8 @@ class BasketRepository {
   // Future updateBasket(BasketDataItems basket) => userDao.updateBasket(basket);
   // Future deleteBasketById(int id) => userDao.deleteBasket(id);
 
-  Future<Coupon> postCoupon(String coupon) async {
-    final result = basketWebServices.postCoupon(coupon);
+  Future<Coupon> postCoupon(String coupon, String addressId) async {
+    final result = basketWebServices.postCoupon(coupon, addressId);
     return result;
   }
 

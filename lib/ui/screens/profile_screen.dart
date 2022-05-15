@@ -449,15 +449,15 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                       //     ],
                       //   ),
                       // ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 5.h,
-                        color: Color(0xffEFEFEF),
-                      ),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width,
+                      //   height: 5.h,
+                      //   color: Color(0xffEFEFEF),
+                      // ),
                       // language..
                       Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 16.w, vertical: 6.h),
+                            horizontal: 10.w, vertical: 6.h),
                         child: InkWell(
                           onTap: () {
                             showModalBottomSheet(

@@ -24,8 +24,9 @@ class OrderSummaryData {
   });
   OrderSummaryData.fromJson(Map<String, dynamic> json) {
     subTotal = json['sub_total']?.toInt();
-    discount = json['discount']?.toInt();
-    deliveryCharge = json['delivery_charge']?.toInt();
+    discount = json['discount'] == null ? 0 : json['discount'].toInt();
+    deliveryCharge =
+        json['delivery_charge'] == null ? 0 : json['delivery_charge'].toInt();
     total = json['total']?.toInt();
     totalItems = json['totalItems']?.toInt();
   }

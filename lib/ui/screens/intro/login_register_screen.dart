@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:circle_checkbox/redev_checkbox.dart';
 import 'package:coffepedia/business_logic/auth/auth_bloc.dart';
 import 'package:coffepedia/business_logic/forgot_password/forgot_password_cubit.dart';
@@ -129,12 +130,15 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
             BlocListener<LoginBloc, LoginState>(
               listener: (context, state) async {
                 if (state is LoginFailure) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('${state.error}'),
-                      backgroundColor: Colors.red,
-                    ),
+                  BotToast.showText(
+                    text: state.error!,
                   );
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   SnackBar(
+                  //     content: Text('${state.error}'),
+                  //     backgroundColor: Colors.red,
+                  //   ),
+                  // );
                   setState(() {
                     pass = false;
                   });
@@ -211,13 +215,18 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               listener: (context, state) {
                 if (state.formStatus is SubmissionFailed) {
                   final stateForm = state.formStatus;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                          '${stateForm is SubmissionFailed ? stateForm.exception.toString() : ""}'),
-                      backgroundColor: Colors.red,
-                    ),
+                  BotToast.showText(
+                    text: stateForm is SubmissionFailed
+                        ? stateForm.exception.toString()
+                        : "",
                   );
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   SnackBar(
+                  //     content: Text(
+                  //         '${stateForm is SubmissionFailed ? stateForm.exception.toString() : ""}'),
+                  //     backgroundColor: Colors.red,
+                  //   ),
+                  // );
                   setState(() {
                     pass = false;
                   });
@@ -556,13 +565,16 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                   top: isLogin ? 10.h : 16.h, bottom: 32.h),
                               height: 50.h,
                               child: ElevatedButton(
-                                onPressed: pass
+                                onPressed: _mobile.text.isEmpty ||
+                                        _password.text.isEmpty
                                     ? null
-                                    : !isLogin
-                                        ? _signupButtonPressed
-                                        : state is! LoginLoading
-                                            ? _onLoginButtonPressed
-                                            : null,
+                                    : pass
+                                        ? null
+                                        : !isLogin
+                                            ? _signupButtonPressed
+                                            : state is! LoginLoading
+                                                ? _onLoginButtonPressed
+                                                : null,
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
                                       Theme.of(context).primaryColor),

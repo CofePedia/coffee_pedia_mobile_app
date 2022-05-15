@@ -8,8 +8,10 @@ import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/data/web_services/wishlist_web_services.dart';
 import 'package:coffepedia/database/database_provider.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/services/preferences.dart';
 import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
 import 'package:coffepedia/ui/shared/custom_network_image.dart';
+import 'package:coffepedia/ui/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -133,10 +135,20 @@ class _CheckoutItemState extends State<CheckoutItem> {
                 .getAllLocalProductsFromBasket();
           }
         } else if (state is BasketLoaded) {
+          /*print("AddToBasketIsPressed---");
+          bool isDialogLoading = Prefs.getBool("dialogLoading") ?? false;
+          if (isDialogLoading) {
+            print("AddToBasketIsPressed--- 1");
+            Navigator.pop(context);
+            Prefs.setBool("dialogLoading", false);
+          }*/
           print("BasketLoaded from widget");
-        } else if (state is AddToBasketIsPressed) {
-          print("AddToBasketIsPressed from widget");
           widget.onItemAdded.call();
+        } else if (state is AddToBasketIsPressed) {
+          print("AddToBasketIsPressed");
+          print("AddToBasketIsPressed from widget");
+          // widget.onItemAdded.call();
+          // showLoadingDialog(context);
         }
       },
       child: Container(
@@ -232,11 +244,21 @@ class _CheckoutItemState extends State<CheckoutItem> {
                   onTap: () {
                     setState(() {
                       if (widget.quantity > 1) {
-                        print("CCc");
+                        Prefs.setBool("dialogLoading", true);
+                        BotToast.showCustomLoading(toastBuilder: (v) {
+                          return SmallLoader();
+                        });
                         BlocProvider.of<BasketCubit>(context)
                             .updateQuantityInLocalBasket(
                                 int.parse(widget.productId.toString()),
                                 int.parse(widget.quantity.toString()) - 1);
+
+                        String oldQuantity =
+                            Prefs.getString("totalItems") ?? "0";
+                        print("oldQuantity = $oldQuantity");
+                        Prefs.setString("totalItems",
+                            (int.parse(oldQuantity) - 1).toString());
+                        print("newQuantity = ${Prefs.getString("totalItems")}");
                       }
                       // else
                       //   if (widget.quantity > 1) widget.quantity--;
@@ -268,13 +290,24 @@ class _CheckoutItemState extends State<CheckoutItem> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      //if(widget.isLocal){
+                      Prefs.setBool("dialogLoading", true);
+                      BotToast.showCustomLoading(toastBuilder: (v) {
+                        return SmallLoader();
+                      });
                       BlocProvider.of<BasketCubit>(context)
                           .updateQuantityInLocalBasket(
                               int.parse(widget.productId.toString()),
                               int.parse(widget.quantity.toString()) + 1);
-                      //}else
-                      // widget.quantity++;
+                      /*Prefs.setString(
+                          "totalItems",
+                          (int.parse(widget.quantity.toString()) + 1)
+                              .toString());*/
+                      String oldQuantity = Prefs.getString("totalItems") ?? "0";
+                      print("oldQuantity = $oldQuantity");
+                      Prefs.setString("totalItems",
+                          (int.parse(oldQuantity) + 1).toString());
+                      print("newQuantity = ${Prefs.getString("totalItems")}");
+                      widget.onItemAdded();
                     });
                   },
                   child: CircleAvatar(

@@ -9,8 +9,8 @@ class MakeOrderCubit extends Cubit<MakeOrderState> {
   final MakeOrderRepository makeOrderRepository;
   MakeOrderCubit(this.makeOrderRepository) : super(MakeOrderInitial());
 
-  void getMakeOrder(String addressId, String paymentId) {
-    makeOrderRepository.getMakeOrder(addressId, paymentId).then(
+  void getMakeOrder(String addressId, String paymentId, String coupon) {
+    makeOrderRepository.getMakeOrder(addressId, paymentId, coupon).then(
       (value) {
         emit(MakeOrderIsLoaded(value));
       },

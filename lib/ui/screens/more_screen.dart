@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/about_screen.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
@@ -63,68 +61,54 @@ class MoreScreen extends StatelessWidget {
               },
               title: translator.translate("more_screen.about"),
               image: Assets.aboutImage,
+              isAbout: true,
             ),
-            ClipRRect(
-              child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                child: MoreItems(
-                  onPress: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) {
-                    //       return const CoffeeShopsScreen();
-                    //     },
-                    //   ),
-                    // );
-                  },
-                  subTitle: translator
-                      .translate("more_screen.Explore nearby Coffee shops"),
-                  title: translator.translate("more_screen.coffee_shops"),
-                  image: Assets.coffeeShopImage,
-                ),
-              ),
+            MoreItems(
+              onPress: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) {
+                //       return const CoffeeShopsScreen();
+                //     },
+                //   ),
+                // );
+              },
+              subTitle: translator
+                  .translate("more_screen.Explore nearby Coffee shops"),
+              title: translator.translate("more_screen.coffee_shops"),
+              image: Assets.coffeeShopImage,
             ),
-            ClipRRect(
-              child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                child: MoreItems(
-                  onPress: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) {
-                    //       return const BlogScreen();
-                    //     },
-                    //   ),
-                    // );
-                  },
-                  subTitle: translator.translate("more_screen.Share your love"),
-                  title: translator.translate("more_screen.blog"),
-                  image: Assets.blogImage,
-                ),
-              ),
+            MoreItems(
+              onPress: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) {
+                //       return const BlogScreen();
+                //     },
+                //   ),
+                // );
+              },
+              subTitle: translator.translate("more_screen.Share your love"),
+              title: translator.translate("more_screen.blog"),
+              image: Assets.blogImage,
             ),
-            ClipRRect(
-              child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                child: MoreItems(
-                  onPress: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) {
-                    //       return const RecipesScreen();
-                    //     },
-                    //   ),
-                    // );
-                  },
-                  subTitle: translator
-                      .translate("more_screen.Prepare it by yourself"),
-                  title: translator.translate("more_screen.recipes"),
-                  image: Assets.recipesImage,
-                ),
-              ),
+            MoreItems(
+              onPress: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) {
+                //       return const RecipesScreen();
+                //     },
+                //   ),
+                // );
+              },
+              subTitle:
+                  translator.translate("more_screen.Prepare it by yourself"),
+              title: translator.translate("more_screen.recipes"),
+              image: Assets.recipesImage,
             ),
           ],
         ),
