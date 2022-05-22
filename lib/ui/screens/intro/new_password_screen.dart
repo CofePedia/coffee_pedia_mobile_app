@@ -2,8 +2,8 @@ import 'package:coffepedia/business_logic/forgot_password/forgot_password_cubit.
 import 'package:coffepedia/data/repository/forgot_password_repository.dart';
 import 'package:coffepedia/data/web_services/forgot_password_web_services.dart';
 import 'package:coffepedia/main.dart';
-import 'package:coffepedia/ui/custom_input.dart';
 import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
+import 'package:coffepedia/ui/shared/custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -12,6 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../main.dart';
+
 class Categories extends StatelessWidget {
   const Categories({Key? key}) : super(key: key);
 
@@ -122,10 +124,13 @@ class _CardCategoryState extends State<CardCategory> {
                           right: 1.w,
                           left: 1.w,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
                                 width: 96.w,
-                                alignment: Alignment.centerLeft,
+                                alignment: translator.currentLanguage == "ar"
+                                    ? Alignment.centerRight
+                                    : Alignment.centerLeft,
                                 margin: EdgeInsets.symmetric(horizontal: 3.w),
                                 padding: EdgeInsets.symmetric(horizontal: 7.w),
                                 child: Text(

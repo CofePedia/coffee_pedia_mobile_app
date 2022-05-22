@@ -235,29 +235,29 @@ class _HomeScreenState extends State<HomeScreen> {
                           //   },
                           // ),
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 60.h,
-                          child: ListView.builder(
-                            //TODO change index
-                            // itemCount: state.homeAds!.data!.topHeader!.length,
-                            itemCount: 1,
-
-                            scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.zero,
-                            itemBuilder: (context, index) => CustomNetworkImage(
-                              //TODO change index
-                              // imageUrl:
-                              //     state.homeAds!.data!.topHeader![index].image!,
-                              imageUrl:
-                                  state.homeAds!.data!.topHeader![3].image!,
-                              height: 60.h,
-                              width: MediaQuery.of(context).size.width,
-                              radius: 0.r,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   width: MediaQuery.of(context).size.width,
+                        //   height: 60.h,
+                        //   child: ListView.builder(
+                        //     //TODO change index
+                        //     // itemCount: state.homeAds!.data!.topHeader!.length,
+                        //     itemCount: 1,
+                        //
+                        //     scrollDirection: Axis.horizontal,
+                        //     padding: EdgeInsets.zero,
+                        //     itemBuilder: (context, index) => CustomNetworkImage(
+                        //       //TODO change index
+                        //       // imageUrl:
+                        //       //     state.homeAds!.data!.topHeader![index].image!,
+                        //       imageUrl:
+                        //           state.homeAds!.data!.topHeader![3].image!,
+                        //       height: 60.h,
+                        //       width: MediaQuery.of(context).size.width,
+                        //       radius: 0.r,
+                        //       fit: BoxFit.fill,
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     );
                   } else {

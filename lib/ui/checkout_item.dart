@@ -245,9 +245,9 @@ class _CheckoutItemState extends State<CheckoutItem> {
                     setState(() {
                       if (widget.quantity > 1) {
                         Prefs.setBool("dialogLoading", true);
-                        BotToast.showCustomLoading(toastBuilder: (v) {
-                          return SmallLoader();
-                        });
+                        // BotToast.showCustomLoading(toastBuilder: (v) {
+                        //   return SmallLoader();
+                        // });
                         BlocProvider.of<BasketCubit>(context)
                             .updateQuantityInLocalBasket(
                                 int.parse(widget.productId.toString()),
@@ -256,8 +256,11 @@ class _CheckoutItemState extends State<CheckoutItem> {
                         String oldQuantity =
                             Prefs.getString("totalItems") ?? "0";
                         print("oldQuantity = $oldQuantity");
+
                         Prefs.setString("totalItems",
                             (int.parse(oldQuantity) - 1).toString());
+                        widget.onItemAdded();
+
                         print("newQuantity = ${Prefs.getString("totalItems")}");
                       }
                       // else

@@ -13,6 +13,7 @@ class CustomInput extends StatelessWidget {
     this.onChanged,
     this.textInputType,
     this.max = false,
+    this.validator,
     Key? key,
   }) : super(key: key);
 
@@ -25,6 +26,7 @@ class CustomInput extends StatelessWidget {
   final Function(String)? onChanged;
   final TextInputType? textInputType;
   final bool max;
+  final String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -46,10 +48,12 @@ class CustomInput extends StatelessWidget {
           ValueListenableBuilder<bool>(
             valueListenable: changeObscure,
             builder: (context, value, _) {
-              return SizedBox(
-                height: 50.h,
+              return Container(
+                // color: Colors.red,
+                // height: 50.h,
                 child: TextFormField(
                   controller: textEditingController,
+                  validator: validator,
                   obscureText: !icon ? !value : value,
                   keyboardType: textInputType ?? TextInputType.name,
                   style: Theme.of(context)
@@ -57,12 +61,22 @@ class CustomInput extends StatelessWidget {
                       .headline2!
                       .copyWith(color: kLightBlack),
                   onChanged: onChanged!,
+                  // showCursor: true,
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(max ? 11 : null),
                   ],
-                  decoration: InputDecoration(
-                    hintText: hint,
 
+                  decoration: InputDecoration(
+                    errorStyle: TextStyle(fontSize: 10.sp),
+                    hintText: hint,
+                    // errorBorder: OutlineInputBorder(
+                    //   borderRadius: BorderRadius.circular(5.w),
+                    //   gapPadding: 5,
+                    //   borderSide: BorderSide(
+                    //     // color: Color(0xffE3E3E3),
+                    //     width: 1.w,
+                    //   ),
+                    // ),
                     contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
                     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                           color: kGrey3,

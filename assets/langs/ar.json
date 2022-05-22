@@ -90,7 +90,11 @@
     "egp" : "ج.م",
     "seller_info": "معلومات عن التاجر",
     "No products found": "لا توجد منتجات",
-    "Check out what's trending": "اكتشف ماهو شائع"
+    "Check out what's trending": "اكتشف ماهو شائع",
+    "pull up load": "اسحب لأعلى",
+    "Load Failed": "فشل التحميل",
+    "release to load more": "اسحب للتحميل",
+    "No more Data": "لا يوجد بيانات جديدة"
   },
   "coffeeShops_screen" : {
     "coffee_shops" : "Coffee shops",
@@ -227,7 +231,12 @@
     "You must accept our terms & conditions and privacy policy": "يجب عليك قبول الشروط والأحكام وسياسة الخصوصية الخاصة بنا.",
     "dont_have_account" : "ليس لديك حساب؟",
     "have_an_account" : "انشأ حساب",
-    "code_error": "خطأ في الكود"
+    "code_error": "خطأ في الكود",
+    "Invalid_email": "إيميل غير صالح",
+    "Invalid_name": "اسم المستخدم غير صحيح",
+    "Invalid_number": "رقم تليفون غير صحيح",
+    "Password_is_too_short": "الرقم السري قصير جدًا",
+    "Passwords_do_not_match": "الرقم السري غير مطابق"
   },
   "forget_password_screen" : {
     "forget_password" : "نسيت كلمة السر",

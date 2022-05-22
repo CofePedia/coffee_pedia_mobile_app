@@ -10,6 +10,7 @@ class CustomTextFormField extends StatelessWidget {
       this.suffix,
       this.textEditingController,
       this.prefix,
+      this.validator,
       Key? key})
       : super(key: key);
   final TextInputType? keyboardType;
@@ -19,6 +20,7 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffix;
   final Widget? prefix;
   final TextEditingController? textEditingController;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class CustomTextFormField extends StatelessWidget {
         textInputAction: TextInputAction.go,
         controller: textEditingController,
         textAlignVertical: TextAlignVertical.bottom,
+        validator: validator,
         maxLines: 3,
         style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14.sp),
         decoration: InputDecoration(

@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../main.dart';
-import '../../custom_input.dart';
+import '../../shared/custom_input.dart';
 
 class ForgetPasswordScreenProvider extends StatelessWidget {
   const ForgetPasswordScreenProvider({Key? key}) : super(key: key);

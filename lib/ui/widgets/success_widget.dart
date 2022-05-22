@@ -119,14 +119,23 @@ class SuccessWidget extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
                       return const HomePageProvider(currentIndex: 0);
                     },
                   ),
+                  ModalRoute.withName('/'),
                 );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) {
+                //       return const HomePageProvider(currentIndex: 0);
+                //     },
+                //   ),
+                // );
               },
               child: Text(
                 translator.translate("success_screen.continue_shopping"),

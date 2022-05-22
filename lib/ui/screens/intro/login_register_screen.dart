@@ -23,7 +23,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants/colors.dart';
 import '../../../main.dart';
-import '../../custom_input.dart';
+import '../../shared/custom_input.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -70,6 +70,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   bool isLogin = true;
   bool pass = false;
 
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     _email.dispose();
@@ -103,15 +105,19 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
         pass = true;
       });
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            translator.translate(
-                "login_registration_screen.You must accept our terms & conditions and privacy policy"),
-          ),
-          backgroundColor: Colors.red,
-        ),
+      BotToast.showText(
+        text: translator.translate(
+            "login_registration_screen.You must accept our terms & conditions and privacy policy"),
       );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: Text(
+      //       translator.translate(
+      //           "login_registration_screen.You must accept our terms & conditions and privacy policy"),
+      //     ),
+      //     backgroundColor: Colors.red,
+      //   ),
+      // );
     }
   }
 
@@ -120,9 +126,11 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     return WillPopScope(
       onWillPop: () async {
         return await Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => HomePageProvider(currentIndex: 0)));
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePageProvider(currentIndex: 0),
+          ),
+        );
       },
       child: Scaffold(
         body: MultiBlocListener(
@@ -267,436 +275,508 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                         padding: EdgeInsets.symmetric(
                           horizontal: 24.w,
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 68.39.h,
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => HomePageProvider(
-                                        currentIndex: 0,
+                        child: Form(
+                          key: formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 68.39.h,
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => HomePageProvider(
+                                          currentIndex: 0,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                                child: Icon(
-                                  Icons.close,
-                                  color: kGrey,
-                                  size: 15.8.w,
+                                    );
+                                  },
+                                  child: Icon(
+                                    Icons.close,
+                                    color: kGrey,
+                                    size: 15.8.w,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: SvgPicture.asset(
-                                Assets.iconsLogoHor,
-                                height: 51.3.h,
-                                width: 196.w,
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: SvgPicture.asset(
+                                  Assets.iconsLogoHor,
+                                  height: 51.3.h,
+                                  width: 196.w,
+                                ),
                               ),
-                            ),
-                            Align(
-                              alignment: translator.currentLanguage == "ar"
-                                  ? Alignment.centerRight
-                                  : Alignment.centerLeft,
-                              child: Padding(
+                              Align(
+                                alignment: translator.currentLanguage == "ar"
+                                    ? Alignment.centerRight
+                                    : Alignment.centerLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 79.7.h, bottom: 32.h),
+                                  child: Text(
+                                    isLogin
+                                        ? translator.translate(
+                                            "login_registration_screen.login")
+                                        : translator.translate(
+                                            "login_registration_screen.create_account"),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle1!
+                                        .copyWith(
+                                          color: kBlack,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //   children: [
+                              //     Container(
+                              //       width: 156.w,
+                              //       height: 40.h,
+                              //       child: ElevatedButton.icon(
+                              //         onPressed: () {},
+                              //         icon: SvgPicture.asset(
+                              //           Assets.iconsFacebookSquare,
+                              //           width: 19.3.w,
+                              //           height: 19.3.h,
+                              //         ),
+                              //         label: Text(
+                              //           "With Facebook",
+                              //           style: Theme.of(context)
+                              //               .textTheme
+                              //               .headline2!
+                              //               .copyWith(fontSize: 12.sp),
+                              //         ),
+                              //         style: ButtonStyle(
+                              //           backgroundColor:
+                              //               MaterialStateProperty.all(kDarkBlue),
+                              //           shape: MaterialStateProperty.all(
+                              //             RoundedRectangleBorder(
+                              //               borderRadius:
+                              //                   BorderRadius.circular(20.r),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     Container(
+                              //       width: 156.w,
+                              //       height: 40.h,
+                              //       child: ElevatedButton.icon(
+                              //         onPressed: () {},
+                              //         icon: SvgPicture.asset(
+                              //           Assets.iconsGoogle,
+                              //           width: 19.3.w,
+                              //           height: 19.3.h,
+                              //         ),
+                              //         label: Text(
+                              //           "With Google",
+                              //           style: Theme.of(context)
+                              //               .textTheme
+                              //               .headline2!
+                              //               .copyWith(fontSize: 12.sp),
+                              //         ),
+                              //         style: ButtonStyle(
+                              //           backgroundColor:
+                              //               MaterialStateProperty.all(kBlue),
+                              //           shape: MaterialStateProperty.all(
+                              //             RoundedRectangleBorder(
+                              //               borderRadius:
+                              //                   BorderRadius.circular(20.r),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                              // Padding(
+                              //   padding: EdgeInsets.symmetric(
+                              //     vertical: 24.h,
+                              //   ),
+                              //   child: Row(
+                              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //     children: [
+                              //       Expanded(
+                              //         child: Divider(
+                              //           color: kLightGrey,
+                              //           thickness: 0.5.h,
+                              //         ),
+                              //       ),
+                              //       Container(
+                              //         width: 89.w,
+                              //         child: Text(
+                              //           isLogin ? "Or login with" : "Or",
+                              //           textAlign: TextAlign.center,
+                              //           style: Theme.of(context)
+                              //               .textTheme
+                              //               .headline2!
+                              //               .copyWith(color: kLightBlack),
+                              //         ),
+                              //       ),
+                              //       Expanded(
+                              //         child: Divider(
+                              //           color: kLightGrey,
+                              //           thickness: 0.5.h,
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+                              isLogin
+                                  ? SizedBox.shrink()
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SizedBox(
+                                          width: 157.w,
+                                          child: CustomInput(
+                                              title: translator.translate(
+                                                  "login_registration_screen.first_name"),
+                                              hint: translator.translate(
+                                                  "login_registration_screen.first_name"),
+                                              textEditingController: _firstName,
+                                              textInputType: TextInputType.name,
+                                              padding: false,
+                                              validator: (value) {
+                                                if (value != null &&
+                                                    value.trim().isEmpty) {
+                                                  return translator.translate(
+                                                      "login_registration_screen.Invalid_name");
+                                                }
+                                                return null;
+                                              },
+                                              onChanged: (value) {
+                                                context.read<SignupBloc>().add(
+                                                      SignupFirstNameChanged(
+                                                          firstName: value),
+                                                    );
+                                              }),
+                                        ),
+                                        SizedBox(
+                                          width: 157.w,
+                                          child: CustomInput(
+                                            title: translator.translate(
+                                                "login_registration_screen.last_name"),
+                                            hint: translator.translate(
+                                                "login_registration_screen.last_name"),
+                                            textEditingController: _lastName,
+                                            textInputType: TextInputType.name,
+                                            validator: (value) {
+                                              if (value != null &&
+                                                  value.trim().isEmpty) {
+                                                return translator.translate(
+                                                    "login_registration_screen.Invalid_name");
+                                              }
+                                              return null;
+                                            },
+                                            padding: false,
+                                            onChanged: (value) =>
+                                                context.read<SignupBloc>().add(
+                                                      SignupLastNameChanged(
+                                                          lastName: value),
+                                                    ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                              isLogin
+                                  ? SizedBox.shrink()
+                                  : CustomInput(
+                                      padding: false,
+                                      textInputType: TextInputType.emailAddress,
+                                      title: translator.translate(
+                                          "login_registration_screen.email_address"),
+                                      hint: translator.translate(
+                                          "login_registration_screen.email_address"),
+                                      textEditingController: _email,
+                                      validator: (value) {
+                                        if (value != null &&
+                                                value.trim().isEmpty ||
+                                            !value!.contains('@') ||
+                                            !value.contains('.')) {
+                                          return translator.translate(
+                                              "login_registration_screen.Invalid_email");
+                                        }
+                                        return null;
+                                      },
+                                      onChanged: (value) {
+                                        return context.read<SignupBloc>().add(
+                                              SignupEmailChanged(email: value),
+                                            );
+                                      }),
+                              CustomInput(
+                                  textInputType: TextInputType.number,
+                                  title: translator.translate(
+                                      "login_registration_screen.mobile"),
+                                  hint: translator.translate(
+                                      "login_registration_screen.mobile"),
+                                  textEditingController: _mobile,
+                                  max: true,
+                                  icon: false,
+                                  padding: false,
+                                  validator: (value) {
+                                    if (value != null && value.trim().isEmpty ||
+                                        value!.length < 11) {
+                                      return translator.translate(
+                                          "login_registration_screen.Invalid_number");
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (value) {
+                                    setState(() {
+                                      pass = false;
+                                    });
+                                    context.read<SignupBloc>().add(
+                                          SignupMobileChanged(mobile: value),
+                                        );
+                                  }),
+
+                              CustomInput(
+                                  title: translator.translate(
+                                      "login_registration_screen.password"),
+                                  hint: translator.translate(
+                                      "login_registration_screen.password"),
+                                  textEditingController: _password,
+                                  textInputType: TextInputType.visiblePassword,
+                                  icon: true,
+                                  padding: false,
+                                  validator: (value) {
+                                    if (value != null && value.trim().isEmpty ||
+                                        value!.length < 8) {
+                                      return translator.translate(
+                                          "login_registration_screen.Password_is_too_short");
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (value) {
+                                    setState(() {
+                                      pass = false;
+                                    });
+                                    context.read<SignupBloc>().add(
+                                          SignupPasswordChanged(
+                                              password: value),
+                                        );
+                                  }),
+
+                              isLogin
+                                  ? SizedBox.shrink()
+                                  : CustomInput(
+                                      title: translator.translate(
+                                          "login_registration_screen.confirm_password"),
+                                      hint: translator.translate(
+                                          "login_registration_screen.confirm_password"),
+                                      textEditingController: _confirmPassword,
+                                      textInputType:
+                                          TextInputType.visiblePassword,
+                                      padding: false,
+                                      icon: true,
+                                      validator: (value) {
+                                        if (value != null &&
+                                                value.trim().isEmpty ||
+                                            value != _password.text) {
+                                          return translator.translate(
+                                              "login_registration_screen.Passwords_do_not_match");
+                                        }
+                                        return null;
+                                      },
+                                      onChanged: (value) => context
+                                          .read<SignupBloc>()
+                                          .add(
+                                            SignupPasswordConfirmationChanged(
+                                                passwordConfirmation: value),
+                                          ),
+                                    ),
+                              isLogin
+                                  ? Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 8.h),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) {
+                                                  return ForgetPasswordScreenProvider();
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            translator.translate(
+                                                "login_registration_screen.forget_password"),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline2!
+                                                .copyWith(color: kRed),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox.shrink(),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.only(
+                                    top: isLogin ? 10.h : 16.h, bottom: 32.h),
+                                height: 50.h,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    if (formKey.currentState!.validate()) {
+                                      if (pass) {
+                                        return null;
+                                      } else if (!isLogin) {
+                                        _signupButtonPressed();
+                                      } else if (state is! LoginLoading) {
+                                        _onLoginButtonPressed();
+                                      } else {
+                                        return null;
+                                      }
+                                    }
+                                  },
+                                  // onPressed:
+                                  //     formKey.currentState!.validate() == false
+                                  //         ? () {}
+                                  //         : pass
+                                  //             ? null
+                                  //             : !isLogin
+                                  //                 ? _signupButtonPressed
+                                  //                 : state is! LoginLoading
+                                  //                     ? _onLoginButtonPressed
+                                  //                     : null,
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Theme.of(context).primaryColor),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25.r),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    isLogin
+                                        ? translator.translate(
+                                            "login_registration_screen.login")
+                                        : translator.translate(
+                                            "login_registration_screen.create_account"),
+                                    style:
+                                        Theme.of(context).textTheme.headline2,
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: pass,
+                                child: SmallLoader(),
+                              ),
+                              isLogin
+                                  ? SizedBox(
+                                      height: 32.h,
+                                    )
+                                  : Directionality(
+                                      textDirection:
+                                          translator.currentLanguage == 'ar'
+                                              ? TextDirection.ltr
+                                              : TextDirection.rtl,
+                                      child: CircleCheckboxListTile(
+                                        title: RichText(
+                                          textAlign: TextAlign.end,
+                                          text: TextSpan(
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline2!
+                                                .copyWith(
+                                                  color: kLightBlack,
+                                                ),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                text: translator.translate(
+                                                    "login_registration_screen.accept_msg"),
+                                              ),
+                                              TextSpan(
+                                                text: translator.translate(
+                                                    "login_registration_screen.terms_n_conditions"),
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                  text:
+                                                      ' ${translator.translate("login_registration_screen.and")} '),
+                                              TextSpan(
+                                                text: translator.translate(
+                                                    "login_registration_screen.privacy_policy"),
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        value: selected,
+                                        onChanged: (value) => setState(() {
+                                          selected = value!;
+                                        }),
+                                        dense: true,
+                                        contentPadding: EdgeInsets.all(0),
+                                        activeColor: kGreen,
+                                      ),
+                                    ),
+                              Padding(
                                 padding:
-                                    EdgeInsets.only(top: 79.7.h, bottom: 32.h),
+                                    EdgeInsets.only(top: 32.h, bottom: 6.h),
                                 child: Text(
                                   isLogin
                                       ? translator.translate(
-                                          "login_registration_screen.login")
+                                          "login_registration_screen.dont_have_account")
                                       : translator.translate(
-                                          "login_registration_screen.create_account"),
+                                          "login_registration_screen.have_an_account"),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .subtitle1!
+                                      .headline2!
                                       .copyWith(
-                                        color: kBlack,
+                                        color: kLightBlack,
                                       ),
                                 ),
                               ),
-                            ),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //   children: [
-                            //     Container(
-                            //       width: 156.w,
-                            //       height: 40.h,
-                            //       child: ElevatedButton.icon(
-                            //         onPressed: () {},
-                            //         icon: SvgPicture.asset(
-                            //           Assets.iconsFacebookSquare,
-                            //           width: 19.3.w,
-                            //           height: 19.3.h,
-                            //         ),
-                            //         label: Text(
-                            //           "With Facebook",
-                            //           style: Theme.of(context)
-                            //               .textTheme
-                            //               .headline2!
-                            //               .copyWith(fontSize: 12.sp),
-                            //         ),
-                            //         style: ButtonStyle(
-                            //           backgroundColor:
-                            //               MaterialStateProperty.all(kDarkBlue),
-                            //           shape: MaterialStateProperty.all(
-                            //             RoundedRectangleBorder(
-                            //               borderRadius:
-                            //                   BorderRadius.circular(20.r),
-                            //             ),
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //     Container(
-                            //       width: 156.w,
-                            //       height: 40.h,
-                            //       child: ElevatedButton.icon(
-                            //         onPressed: () {},
-                            //         icon: SvgPicture.asset(
-                            //           Assets.iconsGoogle,
-                            //           width: 19.3.w,
-                            //           height: 19.3.h,
-                            //         ),
-                            //         label: Text(
-                            //           "With Google",
-                            //           style: Theme.of(context)
-                            //               .textTheme
-                            //               .headline2!
-                            //               .copyWith(fontSize: 12.sp),
-                            //         ),
-                            //         style: ButtonStyle(
-                            //           backgroundColor:
-                            //               MaterialStateProperty.all(kBlue),
-                            //           shape: MaterialStateProperty.all(
-                            //             RoundedRectangleBorder(
-                            //               borderRadius:
-                            //                   BorderRadius.circular(20.r),
-                            //             ),
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
-                            // Padding(
-                            //   padding: EdgeInsets.symmetric(
-                            //     vertical: 24.h,
-                            //   ),
-                            //   child: Row(
-                            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //     children: [
-                            //       Expanded(
-                            //         child: Divider(
-                            //           color: kLightGrey,
-                            //           thickness: 0.5.h,
-                            //         ),
-                            //       ),
-                            //       Container(
-                            //         width: 89.w,
-                            //         child: Text(
-                            //           isLogin ? "Or login with" : "Or",
-                            //           textAlign: TextAlign.center,
-                            //           style: Theme.of(context)
-                            //               .textTheme
-                            //               .headline2!
-                            //               .copyWith(color: kLightBlack),
-                            //         ),
-                            //       ),
-                            //       Expanded(
-                            //         child: Divider(
-                            //           color: kLightGrey,
-                            //           thickness: 0.5.h,
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            isLogin
-                                ? SizedBox.shrink()
-                                : Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(
-                                        width: 157.w,
-                                        child: CustomInput(
-                                            title: translator.translate(
-                                                "login_registration_screen.first_name"),
-                                            hint: translator.translate(
-                                                "login_registration_screen.first_name"),
-                                            textEditingController: _firstName,
-                                            textInputType: TextInputType.name,
-                                            padding: false,
-                                            onChanged: (value) {
-                                              context.read<SignupBloc>().add(
-                                                    SignupFirstNameChanged(
-                                                        firstName: value),
-                                                  );
-                                            }),
-                                      ),
-                                      SizedBox(
-                                        width: 157.w,
-                                        child: CustomInput(
-                                          title: translator.translate(
-                                              "login_registration_screen.last_name"),
-                                          hint: translator.translate(
-                                              "login_registration_screen.last_name"),
-                                          textEditingController: _lastName,
-                                          textInputType: TextInputType.name,
-                                          padding: false,
-                                          onChanged: (value) =>
-                                              context.read<SignupBloc>().add(
-                                                    SignupLastNameChanged(
-                                                        lastName: value),
-                                                  ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                            isLogin
-                                ? SizedBox.shrink()
-                                : CustomInput(
-                                    padding: false,
-                                    textInputType: TextInputType.emailAddress,
-                                    title: translator.translate(
-                                        "login_registration_screen.email_address"),
-                                    hint: translator.translate(
-                                        "login_registration_screen.email_address"),
-                                    textEditingController: _email,
-                                    onChanged: (value) {
-                                      return context.read<SignupBloc>().add(
-                                            SignupEmailChanged(email: value),
-                                          );
-                                    }),
-                            CustomInput(
-                                textInputType: TextInputType.number,
-                                title: translator.translate(
-                                    "login_registration_screen.mobile"),
-                                hint: translator.translate(
-                                    "login_registration_screen.mobile"),
-                                textEditingController: _mobile,
-                                max: true,
-                                icon: false,
-                                padding: false,
-                                onChanged: (value) {
+                              InkWell(
+                                onTap: () {
                                   setState(() {
-                                    pass = false;
+                                    isLogin = !isLogin;
                                   });
-                                  context.read<SignupBloc>().add(
-                                        SignupMobileChanged(mobile: value),
-                                      );
-                                }),
-
-                            CustomInput(
-                                title: translator.translate(
-                                    "login_registration_screen.password"),
-                                hint: translator.translate(
-                                    "login_registration_screen.password"),
-                                textEditingController: _password,
-                                textInputType: TextInputType.visiblePassword,
-                                icon: true,
-                                padding: false,
-                                onChanged: (value) {
-                                  setState(() {
-                                    pass = false;
-                                  });
-                                  context.read<SignupBloc>().add(
-                                        SignupPasswordChanged(password: value),
-                                      );
-                                }),
-
-                            isLogin
-                                ? SizedBox.shrink()
-                                : CustomInput(
-                                    title: translator.translate(
-                                        "login_registration_screen.confirm_password"),
-                                    hint: translator.translate(
-                                        "login_registration_screen.confirm_password"),
-                                    textEditingController: _confirmPassword,
-                                    textInputType:
-                                        TextInputType.visiblePassword,
-                                    padding: false,
-                                    icon: true,
-                                    onChanged: (value) =>
-                                        context.read<SignupBloc>().add(
-                                              SignupPasswordConfirmationChanged(
-                                                  passwordConfirmation: value),
-                                            ),
-                                  ),
-                            isLogin
-                                ? Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 8.h),
-                                      child: InkWell(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) {
-                                                return ForgetPasswordScreenProvider();
-                                              },
-                                            ),
-                                          );
-                                        },
-                                        child: Text(
-                                          translator.translate(
-                                              "login_registration_screen.forget_password"),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline2!
-                                              .copyWith(color: kRed),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : SizedBox.shrink(),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.only(
-                                  top: isLogin ? 10.h : 16.h, bottom: 32.h),
-                              height: 50.h,
-                              child: ElevatedButton(
-                                onPressed: _mobile.text.isEmpty ||
-                                        _password.text.isEmpty
-                                    ? null
-                                    : pass
-                                        ? null
-                                        : !isLogin
-                                            ? _signupButtonPressed
-                                            : state is! LoginLoading
-                                                ? _onLoginButtonPressed
-                                                : null,
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Theme.of(context).primaryColor),
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25.r),
-                                    ),
-                                  ),
-                                ),
+                                },
                                 child: Text(
                                   isLogin
                                       ? translator.translate(
-                                          "login_registration_screen.login")
+                                          "login_registration_screen.create_account")
                                       : translator.translate(
-                                          "login_registration_screen.create_account"),
-                                  style: Theme.of(context).textTheme.headline2,
+                                          "login_registration_screen.login"),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline2!
+                                      .copyWith(
+                                        color: Theme.of(context).primaryColor,
+                                      ),
                                 ),
                               ),
-                            ),
-                            Visibility(
-                              visible: pass,
-                              child: SmallLoader(),
-                            ),
-                            isLogin
-                                ? SizedBox(
-                                    height: 32.h,
-                                  )
-                                : Directionality(
-                                    textDirection:
-                                        translator.currentLanguage == 'ar'
-                                            ? TextDirection.ltr
-                                            : TextDirection.rtl,
-                                    child: CircleCheckboxListTile(
-                                      title: RichText(
-                                        textAlign: TextAlign.end,
-                                        text: TextSpan(
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline2!
-                                              .copyWith(
-                                                color: kLightBlack,
-                                              ),
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                              text: translator.translate(
-                                                  "login_registration_screen.accept_msg"),
-                                            ),
-                                            TextSpan(
-                                              text: translator.translate(
-                                                  "login_registration_screen.terms_n_conditions"),
-                                              style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                decoration:
-                                                    TextDecoration.underline,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                                text:
-                                                    ' ${translator.translate("login_registration_screen.and")} '),
-                                            TextSpan(
-                                              text: translator.translate(
-                                                  "login_registration_screen.privacy_policy"),
-                                              style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                decoration:
-                                                    TextDecoration.underline,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      value: selected,
-                                      onChanged: (value) => setState(() {
-                                        selected = value!;
-                                      }),
-                                      dense: true,
-                                      contentPadding: EdgeInsets.all(0),
-                                      activeColor: kGreen,
-                                    ),
-                                  ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 32.h, bottom: 6.h),
-                              child: Text(
-                                isLogin
-                                    ? translator.translate(
-                                        "login_registration_screen.dont_have_account")
-                                    : translator.translate(
-                                        "login_registration_screen.have_an_account"),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline2!
-                                    .copyWith(
-                                      color: kLightBlack,
-                                    ),
+                              SizedBox(
+                                height: 20.h,
                               ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  isLogin = !isLogin;
-                                });
-                              },
-                              child: Text(
-                                isLogin
-                                    ? translator.translate(
-                                        "login_registration_screen.create_account")
-                                    : translator.translate(
-                                        "login_registration_screen.login"),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline2!
-                                    .copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

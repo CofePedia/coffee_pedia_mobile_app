@@ -288,6 +288,45 @@ class CategoryProductsShimmerWidget extends StatelessWidget {
   }
 }
 
+class BrandProductsShimmerWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 28.h,
+                    crossAxisSpacing: 20.w,
+                    childAspectRatio: 150.w / 280.h,
+                  ),
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 4,
+                  padding: EdgeInsets.only(top: 16.h),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(11.0.r),
+                        color: Colors.white,
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class SellerInfoShimmerWidget extends StatelessWidget {
   const SellerInfoShimmerWidget({Key? key}) : super(key: key);
 

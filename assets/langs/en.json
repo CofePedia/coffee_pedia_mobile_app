@@ -93,7 +93,11 @@
     "egp" : "EGP",
     "seller_info": "Seller Info",
     "No products found": "No products found",
-    "Check out what's trending": "Check out what's trending"
+    "Check out what's trending": "Check out what's trending",
+    "pull up load": "pull up load",
+    "Load Failed": "Load Failed",
+    "release to load more": "release to load more",
+    "No more Data": "No more Data"
   },
   "coffeeShops_screen" : {
     "coffee_shops" : "Coffee shops",
@@ -230,8 +234,12 @@
     "You must accept our terms & conditions and privacy policy": "You must accept our terms & conditions and privacy policy.",
     "dont_have_account" : "Don’t have an Account",
     "have_an_account" : "Have an Account",
-    "code_error": "Code Error"
-
+    "code_error": "Code Error",
+    "Invalid_email": "Invalid Email",
+    "Invalid_name": "Invalid Name",
+    "Invalid_number": "Invalid Number",
+    "Password_is_too_short": "Password is too short!",
+    "Passwords_do_not_match": "Passwords do not match!"
   },
   "forget_password_screen" : {
     "forget_password" : "Forgot Password",

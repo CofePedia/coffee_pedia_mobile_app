@@ -14,6 +14,7 @@ import 'package:coffepedia/ui/widgets/category_item_widget.dart';
 import 'package:coffepedia/ui/widgets/empty_widgets.dart';
 import 'package:coffepedia/ui/widgets/seller_details_widget.dart';
 import 'package:coffepedia/ui/widgets/shimmer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -154,8 +155,34 @@ class _CategoryScreenState extends State<CategoryScreen> {
             return SmartRefresher(
               controller: refreshController,
               enablePullUp: true,
+              footer: CustomFooter(
+                builder: (BuildContext context, mode) {
+                  Widget body;
+                  if (mode == LoadStatus.idle) {
+                    body = Text(
+                        translator.translate("categories_screen.pull up load"));
+                  } else if (mode == LoadStatus.loading) {
+                    body = CupertinoActivityIndicator();
+                  } else if (mode == LoadStatus.failed) {
+                    body = Text(
+                        translator.translate("categories_screen.Load Failed"));
+                  } else if (mode == LoadStatus.canLoading) {
+                    body = Text(translator
+                        .translate("categories_screen.release to load more"));
+                  } else {
+                    body = Text(
+                        translator.translate("categories_screen.No more Data"));
+                  }
+                  return Container(
+                    height: 55.0,
+                    child: Center(child: body),
+                  );
+                },
+              ),
               enablePullDown: false,
               onLoading: () async {
+                await Future.delayed(Duration(milliseconds: 1000));
+
                 await fetchMoreData();
                 isRefresh == true
                     ? refreshController.loadComplete()
