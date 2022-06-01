@@ -34,7 +34,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>CofePedia needs this permission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>CofePedia needs access to your gallery</string>
+	<string>This app requires access to the photo library to upload your profile photo</string>
 	<key>Pushwoosh_APPID</key>
 	<string>110FF-9CE72</string>
 	<key>UIBackgroundModes</key>

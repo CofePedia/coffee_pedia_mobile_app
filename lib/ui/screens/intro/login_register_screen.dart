@@ -731,7 +731,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                                                     URLRequest(
                                                                   url:
                                                                       Uri.parse(
-                                                                    "http://cofepedia.com/privacy_police.html",
+                                                                    "https://cofepedia.com/privacy_police.html",
                                                                   ),
                                                                 ),
                                                                 initialOptions:
