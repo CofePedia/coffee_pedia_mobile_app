@@ -40,6 +40,12 @@ android {
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
     }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.waffarha.cofePedia"

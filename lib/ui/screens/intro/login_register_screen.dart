@@ -1,5 +1,4 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:circle_checkbox/redev_checkbox.dart';
 import 'package:coffepedia/business_logic/auth/auth_bloc.dart';
 import 'package:coffepedia/business_logic/forgot_password/forgot_password_cubit.dart';
 import 'package:coffepedia/business_logic/login/login_bloc.dart';
@@ -18,6 +17,7 @@ import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
 import 'package:coffepedia/ui/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -69,6 +69,12 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   bool selected = false;
   bool isLogin = true;
   bool pass = false;
+
+  InAppWebViewController? webView;
+  Uri url = Uri.parse(
+    "",
+  );
+  double progress = 0;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -680,61 +686,354 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                   ? SizedBox(
                                       height: 32.h,
                                     )
-                                  : Directionality(
-                                      textDirection:
-                                          translator.currentLanguage == 'ar'
-                                              ? TextDirection.ltr
-                                              : TextDirection.rtl,
-                                      child: CircleCheckboxListTile(
-                                        title: RichText(
-                                          textAlign: TextAlign.end,
-                                          text: TextSpan(
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline2!
-                                                .copyWith(
-                                                  color: kLightBlack,
-                                                ),
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                text: translator.translate(
-                                                    "login_registration_screen.accept_msg"),
-                                              ),
-                                              TextSpan(
-                                                text: translator.translate(
-                                                    "login_registration_screen.terms_n_conditions"),
-                                                style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                  text:
-                                                      ' ${translator.translate("login_registration_screen.and")} '),
-                                              TextSpan(
-                                                text: translator.translate(
-                                                    "login_registration_screen.privacy_policy"),
-                                                style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
-                                              )
-                                            ],
-                                          ),
+                                  : Row(
+                                      children: [
+                                        Checkbox(
+                                          shape: CircleBorder(),
+                                          activeColor: kGreen,
+                                          value: selected,
+                                          onChanged: (value) => setState(() {
+                                            selected = value!;
+                                          }),
                                         ),
-                                        value: selected,
-                                        onChanged: (value) => setState(() {
-                                          selected = value!;
-                                        }),
-                                        dense: true,
-                                        contentPadding: EdgeInsets.all(0),
-                                        activeColor: kGreen,
-                                      ),
-                                    ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              translator.translate(
+                                                  "login_registration_screen.accept_msg"),
+                                              textAlign: TextAlign.start,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline2!
+                                                  .copyWith(
+                                                    color: kLightBlack,
+                                                  ),
+                                            ),
+                                            SizedBox(
+                                              height: 3.h,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              InAppWebView(
+                                                                initialUrlRequest:
+                                                                    URLRequest(
+                                                                  url:
+                                                                      Uri.parse(
+                                                                    "http://cofepedia.com/privacy_police.html",
+                                                                  ),
+                                                                ),
+                                                                initialOptions:
+                                                                    InAppWebViewGroupOptions(
+                                                                  crossPlatform:
+                                                                      InAppWebViewOptions(
+                                                                    useShouldOverrideUrlLoading:
+                                                                        true,
+                                                                    mediaPlaybackRequiresUserGesture:
+                                                                        false,
+                                                                  ),
+                                                                  android:
+                                                                      AndroidInAppWebViewOptions(
+                                                                    useHybridComposition:
+                                                                        true,
+                                                                  ),
+                                                                  ios:
+                                                                      IOSInAppWebViewOptions(
+                                                                    allowsInlineMediaPlayback:
+                                                                        true,
+                                                                  ),
+                                                                ),
+                                                                onWebViewCreated:
+                                                                    (InAppWebViewController
+                                                                        controller) {
+                                                                  webView =
+                                                                      controller;
+                                                                },
+                                                                onLoadStart:
+                                                                    (InAppWebViewController
+                                                                            controller,
+                                                                        url) {
+                                                                  setState(() {
+                                                                    this.url =
+                                                                        url!;
+                                                                  });
+                                                                },
+                                                                onLoadStop:
+                                                                    (InAppWebViewController
+                                                                            controller,
+                                                                        url) {
+                                                                  setState(() {
+                                                                    this.url =
+                                                                        url!;
+                                                                  });
+                                                                },
+                                                                onProgressChanged:
+                                                                    (InAppWebViewController
+                                                                            controller,
+                                                                        int progress) {
+                                                                  setState(() {
+                                                                    this.progress =
+                                                                        progress /
+                                                                            100;
+                                                                    print(
+                                                                        'onProgressChangeAmr $progress');
+                                                                  });
+                                                                },
+                                                              )),
+                                                    );
+                                                  },
+                                                  child: Text(
+                                                    translator.translate(
+                                                        "login_registration_screen.privacy_policy"),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline2!
+                                                        .copyWith(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .primaryColor,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                        ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  translator.translate(
+                                                      "login_registration_screen.and"),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline2!
+                                                      .copyWith(
+                                                        color: kLightBlack,
+                                                      ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              InAppWebView(
+                                                                initialUrlRequest:
+                                                                    URLRequest(
+                                                                  url:
+                                                                      Uri.parse(
+                                                                    "https://cofepedia.com/terms_condation.html",
+                                                                  ),
+                                                                ),
+                                                                initialOptions:
+                                                                    InAppWebViewGroupOptions(
+                                                                  crossPlatform:
+                                                                      InAppWebViewOptions(
+                                                                    useShouldOverrideUrlLoading:
+                                                                        true,
+                                                                    mediaPlaybackRequiresUserGesture:
+                                                                        false,
+                                                                  ),
+                                                                  android:
+                                                                      AndroidInAppWebViewOptions(
+                                                                    useHybridComposition:
+                                                                        true,
+                                                                  ),
+                                                                  ios:
+                                                                      IOSInAppWebViewOptions(
+                                                                    allowsInlineMediaPlayback:
+                                                                        true,
+                                                                  ),
+                                                                ),
+                                                                onWebViewCreated:
+                                                                    (InAppWebViewController
+                                                                        controller) {
+                                                                  webView =
+                                                                      controller;
+                                                                },
+                                                                onLoadStart:
+                                                                    (InAppWebViewController
+                                                                            controller,
+                                                                        url) {
+                                                                  setState(() {
+                                                                    this.url =
+                                                                        url!;
+                                                                  });
+                                                                },
+                                                                onLoadStop:
+                                                                    (InAppWebViewController
+                                                                            controller,
+                                                                        url) {
+                                                                  setState(() {
+                                                                    this.url =
+                                                                        url!;
+                                                                  });
+                                                                },
+                                                                onProgressChanged:
+                                                                    (InAppWebViewController
+                                                                            controller,
+                                                                        int progress) {
+                                                                  setState(() {
+                                                                    this.progress =
+                                                                        progress /
+                                                                            100;
+                                                                    print(
+                                                                        'onProgressChangeAmr $progress');
+                                                                  });
+                                                                },
+                                                              )),
+                                                    );
+                                                  },
+                                                  child: Text(
+                                                    translator.translate(
+                                                        "login_registration_screen.terms_n_conditions"),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline2!
+                                                        .copyWith(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .primaryColor,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                              // : Directionality(
+                              //     textDirection:
+                              //         translator.currentLanguage == 'ar'
+                              //             ? TextDirection.ltr
+                              //             : TextDirection.rtl,
+                              //     child: CircleCheckboxListTile(
+                              //       // title: RichText(
+                              //       //   textAlign: TextAlign.end,
+                              //       //   text: TextSpan(
+                              //       //     style: Theme.of(context)
+                              //       //         .textTheme
+                              //       //         .headline2!
+                              //       //         .copyWith(
+                              //       //           color: kLightBlack,
+                              //       //         ),
+                              //       //     children: <TextSpan>[
+                              //       //       TextSpan(
+                              //       //         text: translator.translate(
+                              //       //             "login_registration_screen.accept_msg"),
+                              //       //       ),
+                              //       //       TextSpan(
+                              //       //         text: translator.translate(
+                              //       //             "login_registration_screen.terms_n_conditions"),
+                              //       //         style: TextStyle(
+                              //       //           color: Theme.of(context)
+                              //       //               .primaryColor,
+                              //       //           decoration:
+                              //       //               TextDecoration.underline,
+                              //       //         ),
+                              //       //       ),
+                              //       //       TextSpan(
+                              //       //           text:
+                              //       //               ' ${translator.translate("login_registration_screen.and")} '),
+                              //       //       TextSpan(
+                              //       //         text: translator.translate(
+                              //       //             "login_registration_screen.privacy_policy"),
+                              //       //         style: TextStyle(
+                              //       //           color: Theme.of(context)
+                              //       //               .primaryColor,
+                              //       //           decoration:
+                              //       //               TextDecoration.underline,
+                              //       //         ),
+                              //       //       )
+                              //       //     ],
+                              //       //   ),
+                              //       // ),
+                              //       title: Column(
+                              //         // mainAxisAlignment:
+                              //         //     MainAxisAlignment.end,
+                              //         crossAxisAlignment:
+                              //             CrossAxisAlignment.end,
+                              //         children: [
+                              //           Text(
+                              //             translator.translate(
+                              //                 "login_registration_screen.accept_msg"),
+                              //             style: Theme.of(context)
+                              //                 .textTheme
+                              //                 .headline2!
+                              //                 .copyWith(
+                              //                   color: kLightBlack,
+                              //                 ),
+                              //           ),
+                              //           Row(
+                              //             mainAxisAlignment:
+                              //                 MainAxisAlignment.start,
+                              //             crossAxisAlignment:
+                              //                 CrossAxisAlignment.start,
+                              //             children: [
+                              //               Text(
+                              //                 translator.translate(
+                              //                     "login_registration_screen.privacy_policy"),
+                              //                 style: Theme.of(context)
+                              //                     .textTheme
+                              //                     .headline2!
+                              //                     .copyWith(
+                              //                       color: Theme.of(context)
+                              //                           .primaryColor,
+                              //                       decoration:
+                              //                           TextDecoration
+                              //                               .underline,
+                              //                     ),
+                              //               ),
+                              //               Text(
+                              //                 translator.translate(
+                              //                     "login_registration_screen.and"),
+                              //                 style: Theme.of(context)
+                              //                     .textTheme
+                              //                     .headline2!
+                              //                     .copyWith(
+                              //                       color: kLightBlack,
+                              //                     ),
+                              //               ),
+                              //               Text(
+                              //                 translator.translate(
+                              //                     "login_registration_screen.terms_n_conditions"),
+                              //                 style: Theme.of(context)
+                              //                     .textTheme
+                              //                     .headline2!
+                              //                     .copyWith(
+                              //                       color: Theme.of(context)
+                              //                           .primaryColor,
+                              //                       decoration:
+                              //                           TextDecoration
+                              //                               .underline,
+                              //                     ),
+                              //               ),
+                              //             ],
+                              //           ),
+                              //         ],
+                              //       ),
+                              //       value: selected,
+                              //       onChanged: (value) => setState(() {
+                              //         selected = value!;
+                              //       }),
+                              //       dense: true,
+                              //       contentPadding: EdgeInsets.all(0),
+                              //       activeColor: kGreen,
+                              //     ),
+                              //   ),
+                              ,
                               Padding(
                                 padding:
                                     EdgeInsets.only(top: 32.h, bottom: 6.h),
