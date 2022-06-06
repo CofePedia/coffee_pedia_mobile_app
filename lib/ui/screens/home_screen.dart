@@ -294,13 +294,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.vertical,
                         padding: EdgeInsets.only(left: 8.w, right: 8.w),
                         itemBuilder: (context, index) {
-                          //TODO make radius = 0
                           return CustomNetworkImage(
                             imageUrl:
                                 state.homeAds!.data!.inPage![index].image!,
                             height: 270.h,
                             width: 344.w,
-                            radius: 9.r,
+                            radius: 0.r,
                           );
                           // return Ads(
                           //   adImageBackground: state
