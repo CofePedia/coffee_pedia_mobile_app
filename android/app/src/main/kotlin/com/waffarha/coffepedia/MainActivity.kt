@@ -1,4 +1,4 @@
-package com.waffarha.cofePedia
+package com.cofepedia.app
 
 import io.flutter.embedding.android.FlutterActivity
 
