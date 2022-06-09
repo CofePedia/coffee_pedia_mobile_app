@@ -355,7 +355,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10.r),
-                                                color: Color(0xffD2E2FF),
+                                                color: Color(0xffd2e2ff),
                                               ),
                                             ),
                                             Positioned(
@@ -399,6 +399,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                     color: Color(
                                                       0xff4470c1,
                                                     ),
+                                                    fontWeight: FontWeight.w900,
                                                   ),
                                                 ),
                                               ),
@@ -530,6 +531,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                     color: Color(
                                                       0xff4470c1,
                                                     ),
+                                                    fontWeight: FontWeight.w900,
                                                   ),
                                                 ),
                                               ),

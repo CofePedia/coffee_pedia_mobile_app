@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:177929575410:android:b54c1d69bac24c82ac696b",
+        "mobilesdk_app_id": "1:177929575410:android:f899418d4d28f9cbac696b",
         "android_client_info": {
           "package_name": "com.cofepedia.app"
         }
@@ -29,6 +29,13 @@
             {
               "client_id": "177929575410-ama3pkmrhqb8r80chsg9dths10vlqk4u.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "177929575410-3gm5clll2iaf6dh7r1e8i03vedtn3f3c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cofepedia.app"
+              }
             }
           ]
         }

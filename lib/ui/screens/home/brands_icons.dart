@@ -63,7 +63,7 @@ class _BrandsIconsState extends State<BrandsIcons> {
                     );
                   },
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 12.w),
+                    margin: EdgeInsets.symmetric(horizontal: 18.w),
                     child: CustomNetworkImage(
                       imageUrl: state.brands!.data!.data![index]!.logo!,
                       width: 80.w,

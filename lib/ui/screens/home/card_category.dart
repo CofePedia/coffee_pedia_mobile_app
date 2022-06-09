@@ -88,14 +88,14 @@ class _CardCategoryState extends State<CardCategory> {
                   },
                   child: Container(
                     width: 190.w,
-                    height: 130.h,
+                    height: 110.h,
                     margin: EdgeInsets.symmetric(horizontal: 6.w),
                     child: Stack(
                       children: [
                         Positioned(
                           top: 20.h,
                           child: Container(
-                            height: 110.h,
+                            height: 100.h,
                             width: 190.w,
                             child: SvgPicture.asset(Assets.iconsCofePediaLogo),
                             alignment: Alignment.topLeft,
@@ -123,16 +123,20 @@ class _CardCategoryState extends State<CardCategory> {
                         Positioned(
                           right: 1.w,
                           left: 1.w,
+                          bottom: 16.h,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
+                            // crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
                                 width: 96.w,
+                                // color: Colors.red,
                                 alignment: translator.currentLanguage == "ar"
                                     ? Alignment.centerRight
                                     : Alignment.centerLeft,
                                 margin: EdgeInsets.symmetric(horizontal: 3.w),
-                                padding: EdgeInsets.symmetric(horizontal: 7.w),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 7.w, vertical: 10.h),
                                 child: Text(
                                   state.categories!.data![index]!.name!,
                                   textDirection: TextDirection.ltr,

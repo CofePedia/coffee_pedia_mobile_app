@@ -52,9 +52,9 @@ class Assets {
   static const String noWishlist = 'assets/images/no_wishlist.svg';
 
   static const String aboutImage = 'assets/images/about.png';
-  static const String blogImage = 'assets/images/blog.jpg';
+  static const String blogImage = 'assets/images/Blog.jpg';
   static const String coffeeShopImage = 'assets/images/coffee_shops.jpg';
-  static const String recipesImage = 'assets/images/recipes.jpg';
+  static const String recipesImage = 'assets/images/Recipes.jpg';
 
   static const String imagesBitmap = 'assets/images/Bitmap.png';
   static const String fawryImage = 'assets/images/fawry.svg';

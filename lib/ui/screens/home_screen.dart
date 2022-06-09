@@ -235,29 +235,28 @@ class _HomeScreenState extends State<HomeScreen> {
                           //   },
                           // ),
                         ),
-                        // Container(
-                        //   width: MediaQuery.of(context).size.width,
-                        //   height: 60.h,
-                        //   child: ListView.builder(
-                        //     //TODO change index
-                        //     // itemCount: state.homeAds!.data!.topHeader!.length,
-                        //     itemCount: 1,
-                        //
-                        //     scrollDirection: Axis.horizontal,
-                        //     padding: EdgeInsets.zero,
-                        //     itemBuilder: (context, index) => CustomNetworkImage(
-                        //       //TODO change index
-                        //       // imageUrl:
-                        //       //     state.homeAds!.data!.topHeader![index].image!,
-                        //       imageUrl:
-                        //           state.homeAds!.data!.topHeader![3].image!,
-                        //       height: 60.h,
-                        //       width: MediaQuery.of(context).size.width,
-                        //       radius: 0.r,
-                        //       fit: BoxFit.fill,
-                        //     ),
-                        //   ),
-                        // ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 60.h,
+                          child: ListView.builder(
+                            itemCount: state.homeAds!.data!.topHeader!.length,
+                            // itemCount: 1,
+
+                            scrollDirection: Axis.horizontal,
+                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            itemBuilder: (context, index) => Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 5.w),
+                              child: CustomNetworkImage(
+                                imageUrl: state
+                                    .homeAds!.data!.topHeader![index].image!,
+                                height: 60.h,
+                                width: 250.w,
+                                radius: 0.r,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     );
                   } else {
@@ -277,10 +276,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   sectionName:
                       translator.translate("home_screen.featured_products")),
               FeaturedProducts(),
-              SectionName(
-                  sectionName:
-                      translator.translate("home_screen.shop_by_brands")),
-              BrandsProvider(),
+
               BlocBuilder<HomeAdsCubit, HomeAdsState>(
                 builder: (context, state) {
                   if (state is HomeAdsLoaded) {
@@ -294,12 +290,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.vertical,
                         padding: EdgeInsets.only(left: 8.w, right: 8.w),
                         itemBuilder: (context, index) {
-                          return CustomNetworkImage(
-                            imageUrl:
-                                state.homeAds!.data!.inPage![index].image!,
-                            height: 270.h,
-                            width: 344.w,
-                            radius: 0.r,
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 5.h, horizontal: 5.w),
+                            child: CustomNetworkImage(
+                              imageUrl:
+                                  state.homeAds!.data!.inPage![index].image!,
+                              height: 210.h,
+                              width: 344.w,
+                              radius: 0.r,
+                            ),
                           );
                           // return Ads(
                           //   adImageBackground: state
@@ -313,6 +313,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 },
               ),
+              SectionName(
+                  sectionName:
+                      translator.translate("home_screen.shop_by_brands")),
+              BrandsProvider(),
+
               SectionName(
                   sectionName:
                       translator.translate("home_screen.recent_products")),

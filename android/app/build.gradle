@@ -81,5 +81,5 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.2.0')
     implementation 'com.google.firebase:firebase-messaging-ktx:23.0.0'
     implementation 'com.pushwoosh:pushwoosh-firebase:6.4.3'
-
+    implementation 'com.google.firebase:firebase-analytics'
 }
