@@ -69,7 +69,7 @@ class FeaturedProductsShimmerWidget extends StatelessWidget {
   }
 }
 
-class SlidersShimmerWidget extends StatelessWidget {
+class SecondSliderShimmerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
@@ -77,28 +77,6 @@ class SlidersShimmerWidget extends StatelessWidget {
       highlightColor: Colors.grey.shade100,
       child: Column(
         children: [
-          Container(
-            margin: EdgeInsets.only(bottom: 24.h),
-            width: MediaQuery.of(context).size.width,
-            height: 170.h,
-            child: ListView.builder(
-              itemCount: 4,
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.only(left: 10.w, right: 10.w),
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w),
-                  child: Container(
-                    height: 170.h,
-                    width: 343.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7.0.r),
-                        color: Colors.white),
-                  ),
-                );
-              },
-            ),
-          ),
           Container(
             height: 90.h,
             child: ListView.builder(
@@ -115,6 +93,38 @@ class SlidersShimmerWidget extends StatelessWidget {
             height: 16.h,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class FirstSliderShimmerWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: Container(
+        margin: EdgeInsets.only(bottom: 24.h),
+        width: MediaQuery.of(context).size.width,
+        height: 170.h,
+        child: ListView.builder(
+          itemCount: 4,
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.only(left: 10.w, right: 10.w),
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
+              child: Container(
+                height: 170.h,
+                width: 343.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7.0.r),
+                    color: Colors.white),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

@@ -9,3 +9,8 @@ class HomeAdsLoaded extends HomeAdsState {
   final HomeAds? homeAds;
   HomeAdsLoaded(this.homeAds);
 }
+
+class HomeSlidersLoaded extends HomeAdsState {
+  final HomeSliders? homeSliders;
+  HomeSlidersLoaded(this.homeSliders);
+}

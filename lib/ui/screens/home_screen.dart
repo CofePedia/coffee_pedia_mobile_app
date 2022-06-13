@@ -1,4 +1,3 @@
-import 'package:card_swiper/card_swiper.dart';
 import 'package:coffepedia/business_logic/home_ads/home_ads_cubit.dart';
 import 'package:coffepedia/data/repository/home_ads_repository.dart';
 import 'package:coffepedia/data/web_services/home_ads_web_services.dart';
@@ -12,10 +11,10 @@ import 'package:coffepedia/ui/screens/home/card_recent_products.dart';
 import 'package:coffepedia/ui/screens/home/search_widget.dart';
 import 'package:coffepedia/ui/screens/home/section_name.dart';
 import 'package:coffepedia/ui/shared/custom_network_image.dart';
+import 'package:coffepedia/ui/widgets/home_slider_widget.dart';
 import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pushwoosh/pushwoosh.dart';
@@ -47,11 +46,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  InAppWebViewController? webView;
-  Uri url = Uri.parse(
-    "",
-  );
-  double progress = 0;
   @override
   void initState() {
     BlocProvider.of<HomeAdsCubit>(context).getHomeAds();
@@ -109,158 +103,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 16.h,
               ),
               //home ads
-
+              HomeSlidersProvider(),
               BlocBuilder<HomeAdsCubit, HomeAdsState>(
                 builder: (context, state) {
                   if (state is HomeAdsLoaded) {
-                    return Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(bottom: 10.h),
-                          width: MediaQuery.of(context).size.width,
-                          // color: Colors.red,
-                          padding: EdgeInsets.symmetric(horizontal: 15.w),
-                          height: 220.h,
-                          child: Swiper(
-                            outer: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount:
-                                state.homeAds!.data!.besideSlider!.length,
-                            autoplay: true,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => InAppWebView(
-                                              initialUrlRequest: URLRequest(
-                                                url: Uri.parse(
-                                                  state
-                                                      .homeAds!
-                                                      .data!
-                                                      .besideSlider![index]
-                                                      .url!,
-                                                ),
-                                              ),
-                                              initialOptions:
-                                                  InAppWebViewGroupOptions(
-                                                crossPlatform:
-                                                    InAppWebViewOptions(
-                                                  useShouldOverrideUrlLoading:
-                                                      true,
-                                                  mediaPlaybackRequiresUserGesture:
-                                                      false,
-                                                ),
-                                                android:
-                                                    AndroidInAppWebViewOptions(
-                                                  useHybridComposition: true,
-                                                ),
-                                                ios: IOSInAppWebViewOptions(
-                                                  allowsInlineMediaPlayback:
-                                                      true,
-                                                ),
-                                              ),
-                                              onWebViewCreated:
-                                                  (InAppWebViewController
-                                                      controller) {
-                                                webView = controller;
-                                              },
-                                              onLoadStart:
-                                                  (InAppWebViewController
-                                                          controller,
-                                                      url) {
-                                                setState(() {
-                                                  this.url = url!;
-                                                });
-                                              },
-                                              onLoadStop:
-                                                  (InAppWebViewController
-                                                          controller,
-                                                      url) {
-                                                setState(() {
-                                                  this.url = url!;
-                                                });
-                                              },
-                                              onProgressChanged:
-                                                  (InAppWebViewController
-                                                          controller,
-                                                      int progress) {
-                                                setState(() {
-                                                  this.progress =
-                                                      progress / 100;
-                                                  print(
-                                                      'onProgressChangeAmr $progress');
-                                                });
-                                              },
-                                            )),
-                                  );
-                                },
-                                child: CustomNetworkImage(
-                                  imageUrl: state.homeAds!.data!
-                                      .besideSlider![index].image!,
-                                  height: 170.h,
-                                  width: MediaQuery.of(context).size.width,
-                                  radius: 7.r,
-                                  fit: BoxFit.fill,
-                                ),
-                              );
-                            },
-                            pagination: SwiperPagination(
-                              margin: EdgeInsets.only(top: 8.h),
-                              builder: DotSwiperPaginationBuilder(
-                                color: Colors.grey,
-                                activeColor: Theme.of(context).primaryColor,
-                                size: 8.h,
-                                activeSize: 10.h,
-                                space: 2.w,
-                              ),
-                            ),
-                          ),
-                          // child: ListView.builder(
-                          //   itemCount:
-                          //       state.homeAds!.data!.besideSlider!.length,
-                          //   scrollDirection: Axis.horizontal,
-                          //   padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                          //   itemBuilder: (context, index) {
-                          //     return Padding(
-                          //       padding: EdgeInsets.symmetric(horizontal: 4.w),
-                          //       child: CustomNetworkImage(
-                          //           imageUrl: state.homeAds!.data!
-                          //               .besideSlider![index].image!,
-                          //           height: 170.h,
-                          //           width: 350.w,
-                          //           radius: 7.0.r),
-                          //     );
-                          //   },
-                          // ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 60.h,
-                          child: ListView.builder(
-                            itemCount: state.homeAds!.data!.topHeader!.length,
-                            // itemCount: 1,
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 60.h,
+                      child: ListView.builder(
+                        itemCount: state.homeAds!.data!.topHeader!.length,
+                        // itemCount: 1,
 
-                            scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.symmetric(horizontal: 10.w),
-                            itemBuilder: (context, index) => Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5.w),
-                              child: CustomNetworkImage(
-                                imageUrl: state
-                                    .homeAds!.data!.topHeader![index].image!,
-                                height: 60.h,
-                                width: 250.w,
-                                radius: 0.r,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
+                        scrollDirection: Axis.horizontal,
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        itemBuilder: (context, index) => Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          child: CustomNetworkImage(
+                            imageUrl:
+                                state.homeAds!.data!.topHeader![index].image!,
+                            height: 60.h,
+                            width: 250.w,
+                            radius: 0.r,
+                            fit: BoxFit.fill,
                           ),
                         ),
-                      ],
+                      ),
                     );
                   } else {
-                    return SlidersShimmerWidget();
+                    return SecondSliderShimmerWidget();
                   }
                 },
               ),
