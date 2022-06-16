@@ -20,7 +20,6 @@ late Translator translator;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   Pushwoosh.initialize({"app_id": "110FF-9CE72", "sender_id": "177929575410"});
   Pushwoosh.getInstance.registerForPushNotifications();
 
@@ -88,7 +87,7 @@ class MyApp extends StatelessWidget {
             ),
           ],
           child: MaterialApp(
-            title: 'Coffepedia',
+            title: 'CofePedia',
             localizationsDelegates: translator.delegates,
             locale: translator.locale,
             supportedLocales: translator.locals(),
