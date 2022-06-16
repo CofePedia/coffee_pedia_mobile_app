@@ -129,12 +129,19 @@ class _BrandProductsScreenState extends State<BrandProductsScreen> {
                                 );
                               }),
                         )
-                      : EmptyWidgets(
-                          image: Assets.noItems,
-                          title: translator
-                              .translate("categories_screen.No products found"),
-                          description: translator.translate(
-                              "categories_screen.Check out what's trending"),
+                      : Column(
+                          children: [
+                            Container(
+                              height: 120.h,
+                            ),
+                            EmptyWidgets(
+                              image: Assets.noItems,
+                              title: translator.translate(
+                                  "categories_screen.No products found"),
+                              description: translator.translate(
+                                  "categories_screen.Check out what's trending"),
+                            ),
+                          ],
                         );
                 } else {
                   return BrandProductsShimmerWidget();

@@ -24,7 +24,11 @@ class EmptyWidgets extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(image),
+          SvgPicture.asset(
+            image,
+            height: 100.h,
+            width: 100.w,
+          ),
           SizedBox(
             height: 16.h,
           ),

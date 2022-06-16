@@ -91,6 +91,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
   bool hasData = false;
   bool? isRefresh;
   int? _subCategoryId = -1;
+  String? subCategoryName = "";
+  String? vendorSubCategoryName = "";
+
   int currentPage = 1;
   int limit = 4;
   List<CategoryProductsDataData?> products = [];
@@ -298,6 +301,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               widget.multiMap = {};
                                               widget.rangeMap = {};
                                               widget.singleMap = {};
+
+                                              _subCategoryId ==
+                                                      state
+                                                          .categoryProducts!
+                                                          .data!
+                                                          .subCategory![index]!
+                                                          .id!
+                                                  ? vendorSubCategoryName = ''
+                                                  : vendorSubCategoryName =
+                                                      state
+                                                          .categoryProducts!
+                                                          .data!
+                                                          .subCategory![index]!
+                                                          .name!;
+
                                               _subCategoryId ==
                                                       state
                                                           .categoryProducts!
@@ -342,7 +360,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                           .data!
                                                           .subCategory![index]!
                                                           .id!
-                                                  ? Color(0xffCC1010)
+                                                  ? Color(0xff4470c1)
                                                   : Colors.transparent,
                                             ),
                                           ),
@@ -436,6 +454,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                           .subCategories![
                                                               index]!
                                                           .id!
+                                                  ? subCategoryName = ''
+                                                  : subCategoryName = widget
+                                                      .subCategories![index]!
+                                                      .name!;
+                                              _subCategoryId ==
+                                                      widget
+                                                          .subCategories![
+                                                              index]!
+                                                          .id!
                                                   ? _subCategoryId = -1
                                                   : _subCategoryId = widget
                                                       .subCategories![index]!
@@ -479,7 +506,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                               .subCategories![
                                                                   index]!
                                                               .id!
-                                                      ? Color(0xffCC1010)
+                                                      ? Color(0xff4470c1)
                                                       : Colors.transparent,
 
                                               //     borderColor(
@@ -556,8 +583,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 children: <TextSpan>[
                                   TextSpan(
                                     text: widget.vendorId != -1
-                                        ? '${widget.categoryName} '
-                                        : '${state.categoryProducts!.data!.category!.name} ',
+                                        ? vendorSubCategoryName == ''
+                                            ? '${widget.categoryName} '
+                                            : "$vendorSubCategoryName "
+                                        : subCategoryName == ''
+                                            ? '${state.categoryProducts!.data!.category!.name} '
+                                            : "$subCategoryName ",
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline1!
@@ -896,12 +927,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
 //                                     );
                                   }),
                             )
-                          : EmptyWidgets(
-                              image: Assets.noItems,
-                              title: translator.translate(
-                                  "categories_screen.No products found"),
-                              description: translator.translate(
-                                  "categories_screen.Check out what's trending"),
+                          : Column(
+                              children: [
+                                Container(
+                                  height: 120.h,
+                                ),
+                                EmptyWidgets(
+                                  image: Assets.noItems,
+                                  title: translator.translate(
+                                      "categories_screen.No products found"),
+                                  description: translator.translate(
+                                      "categories_screen.Check out what's trending"),
+                                ),
+                              ],
                             ),
                     ],
                   ),

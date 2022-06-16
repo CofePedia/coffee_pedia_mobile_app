@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/wishlist/wishlist_cubit.dart';
 import 'package:coffepedia/data/repository/wishlist_repository.dart';
 import 'package:coffepedia/data/web_services/wishlist_web_services.dart';
@@ -65,9 +64,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
       screen: Scaffold(
         body: BlocListener<WishlistCubit, WishlistState>(
           listener: (context, state) {
-            if (state is ToggleProductsInWishlistIsLoaded) {
-              BotToast.showText(
-                  text: state.toggleProductsInWishlist!.data!.msg!);
+            if (state is WishlistIsLoaded) {
               BlocProvider.of<WishlistCubit>(context).getWishlist();
             }
           },
@@ -525,25 +522,32 @@ class _WishlistScreenState extends State<WishlistScreen> {
                             //       },
                             //     ),
                             //   )
-                            : EmptyWidgets(
-                                image: Assets.noWishlist,
-                                title: translator.translate(
-                                    "wishlist_screen.wishlist_is_empty"),
-                                onPress: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return const HomePageProvider(
-                                            currentIndex: 0);
-                                      },
-                                    ),
-                                  );
-                                },
-                                description: translator.translate(
-                                    "wishlist_screen.check_out_what's_trending"),
-                                buttonTitle: translator
-                                    .translate("wishlist_screen.shop_now"),
+                            : Column(
+                                children: [
+                                  Container(
+                                    height: 120.h,
+                                  ),
+                                  EmptyWidgets(
+                                    image: Assets.noWishlist,
+                                    title: translator.translate(
+                                        "wishlist_screen.wishlist_is_empty"),
+                                    onPress: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return const HomePageProvider(
+                                                currentIndex: 0);
+                                          },
+                                        ),
+                                      );
+                                    },
+                                    description: translator.translate(
+                                        "wishlist_screen.check_out_what's_trending"),
+                                    buttonTitle: translator
+                                        .translate("wishlist_screen.shop_now"),
+                                  ),
+                                ],
                               );
                       } else {
                         return Center(

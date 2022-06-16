@@ -11,7 +11,6 @@ import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/services/preferences.dart';
 import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
 import 'package:coffepedia/ui/shared/custom_network_image.dart';
-import 'package:coffepedia/ui/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -244,7 +243,7 @@ class _CheckoutItemState extends State<CheckoutItem> {
                   onTap: () {
                     setState(() {
                       if (widget.quantity > 1) {
-                        Prefs.setBool("dialogLoading", true);
+                        // Prefs.setBool("dialogLoading", true);
                         // BotToast.showCustomLoading(toastBuilder: (v) {
                         //   return SmallLoader();
                         // });
@@ -293,10 +292,10 @@ class _CheckoutItemState extends State<CheckoutItem> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      Prefs.setBool("dialogLoading", true);
-                      BotToast.showCustomLoading(toastBuilder: (v) {
-                        return SmallLoader();
-                      });
+                      // Prefs.setBool("dialogLoading", true);
+                      // BotToast.showCustomLoading(toastBuilder: (v) {
+                      //   return SmallLoader();
+                      // });
                       BlocProvider.of<BasketCubit>(context)
                           .updateQuantityInLocalBasket(
                               int.parse(widget.productId.toString()),

@@ -60,55 +60,59 @@ class _HomeSlidersState extends State<HomeSliders> {
             autoplay: true,
             itemBuilder: (context, index) {
               return InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => InAppWebView(
-                              initialUrlRequest: URLRequest(
-                                url: Uri.parse(
-                                  state.homeSliders!.data![index]!.url!,
-                                ),
-                              ),
-                              initialOptions: InAppWebViewGroupOptions(
-                                crossPlatform: InAppWebViewOptions(
-                                  useShouldOverrideUrlLoading: true,
-                                  mediaPlaybackRequiresUserGesture: false,
-                                ),
-                                android: AndroidInAppWebViewOptions(
-                                  useHybridComposition: true,
-                                ),
-                                ios: IOSInAppWebViewOptions(
-                                  allowsInlineMediaPlayback: true,
-                                ),
-                              ),
-                              onWebViewCreated:
-                                  (InAppWebViewController controller) {
-                                webView = controller;
-                              },
-                              onLoadStart:
-                                  (InAppWebViewController controller, url) {
-                                setState(() {
-                                  this.url = url!;
-                                });
-                              },
-                              onLoadStop:
-                                  (InAppWebViewController controller, url) {
-                                setState(() {
-                                  this.url = url!;
-                                });
-                              },
-                              onProgressChanged:
-                                  (InAppWebViewController controller,
-                                      int progress) {
-                                setState(() {
-                                  this.progress = progress / 100;
-                                  print('onProgressChangeAmr $progress');
-                                });
-                              },
-                            )),
-                  );
-                },
+                onTap: state.homeSliders!.data![index]!.url == null
+                    ? () {}
+                    : () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => InAppWebView(
+                                    initialUrlRequest: URLRequest(
+                                      url: Uri.parse(
+                                        state.homeSliders!.data![index]!.url!,
+                                      ),
+                                    ),
+                                    initialOptions: InAppWebViewGroupOptions(
+                                      crossPlatform: InAppWebViewOptions(
+                                        useShouldOverrideUrlLoading: true,
+                                        mediaPlaybackRequiresUserGesture: false,
+                                      ),
+                                      android: AndroidInAppWebViewOptions(
+                                        useHybridComposition: true,
+                                      ),
+                                      ios: IOSInAppWebViewOptions(
+                                        allowsInlineMediaPlayback: true,
+                                      ),
+                                    ),
+                                    onWebViewCreated:
+                                        (InAppWebViewController controller) {
+                                      webView = controller;
+                                    },
+                                    onLoadStart:
+                                        (InAppWebViewController controller,
+                                            url) {
+                                      setState(() {
+                                        this.url = url!;
+                                      });
+                                    },
+                                    onLoadStop:
+                                        (InAppWebViewController controller,
+                                            url) {
+                                      setState(() {
+                                        this.url = url!;
+                                      });
+                                    },
+                                    onProgressChanged:
+                                        (InAppWebViewController controller,
+                                            int progress) {
+                                      setState(() {
+                                        this.progress = progress / 100;
+                                        print('onProgressChangeAmr $progress');
+                                      });
+                                    },
+                                  )),
+                        );
+                      },
                 child: CustomNetworkImage(
                   imageUrl: state.homeSliders!.data![index]!.image!,
                   height: 170.h,

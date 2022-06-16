@@ -13,6 +13,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../constants/colors.dart';
+
 class SearchBarProvider extends StatelessWidget {
   const SearchBarProvider({Key? key}) : super(key: key);
 
@@ -63,12 +65,15 @@ class _SearchBarState extends State<SearchBar> {
                   Container(
                     height: 43.h,
                     width: 295.w,
-                    child: TextField(
+                    child: TextFormField(
                       controller: _searchTextController,
                       autofocus: true,
                       onChanged: (searchedProduct) {
                         EasyDebounce.debounce(
-                            'search-key', Duration(seconds: 1), () {
+                            'search-key',
+                            Duration(
+                              milliseconds: 5,
+                            ), () {
                           BlocProvider.of<SearchCubit>(context)
                               .getSearch(searchedProduct);
                         });
@@ -77,10 +82,16 @@ class _SearchBarState extends State<SearchBar> {
                                 'Search for a product $_searchTextController');
                         print('searchedProduct $searchedProduct');
                       },
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline2!
+                          .copyWith(color: kLightBlack),
                       decoration: InputDecoration(
                         // hintText:
                         //     translator.translate("home_screen.search"),
-                        contentPadding: EdgeInsets.all(7.h),
+                        // contentPadding: EdgeInsets.all(7.h),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
+
                         border: InputBorder.none,
                         suffixIcon: InkWell(
                           onTap: () {
@@ -378,20 +389,34 @@ class _SearchBarState extends State<SearchBar> {
                                 // );
                               }),
                         )
-                      : EmptyWidgets(
-                          image: Assets.noItems,
-                          title: translator
-                              .translate("categories_screen.No products found"),
-                          description: translator.translate(
-                              "categories_screen.Check out what's trending"),
+                      : Column(
+                          children: [
+                            Container(
+                              height: 120.h,
+                            ),
+                            EmptyWidgets(
+                              image: Assets.noItems,
+                              title: translator.translate(
+                                  "categories_screen.No products found"),
+                              description: translator.translate(
+                                  "categories_screen.Check out what's trending"),
+                            ),
+                          ],
                         );
                 } else {
-                  return EmptyWidgets(
-                    image: Assets.noItems,
-                    title: translator
-                        .translate("categories_screen.No products found"),
-                    description: translator.translate(
-                        "categories_screen.Check out what's trending"),
+                  return Column(
+                    children: [
+                      Container(
+                        height: 120.h,
+                      ),
+                      EmptyWidgets(
+                        image: Assets.noItems,
+                        title: translator
+                            .translate("categories_screen.No products found"),
+                        description: translator.translate(
+                            "categories_screen.Check out what's trending"),
+                      ),
+                    ],
                   );
                 }
               },

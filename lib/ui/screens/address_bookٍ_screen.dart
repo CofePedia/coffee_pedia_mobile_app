@@ -387,11 +387,18 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                                   ),
                                 ),
                               )
-                            : EmptyWidgets(
-                                image: Assets.noAddressHistory,
-                                title: "Your Address book is Empty",
-                                description:
-                                    "Please Add your Address list for Quick Ordering",
+                            : Column(
+                                children: [
+                                  Container(
+                                    height: 120.h,
+                                  ),
+                                  EmptyWidgets(
+                                    image: Assets.noAddressHistory,
+                                    title: "Your Address book is Empty",
+                                    description:
+                                        "Please Add your Address list for Quick Ordering",
+                                  ),
+                                ],
                               );
                       } else {
                         return Center(

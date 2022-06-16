@@ -108,17 +108,24 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                             Row(
                               children: [
                                 state.me!.data!.avatar != ''
-                                    ? Container(
-                                        width: 55.0.w,
-                                        height: 55.0.h,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                              state.me!.data!.avatar!,
-                                            ),
-                                          ),
-                                          shape: BoxShape.circle,
-                                        ),
+                                    ?
+                                    // Container(
+                                    //         width: 55.0.w,
+                                    //         height: 55.0.h,
+                                    //         decoration: BoxDecoration(
+                                    //           image: DecorationImage(
+                                    //             image: NetworkImage(
+                                    //               state.me!.data!.avatar!,
+                                    //             ),
+                                    //           ),
+                                    //           shape: BoxShape.circle,
+                                    //         ),
+                                    //       )
+                                    CircleAvatar(
+                                        backgroundColor: Colors.grey.shade300,
+                                        foregroundImage: NetworkImage(
+                                            state.me!.data!.avatar!),
+                                        radius: 25.r,
                                       )
                                     : CircleAvatar(
                                         backgroundColor: Theme.of(context)

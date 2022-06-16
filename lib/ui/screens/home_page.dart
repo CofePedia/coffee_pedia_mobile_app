@@ -58,7 +58,11 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.only(bottom: 5.h),
         child: Badge(
           badgeColor: kYellow,
-          showBadge: index == 1 ? true : false,
+          showBadge: Prefs.getString("totalItems") != null &&
+                  Prefs.getString("totalItems") != "0" &&
+                  index == 1
+              ? true
+              : false,
           badgeContent: BlocBuilder<BasketCubit, BasketState>(
             builder: (context, state) {
               if (state is LocalBasketLoaded) {

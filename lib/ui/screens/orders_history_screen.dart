@@ -118,7 +118,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                           ),
                                           Container(
                                             height: 17.h,
-                                            width: 67.w,
+                                            width: 95.w,
                                             alignment: Alignment.center,
                                             decoration: BoxDecoration(
                                               color: state
@@ -386,25 +386,32 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                             ),
                           ),
                         )
-                      : EmptyWidgets(
-                          image: Assets.noOrdersHistory,
-                          title: translator.translate(
-                              "order_history_screen.no_order_history"),
-                          onPress: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return const HomePageProvider(
-                                      currentIndex: 0);
-                                },
-                              ),
-                            );
-                          },
-                          description: translator.translate(
-                              "order_history_screen.check_out_what's_trending"),
-                          buttonTitle: translator
-                              .translate("order_history_screen.shop_now"),
+                      : Column(
+                          children: [
+                            Container(
+                              height: 120.h,
+                            ),
+                            EmptyWidgets(
+                              image: Assets.noOrdersHistory,
+                              title: translator.translate(
+                                  "order_history_screen.no_order_history"),
+                              onPress: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return const HomePageProvider(
+                                          currentIndex: 0);
+                                    },
+                                  ),
+                                );
+                              },
+                              description: translator.translate(
+                                  "order_history_screen.check_out_what's_trending"),
+                              buttonTitle: translator
+                                  .translate("order_history_screen.shop_now"),
+                            ),
+                          ],
                         );
                 } else {
                   return Center(
