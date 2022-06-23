@@ -106,11 +106,15 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
           }),
           BlocListener<MeCubit, MeState>(
             listener: (context, state) {
-              if (state is MeIsLoaded) {
+              if (state is MeIsLoaded &&
+                  (Prefs.getBool("logged") != null &&
+                      Prefs.getBool("logged") == true)) {
                 print("user");
                 isLoggedIn = true;
                 // BlocProvider.of<BasketCubit>(context).getBasket();
-              } else if (state is MeIsNotExist) {
+              } else if (state is MeIsNotExist &&
+                  (Prefs.getBool("logged") == null ||
+                      Prefs.getBool("logged") == false)) {
                 // BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
                 isLoggedIn = false;
                 print("local");
@@ -618,7 +622,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) {
-                                          return const LoginPage();
+                                          return LoginPage();
                                         },
                                       ),
                                     );
