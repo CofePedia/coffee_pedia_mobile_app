@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ItemWidget extends StatelessWidget {
+class ItemWidget extends StatefulWidget {
   final Function() onPress;
   final String image;
   final int discount;
@@ -16,7 +16,8 @@ class ItemWidget extends StatelessWidget {
   final int priceBeforeDiscount;
   final String productId;
   final bool isFavorite;
-  const ItemWidget({
+  bool isInCart;
+  ItemWidget({
     required this.image,
     required this.onPress,
     required this.discount,
@@ -26,15 +27,21 @@ class ItemWidget extends StatelessWidget {
     required this.rate,
     required this.productId,
     required this.isFavorite,
+    required this.isInCart,
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<ItemWidget> createState() => _ItemWidgetState();
+}
+
+class _ItemWidgetState extends State<ItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 6.w),
       child: InkWell(
-        onTap: onPress,
+        onTap: widget.onPress,
         child: Container(
           height: 262.h,
           width: 214.w,
@@ -61,24 +68,49 @@ class ItemWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: CustomNetworkImage(
-                    imageUrl: image,
-                    height: 130.h,
-                    width: 85.w,
-                    radius: 2,
-                    fit: BoxFit.contain,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 35.w,
+                    ),
+                    CustomNetworkImage(
+                      imageUrl: widget.image,
+                      height: 130.h,
+                      width: 85.w,
+                      radius: 2,
+                      fit: BoxFit.contain,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 12.w, vertical: 20.h),
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            widget.isInCart = !widget.isInCart;
+                          });
+                        },
+                        child: SvgPicture.asset(
+                          Assets.iconsShoppingBasket,
+                          width: 24.w,
+                          color: widget.isInCart
+                              ? Theme.of(context).primaryColor
+                              : Colors.grey,
+                          height: 18.h,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                discount == 0 && rate == 0
+                widget.discount == 0 && widget.rate == 0
                     ? SizedBox(
                         height: 16.h,
                       )
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          discount == 0
+                          widget.discount == 0
                               ? SizedBox.shrink()
                               : Container(
                                   height: 17.h,
@@ -92,12 +124,12 @@ class ItemWidget extends StatelessWidget {
                                         bottomLeft: Radius.circular(12.5.h)),
                                   ),
                                   child: Text(
-                                    '$discount % ${translator.translate("product_screen.off")}',
+                                    '${widget.discount} % ${translator.translate("product_screen.off")}',
                                     style:
                                         Theme.of(context).textTheme.bodyText1,
                                   ),
                                 ),
-                          rate == 0
+                          widget.rate == 0
                               ? SizedBox.shrink()
                               : Row(
                                   children: [
@@ -106,7 +138,7 @@ class ItemWidget extends StatelessWidget {
                                       width: 6.14.w,
                                     ),
                                     Text(
-                                      rate.toString(),
+                                      widget.rate.toString(),
                                     ),
                                   ],
                                 ),
@@ -118,7 +150,7 @@ class ItemWidget extends StatelessWidget {
                 Container(
                   width: 214.w,
                   child: Text(
-                    title,
+                    widget.title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
@@ -130,9 +162,9 @@ class ItemWidget extends StatelessWidget {
                 SizedBox(
                   height: 8.h,
                 ),
-                discount != 0
+                widget.discount != 0
                     ? Text(
-                        '$priceBeforeDiscount ${translator.translate("wishlist_screen.egp")}',
+                        '${widget.priceBeforeDiscount} ${translator.translate("wishlist_screen.egp")}',
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(
                               decoration: TextDecoration.lineThrough,
                               color: Colors.black45,
@@ -145,7 +177,7 @@ class ItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '$price ${translator.translate("wishlist_screen.egp")}',
+                      '${widget.price} ${translator.translate("wishlist_screen.egp")}',
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Container(
@@ -162,8 +194,8 @@ class ItemWidget extends StatelessWidget {
                         // ],
                       ),
                       child: WishlistIconWidget(
-                        productId: productId,
-                        isFavorite: isFavorite,
+                        productId: widget.productId,
+                        isFavorite: widget.isFavorite,
                       ),
                     ),
                   ],

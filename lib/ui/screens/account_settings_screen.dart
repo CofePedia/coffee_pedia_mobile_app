@@ -216,19 +216,24 @@ class _AccountSettingsState extends State<AccountSettings> {
                   ),
                 )
               : widget.me.data!.avatar != ''
-                  ? Container(
-                      width: 60.0.w,
-                      height: 60.0.h,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          // fit: BoxFit.cover,
-                          image: NetworkImage(
-                            widget.me.data!.avatar!,
-                          ),
-                        ),
-                        shape: BoxShape.circle,
-                      ),
+                  ? CircleAvatar(
+                      backgroundColor: Colors.grey.shade300,
+                      foregroundImage: NetworkImage(widget.me.data!.avatar!),
+                      radius: 30.r,
                     )
+                  // ? Container(
+                  //     width: 60.0.w,
+                  //     height: 60.0.h,
+                  //     decoration: BoxDecoration(
+                  //       image: DecorationImage(
+                  //         // fit: BoxFit.cover,
+                  //         image: NetworkImage(
+                  //           widget.me.data!.avatar!,
+                  //         ),
+                  //       ),
+                  //       shape: BoxShape.circle,
+                  //     ),
+                  //   )
                   : CircleAvatar(
                       backgroundColor: Color(0xffD8D8D8),
                       radius: 30.r,

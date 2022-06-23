@@ -57,6 +57,7 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
                 final data = state.mostRecent!.data!.data![index]!;
                 return ItemWidget(
                   image: data.image!,
+                  isInCart: data.inCart!,
                   onPress: () {
                     Navigator.push(
                       context,

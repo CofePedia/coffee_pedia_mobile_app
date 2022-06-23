@@ -38,7 +38,7 @@
     "recommended_text" : "موصى به بناءً على سجل التسوق الخاص بك"
   },
   "address": {
-    "area" : "المنطقة",
+    "area" : "المنطقة*",
     "add_new_address" : "إضافة عنوان جديد",
     "delete" : "مسح",
     "asPrimary" : "أساسي",
@@ -48,11 +48,12 @@
     "close" : "إلغاء",
     "new_address" : "عنوان جديد",
     "edit_address" : "تعديل العنوان",
-    "name" : "الاسم",
-    "governorate" : "المحافظة",
-    "city" : "المدينة",
-    "street" : "الشارع",
-    "address_details" : "تفاصيل العنوان"
+    "name" : "الاسم*",
+    "governorate" : "المحافظة*",
+    "city" : "المدينة*",
+    "street" : "الشارع*",
+    "address_details" : "تفاصيل العنوان",
+    "save": "حفظ"
   },
   "range_filter_slider": {
     "from" : "من",
@@ -119,7 +120,8 @@
     "shop_by_brands" : "تسوق بالماركة",
     "recent_products" : "العروض الحديثة",
     "search" : "بحث",
-    "more_tap" : "المزيد"
+    "more_tap" : "المزيد",
+    "login": "تسجيل الدخول"
   },
   "more_screen" : {
     "more" : "المزيد",
@@ -160,7 +162,9 @@
     "egp": "ج.م",
     "no_order_history": "لا يوجد لديك طلبات",
     "check_out_what's_trending": "تحقق من ما هو شائع",
-    "shop_now": "تسوق الآن"
+    "shop_now": "تسوق الآن",
+    "reorder": "اطلب مرة أخرى"
+
   },
   "payment_info_screen" : {
     "pay_now" : "ادفع الآن",
@@ -217,12 +221,12 @@
   "login_registration_screen" : {
     "login" : "تسجيل الدخول",
     "create_account" : "انشاء حساب",
-    "first_name" : "الاسم الأول",
-    "last_name" : "الاسم الأخير",
-    "email_address" : "البريد الإلكتروني",
-    "mobile" : "رقم الموبايل",
-    "password" : "كلمة السر",
-    "confirm_password" : "تأكيد كلمة السر",
+    "first_name" : "الاسم الأول*",
+    "last_name" : "الاسم الأخير*",
+    "email_address" : "البريد الإلكتروني*",
+    "mobile" : "رقم الموبايل*",
+    "password" : "كلمة السر*",
+    "confirm_password" : "تأكيد كلمة السر*",
     "forget_password" : "نسيت كلمة السر؟",
     "accept_msg" : "بانشاء حساب جديد أنت موافق علي",
     "terms_n_conditions" : "الأحكام والشروط",
@@ -236,7 +240,9 @@
     "Invalid_name": "اسم المستخدم غير صحيح",
     "Invalid_number": "رقم تليفون غير صحيح",
     "Password_is_too_short": "الرقم السري قصير جدًا",
-    "Passwords_do_not_match": "الرقم السري غير مطابق"
+    "Passwords_do_not_match": "الرقم السري غير مطابق",
+    "signup": "انشاء حساب"
+
   },
   "forget_password_screen" : {
     "forget_password" : "نسيت كلمة السر",

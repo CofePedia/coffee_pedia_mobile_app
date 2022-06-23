@@ -3,11 +3,12 @@ import 'package:coffepedia/business_logic/recommended_products/recommended_produ
 import 'package:coffepedia/data/repository/recommended_products_repository.dart';
 import 'package:coffepedia/data/web_services/recommended_products_web_services.dart';
 import 'package:coffepedia/ui/screens/product_screen.dart';
-import 'package:coffepedia/ui/widgets/item_widget.dart';
 import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'item_widget.dart';
 
 class RecommendedProductsProvider extends StatelessWidget {
   const RecommendedProductsProvider({Key? key}) : super(key: key);
@@ -59,6 +60,7 @@ class _RecommendedProductsState extends State<RecommendedProducts> {
                 final data = state.recommendedProducts!.data![index]!;
                 return ItemWidget(
                   image: data.image!,
+                  isInCart: data.inCart!,
                   onPress: () {
                     Navigator.push(
                       context,

@@ -521,35 +521,35 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                 // ],
               ),
               child: ElevatedButton(
-                onPressed: _selectedGovernorate == null ||
-                        _selectedArea == null ||
-                        _selectedCity == null ||
-                        _street.text.isEmpty ||
-                        _name.text.isEmpty
-                    ? null
-                    : () {
-                        widget.address != null
-                            ? BlocProvider.of<AddressCubit>(context)
-                                .postUpdateAddress(
-                                    name: _name.text,
-                                    governorateId:
-                                        _selectedGovernorate.toString(),
-                                    cityId: _selectedCity.toString(),
-                                    areaId: _selectedArea.toString(),
-                                    street: _street.text,
-                                    details: _details.text,
-                                    addressId: widget.address!.id.toString(),
-                                    primary: widget.address!.primary.toString())
-                            : BlocProvider.of<AddressCubit>(context)
-                                .getAddAddress(
-                                _selectedGovernorate.toString(),
-                                _selectedCity.toString(),
-                                _name.text,
-                                _selectedArea.toString(),
-                                _street.text,
-                                _details.text,
-                              );
-                      },
+                onPressed:
+                    // _selectedGovernorate == null ||
+                    //         _selectedArea == null ||
+                    //         _selectedCity == null ||
+                    //         _street.text.isEmpty ||
+                    //         _name.text.isEmpty
+                    //     ? null
+                    //     :
+                    () {
+                  widget.address != null
+                      ? BlocProvider.of<AddressCubit>(context)
+                          .postUpdateAddress(
+                              name: _name.text,
+                              governorateId: _selectedGovernorate.toString(),
+                              cityId: _selectedCity.toString(),
+                              areaId: _selectedArea.toString(),
+                              street: _street.text,
+                              details: _details.text,
+                              addressId: widget.address!.id.toString(),
+                              primary: widget.address!.primary.toString())
+                      : BlocProvider.of<AddressCubit>(context).getAddAddress(
+                          _selectedGovernorate.toString(),
+                          _selectedCity.toString(),
+                          _name.text,
+                          _selectedArea.toString(),
+                          _street.text,
+                          _details.text,
+                        );
+                },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -562,8 +562,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                 child: Text(
                   widget.address != null
                       ? translator.translate("address.edit_address")
-                      : translator
-                          .translate("delivery_info_screen.add_new_address"),
+                      : translator.translate("address.save"),
                   style: Theme.of(context).textTheme.headline2,
                 ),
               ),

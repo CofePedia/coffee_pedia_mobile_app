@@ -4,6 +4,7 @@ import 'package:coffepedia/data/repository/me_repository.dart';
 import 'package:coffepedia/data/web_services/me_web_services.dart';
 import 'package:coffepedia/database/database_provider.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/services/preferences.dart';
 import 'package:coffepedia/ui/screens/account_settings_screen.dart';
 import 'package:coffepedia/ui/screens/address_bookٍ_screen.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
@@ -60,7 +61,9 @@ class _ProfileScreenState extends State<_ProfileScreen> {
     return CheckInternetConnection(
       screen: BlocBuilder<MeCubit, MeState>(
         builder: (context, state) {
-          if (state is MeIsLoaded) {
+          if (state is MeIsLoaded &&
+              (Prefs.getBool("logged") != null &&
+                  Prefs.getBool("logged") == true)) {
             return Scaffold(
               backgroundColor: Colors.white,
               body: Container(
@@ -312,6 +315,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                           //   LoggedOut(),
                           // );
                           BlocProvider.of<MeCubit>(context).logout();
+                          Prefs.setBool("logged", false);
                           userDao.deleteUser();
                           Navigator.of(context).push(
                             MaterialPageRoute(builder: (_) {
@@ -350,7 +354,9 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                 ),
               ),
             );
-          } else if (state is MeIsNotExist) {
+          } else if (state is MeIsNotExist &&
+              (Prefs.getBool("logged") == null ||
+                  Prefs.getBool("logged") == false)) {
             return Scaffold(
               backgroundColor: Colors.white,
               body: Container(
@@ -541,6 +547,46 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                           ),
                         ),
                       ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      //signup
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (_) {
+                            return LoginPage(
+                              isLogin: false,
+                            );
+                          }));
+                        },
+                        child: Container(
+                          height: 54.h,
+                          width: 343.w,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromRGBO(0, 0, 0, 0.12),
+                                blurRadius: 11.r,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                            color: Colors.white,
+                          ),
+                          child: Text(
+                            translator
+                                .translate("login_registration_screen.signup"),
+                            style:
+                                Theme.of(context).textTheme.headline2!.copyWith(
+                                      fontSize: 14.sp,
+                                      color: kBlue,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -560,7 +606,7 @@ class _ProfileScreenState extends State<_ProfileScreen> {
 }
 /*screen: BlocBuilder<MeCubit, MeState>(
         builder: (context, state) {
-          if (state is MeIsLoaded) {
+          if (state is MeIsLoaded  && ( Prefs.getBool("logged") != null && Prefs.getBool("logged") == true)) {
             return Scaffold(
               backgroundColor: Colors.white,
               body: Container(

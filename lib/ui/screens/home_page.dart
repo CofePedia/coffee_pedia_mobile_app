@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
+import 'package:coffepedia/business_logic/getx_controllers/badge_controller.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
@@ -9,10 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import '../../constants/colors.dart';
 import '../../main.dart';
-import '../checkout_items_screen.dart';
+import 'checkout_screen.dart';
 import 'home_screen.dart';
 import 'more_screen.dart';
 import 'profile_screen.dart';
@@ -48,6 +50,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late int currentIndex;
+  final ScrollController _controller = ScrollController();
 
   _HomePageState(this.currentIndex);
 
@@ -127,8 +130,11 @@ class _HomePageState extends State<HomePage> {
                     translator.translate("home_screen.home_tap"), 0),
                 getItem(Assets.iconsShoppingBasket,
                     translator.translate("home_screen.my_basket_tap"), 1),
-                getItem(Assets.iconsProfile,
-                    translator.translate("home_screen.profile_tap"), 2),
+                Prefs.getBool("logged") == false
+                    ? getItem(Assets.iconsProfile,
+                        translator.translate("home_screen.login"), 2)
+                    : getItem(Assets.iconsProfile,
+                        translator.translate("home_screen.profile_tap"), 2),
                 getItem(Assets.iconsMore,
                     translator.translate("home_screen.more_tap"), 3),
               ],
@@ -137,6 +143,10 @@ class _HomePageState extends State<HomePage> {
                 setState(() {
                   currentIndex = index;
                 });
+                if (currentIndex == 0)
+                  _controller.animateTo(-200,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut);
               },
               type: BottomNavigationBarType.fixed,
               selectedItemColor: Color(0xff4470C1),
@@ -169,7 +179,7 @@ class _HomePageState extends State<HomePage> {
           child: IndexedStack(
             index: currentIndex,
             children: [
-              HomeScreenProvider(),
+              HomeScreenProvider(controller: _controller),
               CheckoutItemsScreenProvider(
                 onAddPressed: () {
                   setState(() {});

@@ -137,10 +137,21 @@ class AddressWebServices {
       BotToast.showText(text: address.data!.msg!);
       return address;
     } else {
-      print(json.decode(response.body).toString());
-      throw Exception(
-        json.decode(response.body),
-      );
+      // print(json.decode(response.body).toString());
+      //
+      // throw Exception(
+      //   json.decode(response.body),
+      // );
+
+      // }
+      final data = jsonDecode(response.body);
+
+      data.forEach((key, value) {
+        BotToast.showText(text: value[0]);
+
+        throw value[0];
+      });
+      throw 'Error, Please try again';
     }
   }
 

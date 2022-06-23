@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:coffepedia/data/models/order_history.dart';
+import 'package:coffepedia/data/models/reorder.dart';
 import 'package:coffepedia/data/repository/orders_history_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -14,6 +15,14 @@ class OrdersHistoryCubit extends Cubit<OrdersHistoryState> {
     ordersHistoryRepository.getOrderHistory().then(
       (value) {
         emit(OrdersHistoryLoaded(value));
+      },
+    );
+  }
+
+  void postReorder(int orderNumber) {
+    ordersHistoryRepository.postReorder(orderNumber).then(
+      (value) {
+        emit(ReorderLoaded(value));
       },
     );
   }

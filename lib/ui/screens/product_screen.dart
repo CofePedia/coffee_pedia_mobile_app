@@ -1,4 +1,6 @@
+import 'package:appmetrica_sdk/appmetrica_sdk.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:coffepedia/business_logic/getx_controllers/badge_controller.dart';
 import 'package:coffepedia/business_logic/me/me_cubit.dart';
 import 'package:coffepedia/business_logic/product/product_cubit.dart';
 import 'package:coffepedia/data/models/basket.dart';
@@ -8,7 +10,6 @@ import 'package:coffepedia/data/web_services/me_web_services.dart';
 import 'package:coffepedia/data/web_services/product_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/services/preferences.dart';
-import 'package:coffepedia/ui/checkout_popup.dart';
 import 'package:coffepedia/ui/screens/category_screen.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
@@ -21,8 +22,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:get/get.dart';
 
+import '../../business_logic/basket/basket_cubit.dart';
+import '../../data/repository/basket_repository.dart';
+import '../../data/web_services/basket_web_services.dart';
 import '../../main.dart';
+import '../checkout_popup.dart';
 
 class ProductProvider extends StatelessWidget {
   final int id;
@@ -43,6 +49,13 @@ class ProductProvider extends StatelessWidget {
           create: (context) => MeCubit(
             MeRepository(
               MeWebServices(),
+            ),
+          ),
+        ),
+        BlocProvider<BasketCubit>(
+          create: (context) => BasketCubit(
+            BasketRepository(
+              BasketWebServices(),
             ),
           ),
         ),
@@ -70,6 +83,8 @@ class _ProductScreenState extends State<ProductScreen> {
     BlocProvider.of<MeCubit>(context).getMe();
     super.initState();
   }
+
+  var badgeController = Get.put(BadgeController());
 
   int counter = 1;
   bool isLoggedIn = false;
@@ -159,12 +174,59 @@ class _ProductScreenState extends State<ProductScreen> {
                           ),
                         ),
                         CustomButton(
-                          onPress: () {
+                          onPress: () async {
                             String oldQuantity =
                                 Prefs.getString("totalItems") ?? "0";
                             Prefs.setString("totalItems",
                                 (int.parse(oldQuantity) + counter).toString());
+                            badgeController
+                                .badgeValue((int.parse(oldQuantity) + counter));
+                            {
+                              //TODO 1) add the item to the local db..
+                              await BlocProvider.of<BasketCubit>(context)
+                                  .addProductInLocalBasket(
+                                BasketLocal(
+                                  productId: state.product!.data!.id,
+                                  quantity: counter,
+                                  image: (state.product!.data!.images != null &&
+                                          state.product!.data!.images!
+                                              .isNotEmpty)
+                                      ? state.product!.data!.images![0]
+                                      : "",
+                                  price: state.product!.data!.price.toString(),
+                                  vendor:
+                                      state.product!.data!.vendor!.companyName,
+                                  name: state.product!.data!.name,
+                                  priceBeforeDiscount:
+                                      state.product!.data!.priceBeforeDiscount,
+                                ),
+                              );
+                              AppmetricaSdk()
+                                  .reportEvent(name: 'Added to Server Cart');
 
+                              /*//TODO 2) get all items from the local database..
+                        List<Map<String, int>> basket = [];
+                        print("A 1");
+                        List<BasketLocal> basketInLocal = await basketRepository.getAllLocalProductsFromBasket();
+                        print("A 2++");
+                        if(basketInLocal == null ) print(" A 2++ null" );
+                        if (basketInLocal != null && basketInLocal.isNotEmpty) {
+                          print("A 2 inside if");
+                          print("A 2 " + basketInLocal.length.toString());
+                          basketInLocal.forEach((element) {
+                            Map<String, int> basketMap = {
+                              "product_id": int.parse(element.productId.toString()),
+                              "quantity": int.parse(element.quantity.toString())
+                            };
+                            basket.add(basketMap);
+                          });
+                        }else{
+                          print("A 2--");
+                        }
+                        print("A 3");
+                        //TODO 3) send all the products to the database..
+                        BlocProvider.of<BasketCubit>(context).getAddToBasket(basket);*/
+                            }
                             showModalBottomSheet(
                               enableDrag: false,
                               isDismissible: true,
@@ -178,7 +240,9 @@ class _ProductScreenState extends State<ProductScreen> {
                               isScrollControlled: true,
                               builder: (context) {
                                 return CheckoutPopUpProvider(
-                                  meLoaded: state is MeIsLoaded,
+                                  meLoaded: state is MeIsLoaded &&
+                                      (Prefs.getBool("logged") != null &&
+                                          Prefs.getBool("logged") == true),
                                   basketLocal: BasketLocal(
                                     productId: int.parse(
                                         state.product!.data!.id.toString()),
@@ -233,7 +297,9 @@ class _ProductScreenState extends State<ProductScreen> {
           listeners: [
             BlocListener<MeCubit, MeState>(
               listener: (context, state) async {
-                if (state is MeIsLoaded) {
+                if (state is MeIsLoaded &&
+                    (Prefs.getBool("logged") != null &&
+                        Prefs.getBool("logged") == true)) {
                   isLoggedIn = true;
                 } else {
                   isLoggedIn = false;

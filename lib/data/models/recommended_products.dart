@@ -206,6 +206,7 @@ class RecommendedProductsData {
   int? price;
   int? stock;
   bool? inWishlist;
+  bool? inCart;
 
   RecommendedProductsData({
     this.id,
@@ -226,6 +227,7 @@ class RecommendedProductsData {
     this.price,
     this.stock,
     this.inWishlist,
+    this.inCart,
   });
   RecommendedProductsData.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toInt();
@@ -259,6 +261,7 @@ class RecommendedProductsData {
     price = json['price'] == null ? 0 : json['price'].toInt();
     stock = json['stock']?.toInt();
     inWishlist = json['in_wishlist'];
+    inCart = json['in_cart'];
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -291,6 +294,7 @@ class RecommendedProductsData {
     data['price'] = price;
     data['stock'] = stock;
     data['in_wishlist'] = inWishlist;
+    data['in_cart'] = inCart;
 
     return data;
   }

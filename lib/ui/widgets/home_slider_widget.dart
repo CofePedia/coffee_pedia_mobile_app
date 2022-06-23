@@ -8,6 +8,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../data/repository/home_ads_repository.dart';
+import '../screens/webviewWidget.dart';
 import '../shared/custom_network_image.dart';
 
 class HomeSlidersProvider extends StatelessWidget {
@@ -50,7 +51,6 @@ class _HomeSlidersState extends State<HomeSliders> {
         return Container(
           margin: EdgeInsets.only(bottom: 10.h),
           width: MediaQuery.of(context).size.width,
-          // color: Colors.red,
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           height: 220.h,
           child: Swiper(
@@ -66,51 +66,7 @@ class _HomeSlidersState extends State<HomeSliders> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => InAppWebView(
-                                    initialUrlRequest: URLRequest(
-                                      url: Uri.parse(
-                                        state.homeSliders!.data![index]!.url!,
-                                      ),
-                                    ),
-                                    initialOptions: InAppWebViewGroupOptions(
-                                      crossPlatform: InAppWebViewOptions(
-                                        useShouldOverrideUrlLoading: true,
-                                        mediaPlaybackRequiresUserGesture: false,
-                                      ),
-                                      android: AndroidInAppWebViewOptions(
-                                        useHybridComposition: true,
-                                      ),
-                                      ios: IOSInAppWebViewOptions(
-                                        allowsInlineMediaPlayback: true,
-                                      ),
-                                    ),
-                                    onWebViewCreated:
-                                        (InAppWebViewController controller) {
-                                      webView = controller;
-                                    },
-                                    onLoadStart:
-                                        (InAppWebViewController controller,
-                                            url) {
-                                      setState(() {
-                                        this.url = url!;
-                                      });
-                                    },
-                                    onLoadStop:
-                                        (InAppWebViewController controller,
-                                            url) {
-                                      setState(() {
-                                        this.url = url!;
-                                      });
-                                    },
-                                    onProgressChanged:
-                                        (InAppWebViewController controller,
-                                            int progress) {
-                                      setState(() {
-                                        this.progress = progress / 100;
-                                        print('onProgressChangeAmr $progress');
-                                      });
-                                    },
-                                  )),
+                              builder: (context) => WebViewWidget(webUrl: state.homeSliders!.data![index]!.url!)),
                         );
                       },
                 child: CustomNetworkImage(

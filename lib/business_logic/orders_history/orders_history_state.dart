@@ -9,3 +9,8 @@ class OrdersHistoryLoaded extends OrdersHistoryState {
   final OrderHistory? orderHistory;
   OrdersHistoryLoaded(this.orderHistory);
 }
+
+class ReorderLoaded extends OrdersHistoryState {
+  final Reorder? reorder;
+  ReorderLoaded(this.reorder);
+}

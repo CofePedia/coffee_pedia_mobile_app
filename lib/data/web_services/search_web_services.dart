@@ -9,17 +9,18 @@ import '../../main.dart';
 
 class SearchWebServices {
   Future<Search> getSearch(String query) async {
-    final url = Uri.parse(baseUrl + '/search');
+    final url = Uri.parse(baseUrl + '/search?query=$query');
 
     final http.Response response = await http.get(
       url,
       headers: {
-        "query": query,
+        // "query": query,
         'Content-Language': translator.currentLanguage,
         'platform': Platform.operatingSystem,
         'OSVersion': Platform.operatingSystemVersion,
       },
     );
+    print('amreasfj $query');
     print("response Search  ${response.body}");
 
     if (response.statusCode == 200) {

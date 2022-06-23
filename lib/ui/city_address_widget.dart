@@ -88,7 +88,7 @@ class _CityAddressState extends State<CityAddress> {
                 color: Color(0xffCCCCCC),
               ),
               hint: Text(
-                translator.translate("delivery_info_screen.city"),
+                translator.translate("address.city"),
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       color: Color(
                         0xffCCCCCC,

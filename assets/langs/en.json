@@ -41,7 +41,7 @@
       "recommended_text" : "Recommended based on your shopping history"
   },
   "address": {
-    "area" : "Area",
+    "area" : "Area*",
     "add_new_address" : "Add New Address",
     "delete" : "Delete",
     "asPrimary" : "asPrimary",
@@ -51,11 +51,12 @@
     "close" : "Close",
     "new_address" : "New Address",
     "edit_address" : "Edit Address",
-    "name" : "Name",
-    "governorate" : "Governorate",
-    "city" : "City",
-    "street" : "Street",
-    "address_details" : "Address Details"
+    "name" : "Name*",
+    "governorate" : "Governorate*",
+    "city" : "City*",
+    "street" : "Street*",
+    "address_details" : "Address Details",
+    "save": "Save"
   },
   "range_filter_slider": {
     "from" : "From",
@@ -116,13 +117,15 @@
   "home_screen" : {
     "home_tap" : "Shop",
     "my_basket_tap" : "My Basket",
-    "profile_tap" : "Profile",
+    "profile_tap" : "My Profile",
     "more_tap" : "More",
     "shop_by_category" : "Shop By Category",
     "featured_products" : "Featured Products",
     "shop_by_brands" : "Shop By Brands",
     "recent_products" : "Most Recent Products",
-    "search" : "Search CofePedia"
+    "search" : "Search CofePedia",
+    "login": "Login"
+
   },
   "more_screen" : {
     "more" : "More",
@@ -164,7 +167,8 @@
     "egp": "EGP",
     "no_order_history": "No Order History",
     "check_out_what's_trending": "Check out what's trending",
-    "shop_now": "Shop now"
+    "shop_now": "Shop now",
+    "reorder": "Order Again"
   },
   "payment_info_screen" : {
     "pay_now" : "Pay Now",
@@ -220,13 +224,13 @@
   "login_registration_screen" : {
     "login" : "Login",
     "create_account" : "Create Account",
-    "first_name" : "First Name",
-    "last_name" : "Last Name",
-    "email_address" : "Email Address",
-    "mobile" : "Mobile",
-    "password" : "Password",
-    "confirm_password" : "Confirm Password",
-    "forget_password" : "Forgot Password?",
+    "first_name" : "First Name*",
+    "last_name" : "Last Name*",
+    "email_address" : "Email Address*",
+    "mobile" : "Mobile*",
+    "password" : "Password*",
+    "confirm_password" : "Confirm Password*",
+    "forget_password" : "Forgot Password?*",
     "accept_msg" : "By creating an account, you accept our",
     "terms_n_conditions" : "terms and conditions",
     "and" : " and ",
@@ -239,7 +243,8 @@
     "Invalid_name": "Invalid Name",
     "Invalid_number": "Invalid Number",
     "Password_is_too_short": "Password is too short!",
-    "Passwords_do_not_match": "Passwords do not match!"
+    "Passwords_do_not_match": "Passwords do not match!",
+    "signup": "Sign up"
   },
   "forget_password_screen" : {
     "forget_password" : "Forgot Password",

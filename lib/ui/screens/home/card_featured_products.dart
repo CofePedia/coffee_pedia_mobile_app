@@ -74,6 +74,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
                   rate: data.rate!,
                   productId: data.id.toString(),
                   isFavorite: data.inWishlist!,
+                  isInCart: data.inCart!,
                 );
                 // return Padding(
                 //   padding: EdgeInsets.symmetric(horizontal: 6.w),
@@ -281,7 +282,7 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
             ),
           );
         } else {
-          return FeaturedProductsShimmerWidget();
+          return RecentProductsShimmerWidget();
         }
       },
     );

@@ -259,6 +259,9 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                     }
                   } else if (state is CouponUnvalid) {
                     BotToast.showText(text: state.error!.toString());
+                    setState(() {
+                      isPressed = false;
+                    });
                   }
                 },
                 child: BlocBuilder<BasketCubit, BasketState>(

@@ -11,15 +11,15 @@ class CategoryShimmerWidget extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 24.h),
         width: MediaQuery.of(context).size.width,
-        height: 80.h,
+        height: 100.h,
         child: ListView.builder(
           itemCount: 4,
           scrollDirection: Axis.horizontal,
           padding: EdgeInsets.only(left: 10.w, right: 10.w),
           itemBuilder: (context, index) {
             return Container(
-              width: 150.w,
-              height: 84.h,
+              width: 190.w,
+              height: 100.h,
               margin: EdgeInsets.symmetric(horizontal: 6.w),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -78,7 +78,7 @@ class SecondSliderShimmerWidget extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 90.h,
+            height: 60.h,
             child: ListView.builder(
               itemCount: 4,
               scrollDirection: Axis.horizontal,
@@ -107,7 +107,7 @@ class FirstSliderShimmerWidget extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: 24.h),
         width: MediaQuery.of(context).size.width,
-        height: 170.h,
+        height: 200.h,
         child: ListView.builder(
           itemCount: 4,
           scrollDirection: Axis.horizontal,
@@ -172,11 +172,11 @@ class AdsShimmerWidget extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          padding: EdgeInsets.only(left: 8.w, right: 8.w),
+          padding: EdgeInsets.only(left: 5.w, right: 5.w),
           itemBuilder: (context, index) {
             return Container(
               margin: EdgeInsets.only(bottom: 24.h, right: 15.w, left: 15.w),
-              height: 205.h,
+              height: 210.h,
               width: 344.w,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(11.0.r),
@@ -197,16 +197,16 @@ class RecentProductsShimmerWidget extends StatelessWidget {
       highlightColor: Colors.grey.shade100,
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: 187.h,
+        height: 286.h,
         child: ListView.builder(
           itemCount: 5,
           padding: EdgeInsets.symmetric(horizontal: 11.w),
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 6.w),
+              padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 12.h),
               child: Container(
-                height: 187.h,
+                height: 286.h,
                 width: 214.w,
                 decoration: BoxDecoration(
                   color: Colors.white,

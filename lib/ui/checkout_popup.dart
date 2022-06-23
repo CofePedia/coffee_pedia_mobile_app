@@ -1,12 +1,11 @@
-import 'package:appmetrica_sdk/appmetrica_sdk.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
 import 'package:coffepedia/business_logic/me/me_cubit.dart';
-import 'package:coffepedia/data/models/basket.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
 import 'package:coffepedia/data/repository/me_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/data/web_services/me_web_services.dart';
+import 'package:coffepedia/services/preferences.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
@@ -15,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../data/models/basket.dart';
 import '../main.dart';
 
 class CheckoutPopUpProvider extends StatelessWidget {
@@ -57,8 +57,8 @@ class CheckoutPopUpProvider extends StatelessWidget {
         image: image,
         title: title,
         totalPrice: totalPrice,
-        meLoaded: meLoaded,
-        basketLocal: basketLocal!,
+        // meLoaded: meLoaded,
+        // basketLocal: basketLocal!,
       ),
     );
   }
@@ -69,18 +69,16 @@ class CheckoutPopUp extends StatefulWidget {
     required this.title,
     required this.totalPrice,
     required this.image,
-    required this.meLoaded,
-    required this.basketLocal,
+    // required this.meLoaded,
+    // required this.basketLocal,
     Key? key,
   }) : super(key: key);
 
-  //
-
-  final BasketLocal? basketLocal;
+  // final BasketLocal? basketLocal;
   final String? image;
   final String? title;
   final String? totalPrice;
-  final bool meLoaded;
+  // final bool meLoaded;
 
   @override
   State<CheckoutPopUp> createState() => _CheckoutPopUpState();
@@ -173,7 +171,10 @@ class _CheckoutPopUpState extends State<CheckoutPopUp> {
             listeners: [
               BlocListener<MeCubit, MeState>(
                 listener: (context, state) {
-                  if (state is MeIsLoaded) {
+                  if (state is MeIsLoaded &&
+                      (Prefs.getBool("logged") != null &&
+                          (Prefs.getBool("logged") != null &&
+                              Prefs.getBool("logged") == true))) {
                     isLoggedIn = true;
                   }
                 },
@@ -205,68 +206,74 @@ class _CheckoutPopUpState extends State<CheckoutPopUp> {
                     title: translator
                         .translate("checkout_popup.proceed_to_checkout"),
                     onPress: () async {
-                      print("MOOOOI");
-                      if (widget.meLoaded == true) {
-                        print(
-                            "MyQuerySoundEffectsEnabled  proceed button with a user");
-                        //TODO 1) add the item to the local db..
-                        await BlocProvider.of<BasketCubit>(context)
-                            .addProductInLocalBasket(
-                          BasketLocal(
-                            productId: widget.basketLocal!.productId,
-                            quantity: widget.basketLocal!.quantity,
-                            image: widget.basketLocal!.image,
-                            price: widget.basketLocal!.price,
-                            vendor: widget.basketLocal!.vendor,
-                            name: widget.basketLocal!.name,
-                            priceBeforeDiscount:
-                                widget.basketLocal!.priceBeforeDiscount,
-                          ),
-                        );
-                        AppmetricaSdk()
-                            .reportEvent(name: 'Added to Server Cart');
-
-                        /*//TODO 2) get all items from the local database..
-                        List<Map<String, int>> basket = [];
-                        print("A 1");
-                        List<BasketLocal> basketInLocal = await basketRepository.getAllLocalProductsFromBasket();
-                        print("A 2++");
-                        if(basketInLocal == null ) print(" A 2++ null" );
-                        if (basketInLocal != null && basketInLocal.isNotEmpty) {
-                          print("A 2 inside if");
-                          print("A 2 " + basketInLocal.length.toString());
-                          basketInLocal.forEach((element) {
-                            Map<String, int> basketMap = {
-                              "product_id": int.parse(element.productId.toString()),
-                              "quantity": int.parse(element.quantity.toString())
-                            };
-                            basket.add(basketMap);
-                          });
-                        }else{
-                          print("A 2--");
-                        }
-                        print("A 3");
-                        //TODO 3) send all the products to the database..
-                        BlocProvider.of<BasketCubit>(context).getAddToBasket(basket);*/
-                      } else if (widget.meLoaded == false) {
-                        print(
-                            "MyQuerySoundEffectsEnabled  proceed button with local");
-                        await BlocProvider.of<BasketCubit>(context)
-                            .addProductInLocalBasket(
-                          BasketLocal(
-                            productId: widget.basketLocal!.productId,
-                            quantity: widget.basketLocal!.quantity,
-                            image: widget.basketLocal!.image,
-                            price: widget.basketLocal!.price,
-                            vendor: widget.basketLocal!.vendor,
-                            name: widget.basketLocal!.name,
-                            priceBeforeDiscount:
-                                widget.basketLocal!.priceBeforeDiscount,
-                          ),
-                        );
-                        AppmetricaSdk()
-                            .reportEvent(name: 'Added to Local Cart');
-                      }
+                      // if (widget.meLoaded == true) {
+                      //   print(
+                      //       "MyQuerySoundEffectsEnabled  proceed button with a user");
+                      //   //TODO 1) add the item to the local db..
+                      //   await BlocProvider.of<BasketCubit>(context)
+                      //       .addProductInLocalBasket(
+                      //     BasketLocal(
+                      //       productId: widget.basketLocal!.productId,
+                      //       quantity: widget.basketLocal!.quantity,
+                      //       image: widget.basketLocal!.image,
+                      //       price: widget.basketLocal!.price,
+                      //       vendor: widget.basketLocal!.vendor,
+                      //       name: widget.basketLocal!.name,
+                      //       priceBeforeDiscount:
+                      //           widget.basketLocal!.priceBeforeDiscount,
+                      //     ),
+                      //   );
+                      //   AppmetricaSdk()
+                      //       .reportEvent(name: 'Added to Server Cart');
+                      //
+                      //   /*//TODO 2) get all items from the local database..
+                      //   List<Map<String, int>> basket = [];
+                      //   print("A 1");
+                      //   List<BasketLocal> basketInLocal = await basketRepository.getAllLocalProductsFromBasket();
+                      //   print("A 2++");
+                      //   if(basketInLocal == null ) print(" A 2++ null" );
+                      //   if (basketInLocal != null && basketInLocal.isNotEmpty) {
+                      //     print("A 2 inside if");
+                      //     print("A 2 " + basketInLocal.length.toString());
+                      //     basketInLocal.forEach((element) {
+                      //       Map<String, int> basketMap = {
+                      //         "product_id": int.parse(element.productId.toString()),
+                      //         "quantity": int.parse(element.quantity.toString())
+                      //       };
+                      //       basket.add(basketMap);
+                      //     });
+                      //   }else{
+                      //     print("A 2--");
+                      //   }
+                      //   print("A 3");
+                      //   //TODO 3) send all the products to the database..
+                      //   BlocProvider.of<BasketCubit>(context).getAddToBasket(basket);*/
+                      // } else if (widget.meLoaded == false) {
+                      //   print(
+                      //       "MyQuerySoundEffectsEnabled  proceed button with local");
+                      //   await BlocProvider.of<BasketCubit>(context)
+                      //       .addProductInLocalBasket(
+                      //     BasketLocal(
+                      //       productId: widget.basketLocal!.productId,
+                      //       quantity: widget.basketLocal!.quantity,
+                      //       image: widget.basketLocal!.image,
+                      //       price: widget.basketLocal!.price,
+                      //       vendor: widget.basketLocal!.vendor,
+                      //       name: widget.basketLocal!.name,
+                      //       priceBeforeDiscount:
+                      //           widget.basketLocal!.priceBeforeDiscount,
+                      //     ),
+                      //   );
+                      //   AppmetricaSdk()
+                      //       .reportEvent(name: 'Added to Local Cart');
+                      // }
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                        builder: (context) {
+                          return HomePageProvider(
+                            currentIndex: 1,
+                          );
+                        },
+                      ), (route) => false);
                     },
                     width: 345.w,
                     height: 50.h,
@@ -279,7 +286,7 @@ class _CheckoutPopUpState extends State<CheckoutPopUp> {
                   //         BasketRepository(
                   //       BasketWebServices(),
                   //     );
-                  //     if (state is MeIsLoaded) {
+                  //     if (state is MeIsLoaded  && ( Prefs.getBool("logged") != null && Prefs.getBool("logged") == true)) {
                   //       print(
                   //           "MyQuerySoundEffectsEnabled  proceed button with a user");
                   //       //TODO 1) add the item to the local db..
@@ -318,7 +325,7 @@ class _CheckoutPopUpState extends State<CheckoutPopUp> {
                   //       print("A 3");
                   //       //TODO 3) send all the products to the database..
                   //       BlocProvider.of<BasketCubit>(context).getAddToBasket(basket);*/
-                  //     } else if (state is MeIsNotExist) {
+                  //     } else if (state is MeIsNotExist && ( Prefs.getBool("logged") == null || Prefs.getBool("logged") == false)) {
                   //       print(
                   //           "MyQuerySoundEffectsEnabled  proceed button with local");
                   //       await BlocProvider.of<BasketCubit>(context)

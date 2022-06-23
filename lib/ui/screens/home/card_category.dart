@@ -126,7 +126,7 @@ class _CardCategoryState extends State<CardCategory> {
                           bottom: 16.h,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            // crossAxisAlignment: CrossAxisAlignment.start,
+                            // crossAxisAlignment:  CrossAxisAlignment.start,
                             children: [
                               Container(
                                 width: 96.w,
@@ -146,7 +146,7 @@ class _CardCategoryState extends State<CardCategory> {
                                       .copyWith(
                                         color: Color(0xffFFD008),
                                         height: 1.25.h,
-                                        fontSize: 14.sp,
+                                        fontSize: 12.sp,
                                         fontWeight: FontWeight.w900,
                                       ),
                                 ),

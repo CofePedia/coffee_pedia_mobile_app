@@ -35,6 +35,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
   @override
   void initState() {
     BlocProvider.of<OrdersHistoryCubit>(context).getOrdersHistory();
+
     super.initState();
   }
 
@@ -69,356 +70,393 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                 ),
               ],
             ),
-            BlocBuilder<OrdersHistoryCubit, OrdersHistoryState>(
-              builder: (context, state) {
-                if (state is OrdersHistoryLoaded) {
-                  return state.orderHistory!.data!.length > 0
-                      ? ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: state.orderHistory!.data!.length,
-                          padding: EdgeInsets.zero,
-                          itemBuilder: (context, index) => Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8.h, horizontal: 16.w),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6.r),
-                                // boxShadow: [
-                                //   BoxShadow(
-                                //     color: Color.fromRGBO(0, 0, 0, 0.12),
-                                //     offset: Offset(0, 2),
-                                //     blurRadius: 11.sp,
-                                //   ),
-                                // ],
-                                color: Colors.white,
-                              ),
-                              child: ExpansionTile(
-                                collapsedIconColor: Color(0xff000000),
-                                iconColor: Color(0xff000000),
-                                subtitle: Padding(
-                                  padding: EdgeInsets.only(top: 12.h),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            translator.translate(
-                                                "order_history_screen.status"),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline3,
-                                          ),
-                                          SizedBox(
-                                            height: 6.h,
-                                          ),
-                                          Container(
-                                            height: 17.h,
-                                            width: 95.w,
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                              color: state
-                                                          .orderHistory!
-                                                          .data![index]!
-                                                          .statusColor !=
-                                                      ''
-                                                  ? HexColor(state
-                                                      .orderHistory!
-                                                      .data![index]!
-                                                      .statusColor!)
-                                                  : Theme.of(context)
-                                                      .primaryColor,
-                                              borderRadius: BorderRadius.only(
-                                                topLeft:
-                                                    Radius.circular(12.5.r),
-                                                bottomRight:
-                                                    Radius.circular(12.5.r),
-                                                bottomLeft:
-                                                    Radius.circular(12.5.r),
-                                              ),
-                                            ),
-                                            child: Text(
-                                              state.orderHistory!.data![index]!
-                                                  .status!,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline2!
-                                                  .copyWith(fontSize: 10.sp),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            translator.translate(
-                                                "order_history_screen.date"),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline3,
-                                          ),
-                                          SizedBox(
-                                            height: 6.h,
-                                          ),
-                                          Text(
-                                            state.orderHistory!.data![index]!
-                                                .date!,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption!
-                                                .copyWith(
-                                                  fontSize: 13.sp,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+            BlocListener<OrdersHistoryCubit, OrdersHistoryState>(
+              listener: (context, state) {
+                if (state is ReorderLoaded) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => HomePageProvider(currentIndex: 1),
+                    ),
+                  );
+                }
+              },
+              child: BlocBuilder<OrdersHistoryCubit, OrdersHistoryState>(
+                builder: (context, state) {
+                  if (state is OrdersHistoryLoaded) {
+                    return state.orderHistory!.data!.length > 0
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: state.orderHistory!.data!.length,
+                            padding: EdgeInsets.zero,
+                            itemBuilder: (context, index) => Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8.h, horizontal: 16.w),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6.r),
+                                  // boxShadow: [
+                                  //   BoxShadow(
+                                  //     color: Color.fromRGBO(0, 0, 0, 0.12),
+                                  //     offset: Offset(0, 2),
+                                  //     blurRadius: 11.sp,
+                                  //   ),
+                                  // ],
+                                  color: Colors.white,
                                 ),
-                                tilePadding: EdgeInsets.symmetric(
-                                    vertical: 18.h, horizontal: 16.w),
-                                title: Text(
-                                  '${translator.translate("order_history_screen.order_id")}: ${state.orderHistory!.data![index]!.id!}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                        fontSize: 14.sp,
-                                      ),
-                                ),
-                                children: [
-                                  Divider(
-                                    thickness: 1.h,
-                                    color: Color(0xffE3E3E3),
-                                  ),
-                                  ListView.builder(
-                                    itemCount: state.orderHistory!.data![index]!
-                                        .items!.length,
-                                    shrinkWrap: true,
-                                    padding: EdgeInsets.zero,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, itemsIndex) =>
-                                        ListTile(
-                                      title: Text(
-                                        state.orderHistory!.data![index]!
-                                            .items![itemsIndex]!.name!,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(fontSize: 12.sp),
-                                      ),
-                                      subtitle: Padding(
-                                        padding: EdgeInsets.only(top: 10.h),
-                                        child: Text(
-                                          'x${state.orderHistory!.data![index]!.items![itemsIndex]!.quantity!.toString()}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline4,
-                                        ),
-                                      ),
-                                      trailing: CustomNetworkImage(
-                                        imageUrl: state
-                                            .orderHistory!
-                                            .data![index]!
-                                            .items![itemsIndex]!
-                                            .image!,
-                                        height: 48.h,
-                                        width: 40.w,
-                                        radius: 2,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    color: Color(0xffF8F8F8),
-                                    width: MediaQuery.of(context).size.width,
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 19.w, vertical: 16.h),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                child: ExpansionTile(
+                                  collapsedIconColor: Color(0xff000000),
+                                  iconColor: Color(0xff000000),
+                                  subtitle: Padding(
+                                    padding: EdgeInsets.only(top: 12.h),
+                                    child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          translator.translate(
-                                              "order_history_screen.payment_method"),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline3,
-                                        ),
-
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
-                                        Text(
-                                          state.orderHistory!.data![index]!
-                                              .paymentMethod!,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(fontSize: 13.sp),
-                                        ),
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
-                                        // Row(
-                                        //   children: [
-                                        //     SvgPicture.asset(Assets.imagesVisaLogo),
-                                        //     SizedBox(
-                                        //       width: 25.w,
-                                        //     ),
-                                        //     Text(
-                                        //       '**** **** **** 5089',
-                                        //       style: Theme.of(context)
-                                        //           .textTheme
-                                        //           .headline5,
-                                        //     ),
-                                        //   ],
-                                        // ),
-
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               translator.translate(
-                                                  "order_history_screen.subtotal"),
+                                                  "order_history_screen.status"),
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline3!
-                                                  .copyWith(fontSize: 12.sp),
+                                                  .headline3,
                                             ),
-                                            Text(
-                                              '${state.orderHistory!.data![index]!.subTotal} ${translator.translate("order_history_screen.egp")}',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline3!
-                                                  .copyWith(fontSize: 12.sp),
+                                            SizedBox(
+                                              height: 6.h,
+                                            ),
+                                            Container(
+                                              height: 17.h,
+                                              width: 95.w,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: state
+                                                            .orderHistory!
+                                                            .data![index]!
+                                                            .statusColor !=
+                                                        ''
+                                                    ? HexColor(state
+                                                        .orderHistory!
+                                                        .data![index]!
+                                                        .statusColor!)
+                                                    : Theme.of(context)
+                                                        .primaryColor,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft:
+                                                      Radius.circular(12.5.r),
+                                                  bottomRight:
+                                                      Radius.circular(12.5.r),
+                                                  bottomLeft:
+                                                      Radius.circular(12.5.r),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                state.orderHistory!
+                                                    .data![index]!.status!,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline2!
+                                                    .copyWith(fontSize: 10.sp),
+                                              ),
                                             ),
                                           ],
                                         ),
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               translator.translate(
-                                                  "order_history_screen.discount"),
+                                                  "order_history_screen.date"),
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline3!
-                                                  .copyWith(fontSize: 12.sp),
+                                                  .headline3,
+                                            ),
+                                            SizedBox(
+                                              height: 6.h,
                                             ),
                                             Text(
-                                              '${state.orderHistory!.data![index]!.discount} ${translator.translate("order_history_screen.egp")}',
+                                              state.orderHistory!.data![index]!
+                                                  .date!,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline3!
-                                                  .copyWith(fontSize: 12.sp),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              translator.translate(
-                                                  "order_history_screen.cod"),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline3!
-                                                  .copyWith(fontSize: 12.sp),
-                                            ),
-                                            Text(
-                                              '${state.orderHistory!.data![index]!.deliveryCharge} ${translator.translate("order_history_screen.egp")}',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline3!
-                                                  .copyWith(fontSize: 12.sp),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              translator.translate(
-                                                  "order_history_screen.total"),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .copyWith(fontSize: 13.sp),
-                                            ),
-                                            Text(
-                                              '${state.orderHistory!.data![index]!.totalPrice} ${translator.translate("order_history_screen.egp")}',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .copyWith(fontSize: 13.sp),
-                                            ),
+                                                  .caption!
+                                                  .copyWith(
+                                                    fontSize: 13.sp,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                            )
                                           ],
                                         ),
                                       ],
                                     ),
                                   ),
-                                ],
+                                  tilePadding: EdgeInsets.symmetric(
+                                      vertical: 18.h, horizontal: 16.w),
+                                  title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        '${translator.translate("order_history_screen.order_id")}: ${state.orderHistory!.data![index]!.id!}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                              fontSize: 14.sp,
+                                            ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          BlocProvider.of<OrdersHistoryCubit>(
+                                                  context)
+                                              .postReorder(state.orderHistory!
+                                                  .data![index]!.id!);
+                                        },
+                                        child: Text(
+                                          translator.translate(
+                                              "order_history_screen.reorder"),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .copyWith(
+                                                  fontSize: 14.sp,
+                                                  color: Theme.of(context)
+                                                      .primaryColor),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  children: [
+                                    Divider(
+                                      thickness: 1.h,
+                                      color: Color(0xffE3E3E3),
+                                    ),
+                                    ListView.builder(
+                                      itemCount: state.orderHistory!
+                                          .data![index]!.items!.length,
+                                      shrinkWrap: true,
+                                      padding: EdgeInsets.zero,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, itemsIndex) =>
+                                          ListTile(
+                                        title: Text(
+                                          state.orderHistory!.data![index]!
+                                              .items![itemsIndex]!.name!,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .copyWith(fontSize: 12.sp),
+                                        ),
+                                        subtitle: Padding(
+                                          padding: EdgeInsets.only(top: 10.h),
+                                          child: Text(
+                                            'x${state.orderHistory!.data![index]!.items![itemsIndex]!.quantity!.toString()}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline4,
+                                          ),
+                                        ),
+                                        trailing: CustomNetworkImage(
+                                          imageUrl: state
+                                              .orderHistory!
+                                              .data![index]!
+                                              .items![itemsIndex]!
+                                              .image!,
+                                          height: 48.h,
+                                          width: 40.w,
+                                          radius: 2,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Color(0xffF8F8F8),
+                                      width: MediaQuery.of(context).size.width,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 19.w, vertical: 16.h),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            translator.translate(
+                                                "order_history_screen.payment_method"),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline3,
+                                          ),
+
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                          Text(
+                                            state.orderHistory!.data![index]!
+                                                .paymentMethod!,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1!
+                                                .copyWith(fontSize: 13.sp),
+                                          ),
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                          // Row(
+                                          //   children: [
+                                          //     SvgPicture.asset(Assets.imagesVisaLogo),
+                                          //     SizedBox(
+                                          //       width: 25.w,
+                                          //     ),
+                                          //     Text(
+                                          //       '**** **** **** 5089',
+                                          //       style: Theme.of(context)
+                                          //           .textTheme
+                                          //           .headline5,
+                                          //     ),
+                                          //   ],
+                                          // ),
+
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                translator.translate(
+                                                    "order_history_screen.subtotal"),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline3!
+                                                    .copyWith(fontSize: 12.sp),
+                                              ),
+                                              Text(
+                                                '${state.orderHistory!.data![index]!.subTotal} ${translator.translate("order_history_screen.egp")}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline3!
+                                                    .copyWith(fontSize: 12.sp),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                translator.translate(
+                                                    "order_history_screen.discount"),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline3!
+                                                    .copyWith(fontSize: 12.sp),
+                                              ),
+                                              Text(
+                                                '${state.orderHistory!.data![index]!.discount} ${translator.translate("order_history_screen.egp")}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline3!
+                                                    .copyWith(fontSize: 12.sp),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                translator.translate(
+                                                    "order_history_screen.cod"),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline3!
+                                                    .copyWith(fontSize: 12.sp),
+                                              ),
+                                              Text(
+                                                '${state.orderHistory!.data![index]!.deliveryCharge} ${translator.translate("order_history_screen.egp")}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline3!
+                                                    .copyWith(fontSize: 12.sp),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                translator.translate(
+                                                    "order_history_screen.total"),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(fontSize: 13.sp),
+                                              ),
+                                              Text(
+                                                '${state.orderHistory!.data![index]!.totalPrice} ${translator.translate("order_history_screen.egp")}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1!
+                                                    .copyWith(fontSize: 13.sp),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        )
-                      : Column(
-                          children: [
-                            Container(
-                              height: 120.h,
-                            ),
-                            EmptyWidgets(
-                              image: Assets.noOrdersHistory,
-                              title: translator.translate(
-                                  "order_history_screen.no_order_history"),
-                              onPress: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return const HomePageProvider(
-                                          currentIndex: 0);
-                                    },
-                                  ),
-                                );
-                              },
-                              description: translator.translate(
-                                  "order_history_screen.check_out_what's_trending"),
-                              buttonTitle: translator
-                                  .translate("order_history_screen.shop_now"),
-                            ),
-                          ],
-                        );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
+                          )
+                        : Column(
+                            children: [
+                              Container(
+                                height: 120.h,
+                              ),
+                              EmptyWidgets(
+                                image: Assets.noOrdersHistory,
+                                title: translator.translate(
+                                    "order_history_screen.no_order_history"),
+                                onPress: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return const HomePageProvider(
+                                            currentIndex: 0);
+                                      },
+                                    ),
+                                  );
+                                },
+                                description: translator.translate(
+                                    "order_history_screen.check_out_what's_trending"),
+                                buttonTitle: translator
+                                    .translate("order_history_screen.shop_now"),
+                              ),
+                            ],
+                          );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
             ),
             // Padding(
             //   padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),

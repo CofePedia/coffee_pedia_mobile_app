@@ -11,9 +11,11 @@ import 'package:coffepedia/data/repository/user_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/data/web_services/forgot_password_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
+import 'package:coffepedia/services/preferences.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/screens/intro/OTP_screen.dart';
 import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
+import 'package:coffepedia/ui/screens/webviewWidget.dart';
 import 'package:coffepedia/ui/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +28,8 @@ import '../../../main.dart';
 import '../../shared/custom_input.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  final bool isLogin;
+  LoginPage({this.isLogin = true, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +49,15 @@ class LoginPage extends StatelessWidget {
           ),
         ),
       ],
-      child: LoginRegisterScreen(),
+      child: LoginRegisterScreen(isLogin: isLogin),
     );
   }
 }
 
 class LoginRegisterScreen extends StatefulWidget {
-  const LoginRegisterScreen({Key? key}) : super(key: key);
+  bool isLogin;
+
+  LoginRegisterScreen({this.isLogin = true, Key? key}) : super(key: key);
 
   @override
   State<LoginRegisterScreen> createState() => _LoginRegisterScreenState();
@@ -67,7 +72,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   TextEditingController _confirmPassword = TextEditingController();
 
   bool selected = false;
-  bool isLogin = true;
+  // bool isLogin = true;
   bool pass = false;
 
   InAppWebViewController? webView;
@@ -77,6 +82,11 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   double progress = 0;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    // isLogin = pass;
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -162,6 +172,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   final BasketRepository basketRepository = BasketRepository(BasketWebServices(),);
                   await basketRepository.truncateLocalBasket();
                   */
+                  Prefs.setBool("logged", true);
                   //TODO 1) get all items from the local database..
                   final BasketRepository basketRepository = BasketRepository(
                     BasketWebServices(),
@@ -324,7 +335,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                   padding: EdgeInsets.only(
                                       top: 79.7.h, bottom: 32.h),
                                   child: Text(
-                                    isLogin
+                                    widget.isLogin
                                         ? translator.translate(
                                             "login_registration_screen.login")
                                         : translator.translate(
@@ -434,7 +445,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                               //     ],
                               //   ),
                               // ),
-                              isLogin
+                              widget.isLogin
                                   ? SizedBox.shrink()
                                   : Row(
                                       mainAxisAlignment:
@@ -492,7 +503,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                         )
                                       ],
                                     ),
-                              isLogin
+                              widget.isLogin
                                   ? SizedBox.shrink()
                                   : CustomInput(
                                       padding: false,
@@ -571,7 +582,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                         );
                                   }),
 
-                              isLogin
+                              widget.isLogin
                                   ? SizedBox.shrink()
                                   : CustomInput(
                                       title: translator.translate(
@@ -599,7 +610,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                                 passwordConfirmation: value),
                                           ),
                                     ),
-                              isLogin
+                              widget.isLogin
                                   ? Align(
                                       alignment: Alignment.centerRight,
                                       child: Padding(
@@ -631,14 +642,15 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                               Container(
                                 width: MediaQuery.of(context).size.width,
                                 margin: EdgeInsets.only(
-                                    top: isLogin ? 10.h : 16.h, bottom: 32.h),
+                                    top: widget.isLogin ? 10.h : 16.h,
+                                    bottom: 32.h),
                                 height: 50.h,
                                 child: ElevatedButton(
                                   onPressed: () {
                                     if (formKey.currentState!.validate()) {
                                       if (pass) {
                                         return null;
-                                      } else if (!isLogin) {
+                                      } else if (!widget.isLogin) {
                                         _signupButtonPressed();
                                       } else if (state is! LoginLoading) {
                                         _onLoginButtonPressed();
@@ -668,7 +680,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                     ),
                                   ),
                                   child: Text(
-                                    isLogin
+                                    widget.isLogin
                                         ? translator.translate(
                                             "login_registration_screen.login")
                                         : translator.translate(
@@ -682,7 +694,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                 visible: pass,
                                 child: SmallLoader(),
                               ),
-                              isLogin
+                              widget.isLogin
                                   ? SizedBox(
                                       height: 32.h,
                                     )
@@ -726,71 +738,74 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              InAppWebView(
-                                                                initialUrlRequest:
-                                                                    URLRequest(
-                                                                  url:
-                                                                      Uri.parse(
-                                                                    "https://cofepedia.com/privacy_police.html",
-                                                                  ),
-                                                                ),
-                                                                initialOptions:
-                                                                    InAppWebViewGroupOptions(
-                                                                  crossPlatform:
-                                                                      InAppWebViewOptions(
-                                                                    useShouldOverrideUrlLoading:
-                                                                        true,
-                                                                    mediaPlaybackRequiresUserGesture:
-                                                                        false,
-                                                                  ),
-                                                                  android:
-                                                                      AndroidInAppWebViewOptions(
-                                                                    useHybridComposition:
-                                                                        true,
-                                                                  ),
-                                                                  ios:
-                                                                      IOSInAppWebViewOptions(
-                                                                    allowsInlineMediaPlayback:
-                                                                        true,
-                                                                  ),
-                                                                ),
-                                                                onWebViewCreated:
-                                                                    (InAppWebViewController
-                                                                        controller) {
-                                                                  webView =
-                                                                      controller;
-                                                                },
-                                                                onLoadStart:
-                                                                    (InAppWebViewController
-                                                                            controller,
-                                                                        url) {
-                                                                  setState(() {
-                                                                    this.url =
-                                                                        url!;
-                                                                  });
-                                                                },
-                                                                onLoadStop:
-                                                                    (InAppWebViewController
-                                                                            controller,
-                                                                        url) {
-                                                                  setState(() {
-                                                                    this.url =
-                                                                        url!;
-                                                                  });
-                                                                },
-                                                                onProgressChanged:
-                                                                    (InAppWebViewController
-                                                                            controller,
-                                                                        int progress) {
-                                                                  setState(() {
-                                                                    this.progress =
-                                                                        progress /
-                                                                            100;
-                                                                    print(
-                                                                        'onProgressChangeAmr $progress');
-                                                                  });
-                                                                },
-                                                              )),
+                                                              // InAppWebView(
+                                                              //   initialUrlRequest:
+                                                              //       URLRequest(
+                                                              //     url:
+                                                              //         Uri.parse(
+                                                              //       "https://cofepedia.com/privacy_police.html",
+                                                              //     ),
+                                                              //   ),
+                                                              //   initialOptions:
+                                                              //       InAppWebViewGroupOptions(
+                                                              //     crossPlatform:
+                                                              //         InAppWebViewOptions(
+                                                              //       useShouldOverrideUrlLoading:
+                                                              //           true,
+                                                              //       mediaPlaybackRequiresUserGesture:
+                                                              //           false,
+                                                              //     ),
+                                                              //     android:
+                                                              //         AndroidInAppWebViewOptions(
+                                                              //       useHybridComposition:
+                                                              //           true,
+                                                              //     ),
+                                                              //     ios:
+                                                              //         IOSInAppWebViewOptions(
+                                                              //       allowsInlineMediaPlayback:
+                                                              //           true,
+                                                              //     ),
+                                                              //   ),
+                                                              //   onWebViewCreated:
+                                                              //       (InAppWebViewController
+                                                              //           controller) {
+                                                              //     webView =
+                                                              //         controller;
+                                                              //   },
+                                                              //   onLoadStart:
+                                                              //       (InAppWebViewController
+                                                              //               controller,
+                                                              //           url) {
+                                                              //     setState(() {
+                                                              //       this.url =
+                                                              //           url!;
+                                                              //     });
+                                                              //   },
+                                                              //   onLoadStop:
+                                                              //       (InAppWebViewController
+                                                              //               controller,
+                                                              //           url) {
+                                                              //     setState(() {
+                                                              //       this.url =
+                                                              //           url!;
+                                                              //     });
+                                                              //   },
+                                                              //   onProgressChanged:
+                                                              //       (InAppWebViewController
+                                                              //               controller,
+                                                              //           int progress) {
+                                                              //     setState(() {
+                                                              //       this.progress =
+                                                              //           progress /
+                                                              //               100;
+                                                              //       print(
+                                                              //           'onProgressChangeAmr $progress');
+                                                              //     });
+                                                              //   },
+                                                              // ),
+                                                              WebViewWidget(
+                                                                  webUrl:
+                                                                      "https://cofepedia.com/privacy_police.html")),
                                                     );
                                                   },
                                                   child: Text(
@@ -825,71 +840,74 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              InAppWebView(
-                                                                initialUrlRequest:
-                                                                    URLRequest(
-                                                                  url:
-                                                                      Uri.parse(
-                                                                    "https://cofepedia.com/terms_condation.html",
-                                                                  ),
-                                                                ),
-                                                                initialOptions:
-                                                                    InAppWebViewGroupOptions(
-                                                                  crossPlatform:
-                                                                      InAppWebViewOptions(
-                                                                    useShouldOverrideUrlLoading:
-                                                                        true,
-                                                                    mediaPlaybackRequiresUserGesture:
-                                                                        false,
-                                                                  ),
-                                                                  android:
-                                                                      AndroidInAppWebViewOptions(
-                                                                    useHybridComposition:
-                                                                        true,
-                                                                  ),
-                                                                  ios:
-                                                                      IOSInAppWebViewOptions(
-                                                                    allowsInlineMediaPlayback:
-                                                                        true,
-                                                                  ),
-                                                                ),
-                                                                onWebViewCreated:
-                                                                    (InAppWebViewController
-                                                                        controller) {
-                                                                  webView =
-                                                                      controller;
-                                                                },
-                                                                onLoadStart:
-                                                                    (InAppWebViewController
-                                                                            controller,
-                                                                        url) {
-                                                                  setState(() {
-                                                                    this.url =
-                                                                        url!;
-                                                                  });
-                                                                },
-                                                                onLoadStop:
-                                                                    (InAppWebViewController
-                                                                            controller,
-                                                                        url) {
-                                                                  setState(() {
-                                                                    this.url =
-                                                                        url!;
-                                                                  });
-                                                                },
-                                                                onProgressChanged:
-                                                                    (InAppWebViewController
-                                                                            controller,
-                                                                        int progress) {
-                                                                  setState(() {
-                                                                    this.progress =
-                                                                        progress /
-                                                                            100;
-                                                                    print(
-                                                                        'onProgressChangeAmr $progress');
-                                                                  });
-                                                                },
-                                                              )),
+                                                              // InAppWebView(
+                                                              //   initialUrlRequest:
+                                                              //       URLRequest(
+                                                              //     url:
+                                                              //         Uri.parse(
+                                                              //       "https://cofepedia.com/terms_condation.html",
+                                                              //     ),
+                                                              //   ),
+                                                              //   initialOptions:
+                                                              //       InAppWebViewGroupOptions(
+                                                              //     crossPlatform:
+                                                              //         InAppWebViewOptions(
+                                                              //       useShouldOverrideUrlLoading:
+                                                              //           true,
+                                                              //       mediaPlaybackRequiresUserGesture:
+                                                              //           false,
+                                                              //     ),
+                                                              //     android:
+                                                              //         AndroidInAppWebViewOptions(
+                                                              //       useHybridComposition:
+                                                              //           true,
+                                                              //     ),
+                                                              //     ios:
+                                                              //         IOSInAppWebViewOptions(
+                                                              //       allowsInlineMediaPlayback:
+                                                              //           true,
+                                                              //     ),
+                                                              //   ),
+                                                              //   onWebViewCreated:
+                                                              //       (InAppWebViewController
+                                                              //           controller) {
+                                                              //     webView =
+                                                              //         controller;
+                                                              //   },
+                                                              //   onLoadStart:
+                                                              //       (InAppWebViewController
+                                                              //               controller,
+                                                              //           url) {
+                                                              //     setState(() {
+                                                              //       this.url =
+                                                              //           url!;
+                                                              //     });
+                                                              //   },
+                                                              //   onLoadStop:
+                                                              //       (InAppWebViewController
+                                                              //               controller,
+                                                              //           url) {
+                                                              //     setState(() {
+                                                              //       this.url =
+                                                              //           url!;
+                                                              //     });
+                                                              //   },
+                                                              //   onProgressChanged:
+                                                              //       (InAppWebViewController
+                                                              //               controller,
+                                                              //           int progress) {
+                                                              //     setState(() {
+                                                              //       this.progress =
+                                                              //           progress /
+                                                              //               100;
+                                                              //       print(
+                                                              //           'onProgressChangeAmr $progress');
+                                                              //     });
+                                                              //   },
+                                                              // ),
+                                                              WebViewWidget(
+                                                                  webUrl:
+                                                                      "https://cofepedia.com/terms_condation.html")),
                                                     );
                                                   },
                                                   child: Text(
@@ -1038,7 +1056,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                 padding:
                                     EdgeInsets.only(top: 32.h, bottom: 6.h),
                                 child: Text(
-                                  isLogin
+                                  widget.isLogin
                                       ? translator.translate(
                                           "login_registration_screen.dont_have_account")
                                       : translator.translate(
@@ -1054,11 +1072,11 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                               InkWell(
                                 onTap: () {
                                   setState(() {
-                                    isLogin = !isLogin;
+                                    widget.isLogin = !widget.isLogin;
                                   });
                                 },
                                 child: Text(
-                                  isLogin
+                                  widget.isLogin
                                       ? translator.translate(
                                           "login_registration_screen.create_account")
                                       : translator.translate(

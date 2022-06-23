@@ -117,6 +117,7 @@ class MostRecentDataData {
   int? price;
   int? stock;
   bool? inWishlist;
+  bool? inCart;
 
   MostRecentDataData({
     this.id,
@@ -136,6 +137,7 @@ class MostRecentDataData {
     this.price,
     this.stock,
     this.inWishlist,
+    this.inCart,
   });
   MostRecentDataData.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toInt();
@@ -157,6 +159,7 @@ class MostRecentDataData {
     price = json['price']?.toInt();
     stock = json['stock']?.toInt();
     inWishlist = json['in_wishlist'];
+    inCart = json['in_cart'];
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -179,6 +182,8 @@ class MostRecentDataData {
     data['price'] = price;
     data['stock'] = stock;
     data['in_wishlist'] = inWishlist;
+    data['in_cart'] = inCart;
+
     return data;
   }
 }

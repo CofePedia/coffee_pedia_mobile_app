@@ -63,11 +63,13 @@ class _SearchBarState extends State<SearchBar> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    height: 43.h,
+                    // height: 43.h,
                     width: 295.w,
+                    alignment: Alignment.center,
                     child: TextFormField(
                       controller: _searchTextController,
                       autofocus: true,
+                      textAlignVertical: TextAlignVertical.center,
                       onChanged: (searchedProduct) {
                         EasyDebounce.debounce(
                             'search-key',
@@ -81,16 +83,21 @@ class _SearchBarState extends State<SearchBar> {
                             name:
                                 'Search for a product $_searchTextController');
                         print('searchedProduct $searchedProduct');
+                        print(
+                            'searchedProduct23 ${_searchTextController.text}');
                       },
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2!
-                          .copyWith(color: kLightBlack),
+                      style: Theme.of(context).textTheme.headline2!.copyWith(
+                          color: kLightBlack,
+                          fontSize: 16.sp,
+                          decoration: TextDecoration.none),
                       decoration: InputDecoration(
                         // hintText:
                         //     translator.translate("home_screen.search"),
                         // contentPadding: EdgeInsets.all(7.h),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                          // vertical: 10.h,
+                        ),
 
                         border: InputBorder.none,
                         suffixIcon: InkWell(
