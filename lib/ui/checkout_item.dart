@@ -118,6 +118,7 @@ class CheckoutItem extends StatefulWidget {
 }
 
 class _CheckoutItemState extends State<CheckoutItem> {
+  bool isFavorite =false;
   @override
   Widget build(BuildContext context) {
     return BlocListener<BasketCubit, BasketState>(
@@ -213,9 +214,10 @@ class _CheckoutItemState extends State<CheckoutItem> {
                   ),
                   CustomNetworkImage(
                     imageUrl: widget.image,
-                    height: 70.h,
-                    width: 70.w,
-                    radius: 2.r,
+                    height: 80.h,
+                    width: 80.w,
+                    fit: BoxFit.contain,
+                    radius: 0.r,
                   ),
                 ],
               ),
@@ -338,6 +340,8 @@ class _CheckoutItemState extends State<CheckoutItem> {
                       return InkWell(
                         onTap: () {
                           if (!widget.isLocal) {
+                            isFavorite = !isFavorite;
+
                             BlocProvider.of<WishlistCubit>(context)
                                 .getToggleProductsInWishlist(widget.productId);
                           } else {
@@ -351,7 +355,9 @@ class _CheckoutItemState extends State<CheckoutItem> {
                               Assets.iconsHeart,
                               width: 15.w,
                               height: 13.5.h,
-                              color: Theme.of(context).primaryColor,
+                              color: isFavorite
+                                  ? Colors.red
+                                  : Theme.of(context).primaryColor,
                             ),
                             SizedBox(
                               width: 8.w,
@@ -363,7 +369,9 @@ class _CheckoutItemState extends State<CheckoutItem> {
                                   .textTheme
                                   .headline4!
                                   .copyWith(
-                                    color: Theme.of(context).primaryColor,
+                                    color: isFavorite
+                                        ? Colors.red
+                                        : Theme.of(context).primaryColor,
                                   ),
                             ),
                           ],
