@@ -798,7 +798,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                                               // ),
                                                               WebViewWidget(
                                                                   webUrl:
-                                                                      "https://cofepedia.com/privacy_police.html")),
+                                                                      "https://cofepedia.com/privacy-policy")),
                                                     );
                                                   },
                                                   child: Text(
@@ -900,7 +900,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                                               // ),
                                                               WebViewWidget(
                                                                   webUrl:
-                                                                      "https://cofepedia.com/terms_condation.html")),
+                                                                      "https://cofepedia.com/terms-and-conditions")),
                                                     );
                                                   },
                                                   child: Text(
