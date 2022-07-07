@@ -10,7 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MostRecent extends StatelessWidget {
-  const MostRecent({Key? key}) : super(key: key);
+  final Function onAddTapped;
+
+  const MostRecent({required this.onAddTapped, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +22,16 @@ class MostRecent extends StatelessWidget {
           MostRecentWebServices(),
         ),
       ),
-      child: CardRecentProducts(),
+      child: CardRecentProducts(onAddTapped: onAddTapped),
     );
   }
 }
 
 class CardRecentProducts extends StatefulWidget {
+  final Function onAddTapped;
+
   const CardRecentProducts({
+    required this.onAddTapped,
     Key? key,
   }) : super(key: key);
 
@@ -55,7 +60,8 @@ class _CardRecentProductsState extends State<CardRecentProducts> {
               padding: EdgeInsets.symmetric(horizontal: 11.w),
               itemBuilder: (context, index) {
                 final data = state.mostRecent!.data!.data![index]!;
-                return ItemWidget(
+                return ItemWidgetProvider(
+                  onAddTapped: widget.onAddTapped,
                   image: data.image!,
                   isInCart: data.inCart!,
                   onPress: () {

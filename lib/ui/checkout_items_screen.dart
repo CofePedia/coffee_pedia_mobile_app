@@ -21,8 +21,10 @@ import 'delivery_info_screen.dart';
 class CheckoutItemsScreenProvider extends StatelessWidget {
   final Function? onAddPressed;
 
-  const CheckoutItemsScreenProvider({this.onAddPressed, Key? key})
-      : super(key: key);
+  const CheckoutItemsScreenProvider({
+    this.onAddPressed,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,11 +84,11 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (!isLoggedIn) {
+    if (Prefs.getBool("logged") == false) {
       BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
       // widget.onAddPressed();
     }
-    if (isLoggedIn) {
+    if (Prefs.getBool("logged") == true) {
       BlocProvider.of<BasketCubit>(context).getBasket();
       // widget.onAddPressed();
     }
@@ -94,16 +96,18 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
     return CheckInternetConnection(
       screen: MultiBlocListener(
         listeners: [
-          BlocListener<BasketCubit, BasketState>(listener: (context, state) {
-            if (state is AddToBasketIsPressed) {
-              if (isLoggedIn) {
-                BlocProvider.of<BasketCubit>(context).getBasket();
-              } else {
-                BlocProvider.of<BasketCubit>(context)
-                    .getAllLocalProductsFromBasket();
-              }
-            }
-          }),
+          // BlocListener<BasketCubit, BasketState>(
+          //   listener: (context, state) {
+          //     // if (state is AddToBasketIsPressed) {
+          //     //   if (isLoggedIn) {
+          //     //     BlocProvider.of<BasketCubit>(context).getBasket();
+          //     //   } else {
+          //     //     BlocProvider.of<BasketCubit>(context)
+          //     //         .getAllLocalProductsFromBasket();
+          //     //   }
+          //     // }
+          //   },
+          // ),
           BlocListener<MeCubit, MeState>(
             listener: (context, state) {
               if (state is MeIsLoaded &&
@@ -125,7 +129,9 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
         child: BlocBuilder<BasketCubit, BasketState>(
           builder: (context, state) {
             if (state is BasketLoaded) {
-              return state.basket!.data!.items!.length > 0 && isLoggedIn
+              return state.basket!.data!.items!.length > 0 &&
+                      isLoggedIn &&
+                      Prefs.getBool("logged") == true
                   ? Scaffold(
                       backgroundColor: Colors.white,
                       bottomNavigationBar: Padding(
@@ -260,6 +266,8 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                       productId: state
                                           .basket!.data!.items![index]!.id!
                                           .toString(),
+                                      stock: state
+                                          .basket!.data!.items![index]!.stock,
                                       price: state
                                           .basket!.data!.items![index]!.price
                                           .toString(),
@@ -280,21 +288,9 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                         setState(() {});
                                         BlocProvider.of<BasketCubit>(context)
                                             .getBasket();
-                                        print("ashrooof");
                                         widget.onAddPressed();
                                       },
                                       onItemAdded: () {
-                                        print("ashrooof1");
-                                        print("AddToBasketIsPressed---");
-                                        bool isDialogLoading =
-                                            Prefs.getBool("dialogLoading") ??
-                                                false;
-                                        if (isDialogLoading) {
-                                          print("AddToBasketIsPressed--- 1");
-                                          // dismissDialog(context);
-                                          // Navigator.popUntil(context, (route) => false);
-                                          Prefs.setBool("dialogLoading", false);
-                                        }
                                         setState(() {});
                                         widget.onAddPressed();
                                       },
@@ -536,6 +532,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                       ))
                   : BasketEmptyScreen(
                       isLoggedIn: isLoggedIn,
+                      onAddTapped: widget.onAddPressed,
                     );
             }
             if (state is LocalBasketLoaded) {
@@ -564,7 +561,9 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
               // String? total = totalPrice.toString();
 
               //TODO: LOCAL
-              return state.basketLocalList.length > 0 && isLoggedIn == false
+              return state.basketLocalList.length > 0 &&
+                      isLoggedIn == false &&
+                      Prefs.getBool("logged") == false
                   ? Scaffold(
                       backgroundColor: Colors.white,
                       bottomNavigationBar: Padding(
@@ -746,6 +745,9 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                       productId: state
                                           .basketLocalList[index].productId
                                           .toString(),
+                                      stock:
+                                          state.basketLocalList[index].stock ??
+                                              0,
                                       price: state.basketLocalList[index].price
                                           .toString(),
                                       title: state.basketLocalList[index].name
@@ -766,7 +768,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                         widget.onAddPressed();
                                       },
                                       onItemAdded: () {
-                                        setState(() {});
+                                        // setState(() {});
                                         widget.onAddPressed();
                                       },
                                     ),
@@ -1005,6 +1007,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                   //
                   : BasketEmptyScreen(
                       isLoggedIn: isLoggedIn,
+                      onAddTapped: widget.onAddPressed,
                     );
             } else if (state is LocalBasketError) {
               return Center(

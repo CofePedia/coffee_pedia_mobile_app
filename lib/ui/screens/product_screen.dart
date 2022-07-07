@@ -1,4 +1,5 @@
 import 'package:appmetrica_sdk/appmetrica_sdk.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:coffepedia/business_logic/getx_controllers/badge_controller.dart';
 import 'package:coffepedia/business_logic/me/me_cubit.dart';
@@ -81,6 +82,7 @@ class _ProductScreenState extends State<ProductScreen> {
   void initState() {
     BlocProvider.of<ProductCubit>(context).getProduct(widget.id);
     BlocProvider.of<MeCubit>(context).getMe();
+
     super.initState();
   }
 
@@ -147,7 +149,10 @@ class _ProductScreenState extends State<ProductScreen> {
                             ),
                           ),
                           child: Text(
+                            //  state.product!.data!.inCart!
+                            //    ?
                             '$counter'.toString(),
+                            // : widget.cartQuantity.toString(),
                             style:
                                 Theme.of(context).textTheme.caption!.copyWith(
                                       fontWeight: FontWeight.w700,
@@ -160,7 +165,13 @@ class _ProductScreenState extends State<ProductScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              counter++;
+                              if (counter == state.product!.data!.stock!) {
+                                BotToast.showText(
+                                    text: translator.translate(
+                                        "product_screen.unavailable_quantity"));
+                              }
+                              if (counter < state.product!.data!.stock!)
+                                counter++;
                             });
                           },
                           child: CircleAvatar(
@@ -175,61 +186,50 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                         CustomButton(
                           onPress: () async {
-                            String oldQuantity =
-                                Prefs.getString("totalItems") ?? "0";
-                            Prefs.setString("totalItems",
-                                (int.parse(oldQuantity) + counter).toString());
-                            badgeController
-                                .badgeValue((int.parse(oldQuantity) + counter));
-                            {
-                              //TODO 1) add the item to the local db..
-                              await BlocProvider.of<BasketCubit>(context)
-                                  .addProductInLocalBasket(
-                                BasketLocal(
-                                  productId: state.product!.data!.id,
-                                  quantity: counter,
-                                  image: (state.product!.data!.images != null &&
-                                          state.product!.data!.images!
-                                              .isNotEmpty)
-                                      ? state.product!.data!.images![0]
-                                      : "",
-                                  price: state.product!.data!.price.toString(),
-                                  vendor:
-                                      state.product!.data!.vendor!.companyName,
-                                  name: state.product!.data!.name,
-                                  priceBeforeDiscount:
-                                      state.product!.data!.priceBeforeDiscount,
-                                ),
-                              );
+                            if (Prefs.getBool("logged") == false) {
+                              String oldQuantity =
+                                  Prefs.getString("totalItems") ?? "0";
+                              Prefs.setString(
+                                  "totalItems",
+                                  (int.parse(oldQuantity) + counter)
+                                      .toString());
+                              badgeController.badgeValue(
+                                  (int.parse(oldQuantity) + counter));
+                              {
+                                await BlocProvider.of<BasketCubit>(context)
+                                    .addProductInLocalBasket(
+                                  BasketLocal(
+                                    productId: state.product!.data!.id,
+                                    quantity: counter,
+                                    image:
+                                        (state.product!.data!.images != null &&
+                                                state.product!.data!.images!
+                                                    .isNotEmpty)
+                                            ? state.product!.data!.images![0]
+                                            : "",
+                                    price:
+                                        state.product!.data!.price.toString(),
+                                    stock: state.product!.data!.stock,
+                                    vendor: state
+                                        .product!.data!.vendor!.companyName,
+                                    name: state.product!.data!.name,
+                                    priceBeforeDiscount: state
+                                        .product!.data!.priceBeforeDiscount,
+                                  ),
+                                );
+                                AppmetricaSdk()
+                                    .reportEvent(name: 'Added to Local Cart');
+                              }
+                            } else {
+                              BlocProvider.of<BasketCubit>(context)
+                                  .getAddToCartByItem(
+                                      state.product!.data!.id!, counter);
                               AppmetricaSdk()
                                   .reportEvent(name: 'Added to Server Cart');
-
-                              /*//TODO 2) get all items from the local database..
-                        List<Map<String, int>> basket = [];
-                        print("A 1");
-                        List<BasketLocal> basketInLocal = await basketRepository.getAllLocalProductsFromBasket();
-                        print("A 2++");
-                        if(basketInLocal == null ) print(" A 2++ null" );
-                        if (basketInLocal != null && basketInLocal.isNotEmpty) {
-                          print("A 2 inside if");
-                          print("A 2 " + basketInLocal.length.toString());
-                          basketInLocal.forEach((element) {
-                            Map<String, int> basketMap = {
-                              "product_id": int.parse(element.productId.toString()),
-                              "quantity": int.parse(element.quantity.toString())
-                            };
-                            basket.add(basketMap);
-                          });
-                        }else{
-                          print("A 2--");
-                        }
-                        print("A 3");
-                        //TODO 3) send all the products to the database..
-                        BlocProvider.of<BasketCubit>(context).getAddToBasket(basket);*/
                             }
                             showModalBottomSheet(
                               enableDrag: false,
-                              isDismissible: true,
+                              isDismissible: false,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(25.r),
@@ -247,6 +247,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                     productId: int.parse(
                                         state.product!.data!.id.toString()),
                                     quantity: counter,
+                                    stock: state.product!.data!.stock,
                                     image:
                                         (state.product!.data!.images != null &&
                                                 state.product!.data!.images!
@@ -351,8 +352,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            HomePageProvider(currentIndex: 1),
+                                        builder: (context) => HomePageProvider(
+                                          currentIndex: 1,
+                                        ),
                                       ),
                                     );
                                   },

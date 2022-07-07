@@ -81,12 +81,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   );
   double progress = 0;
 
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  @override
-  void initState() {
-    // isLogin = pass;
-    super.initState();
-  }
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -144,7 +139,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
         return await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePageProvider(currentIndex: 0),
+            builder: (context) => HomePageProvider(
+              currentIndex: 0,
+            ),
           ),
         );
       },
@@ -178,13 +175,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     BasketWebServices(),
                   );
                   List<Map<String, int>> basket = [];
-                  print("A 1");
                   List<BasketLocal> basketInLocal =
                       await basketRepository.getAllLocalProductsFromBasket();
-                  print("A 2++");
-                  if (basketInLocal != null && basketInLocal.isNotEmpty) {
-                    print("A 2 inside if");
-                    print("A 2 " + basketInLocal.length.toString());
+                  if (basketInLocal.isNotEmpty) {
                     basketInLocal.forEach((element) {
                       Map<String, int> basketMap = {
                         "product_id": int.parse(element.productId.toString()),
@@ -192,36 +185,36 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                       };
                       basket.add(basketMap);
                     });
-                    print("A 3");
                     //TODO 3) send all the products to the database..
                     basketRepository.getAddToBasket(basket);
-                  } else {
-                    print("A 2--");
-                    //TODO: 4) there are no items in the local DB, so we will check if there's anything in the backend basket we need to get them and put them in the local database
-                    Basket basket = await basketRepository.getBasket();
-                    if (basket != null) {
-                      if (basket.data!.items!.isNotEmpty) {
-                        basket.data!.items!.forEach((element) {
-                          BasketLocal basketLocal = BasketLocal(
-                            productId: int.parse(element!.id.toString()),
-                            quantity: int.parse(element.quantity.toString()),
-                            priceBeforeDiscount: element.priceBeforeDiscount,
-                            image: (element.images != null &&
-                                    element.images!.length > 0)
-                                ? element.images![0]
-                                : element.image,
-                            name: element.name,
-                            price: element.price.toString(),
-                            vendor: element.vendor,
-                          );
-                          basketRepository.addProductInLocalBasket(basketLocal);
-                        });
-                      } else {
-                        // صباح الفل خلاص :D
-                      }
-                    }
                   }
-
+                  // else {
+                  //   print("A 2--");
+                  //   //TODO: 4) there are no items in the local DB, so we will check if there's anything in the backend basket we need to get them and put them in the local database
+                  //   Basket basket = await basketRepository.getBasket();
+                  //   if (basket != null) {
+                  //     if (basket.data!.items!.isNotEmpty) {
+                  //       basket.data!.items!.forEach((element) {
+                  //         BasketLocal basketLocal = BasketLocal(
+                  //             productId: int.parse(element!.id.toString()),
+                  //             quantity: int.parse(element.quantity.toString()),
+                  //             priceBeforeDiscount: element.priceBeforeDiscount,
+                  //             image: (element.images != null &&
+                  //                     element.images!.length > 0)
+                  //                 ? element.images![0]
+                  //                 : element.image,
+                  //             name: element.name,
+                  //             price: element.price.toString(),
+                  //             vendor: element.vendor,
+                  //             stock: element.stock);
+                  //         basketRepository.addProductInLocalBasket(basketLocal);
+                  //       });
+                  //     } else {
+                  //       // صباح الفل خلاص :D
+                  //     }
+                  //   }
+                  // }
+                  basketRepository.truncateLocalBasket();
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) => HomePageProvider(
@@ -293,7 +286,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           horizontal: 24.w,
                         ),
                         child: Form(
-                          key: formKey,
+                          key: _formKey,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -647,7 +640,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                 height: 50.h,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    if (formKey.currentState!.validate()) {
+                                    if (_formKey.currentState!.validate()) {
                                       if (pass) {
                                         return null;
                                       } else if (!widget.isLogin) {

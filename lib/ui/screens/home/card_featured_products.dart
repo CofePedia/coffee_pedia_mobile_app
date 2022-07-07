@@ -10,7 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FeaturedProducts extends StatelessWidget {
-  const FeaturedProducts({Key? key}) : super(key: key);
+  final Function onAddTapped;
+  const FeaturedProducts({required this.onAddTapped, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +22,16 @@ class FeaturedProducts extends StatelessWidget {
           FeaturedProductsWebServices(),
         ),
       ),
-      child: CardFeaturedProducts(),
+      child: CardFeaturedProducts(onAddTapped: onAddTapped),
     );
   }
 }
 
 class CardFeaturedProducts extends StatefulWidget {
+  final Function onAddTapped;
+
   const CardFeaturedProducts({
+    required this.onAddTapped,
     Key? key,
   }) : super(key: key);
 
@@ -51,7 +56,8 @@ class _CardFeaturedProductsState extends State<CardFeaturedProducts> {
               padding: EdgeInsets.symmetric(horizontal: 11.w),
               itemBuilder: (context, index) {
                 final data = state.featuredProducts!.data!.data![index]!;
-                return ItemWidget(
+                return ItemWidgetProvider(
+                  onAddTapped: widget.onAddTapped,
                   image: data.image!,
                   onPress: () {
                     Navigator.push(

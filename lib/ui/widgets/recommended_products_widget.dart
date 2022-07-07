@@ -11,7 +11,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'item_widget.dart';
 
 class RecommendedProductsProvider extends StatelessWidget {
-  const RecommendedProductsProvider({Key? key}) : super(key: key);
+  final Function onAddTapped;
+  const RecommendedProductsProvider({required this.onAddTapped, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +23,16 @@ class RecommendedProductsProvider extends StatelessWidget {
           RecommendedProductsWebServices(),
         ),
       ),
-      child: RecommendedProducts(),
+      child: RecommendedProducts(onAddTapped: onAddTapped),
     );
   }
 }
 
 class RecommendedProducts extends StatefulWidget {
+  final Function onAddTapped;
+
   const RecommendedProducts({
+    required this.onAddTapped,
     Key? key,
   }) : super(key: key);
 
@@ -58,7 +63,8 @@ class _RecommendedProductsState extends State<RecommendedProducts> {
               padding: EdgeInsets.symmetric(horizontal: 11.w),
               itemBuilder: (context, index) {
                 final data = state.recommendedProducts!.data![index]!;
-                return ItemWidget(
+                return ItemWidgetProvider(
+                  onAddTapped: widget.onAddTapped,
                   image: data.image!,
                   isInCart: data.inCart!,
                   onPress: () {

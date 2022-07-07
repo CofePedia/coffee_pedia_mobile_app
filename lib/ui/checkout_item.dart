@@ -1,21 +1,22 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
 import 'package:coffepedia/business_logic/wishlist/wishlist_cubit.dart';
-import 'package:coffepedia/data/models/gettoken_database.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
 import 'package:coffepedia/data/repository/wishlist_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
 import 'package:coffepedia/data/web_services/wishlist_web_services.dart';
-import 'package:coffepedia/database/database_provider.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/services/preferences.dart';
 import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
+import 'package:coffepedia/ui/screens/product_screen.dart';
 import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../data/models/gettoken_database.dart';
+import '../database/database_provider.dart';
 import '../main.dart';
 
 class CheckoutItemProvider extends StatelessWidget {
@@ -27,6 +28,8 @@ class CheckoutItemProvider extends StatelessWidget {
   final int? priceBeforeDiscount;
   final int quantity;
   final String vendor;
+  final int? stock;
+
   final Function onRemoveItem;
   final Function onItemAdded;
   const CheckoutItemProvider(
@@ -40,6 +43,7 @@ class CheckoutItemProvider extends StatelessWidget {
       required this.image,
       required this.price,
       required this.productId,
+      required this.stock,
       Key? key})
       : super(key: key);
 
@@ -55,8 +59,11 @@ class CheckoutItemProvider extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          create: (context) =>
-              BasketCubit(BasketRepository(BasketWebServices())),
+          create: (context) => BasketCubit(
+            BasketRepository(
+              BasketWebServices(),
+            ),
+          ),
           child: CheckoutItem(
             title: title,
             image: image,
@@ -68,6 +75,7 @@ class CheckoutItemProvider extends StatelessWidget {
             priceBeforeDiscount: priceBeforeDiscount,
             onRemoveItem: onRemoveItem,
             onItemAdded: onItemAdded,
+            stock: stock,
           ),
         ),
       ],
@@ -82,6 +90,7 @@ class CheckoutItemProvider extends StatelessWidget {
         isLocal: isLocal,
         onRemoveItem: onRemoveItem,
         onItemAdded: onItemAdded,
+        stock: stock,
       ),
     );
   }
@@ -99,6 +108,7 @@ class CheckoutItem extends StatefulWidget {
       required this.isLocal,
       required this.onRemoveItem,
       required this.onItemAdded,
+      this.stock,
       Key? key})
       : super(key: key);
 
@@ -112,13 +122,15 @@ class CheckoutItem extends StatefulWidget {
   final String productId;
   Function onRemoveItem;
   Function onItemAdded;
+  final int? stock;
 
   @override
   State<CheckoutItem> createState() => _CheckoutItemState();
 }
 
 class _CheckoutItemState extends State<CheckoutItem> {
-  bool isFavorite =false;
+  bool isFavorite = false;
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return BlocListener<BasketCubit, BasketState>(
@@ -144,11 +156,14 @@ class _CheckoutItemState extends State<CheckoutItem> {
           }*/
           print("BasketLoaded from widget");
           widget.onItemAdded.call();
-        } else if (state is AddToBasketIsPressed) {
-          print("AddToBasketIsPressed");
-          print("AddToBasketIsPressed from widget");
-          // widget.onItemAdded.call();
-          // showLoadingDialog(context);
+        } else if (state is AddToCartByItemIsPressed) {
+          BotToast.showText(text: state.addToBasket!.data!.msg![0]!.message!);
+          BlocProvider.of<BasketCubit>(context).getBasket();
+          Prefs.setInt("quantity", widget.quantity);
+        } else if (state is UpdateLocalBasket) {
+          setState(() {
+            isLoading = false;
+          });
         }
       },
       child: Container(
@@ -212,12 +227,24 @@ class _CheckoutItemState extends State<CheckoutItem> {
                       ),
                     ],
                   ),
-                  CustomNetworkImage(
-                    imageUrl: widget.image,
-                    height: 80.h,
-                    width: 80.w,
-                    fit: BoxFit.contain,
-                    radius: 0.r,
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductProvider(
+                            id: int.parse(widget.productId),
+                          ),
+                        ),
+                      );
+                    },
+                    child: CustomNetworkImage(
+                      imageUrl: widget.image,
+                      height: 80.h,
+                      width: 80.w,
+                      fit: BoxFit.contain,
+                      radius: 0.r,
+                    ),
                   ),
                 ],
               ),
@@ -243,30 +270,39 @@ class _CheckoutItemState extends State<CheckoutItem> {
               children: [
                 InkWell(
                   onTap: () {
-                    setState(() {
+                    if (Prefs.getBool("logged") == false) {
                       if (widget.quantity > 1) {
-                        // Prefs.setBool("dialogLoading", true);
-                        // BotToast.showCustomLoading(toastBuilder: (v) {
-                        //   return SmallLoader();
-                        // });
                         BlocProvider.of<BasketCubit>(context)
                             .updateQuantityInLocalBasket(
                                 int.parse(widget.productId.toString()),
                                 int.parse(widget.quantity.toString()) - 1);
 
                         String oldQuantity =
-                            Prefs.getString("totalItems") ?? "0";
-                        print("oldQuantity = $oldQuantity");
-
+                            Prefs.getString("totalItems") ?? " 0";
                         Prefs.setString("totalItems",
                             (int.parse(oldQuantity) - 1).toString());
                         widget.onItemAdded();
-
-                        print("newQuantity = ${Prefs.getString("totalItems")}");
                       }
-                      // else
-                      //   if (widget.quantity > 1) widget.quantity--;
-                    });
+                    } else {
+                      BlocProvider.of<BasketCubit>(context).getAddToCartByItem(
+                          int.parse(widget.productId), widget.quantity - 1);
+                    }
+
+                    // if (widget.quantity > 1) {
+                    //   BlocProvider.of<BasketCubit>(context)
+                    //       .updateQuantityInLocalBasket(
+                    //           int.parse(widget.productId.toString()),
+                    //           int.parse(widget.quantity.toString()) - 1);
+                    //
+                    //   String oldQuantity = Prefs.getString("totalItems") ?? "0";
+                    //
+                    //   Prefs.setString("totalItems",
+                    //       (int.parse(oldQuantity) - 1).toString());
+                    //   widget.onItemAdded();
+                    // }
+
+                    // else
+                    //   if (widget.quantity > 1) widget.quantity--;
                   },
                   child: CircleAvatar(
                     backgroundColor: Color(0xffF2F2F2),
@@ -291,28 +327,62 @@ class _CheckoutItemState extends State<CheckoutItem> {
                   alignment: Alignment.center,
                   child: Text(widget.quantity.toString()),
                 ),
+
                 InkWell(
                   onTap: () {
-                    setState(() {
-                      // Prefs.setBool("dialogLoading", true);
-                      // BotToast.showCustomLoading(toastBuilder: (v) {
-                      //   return SmallLoader();
-                      // });
-                      BlocProvider.of<BasketCubit>(context)
-                          .updateQuantityInLocalBasket(
-                              int.parse(widget.productId.toString()),
-                              int.parse(widget.quantity.toString()) + 1);
-                      /*Prefs.setString(
-                          "totalItems",
-                          (int.parse(widget.quantity.toString()) + 1)
-                              .toString());*/
-                      String oldQuantity = Prefs.getString("totalItems") ?? "0";
-                      print("oldQuantity = $oldQuantity");
-                      Prefs.setString("totalItems",
-                          (int.parse(oldQuantity) + 1).toString());
-                      print("newQuantity = ${Prefs.getString("totalItems")}");
-                      widget.onItemAdded();
-                    });
+                    setState(
+                      () {
+                        if (Prefs.getBool("logged") == false) {
+                          if (widget.quantity == widget.stock) {
+                            BotToast.showText(
+                                text: translator.translate(
+                                    "product_screen.unavailable_quantity"));
+                          } else if (widget.quantity < widget.stock!) {
+                            BlocProvider.of<BasketCubit>(context)
+                                .updateQuantityInLocalBasket(
+                                    int.parse(widget.productId.toString()),
+                                    int.parse(widget.quantity.toString()) + 1);
+
+                            String oldQuantity =
+                                Prefs.getString("totalItems") ?? " 0";
+                            Prefs.setString("totalItems",
+                                (int.parse(oldQuantity) + 1).toString());
+                            widget.onItemAdded();
+                          } else {
+                            BotToast.showText(
+                                text: translator.translate(
+                                    "product_screen.unavailable_quantity"));
+                          }
+                        } else {
+                          BlocProvider.of<BasketCubit>(context)
+                              .getAddToCartByItem(int.parse(widget.productId),
+                                  widget.quantity + 1);
+                        }
+                        // if (widget.quantity == widget.stock) {
+                        //   // BotToast.showText(
+                        //   //     text: translator.translate(
+                        //   //         "product_screen.unavailable_quantity"));
+                        // } else if (widget.quantity < widget.stock!) {
+                        //   if (Prefs.getBool("logged") == false) {
+                        //     BlocProvider.of<BasketCubit>(context)
+                        //         .updateQuantityInLocalBasket(
+                        //             int.parse(widget.productId.toString()),
+                        //             int.parse(widget.quantity.toString()) + 1);
+                        //
+                        //     String oldQuantity =
+                        //         Prefs.getString("totalItems") ?? " 0";
+                        //     Prefs.setString("totalItems",
+                        //         (int.parse(oldQuantity) + 1).toString());
+                        //     widget.onItemAdded();
+                        //   } else {
+                        //     print('amrServer');
+                        //     BlocProvider.of<BasketCubit>(context)
+                        //         .getAddToCartByItem(int.parse(widget.productId),
+                        //             widget.quantity + 1);
+                        //   }
+                        // }
+                      },
+                    );
                   },
                   child: CircleAvatar(
                     backgroundColor: Color(0xffF2F2F2),
@@ -393,11 +463,19 @@ class _CheckoutItemState extends State<CheckoutItem> {
                 //remove button
                 InkWell(
                   onTap: () {
+                    print('fajsdabf');
                     BlocProvider.of<BasketCubit>(context)
                         .deleteFromLocalBasket(int.parse(widget.productId));
-
-                    if (widget.isLocal) {
-                    } else {
+                    // widget.onRemoveItem();
+                    print('jabffafa');
+                    String oldQuantity =
+                        Prefs.getString("totalItems").toString();
+                    String newQuantity =
+                        (int.parse(oldQuantity) - widget.quantity).toString();
+                    Prefs.setString("totalItems", newQuantity);
+                    widget.onRemoveItem.call();
+                    print('afbasfma');
+                    if (!widget.isLocal) {
                       BlocProvider.of<BasketCubit>(context)
                           .getRemoveFromBasket(widget.productId);
                     }

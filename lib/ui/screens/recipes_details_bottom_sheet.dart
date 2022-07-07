@@ -1,7 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
-import 'package:coffepedia/ui/screens/home/card_featured_products.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -289,7 +288,8 @@ class _RecipesDetailsBottomSheetState extends State<RecipesDetailsBottomSheet> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 6.w),
-                    child: FeaturedProducts(),
+                    // child: FeaturedProducts(),
+                    child: Container(),
                   );
                 },
               ),

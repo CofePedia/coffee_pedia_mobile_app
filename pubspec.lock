@@ -225,6 +225,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.3"
+  dotted_decoration:
+    dependency: "direct main"
+    description:
+      name: dotted_decoration
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   easy_debounce:
     dependency: "direct main"
     description:
@@ -274,6 +281,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.6.1"
   flutter:
     dependency: "direct main"
     description: flutter

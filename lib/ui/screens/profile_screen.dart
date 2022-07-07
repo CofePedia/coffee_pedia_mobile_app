@@ -11,12 +11,12 @@ import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/screens/intro/login_register_screen.dart';
 import 'package:coffepedia/ui/screens/switch_language_bottom_sheet.dart';
 import 'package:coffepedia/ui/screens/wishlist_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../business_logic/basket/basket_cubit.dart';
 import '../../main.dart';
 import 'orders_history_screen.dart';
 import 'profile_item.dart';
@@ -315,6 +315,10 @@ class _ProfileScreenState extends State<_ProfileScreen> {
                           //   LoggedOut(),
                           // );
                           BlocProvider.of<MeCubit>(context).logout();
+                          BlocProvider.of<BasketCubit>(context)
+                              .deleteAllDatabase();
+                          Prefs.setString("totalItems", "0");
+
                           Prefs.setBool("logged", false);
                           userDao.deleteUser();
                           Navigator.of(context).push(

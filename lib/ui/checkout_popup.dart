@@ -78,6 +78,7 @@ class CheckoutPopUp extends StatefulWidget {
   final String? image;
   final String? title;
   final String? totalPrice;
+
   // final bool meLoaded;
 
   @override
@@ -363,7 +364,13 @@ class _CheckoutPopUpState extends State<CheckoutPopUp> {
             margin: EdgeInsets.only(bottom: 20.h),
             child: InkWell(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                  builder: (context) {
+                    return HomePageProvider(
+                      currentIndex: 0,
+                    );
+                  },
+                ), (route) => false);
               },
               child: Text(
                 translator.translate("checkout_popup.continue_shopping"),

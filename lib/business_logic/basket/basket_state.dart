@@ -15,6 +15,11 @@ class AddToBasketIsPressed extends BasketState {
   AddToBasketIsPressed(this.addToBasket);
 }
 
+class AddToCartByItemIsPressed extends BasketState {
+  final AddToBasket? addToBasket;
+  AddToCartByItemIsPressed(this.addToBasket);
+}
+
 class RemoveFromBasketIsPressed extends BasketState {
   final RemoveFromBasket? removeFromBasket;
   RemoveFromBasketIsPressed(this.removeFromBasket);

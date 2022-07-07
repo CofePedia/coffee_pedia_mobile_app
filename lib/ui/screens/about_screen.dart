@@ -3,7 +3,6 @@ import 'package:coffepedia/data/repository/about_cofepedia_repository.dart';
 import 'package:coffepedia/data/web_services/about_cofepedia_web_services.dart';
 import 'package:coffepedia/generated/assets.dart';
 import 'package:coffepedia/ui/shared/custom_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

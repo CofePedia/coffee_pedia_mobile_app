@@ -2,9 +2,12 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/business_logic/wishlist/wishlist_cubit.dart';
 import 'package:coffepedia/data/repository/wishlist_repository.dart';
 import 'package:coffepedia/data/web_services/wishlist_web_services.dart';
+import 'package:coffepedia/services/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../screens/intro/login_register_screen.dart';
 
 class WishlistIconWidget extends StatelessWidget {
   final String productId;
@@ -60,7 +63,15 @@ class _WishlistIconState extends State<WishlistIcon> {
           return InkWell(
             onTap: () {
               setState(() {
-                widget.isFavorite = !widget.isFavorite;
+                if (Prefs.getBool("logged") == true) {
+                  widget.isFavorite = !widget.isFavorite;
+
+                  BlocProvider.of<WishlistCubit>(context)
+                      .getToggleProductsInWishlist(widget.productId);
+                } else {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => LoginPage()));
+                }
                 BlocProvider.of<WishlistCubit>(context)
                     .getToggleProductsInWishlist(widget.productId);
               });

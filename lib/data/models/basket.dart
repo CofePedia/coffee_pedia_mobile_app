@@ -259,17 +259,18 @@ class BasketData {
 }
 
 class BasketLocal {
-  int? productId, quantity;
+  int? productId, quantity, priceBeforeDiscount, stock;
   String? name, image, vendor, price;
-  int? priceBeforeDiscount;
-  BasketLocal(
-      {this.productId,
-      this.quantity,
-      this.name,
-      this.image,
-      this.vendor,
-      this.price,
-      this.priceBeforeDiscount});
+  BasketLocal({
+    this.productId,
+    this.quantity,
+    this.name,
+    this.image,
+    this.vendor,
+    this.price,
+    this.priceBeforeDiscount,
+    this.stock,
+  });
 }
 
 class Basket {

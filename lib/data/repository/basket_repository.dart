@@ -11,36 +11,23 @@ class BasketRepository {
   final userDao = UserDao();
   BasketRepository(this.basketWebServices);
 
-  Future<Basket> getBasket() async {
-    final basket = basketWebServices.getBasket();
-    return basket;
-  }
+  Future<Basket> getBasket() => basketWebServices.getBasket();
 
-  Future<AddToBasket> getAddToBasket(List<Map<String, int>> productsMap) async {
-    final addToBasket = basketWebServices.getAddToBasket(productsMap);
-    return addToBasket;
-  }
+  Future<AddToBasket> getAddToBasket(List<Map<String, int>> productsMap) =>
+      basketWebServices.getAddToBasket(productsMap);
+  Future<AddToBasket> getAddToCartByItem(int productId, int quantity) =>
+      basketWebServices.getAddToCartByItem(productId, quantity);
 
-  Future<RemoveFromBasket> getRemoveFromBasket(String productId) async {
-    final removeFromBasket = basketWebServices.getRemoveFromBasket(productId);
-    return removeFromBasket;
-  }
+  Future<RemoveFromBasket> getRemoveFromBasket(String productId) =>
+      basketWebServices.getRemoveFromBasket(productId);
 
-  // Future createBasket(BasketDataItems basket) => userDao.createBasket(basket);
-  // Future updateBasket(BasketDataItems basket) => userDao.updateBasket(basket);
-  // Future deleteBasketById(int id) => userDao.deleteBasket(id);
+  Future<Coupon> postCoupon(String coupon, String addressId) =>
+      basketWebServices.postCoupon(coupon, addressId);
 
-  Future<Coupon> postCoupon(String coupon, String addressId) async {
-    final result = basketWebServices.postCoupon(coupon, addressId);
-    return result;
-  }
+  Future<OrderSummary> postOrderSummary(String addressId) =>
+      basketWebServices.postOrderSummary(addressId);
 
-  Future<OrderSummary> postOrderSummary(String addressId) async {
-    final order = basketWebServices.postOrderSummary(addressId);
-    return order;
-  }
-
-  Future addProductInLocalBasket(BasketLocal basketLocal) =>
+  Future<int> addProductInLocalBasket(BasketLocal basketLocal) =>
       userDao.addProductInLocalBasket(basketLocal);
   Future deleteFromLocalBasket(int productId) =>
       userDao.deleteFromLocalBasket(productId);

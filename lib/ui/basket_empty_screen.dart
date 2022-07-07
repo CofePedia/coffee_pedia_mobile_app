@@ -9,7 +9,9 @@ import '../main.dart';
 
 class BasketEmptyScreen extends StatelessWidget {
   final bool isLoggedIn;
-  BasketEmptyScreen({required this.isLoggedIn});
+  final Function onAddTapped;
+
+  BasketEmptyScreen({required this.onAddTapped, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +98,11 @@ class BasketEmptyScreen extends StatelessWidget {
           SizedBox(
             height: 23.h,
           ),
-          (isLoggedIn) ? RecommendedProductsProvider() : SizedBox.shrink(),
+          (isLoggedIn)
+              ? RecommendedProductsProvider(
+                  onAddTapped: onAddTapped,
+                )
+              : SizedBox.shrink(),
         ],
       ),
     ));

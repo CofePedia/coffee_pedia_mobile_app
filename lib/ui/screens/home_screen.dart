@@ -12,7 +12,6 @@ import 'package:coffepedia/ui/shared/custom_network_image.dart';
 import 'package:coffepedia/ui/widgets/home_slider_widget.dart';
 import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -22,8 +21,10 @@ import '../../generated/assets.dart';
 import 'home/search_widget.dart';
 
 class HomeScreenProvider extends StatelessWidget {
+  final Function onAddTapped;
   final ScrollController controller;
-  const HomeScreenProvider({required this.controller, Key? key})
+  const HomeScreenProvider(
+      {required this.onAddTapped, required this.controller, Key? key})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -37,15 +38,19 @@ class HomeScreenProvider extends StatelessWidget {
           ),
         ),
       ],
-      child: HomeScreen(controller: controller),
+      child: HomeScreen(controller: controller, onAddTapped: onAddTapped),
     );
   }
 }
 
 class HomeScreen extends StatefulWidget {
+  final Function onAddTapped;
+
   final ScrollController controller;
 
-  const HomeScreen({required this.controller, Key? key}) : super(key: key);
+  const HomeScreen(
+      {required this.onAddTapped, required this.controller, Key? key})
+      : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -55,12 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     BlocProvider.of<HomeAdsCubit>(context).getHomeAds();
-    Pushwoosh.getInstance.onPushReceived.listen((event) {
-      print("onPushReceived ${event.toString()}");
-    });
-    Pushwoosh.getInstance.onPushAccepted.listen((event) {
-      print("onPushAccepted ${event.toString()}");
-    });
+    Pushwoosh.getInstance.onPushReceived.listen((event) {});
+    Pushwoosh.getInstance.onPushAccepted.listen((event) {});
     super.initState();
   }
 
@@ -151,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SectionName(
                 sectionName:
                     translator.translate("home_screen.featured_products")),
-            FeaturedProducts(),
+            FeaturedProducts(onAddTapped: widget.onAddTapped),
 
             BlocBuilder<HomeAdsCubit, HomeAdsState>(
               builder: (context, state) {
@@ -197,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SectionName(
                 sectionName:
                     translator.translate("home_screen.recent_products")),
-            MostRecent(),
+            MostRecent(onAddTapped: widget.onAddTapped),
           ],
         ),
       ),

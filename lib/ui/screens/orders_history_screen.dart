@@ -76,7 +76,9 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => HomePageProvider(currentIndex: 1),
+                      builder: (_) => HomePageProvider(
+                        currentIndex: 1,
+                      ),
                     ),
                   );
                 }
@@ -438,7 +440,8 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                     MaterialPageRoute(
                                       builder: (context) {
                                         return const HomePageProvider(
-                                            currentIndex: 0);
+                                          currentIndex: 0,
+                                        );
                                       },
                                     ),
                                   );

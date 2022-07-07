@@ -19,8 +19,10 @@ import 'profile_screen.dart';
 
 class HomePageProvider extends StatelessWidget {
   final int currentIndex;
-  const HomePageProvider({required this.currentIndex, Key? key})
-      : super(key: key);
+  const HomePageProvider({
+    required this.currentIndex,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,42 +59,70 @@ class _HomePageState extends State<HomePage> {
       icon: Container(
         width: 24.w,
         padding: EdgeInsets.only(bottom: 5.h),
-        child: Badge(
-          badgeColor: kYellow,
-          showBadge: Prefs.getString("totalItems") != null &&
-                  Prefs.getString("totalItems") != "0" &&
-                  index == 1
-              ? true
-              : false,
-          badgeContent: BlocBuilder<BasketCubit, BasketState>(
-            builder: (context, state) {
-              if (state is LocalBasketLoaded) {
-                return Text(
-                  Prefs.getString("totalItems") ?? "",
+        child: BlocBuilder<BasketCubit, BasketState>(
+          builder: (context, state) {
+            if (state is BasketLoaded) {
+              return Badge(
+                badgeColor: kYellow,
+                showBadge: state.basket!.data!.totalItems != 0 &&
+                        state.basket!.data!.totalItems != null &&
+                        index == 1
+                    ? true
+                    : false,
+                badgeContent: Text(
+                  state.basket!.data!.totalItems.toString(),
+                  // state.basketLocalList[0].quantity.toString(),
                   style: Theme.of(context)
                       .textTheme
                       .headline5!
                       .copyWith(color: kGrey5),
-                );
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          ),
-          child: SvgPicture.asset(
-            image,
-            width: 24.w,
-            height: 24.h,
-            color: currentIndex == index
-                ? Color(0xff4470C1)
-                : const Color(0xff606c74),
-          ),
+                ),
+                child: SvgPicture.asset(
+                  image,
+                  width: 24.w,
+                  height: 24.h,
+                  color: currentIndex == index
+                      ? const Color(0xff4470C1)
+                      : const Color(0xff606c74),
+                ),
+              );
+            } else {
+              return Badge(
+                badgeColor: kYellow,
+                showBadge: Prefs.getString("totalItems") != null &&
+                        Prefs.getString("totalItems") != "0" &&
+                        index == 1
+                    ? true
+                    : false,
+                badgeContent: Text(
+                  Prefs.getString("totalItems") ?? "",
+                  // state.basketLocalList[0].quantity.toString(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5!
+                      .copyWith(color: kGrey5),
+                ),
+                child: SvgPicture.asset(
+                  image,
+                  width: 24.w,
+                  height: 24.h,
+                  color: currentIndex == index
+                      ? const Color(0xff4470C1)
+                      : const Color(0xff606c74),
+                ),
+              );
+            }
+          },
         ),
       ),
       label: title,
     );
+  }
+
+  @override
+  void initState() {
+    print('hvbsa ${Prefs.getBool("logged")}');
+    super.initState();
   }
 
   Map<int, GlobalKey> navigatorKeys = {
@@ -103,7 +133,8 @@ class _HomePageState extends State<HomePage> {
   };
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
+    // BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
+    BlocProvider.of<BasketCubit>(context).getBasket();
 
     return CheckInternetConnection(
       screen: Scaffold(
@@ -167,7 +198,9 @@ class _HomePageState extends State<HomePage> {
               return !await Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => HomePageProvider(currentIndex: 0)),
+                    builder: (context) => HomePageProvider(
+                          currentIndex: 0,
+                        )),
                 ModalRoute.withName('/'),
               );
             } else {
@@ -177,7 +210,11 @@ class _HomePageState extends State<HomePage> {
           child: IndexedStack(
             index: currentIndex,
             children: [
-              HomeScreenProvider(controller: _controller),
+              HomeScreenProvider(
+                  controller: _controller,
+                  onAddTapped: () {
+                    setState(() {});
+                  }),
               CheckoutItemsScreenProvider(
                 onAddPressed: () {
                   setState(() {});

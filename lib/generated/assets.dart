@@ -31,7 +31,8 @@ class Assets {
   static const String iconsLogoHor = 'assets/icons/LogoHor.svg';
   static const String locationPin = 'assets/icons/location_pin.svg';
   static const String iconsHomeLogo = 'assets/images/home_logo.svg';
-
+  static const String becomeAVendor = 'assets/images/Become_a_vendor.png';
+  static const String becomeAPartner = 'assets/images/become_a_partner.png';
   static const String iconsMinus = 'assets/icons/minus.svg';
   static const String iconsMore = 'assets/icons/More.svg';
   static const String iconsProfile = 'assets/icons/Profile.svg';

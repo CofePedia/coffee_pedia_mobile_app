@@ -537,7 +537,8 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                         MaterialPageRoute(
                                           builder: (context) {
                                             return const HomePageProvider(
-                                                currentIndex: 0);
+                                              currentIndex: 0,
+                                            );
                                           },
                                         ),
                                       );

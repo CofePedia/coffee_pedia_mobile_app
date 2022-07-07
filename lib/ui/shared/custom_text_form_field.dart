@@ -36,6 +36,7 @@ class CustomTextFormField extends StatelessWidget {
         maxLines: 3,
         style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14.sp),
         decoration: InputDecoration(
+          errorStyle: TextStyle(fontSize: 10.sp),
           hintText: hintText,
           hintStyle: Theme.of(context).textTheme.headline6!.copyWith(
                 color: Color(

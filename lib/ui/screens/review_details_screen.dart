@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'home/card_featured_products.dart';
-
 class ReviewDetailsScreen extends StatelessWidget {
   const ReviewDetailsScreen({Key? key}) : super(key: key);
 
@@ -202,16 +200,17 @@ class ReviewDetailsScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: 6.w),
-                      child: FeaturedProducts(
-                          // productImage:
-                          //     "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
-                          // productText:
-                          //     "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc",
-                          // rate: '4.5',
-                          // percentage: '25',
-                          // priceAfterDiscount: '340',
-                          // priceBeforeDiscount: '450',
-                          ),
+                      child: Container(),
+                      // child: FeaturedProducts(
+                      //     // productImage:
+                      //     //     "https://www.philips.sa/c-dam/b2c/category-pages/Household/coffee/master/philips-superautomatic/mea-2017/HD8651.png",
+                      //     // productText:
+                      //     //     "Wonderful Pistachios, Sweet Chili Flavor, 14 Ounc",
+                      //     // rate: '4.5',
+                      //     // percentage: '25',
+                      //     // priceAfterDiscount: '340',
+                      //     // priceBeforeDiscount: '450',
+                      //     ),
                     );
                   },
                 ),

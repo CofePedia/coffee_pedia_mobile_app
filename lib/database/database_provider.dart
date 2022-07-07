@@ -24,10 +24,10 @@ class DatabaseProvider {
   static final columnNameBasket = 'name';
   static final columnVendorBasket = 'vendor';
   static final columnImageBasket = 'image';
-
-  static final wishesTable = 'wishesTable';
-  static final columnIdWishes = 'id';
-  static final columnProductIdWishes = 'product_id';
+  static final columnStockBasket = 'stock';
+  // static final wishesTable = 'wishesTable';
+  // static final columnIdWishes = 'id';
+  // static final columnProductIdWishes = 'product_id';
 
   Database? _database;
 
@@ -70,15 +70,16 @@ class DatabaseProvider {
         "$columnProductIdBasket integer PRIMARY KEY, "
         "$columnQuantityBasket integer, "
         "$columnPriceBasket TEXT, "
+        "$columnStockBasket integer, "
         "$columnNameBasket TEXT, "
         "$columnVendorBasket TEXT, "
         "$columnImageBasket TEXT, "
         "$columnPriceBeforeDiscountBasket integer "
         ")");
-    await database.execute("CREATE TABLE $wishesTable ("
-        "$columnIdWishes INTEGER PRIMARY KEY autoincrement, "
-        "$columnProductIdWishes integer "
-        ")");
+    // await database.execute("CREATE TABLE $wishesTable ("
+    //     "$columnIdWishes INTEGER PRIMARY KEY autoincrement, "
+    //     "$columnProductIdWishes integer "
+    //     ")");
   }
 }
 
@@ -154,13 +155,14 @@ class UserDao {
   }
 
   //BASKET ...
-  Future addProductInLocalBasket(BasketLocal basketLocal) async {
+  Future<int> addProductInLocalBasket(BasketLocal basketLocal) async {
     final db = await dbProvider.database;
     // row to insert
     Map<String, dynamic> row = {
       DatabaseProvider.columnProductIdBasket: basketLocal.productId,
       DatabaseProvider.columnQuantityBasket: basketLocal.quantity,
       DatabaseProvider.columnPriceBasket: basketLocal.price,
+      DatabaseProvider.columnStockBasket: basketLocal.stock,
       DatabaseProvider.columnNameBasket: basketLocal.name,
       DatabaseProvider.columnVendorBasket: basketLocal.vendor,
       DatabaseProvider.columnImageBasket: basketLocal.image,
@@ -170,7 +172,7 @@ class UserDao {
     // do the insert and get the id of the inserted row
     int id = await db.insert(DatabaseProvider.basketTable, row);
     // show the results: print all rows in the db
-    print(await db.query(DatabaseProvider.basketTable));
+    print('Local Basket ${await db.query(DatabaseProvider.basketTable)}');
     return id;
   }
 
@@ -234,6 +236,7 @@ class UserDao {
         name: row[DatabaseProvider.columnNameBasket],
         vendor: row[DatabaseProvider.columnVendorBasket],
         image: row[DatabaseProvider.columnImageBasket],
+        stock: row[DatabaseProvider.columnStockBasket],
         priceBeforeDiscount:
             row[DatabaseProvider.columnPriceBeforeDiscountBasket],
       ));

@@ -45,7 +45,6 @@ class SuccessWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<BasketCubit>(context).deleteAllDatabase();
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -123,7 +122,9 @@ class SuccessWidget extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return const HomePageProvider(currentIndex: 0);
+                      return const HomePageProvider(
+                        currentIndex: 0,
+                      );
                     },
                   ),
                   ModalRoute.withName('/'),

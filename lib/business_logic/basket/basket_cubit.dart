@@ -40,6 +40,14 @@ class BasketCubit extends Cubit<BasketState> {
     );
   }
 
+  void getAddToCartByItem(int productId, int quantity) {
+    basketRepository.getAddToCartByItem(productId, quantity).then(
+      (value) {
+        emit(AddToCartByItemIsPressed(value));
+      },
+    );
+  }
+
   void getRemoveFromBasket(String productId) {
     basketRepository.getRemoveFromBasket(productId).then(
       (value) {
@@ -163,7 +171,7 @@ class BasketCubit extends Cubit<BasketState> {
       emit(
         RemoveFromLocalBasketIsPressed(),
       );
-
+      print('asfbasf');
       //TODO 2) get all items from the local database..
       List<Map<String, int>> basket = [];
       print("A 1");

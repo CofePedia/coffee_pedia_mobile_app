@@ -131,7 +131,8 @@
     "about" : "عن كافي بيديا",
     "Explore nearby Coffee shops" : "استكشف محلات القهوة القربية منك",
     "Share your love" : "شارك حبك",
-    "Prepare it by yourself" : "حضرها بنفسك"
+    "Prepare it by yourself" : "حضرها بنفسك",
+    "become_a_partner": "كن شريكًا"
   },
   "map_widget" : {
     "show" : "عرض",
@@ -181,7 +182,9 @@
     "product_overview" : "تفاصيل الطلب",
     "brand" : "الماركة",
     "about_seller" : "عن التاجر",
-    "seller_name" : "اسم التاجر"
+    "seller_name" : "اسم التاجر",
+    "unavailable_quantity":"الكمية المطلوبة غير متاحه"
+
   },
   "profile_screen" : {
     "my_profile" : "حسابي",
@@ -265,5 +268,24 @@
   },
   "search_screen" : {
     "cancel" : "إلغاء"
+  },
+  "vendor_registration_screen" : {
+    "your_details":"بياناتك",
+    "first_name" : "الاسم الأول*",
+    "last_name" : "الاسم الأخير*",
+    "phone_number": "رقم التليفون*",
+    "brand_name": "اسم الشركة*",
+    "email": "الايميل*",
+    "password": "الرقم السري*",
+    "password_confirmation": "تأكيد الرقم السري*",
+    "ar_description": "الوصف بالعربي*",
+    "en_description": "الوصف بالانجليزي*",
+    "website":"الموقع*",
+    "enter_link": "ضع الرابط*",
+    "contract": "العقد",
+    "tax_card": "كارت الضريبة",
+    "commercial_register":"السجل التجاري",
+    "submit": "حفظ",
+    "required": "مطلوب"
   }
 }

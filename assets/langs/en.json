@@ -135,8 +135,8 @@
     "about" : "About",
     "Explore nearby Coffee shops" : "Explore nearby Coffee shops",
     "Share your love" : "Share your love",
-    "Prepare it by yourself" : "Prepare it by yourself"
-
+    "Prepare it by yourself" : "Prepare it by yourself",
+    "become_a_partner": "Become a Partner"
   },
   "map_widget" : {
     "show" : "Show",
@@ -185,7 +185,8 @@
     "product_overview" : "Product overview",
     "brand" : "Brand",
     "about_seller" : "About seller",
-    "seller_name" : "Seller name"
+    "seller_name" : "Seller name",
+    "unavailable_quantity":"The requested quantity is not available"
   },
   "profile_screen" : {
     "my_profile" : "My Profile",
@@ -267,5 +268,25 @@
   },
   "search_screen" : {
     "cancel" : "Cancel"
+  },
+  "vendor_registration_screen" : {
+    "your_details":"Your Details",
+    "first_name" : "First Name*",
+    "last_name" : "Last Name*",
+    "phone_number": "Phone Number*",
+    "brand_name": "Brand Name*",
+    "email": "Email*",
+    "password": "Password*",
+    "password_confirmation": "Password Confirmation*",
+    "ar_description": "Arabic Description*",
+    "en_description": "English Description*",
+    "website":"Website*",
+    "enter_link": "Enter link*",
+    "contract": "Contract",
+    "tax_card": "Tax Card",
+    "commercial_register":"Commercial Register",
+    "submit": "Submit",
+    "required": "required"
   }
+
 }

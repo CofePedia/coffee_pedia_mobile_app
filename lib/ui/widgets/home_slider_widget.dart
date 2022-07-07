@@ -57,7 +57,7 @@ class _HomeSlidersState extends State<HomeSliders> {
             outer: true,
             scrollDirection: Axis.horizontal,
             itemCount: state.homeSliders!.data!.length,
-            autoplay: true,
+            autoplay: false,
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: state.homeSliders!.data![index]!.url == null
@@ -66,7 +66,9 @@ class _HomeSlidersState extends State<HomeSliders> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WebViewWidget(webUrl: state.homeSliders!.data![index]!.url!)),
+                              builder: (context) => WebViewWidget(
+                                  webUrl:
+                                      state.homeSliders!.data![index]!.url!)),
                         );
                       },
                 child: CustomNetworkImage(
