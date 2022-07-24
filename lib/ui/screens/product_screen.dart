@@ -186,7 +186,8 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                         CustomButton(
                           onPress: () async {
-                            if (Prefs.getBool("logged") == false) {
+                            if (Prefs.getBool("logged") == false ||
+                                Prefs.getBool("logged") == null) {
                               String oldQuantity =
                                   Prefs.getString("totalItems") ?? "0";
                               Prefs.setString(
@@ -424,7 +425,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                           ),
                                         ),
                                         child: Text(
-                                          '${state.product!.data!.discount}% Off',
+                                          '${state.product!.data!.discount} Off',
                                           textAlign: TextAlign.center,
                                           style: Theme.of(context)
                                               .textTheme
@@ -484,7 +485,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                   padding: EdgeInsets.only(
                                       top: 15.h, right: 15.w, left: 15.w),
                                   child: Text(
-                                    '${state.product!.data!.priceBeforeDiscount ?? ''} ${translator.translate("product_screen.egp")}',
+                                    translator.currentLanguage == "ar"
+                                        ? '${state.product!.data!.priceBeforeDiscount ?? ''} ${translator.translate("product_screen.egp")}'
+                                        : '${translator.translate("product_screen.egp")} ${state.product!.data!.priceBeforeDiscount ?? ''}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText2!
@@ -504,7 +507,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                 right: 15.w,
                                 left: 15.w),
                             child: Text(
-                              '${state.product!.data!.price!} ${translator.translate("product_screen.egp")}',
+                              translator.currentLanguage == "ar"
+                                  ? '${state.product!.data!.price!} ${translator.translate("product_screen.egp")}'
+                                  : '${translator.translate("product_screen.egp")} ${state.product!.data!.price!}',
                               style: Theme.of(context).textTheme.subtitle1,
                             ),
                           ),
@@ -645,7 +650,6 @@ class _ProductScreenState extends State<ProductScreen> {
                           ),
                           InkWell(
                             onTap: () {
-                              print('${state.product!.data!.vendorId}');
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) {

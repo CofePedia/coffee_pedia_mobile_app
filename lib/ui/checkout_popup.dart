@@ -157,8 +157,11 @@ class _CheckoutPopUpState extends State<CheckoutPopUp> {
                       height: 8.h,
                     ),
                     Text(
-                      "${widget.totalPrice} " +
-                          translator.translate("checkout_popup.egp"),
+                      translator.currentLanguage == "ar"
+                          ? "${widget.totalPrice} " +
+                              translator.translate("checkout_popup.egp")
+                          : translator.translate("checkout_popup.egp") +
+                              "${widget.totalPrice} ",
                       style: Theme.of(context).textTheme.headline2!.copyWith(
                             color: Theme.of(context).primaryColor,
                           ),

@@ -65,6 +65,19 @@ class _CardCategoryState extends State<CardCategory> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
+                          //TODO subCategoryAmr for slider
+                          // return CategoryScreenProvider(
+                          //   vendorId: -1,
+                          //   categoryName: '',
+                          //   categoriesId: 4,
+                          //   subCategoryId: 3,
+                          //   subCategoryName: "mac",
+                          //   subCategories:
+                          //       state.categories!.data![index]!.children,
+                          //   multiMap: {},
+                          //   rangeMap: {},
+                          //   singleMap: {},
+                          // );
                           return CategoryScreenProvider(
                             vendorId: -1,
                             categoryName: '',

@@ -16,7 +16,8 @@
   },
   "checkout_items_screen": {
     "total_price" : "السعر الإجمالي",
-    "shopping_basket" : "سلة التسوق",
+    "Proceed to checkout" : "اكمل إلى الدفع",
+    "shopping_basket": "السلة",
     "items" : "المنتجات",
     "item" : "منتج",
     "have_coupon" : "لديك كود خصم؟",
@@ -286,6 +287,7 @@
     "tax_card": "كارت الضريبة",
     "commercial_register":"السجل التجاري",
     "submit": "حفظ",
-    "required": "مطلوب"
+    "required": "مطلوب",
+    "subtitle": "استمتع بالوصول إلى ملايين العملاء وزد مبيعاتك"
   }
 }

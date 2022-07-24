@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:coffepedia/constants/strings.dart';
 import 'package:coffepedia/data/models/add_address.dart';
-import 'package:coffepedia/data/models/areas.dart';
 import 'package:coffepedia/data/models/cities.dart';
 import 'package:coffepedia/data/models/delete_address.dart';
 import 'package:coffepedia/data/models/gettoken_database.dart';
@@ -73,38 +72,38 @@ class AddressWebServices {
     }
   }
 
-  Future<Areas> getAreas(int cityId) async {
-    final uri = Uri.https(
-      getBaseUrl,
-      '/areas/$cityId',
-    );
-    final http.Response response = await http.get(
-      uri,
-      headers: {
-        'Content-Language': translator.currentLanguage,
-        'platform': Platform.operatingSystem,
-        'OSVersion': Platform.operatingSystemVersion,
-      },
-    );
-
-    if (response.statusCode == 200) {
-      return Areas.fromJson(
-        json.decode(response.body),
-      );
-    } else {
-      print(
-          'response exception areas ${json.decode(response.body).toString()}');
-      throw Exception(
-        json.decode(response.body),
-      );
-    }
-  }
+  // Future<Areas> getAreas(int cityId) async {
+  //   final uri = Uri.https(
+  //     getBaseUrl,
+  //     '/areas/$cityId',
+  //   );
+  //   final http.Response response = await http.get(
+  //     uri,
+  //     headers: {
+  //       'Content-Language': translator.currentLanguage,
+  //       'platform': Platform.operatingSystem,
+  //       'OSVersion': Platform.operatingSystemVersion,
+  //     },
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     return Areas.fromJson(
+  //       json.decode(response.body),
+  //     );
+  //   } else {
+  //     print(
+  //         'response exception areas ${json.decode(response.body).toString()}');
+  //     throw Exception(
+  //       json.decode(response.body),
+  //     );
+  //   }
+  // }
 
   Future<AddAddress> getAddAddress(
     String governorateId,
     String cityId,
     String name,
-    String areaId,
+    // String areaId,
     String street,
     String details,
   ) async {
@@ -123,7 +122,7 @@ class AddressWebServices {
         'governorate_id': governorateId,
         'city_id': cityId,
         'name': name,
-        'area_id': areaId,
+        // 'area_id': areaId,
         'street': street,
         'details': details,
       },
@@ -188,7 +187,7 @@ class AddressWebServices {
     String? governorateId,
     String? cityId,
     String? name,
-    String? areaId,
+    // String? areaId,
     String? street,
     String? details,
     String? primary,
@@ -213,11 +212,11 @@ class AddressWebServices {
         'city_id': cityId,
       });
     }
-    if (areaId!.isNotEmpty) {
-      queryParameters.addAll({
-        'area_id': areaId,
-      });
-    }
+    // if (areaId!.isNotEmpty) {
+    //   queryParameters.addAll({
+    //     'area_id': areaId,
+    //   });
+    // }
     if (street!.isNotEmpty) {
       queryParameters.addAll({
         'street': street,

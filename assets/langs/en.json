@@ -16,7 +16,8 @@
    },
   "checkout_items_screen": {
     "total_price" : "Total Price",
-    "shopping_basket" : "Shopping Basket",
+    "Proceed to checkout" : "Proceed to checkout",
+    "shopping_basket": "Shopping Basket",
     "items" : "Items",
     "item" : "Item",
     "have_coupon" : "Have a coupon?",
@@ -286,7 +287,8 @@
     "tax_card": "Tax Card",
     "commercial_register":"Commercial Register",
     "submit": "Submit",
-    "required": "required"
+    "required": "required",
+    "subtitle": "Enjoy access to millions of customers and grow your sales"
   }
 
 }

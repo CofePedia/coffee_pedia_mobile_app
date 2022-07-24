@@ -2,6 +2,7 @@ import 'package:coffepedia/business_logic/address/address_cubit.dart';
 import 'package:coffepedia/data/models/my_addresses.dart';
 import 'package:coffepedia/data/repository/address_repository.dart';
 import 'package:coffepedia/data/web_services/address_web_services.dart';
+import 'package:coffepedia/ui/delivery_info_screen.dart';
 import 'package:coffepedia/ui/screens/address_book%D9%8D_screen.dart';
 import 'package:coffepedia/ui/screens/check_internet_connection.dart';
 import 'package:coffepedia/ui/shared/custom_text_form_field.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../main.dart';
-import '../area_address_widget.dart';
 import '../city_address_widget.dart';
 
 class AddAddressSheetProvider extends StatelessWidget {
@@ -60,7 +60,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
 
   int? _selectedCity;
   int? _cityId = 0;
-  int? _selectedArea;
+  // int? _selectedArea;
 
   @override
   void initState() {
@@ -73,13 +73,13 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
 
       _selectedGovernorate = widget.address!.governorateId!;
       _selectedCity = widget.address!.cityId!;
-      _selectedArea = widget.address!.areaId!;
+      // _selectedArea = widget.address!.areaId!;
       _governorateId = _selectedGovernorate!;
       _cityId = _selectedCity;
     }
 
     print("_selectedCity $_selectedCity");
-    print('_selectedArea $_selectedArea');
+    // print('_selectedArea $_selectedArea');
 
     super.initState();
   }
@@ -100,15 +100,15 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
     setState(() {
       _selectedCity = value;
       _cityId = _selectedCity;
-      _selectedArea = null;
+      // _selectedArea = null;
     });
   }
 
-  void onSelectedCity(int value) {
-    setState(() {
-      _selectedArea = value;
-    });
-  }
+  // void onSelectedCity(int value) {
+  //   setState(() {
+  //     _selectedArea = value;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -117,9 +117,13 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
       listener: (context, state) {
         if (state is AddAddressIsPressed) {
           // Navigator.of(context).pop(hasData = true);
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => widget.addressPath),
-          );
+          // Navigator.of(context).push(
+          //   MaterialPageRoute(builder: (context) => widget.addressPath),
+          // );[
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (_) {
+            return DeliveryInfoScreenProvider();
+          }), (route) => false);
 
           // Navigator.(
           //     context, AddressBookScreenProvider.routeName);
@@ -136,11 +140,11 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
         }
       },
       child: Container(
-        height: 550.h,
+        height: 520.h,
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(horizontal: 15.w),
         margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
+          bottom: MediaQuery.of(context).viewInsets.bottom * 0.9,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -289,174 +293,141 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                       textEditingController: _name,
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            translator.translate("address.governorate"),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3!
-                                .copyWith(fontSize: 12.sp),
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                          ),
-                          Container(
-                            height: 40.h,
-                            width: 168.w,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 8.w, vertical: 9.h),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3.r),
-                              border: Border.all(
-                                color: Color(0xffE3E3E3),
+                  Text(
+                    translator.translate("address.governorate"),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3!
+                        .copyWith(fontSize: 12.sp),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Container(
+                    height: 40.h,
+                    width: 168.w,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 9.h),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3.r),
+                      border: Border.all(
+                        color: Color(0xffE3E3E3),
+                      ),
+                    ),
+                    child: BlocBuilder<AddressCubit, AddressState>(
+                      builder: (context, state) {
+                        if (state is GovernorateLoaded) {
+                          return DropdownButton<int>(
+                            underline: SizedBox(),
+                            isDense: true,
+                            value: _selectedGovernorate,
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedGovernorate = value;
+                                _governorateId = _selectedGovernorate!;
+                                _cityId = 0;
+                                _selectedCity = null;
+                                // _selectedArea = null;
+                              });
+                            },
+                            items: List.generate(
+                              state.governorates!.data!.length,
+                              (index) => DropdownMenuItem(
+                                child: Text(
+                                  state.governorates!.data![index]!.name!,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(fontSize: 14.sp),
+                                ),
+                                value: state.governorates!.data![index]!.id!,
                               ),
                             ),
-                            child: BlocBuilder<AddressCubit, AddressState>(
-                              builder: (context, state) {
-                                if (state is GovernorateLoaded) {
-                                  return DropdownButton<int>(
-                                    underline: SizedBox(),
-                                    isDense: true,
-                                    value: _selectedGovernorate,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _selectedGovernorate = value;
-                                        _governorateId = _selectedGovernorate!;
-                                        _cityId = 0;
-                                        _selectedCity = null;
-                                        _selectedArea = null;
-                                      });
-                                    },
-                                    items: List.generate(
-                                      state.governorates!.data!.length,
-                                      (index) => DropdownMenuItem(
-                                        child: Text(
-                                          state.governorates!.data![index]!
-                                              .name!,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(fontSize: 14.sp),
-                                        ),
-                                        value: state
-                                            .governorates!.data![index]!.id!,
-                                      ),
-                                    ),
-                                    isExpanded: true,
-                                    icon: Icon(
-                                      Icons.expand_more,
-                                      size: 20.h,
-                                      color: Color(0xffCCCCCC),
-                                    ),
-                                    hint: Text(
-                                      translator
-                                          .translate("address.governorate"),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6!
-                                          .copyWith(
-                                            color: Color(
-                                              0xffCCCCCC,
-                                            ),
-                                          ),
-                                    ),
-                                  );
-                                } else {
-                                  return DropdownButton<int>(
-                                    isDense: true,
-                                    onChanged: (value) {},
-                                    items: [],
-                                    isExpanded: true,
-                                    icon: Icon(
-                                      Icons.expand_more,
-                                      size: 20.h,
-                                      color: Color(0xffCCCCCC),
-                                    ),
-                                    hint: Text(
-                                      translator
-                                          .translate("address.governorate"),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6!
-                                          .copyWith(
-                                            color: Color(
-                                              0xffCCCCCC,
-                                            ),
-                                          ),
-                                    ),
-                                  );
-                                }
-                              },
+                            isExpanded: true,
+                            icon: Icon(
+                              Icons.expand_more,
+                              size: 20.h,
+                              color: Color(0xffCCCCCC),
                             ),
-                          ),
-                          SizedBox(
-                            height: 12.h,
-                          ),
-                          Text(
-                            translator.translate("address.area"),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3!
-                                .copyWith(fontSize: 12.sp),
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                          ),
-                          AreaAddressProvider(
-                            cityId: _cityId,
-                            onSelectedCity: onSelectedCity,
-                            selectedArea: _selectedArea,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            translator.translate("address.city"),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3!
-                                .copyWith(fontSize: 12.sp),
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                          ),
-                          CityAddressProvider(
-                            governorateId: _governorateId,
-                            onChange: onSelectedGovernorate,
-                            selectedCity: _selectedCity,
-                          ),
-                          SizedBox(
-                            height: 12.h,
-                          ),
-                          Text(
-                            translator.translate("address.street"),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3!
-                                .copyWith(fontSize: 12.sp),
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                          ),
-                          CustomTextFormField(
-                            hintText: translator.translate("address.street"),
-                            width: 168.w,
-                            suffix: null,
-                            keyboardType: TextInputType.text,
-                            textEditingController: _street,
-                            height: 40.h,
-                          ),
-                        ],
-                      ),
-                    ],
+                            hint: Text(
+                              translator.translate("address.governorate"),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                    color: Color(
+                                      0xffCCCCCC,
+                                    ),
+                                  ),
+                            ),
+                          );
+                        } else {
+                          return DropdownButton<int>(
+                            isDense: true,
+                            onChanged: (value) {},
+                            items: [],
+                            isExpanded: true,
+                            icon: Icon(
+                              Icons.expand_more,
+                              size: 20.h,
+                              color: Color(0xffCCCCCC),
+                            ),
+                            hint: Text(
+                              translator.translate("address.governorate"),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                    color: Color(
+                                      0xffCCCCCC,
+                                    ),
+                                  ),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                  Text(
+                    translator.translate("address.city"),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3!
+                        .copyWith(fontSize: 12.sp),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  CityAddressProvider(
+                    governorateId: _governorateId,
+                    onChange: onSelectedGovernorate,
+                    selectedCity: _selectedCity,
+                  ),
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                  Text(
+                    translator.translate("address.street"),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3!
+                        .copyWith(fontSize: 12.sp),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  CustomTextFormField(
+                    hintText: translator.translate("address.street"),
+                    width: 168.w,
+                    suffix: null,
+                    keyboardType: TextInputType.text,
+                    textEditingController: _street,
+                    height: 40.h,
+                  ),
+
                   Padding(
                     padding: EdgeInsets.only(top: 12.h),
                     child: Text(
@@ -470,7 +441,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                     height: 9.h,
                   ),
                   Container(
-                    height: 93.h,
+                    height: 75.h,
                     child: TextFormField(
                       maxLines: 7,
                       controller: _details,
@@ -536,7 +507,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                               name: _name.text,
                               governorateId: _selectedGovernorate.toString(),
                               cityId: _selectedCity.toString(),
-                              areaId: _selectedArea.toString(),
+                              // areaId: _selectedArea.toString(),
                               street: _street.text,
                               details: _details.text,
                               addressId: widget.address!.id.toString(),
@@ -545,7 +516,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                           _selectedGovernorate.toString(),
                           _selectedCity.toString(),
                           _name.text,
-                          _selectedArea.toString(),
+                          // _selectedArea.toString(),
                           _street.text,
                           _details.text,
                         );

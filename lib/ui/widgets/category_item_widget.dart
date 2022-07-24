@@ -161,7 +161,9 @@ class CategoryItemWidget extends StatelessWidget {
                       height: 8.h,
                     )
                   : Text(
-                      '$priceBeforeDiscount ${translator.translate("categories_screen.egp")}',
+                      translator.currentLanguage == "ar"
+                          ? '$priceBeforeDiscount ${translator.translate("categories_screen.egp")}'
+                          : '${translator.translate("categories_screen.egp")} $priceBeforeDiscount',
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             decoration: TextDecoration.lineThrough,
                             color: Colors.black45,
@@ -171,7 +173,9 @@ class CategoryItemWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '$price ${translator.translate("categories_screen.egp")}',
+                    translator.currentLanguage == "ar"
+                        ? '$price ${translator.translate("categories_screen.egp")}'
+                        : '${translator.translate("categories_screen.egp")} $price',
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                   Container(

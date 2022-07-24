@@ -202,7 +202,9 @@ class _CheckoutItemState extends State<CheckoutItem> {
                       ),
                       widget.priceBeforeDiscount == 0
                           ? Text(
-                              "${widget.priceBeforeDiscount} ${translator.translate("checkout_items_screen.egp")}",
+                              translator.currentLanguage == "ar"
+                                  ? "${widget.priceBeforeDiscount} ${translator.translate("checkout_items_screen.egp")}"
+                                  : "${translator.translate("checkout_items_screen.egp")} ${widget.priceBeforeDiscount} ",
                               maxLines: 2,
                               textAlign: TextAlign.start,
                               style: Theme.of(context)
@@ -217,7 +219,9 @@ class _CheckoutItemState extends State<CheckoutItem> {
                         height: 4.h,
                       ),
                       Text(
-                        "${widget.price} ${translator.translate("checkout_items_screen.egp")} ",
+                        translator.currentLanguage == "ar"
+                            ? "${widget.price} ${translator.translate("checkout_items_screen.egp")} "
+                            : "${translator.translate("checkout_items_screen.egp")} ${widget.price} ",
                         maxLines: 2,
                         textAlign: TextAlign.start,
                         style: Theme.of(context)
@@ -270,7 +274,8 @@ class _CheckoutItemState extends State<CheckoutItem> {
               children: [
                 InkWell(
                   onTap: () {
-                    if (Prefs.getBool("logged") == false) {
+                    if (Prefs.getBool("logged") == false ||
+                        Prefs.getBool("logged") == null) {
                       if (widget.quantity > 1) {
                         BlocProvider.of<BasketCubit>(context)
                             .updateQuantityInLocalBasket(
@@ -332,7 +337,8 @@ class _CheckoutItemState extends State<CheckoutItem> {
                   onTap: () {
                     setState(
                       () {
-                        if (Prefs.getBool("logged") == false) {
+                        if (Prefs.getBool("logged") == false ||
+                            Prefs.getBool("logged") == null) {
                           if (widget.quantity == widget.stock) {
                             BotToast.showText(
                                 text: translator.translate(

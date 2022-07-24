@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:coffepedia/data/models/add_address.dart';
-import 'package:coffepedia/data/models/areas.dart';
 import 'package:coffepedia/data/models/cities.dart';
 import 'package:coffepedia/data/models/delete_address.dart';
 import 'package:coffepedia/data/models/governorates.dart';
@@ -31,19 +30,19 @@ class AddressCubit extends Cubit<AddressState> {
     );
   }
 
-  void getAreas(int cityId) {
-    addressRepository.getAreas(cityId).then(
-      (value) {
-        emit(AreasLoaded(value));
-      },
-    );
-  }
+  // void getAreas(int cityId) {
+  //   addressRepository.getAreas(cityId).then(
+  //     (value) {
+  //       emit(AreasLoaded(value));
+  //     },
+  //   );
+  // }
 
   void getAddAddress(
     String governorateId,
     String cityId,
     String name,
-    String areaId,
+    // String areaId,
     String street,
     String details,
   ) {
@@ -52,7 +51,7 @@ class AddressCubit extends Cubit<AddressState> {
       governorateId,
       cityId,
       name,
-      areaId,
+      // areaId,
       street,
       details,
     )
@@ -77,7 +76,7 @@ class AddressCubit extends Cubit<AddressState> {
     String? governorateId,
     String? cityId,
     String? name,
-    String? areaId,
+    // String? areaId,
     String? street,
     String? details,
     String? primary,
@@ -88,7 +87,7 @@ class AddressCubit extends Cubit<AddressState> {
       governorateId: governorateId,
       cityId: cityId,
       name: name,
-      areaId: areaId,
+      // areaId: areaId,
       street: street,
       details: details,
       primary: primary,

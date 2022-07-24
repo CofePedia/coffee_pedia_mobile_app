@@ -15,10 +15,10 @@ class CitiesLoaded extends AddressState {
   CitiesLoaded(this.cities);
 }
 
-class AreasLoaded extends AddressState {
-  final Areas? areas;
-  AreasLoaded(this.areas);
-}
+// class AreasLoaded extends AddressState {
+//   final Areas? areas;
+//   AreasLoaded(this.areas);
+// }
 
 class AddAddressIsPressed extends AddressState {
   final AddAddress? addAddress;

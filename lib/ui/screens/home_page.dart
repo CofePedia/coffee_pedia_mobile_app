@@ -159,7 +159,8 @@ class _HomePageState extends State<HomePage> {
                     translator.translate("home_screen.home_tap"), 0),
                 getItem(Assets.iconsShoppingBasket,
                     translator.translate("home_screen.my_basket_tap"), 1),
-                Prefs.getBool("logged") == false
+                Prefs.getBool("logged") == false ||
+                        Prefs.getBool("logged") == null
                     ? getItem(Assets.iconsProfile,
                         translator.translate("home_screen.login"), 2)
                     : getItem(Assets.iconsProfile,

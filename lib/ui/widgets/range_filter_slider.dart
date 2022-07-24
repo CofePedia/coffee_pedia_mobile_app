@@ -70,14 +70,18 @@ class _RangeFilterSliderState extends State<RangeFilterSlider> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              '${translator.translate("range_filter_slider.from")}: ${low!.round().toString()} ${translator.translate("range_filter_slider.egp")}',
+              translator.currentLanguage == "ar"
+                  ? '${translator.translate("range_filter_slider.from")}: ${low!.round().toString()} ${translator.translate("range_filter_slider.egp")}'
+                  : '${translator.translate("range_filter_slider.from")}: ${translator.translate("range_filter_slider.egp")} ${low!.round().toString()}',
               style: Theme.of(context)
                   .textTheme
                   .bodyText1!
                   .copyWith(fontSize: 13.sp),
             ),
             Text(
-              '${translator.translate("range_filter_slider.to")}: ${high!.round().toString()} ${translator.translate("range_filter_slider.egp")}',
+              translator.currentLanguage == "ar"
+                  ? '${translator.translate("range_filter_slider.to")}: ${high!.round().toString()} ${translator.translate("range_filter_slider.egp")}'
+                  : '${translator.translate("range_filter_slider.to")}: ${translator.translate("range_filter_slider.egp")} ${high!.round().toString()}',
               style: Theme.of(context)
                   .textTheme
                   .bodyText1!

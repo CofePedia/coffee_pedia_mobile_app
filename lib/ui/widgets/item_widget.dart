@@ -264,7 +264,9 @@ class _ItemWidgetState extends State<ItemWidget> {
                 ),
                 widget.discount != 0
                     ? Text(
-                        '${widget.priceBeforeDiscount} ${translator.translate("wishlist_screen.egp")}',
+                        translator.currentLanguage == "ar"
+                            ? '${widget.priceBeforeDiscount} ${translator.translate("wishlist_screen.egp")}'
+                            : '${translator.translate("wishlist_screen.egp")} ${widget.priceBeforeDiscount}',
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(
                               decoration: TextDecoration.lineThrough,
                               color: Colors.black45,
@@ -277,7 +279,9 @@ class _ItemWidgetState extends State<ItemWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${widget.price} ${translator.translate("wishlist_screen.egp")}',
+                      translator.currentLanguage == "ar"
+                          ? '${widget.price} ${translator.translate("wishlist_screen.egp")}'
+                          : '${translator.translate("wishlist_screen.egp")} ${widget.price}',
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Container(

@@ -372,8 +372,12 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                         Theme.of(context).textTheme.headline4),
                                 Text(
                                   isPressed == false
-                                      ? "${state.orderSummary!.data!.subTotal} ${translator.translate("checkout_items_screen.egp")}"
-                                      : "$subTotal ${translator.translate("checkout_items_screen.egp")}",
+                                      ? translator.currentLanguage == "ar"
+                                          ? "${state.orderSummary!.data!.subTotal} ${translator.translate("checkout_items_screen.egp")}"
+                                          : "${translator.translate("checkout_items_screen.egp")} ${state.orderSummary!.data!.subTotal}"
+                                      : translator.currentLanguage == "ar"
+                                          ? "$subTotal ${translator.translate("checkout_items_screen.egp")}"
+                                          : "${translator.translate("checkout_items_screen.egp")} $subTotal",
                                   style: Theme.of(context).textTheme.headline4,
                                 ),
                               ],
@@ -391,8 +395,12 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                         Theme.of(context).textTheme.headline4),
                                 Text(
                                     isPressed == false
-                                        ? "- ${state.orderSummary!.data!.discount} ${translator.translate("checkout_items_screen.egp")}"
-                                        : "- $discount ${translator.translate("checkout_items_screen.egp")}",
+                                        ? translator.currentLanguage == "ar"
+                                            ? "- ${state.orderSummary!.data!.discount} ${translator.translate("checkout_items_screen.egp")}"
+                                            : "- ${translator.translate("checkout_items_screen.egp")} ${state.orderSummary!.data!.discount}"
+                                        : translator.currentLanguage == "ar"
+                                            ? "- $discount ${translator.translate("checkout_items_screen.egp")}"
+                                            : "- ${translator.translate("checkout_items_screen.egp")} $discount",
                                     style:
                                         Theme.of(context).textTheme.headline4),
                               ],
@@ -410,8 +418,12 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                         Theme.of(context).textTheme.headline4),
                                 Text(
                                   isPressed == false
-                                      ? "${state.orderSummary!.data!.deliveryCharge} ${translator.translate("checkout_items_screen.egp")}"
-                                      : "$deliveryCharge ${translator.translate("checkout_items_screen.egp")}",
+                                      ? translator.currentLanguage == "ar"
+                                          ? "${state.orderSummary!.data!.deliveryCharge} ${translator.translate("checkout_items_screen.egp")}"
+                                          : "${translator.translate("checkout_items_screen.egp")} ${state.orderSummary!.data!.deliveryCharge}"
+                                      : translator.currentLanguage == "ar"
+                                          ? "$deliveryCharge ${translator.translate("checkout_items_screen.egp")}"
+                                          : "${translator.translate("checkout_items_screen.egp")} $deliveryCharge",
                                   style: Theme.of(context).textTheme.headline4,
                                 ),
                               ],
@@ -430,8 +442,12 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                   ),
                                   Text(
                                     isPressed == false
-                                        ? " ${state.orderSummary!.data!.total} ${translator.translate("checkout_items_screen.egp")}"
-                                        : " $total ${translator.translate("checkout_items_screen.egp")}",
+                                        ? translator.currentLanguage == "ar"
+                                            ? " ${state.orderSummary!.data!.total} ${translator.translate("checkout_items_screen.egp")}"
+                                            : "${translator.translate("checkout_items_screen.egp")} ${state.orderSummary!.data!.total}"
+                                        : translator.currentLanguage == "ar"
+                                            ? " $total ${translator.translate("checkout_items_screen.egp")}"
+                                            : "${translator.translate("checkout_items_screen.egp")} $total",
                                     style: Theme.of(context)
                                         .textTheme
                                         .caption!

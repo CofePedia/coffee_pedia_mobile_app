@@ -1,5 +1,4 @@
 import 'package:coffepedia/data/models/add_address.dart';
-import 'package:coffepedia/data/models/areas.dart';
 import 'package:coffepedia/data/models/cities.dart';
 import 'package:coffepedia/data/models/delete_address.dart';
 import 'package:coffepedia/data/models/governorates.dart';
@@ -22,16 +21,16 @@ class AddressRepository {
     return cities;
   }
 
-  Future<Areas> getAreas(int cityId) async {
-    final areas = addressWebServices.getAreas(cityId);
-    return areas;
-  }
+  // Future<Areas> getAreas(int cityId) async {
+  //   final areas = addressWebServices.getAreas(cityId);
+  //   return areas;
+  // }
 
   Future<AddAddress> getAddAddress(
     String governorateId,
     String cityId,
     String name,
-    String areaId,
+    // String areaId,
     String street,
     String details,
   ) async {
@@ -39,7 +38,7 @@ class AddressRepository {
       governorateId,
       cityId,
       name,
-      areaId,
+      // areaId,
       street,
       details,
     );
@@ -56,7 +55,7 @@ class AddressRepository {
     String? governorateId,
     String? cityId,
     String? name,
-    String? areaId,
+    // String? areaId,
     String? street,
     String? details,
     String? primary,
@@ -66,7 +65,7 @@ class AddressRepository {
         governorateId: governorateId,
         cityId: cityId,
         name: name,
-        areaId: areaId,
+        // areaId: areaId,
         street: street,
         details: details,
         addressId: addressId,

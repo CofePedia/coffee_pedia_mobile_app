@@ -337,7 +337,10 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                                     .copyWith(fontSize: 12.sp),
                                               ),
                                               Text(
-                                                '${state.orderHistory!.data![index]!.subTotal} ${translator.translate("order_history_screen.egp")}',
+                                                translator.currentLanguage ==
+                                                        "ar"
+                                                    ? '${state.orderHistory!.data![index]!.subTotal} ${translator.translate("order_history_screen.egp")}'
+                                                    : '${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.subTotal}',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .headline3!
@@ -361,7 +364,10 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                                     .copyWith(fontSize: 12.sp),
                                               ),
                                               Text(
-                                                '${state.orderHistory!.data![index]!.discount} ${translator.translate("order_history_screen.egp")}',
+                                                translator.currentLanguage ==
+                                                        "ar"
+                                                    ? '${state.orderHistory!.data![index]!.discount} ${translator.translate("order_history_screen.egp")}'
+                                                    : '${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.discount}',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .headline3!
@@ -385,7 +391,10 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                                     .copyWith(fontSize: 12.sp),
                                               ),
                                               Text(
-                                                '${state.orderHistory!.data![index]!.deliveryCharge} ${translator.translate("order_history_screen.egp")}',
+                                                translator.currentLanguage ==
+                                                        "ar"
+                                                    ? '${state.orderHistory!.data![index]!.deliveryCharge} ${translator.translate("order_history_screen.egp")}'
+                                                    : '${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.deliveryCharge}',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .headline3!
@@ -409,7 +418,10 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
                                                     .copyWith(fontSize: 13.sp),
                                               ),
                                               Text(
-                                                '${state.orderHistory!.data![index]!.totalPrice} ${translator.translate("order_history_screen.egp")}',
+                                                translator.currentLanguage ==
+                                                        "ar"
+                                                    ? '${state.orderHistory!.data![index]!.totalPrice} ${translator.translate("order_history_screen.egp")}'
+                                                    : '${translator.translate("order_history_screen.egp")} ${state.orderHistory!.data![index]!.totalPrice}',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .bodyText1!

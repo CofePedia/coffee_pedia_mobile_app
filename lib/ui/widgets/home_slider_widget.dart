@@ -1,14 +1,14 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:coffepedia/business_logic/home_ads/home_ads_cubit.dart';
 import 'package:coffepedia/data/web_services/home_ads_web_services.dart';
+import 'package:coffepedia/ui/screens/category_screen.dart';
+import 'package:coffepedia/ui/screens/product_screen.dart';
 import 'package:coffepedia/ui/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../data/repository/home_ads_repository.dart';
-import '../screens/webviewWidget.dart';
 import '../shared/custom_network_image.dart';
 
 class HomeSlidersProvider extends StatelessWidget {
@@ -32,11 +32,11 @@ class HomeSliders extends StatefulWidget {
 }
 
 class _HomeSlidersState extends State<HomeSliders> {
-  InAppWebViewController? webView;
-  Uri url = Uri.parse(
-    "",
-  );
-  double progress = 0;
+  // InAppWebViewController? webView;
+  // Uri url = Uri.parse(
+  //   "",
+  // );
+  // double progress = 0;
   @override
   void initState() {
     BlocProvider.of<HomeAdsCubit>(context).getHomeSliders();
@@ -57,20 +57,80 @@ class _HomeSlidersState extends State<HomeSliders> {
             outer: true,
             scrollDirection: Axis.horizontal,
             itemCount: state.homeSliders!.data!.length,
-            autoplay: false,
+            autoplay: true,
             itemBuilder: (context, index) {
               return InkWell(
-                onTap: state.homeSliders!.data![index]!.url == null
-                    ? () {}
-                    : () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => WebViewWidget(
-                                  webUrl:
-                                      state.homeSliders!.data![index]!.url!)),
-                        );
-                      },
+                onTap: () {
+                  // product
+                  if (state.homeSliders!.data![index]!.productId != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductProvider(
+                          id: state.homeSliders!.data![index]!.productId!,
+                        ),
+                      ),
+                    );
+                    // category
+                  } else if (state.homeSliders!.data![index]!.subCategoryId ==
+                          null &&
+                      state.homeSliders!.data![index]!.categoryId != null &&
+                      state.homeSliders!.data![index]!.productId == null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CategoryScreenProvider(
+                          vendorId: -1,
+                          categoryName: '',
+                          categoriesId:
+                              state.homeSliders!.data![index]!.categoryId,
+                          subCategories:
+                              state.homeSliders!.data![index]!.subCategories,
+                          multiMap: {},
+                          rangeMap: {},
+                          singleMap: {},
+                        ),
+                      ),
+                    );
+                    // subcategory
+                  } else if (state.homeSliders!.data![index]!.subCategoryId !=
+                          null &&
+                      state.homeSliders!.data![index]!.categoryId != null &&
+                      state.homeSliders!.data![index]!.productId == null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CategoryScreenProvider(
+                          vendorId: -1,
+                          categoryName: '',
+                          subCategoryName: state
+                                  .homeSliders!.data![index]!.subCategoryName ??
+                              '',
+                          subCategoryId:
+                              state.homeSliders!.data![index]!.subCategoryId,
+                          categoriesId:
+                              state.homeSliders!.data![index]!.categoryId,
+                          subCategories:
+                              state.homeSliders!.data![index]!.subCategories,
+                          multiMap: {},
+                          rangeMap: {},
+                          singleMap: {},
+                        ),
+                      ),
+                    );
+                  }
+                },
+                // state.homeSliders!.data![index]!.url == null
+                //     ? () {}
+                //     : () {
+                //         Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) => WebViewWidget(
+                //                   webUrl:
+                //                       state.homeSliders!.data![index]!.url!)),
+                //         );
+                //       },
                 child: CustomNetworkImage(
                   imageUrl: state.homeSliders!.data![index]!.image!,
                   height: 170.h,

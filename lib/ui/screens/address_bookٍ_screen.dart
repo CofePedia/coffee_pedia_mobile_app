@@ -220,12 +220,12 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                                                                         index]!
                                                                     .street!
                                                                     .toString(),
-                                                                areaId: state
-                                                                    .myAddresses!
-                                                                    .data![
-                                                                        index]!
-                                                                    .areaId!
-                                                                    .toString(),
+                                                                // areaId: state
+                                                                //     .myAddresses!
+                                                                //     .data![
+                                                                //         index]!
+                                                                //     .areaId!
+                                                                //     .toString(),
                                                                 cityId: state
                                                                     .myAddresses!
                                                                     .data![
@@ -357,13 +357,13 @@ class _AddressBookScreenState extends State<AddressBookScreen> {
                                                       .textTheme
                                                       .headline4,
                                                 ),
-                                                TextSpan(
-                                                  text:
-                                                      '${state.myAddresses!.data![index]!.area!}, ',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline4,
-                                                ),
+                                                // TextSpan(
+                                                //   text:
+                                                //       '${state.myAddresses!.data![index]!.area!}, ',
+                                                //   style: Theme.of(context)
+                                                //       .textTheme
+                                                //       .headline4,
+                                                // ),
                                                 TextSpan(
                                                   text:
                                                       '${state.myAddresses!.data![index]!.city!}, ',

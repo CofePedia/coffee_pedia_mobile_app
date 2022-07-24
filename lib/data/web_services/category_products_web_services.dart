@@ -63,7 +63,7 @@ class CategoryProductsWebServices {
     }
 
     final uri = Uri.https(getBaseUrl, '/products', queryParameters);
-    print('queryParameters $queryParameters');
+    print('category queryParameters $queryParameters');
     GetTokenDatabase? token = await userDao.getUserToken();
     //print("token product " + token!.getToken!);
 

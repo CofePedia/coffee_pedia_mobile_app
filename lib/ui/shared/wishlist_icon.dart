@@ -63,7 +63,8 @@ class _WishlistIconState extends State<WishlistIcon> {
           return InkWell(
             onTap: () {
               setState(() {
-                if (Prefs.getBool("logged") == true) {
+                if (Prefs.getBool("logged") == true &&
+                    Prefs.getBool("logged") != null) {
                   widget.isFavorite = !widget.isFavorite;
 
                   BlocProvider.of<WishlistCubit>(context)

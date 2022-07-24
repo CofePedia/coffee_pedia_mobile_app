@@ -21,8 +21,8 @@ class MyAddressesData {
   int? primary;
   String? city;
   int? cityId;
-  String? area;
-  int? areaId;
+  // String? area;
+  // int? areaId;
   String? governorate;
   int? governorateId;
   String? name;
@@ -34,8 +34,8 @@ class MyAddressesData {
     this.primary,
     this.city,
     this.cityId,
-    this.area,
-    this.areaId,
+    // this.area,
+    // this.areaId,
     this.governorate,
     this.governorateId,
     this.name,
@@ -47,8 +47,8 @@ class MyAddressesData {
     primary = json['primary']?.toInt();
     city = json['city']?.toString();
     cityId = json['city_id']?.toInt();
-    area = json['area']?.toString();
-    areaId = json['area_id']?.toInt();
+    // area = json['area']?.toString();
+    // areaId = json['area_id']?.toInt();
     governorate = json['governorate']?.toString();
     governorateId = json['governorate_id']?.toInt();
     name = json['name']?.toString();
@@ -61,8 +61,8 @@ class MyAddressesData {
     data['primary'] = primary;
     data['city'] = city;
     data['city_id'] = cityId;
-    data['area'] = area;
-    data['area_id'] = areaId;
+    // data['area'] = area;
+    // data['area_id'] = areaId;
     data['governorate'] = governorate;
     data['governorate_id'] = governorateId;
     data['name'] = name;

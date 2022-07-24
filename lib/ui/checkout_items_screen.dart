@@ -84,11 +84,11 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (Prefs.getBool("logged") == false) {
+    if (Prefs.getBool("logged") == false || Prefs.getBool("logged") == null) {
       BlocProvider.of<BasketCubit>(context).getAllLocalProductsFromBasket();
       // widget.onAddPressed();
     }
-    if (Prefs.getBool("logged") == true) {
+    if (Prefs.getBool("logged") == true && Prefs.getBool("logged") != null) {
       BlocProvider.of<BasketCubit>(context).getBasket();
       // widget.onAddPressed();
     }
@@ -131,7 +131,8 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
             if (state is BasketLoaded) {
               return state.basket!.data!.items!.length > 0 &&
                       isLoggedIn &&
-                      Prefs.getBool("logged") == true
+                      Prefs.getBool("logged") == true &&
+                      Prefs.getBool("logged") != null
                   ? Scaffold(
                       backgroundColor: Colors.white,
                       bottomNavigationBar: Padding(
@@ -162,7 +163,9 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                     style: Theme.of(context).textTheme.caption,
                                   ),
                                   Text(
-                                    "${state.basket!.data!.total} ${translator.translate("checkout_items_screen.egp")}",
+                                    translator.currentLanguage == "ar"
+                                        ? "${state.basket!.data!.total} ${translator.translate("checkout_items_screen.egp")}"
+                                        : "${translator.translate("checkout_items_screen.egp")} ${state.basket!.data!.total}",
                                     style:
                                         Theme.of(context).textTheme.headline4,
                                   ),
@@ -173,7 +176,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                               ),
                               CustomButton(
                                 title: translator.translate(
-                                    "checkout_items_screen.shopping_basket"),
+                                    "checkout_items_screen.Proceed to checkout"),
                                 onPress: () {
                                   Navigator.push(
                                     context,
@@ -562,8 +565,9 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
 
               //TODO: LOCAL
               return state.basketLocalList.length > 0 &&
-                      isLoggedIn == false &&
-                      Prefs.getBool("logged") == false
+                          isLoggedIn == false &&
+                          Prefs.getBool("logged") == false ||
+                      Prefs.getBool("logged") == null
                   ? Scaffold(
                       backgroundColor: Colors.white,
                       bottomNavigationBar: Padding(
@@ -594,7 +598,9 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                                     style: Theme.of(context).textTheme.caption,
                                   ),
                                   Text(
-                                    "${totalPrice.toString()} ${translator.translate("checkout_items_screen.egp")}",
+                                    translator.currentLanguage == "ar"
+                                        ? "${totalPrice.toString()} ${translator.translate("checkout_items_screen.egp")}"
+                                        : "${translator.translate("checkout_items_screen.egp")} ${totalPrice.toString()}",
                                     style:
                                         Theme.of(context).textTheme.headline4,
                                   ),
@@ -605,7 +611,7 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
                               ),
                               CustomButton(
                                 title: translator.translate(
-                                    "checkout_items_screen.shopping_basket"),
+                                    "checkout_items_screen.Proceed to checkout"),
                                 onPress: () {
                                   if (isLoggedIn) {
                                     Navigator.push(

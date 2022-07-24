@@ -87,13 +87,50 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                     fit: BoxFit.fill,
                   ),
                 ),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.close,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        size: 20.w,
+                      ),
+                      color: Color(0xff000000),
+                    ),
+                    Container(
+                      width: 200.w,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          Text(
+                            translator
+                                .translate("more_screen.become_a_partner"),
+                            style:
+                                Theme.of(context).textTheme.headline1!.copyWith(
+                                      fontSize: 18.sp,
+                                    ),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Text(
+                            translator.translate(
+                                "vendor_registration_screen.subtitle"),
+                            style:
+                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                                      fontSize: 12.sp,
+                                    ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Padding(

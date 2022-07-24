@@ -6,8 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../services/preferences.dart';
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -23,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
         BlocProvider.of<AuthBloc>(context).add(AppStarted());
       },
     );
-    Prefs.setBool("logged", false);
+    // Prefs.setBool("logged", true);
 
     super.initState();
   }

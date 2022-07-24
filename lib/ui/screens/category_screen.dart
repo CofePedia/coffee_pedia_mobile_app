@@ -25,6 +25,8 @@ import 'product_screen.dart';
 class CategoryScreenProvider extends StatelessWidget {
   final int? categoriesId;
   final int? vendorId;
+  final int? subCategoryId;
+  final String subCategoryName;
   final String? categoryName;
   final List<CategoriesDataChildren?>? subCategories;
   final Map<String, List<String?>>? multiMap;
@@ -39,6 +41,8 @@ class CategoryScreenProvider extends StatelessWidget {
       this.rangeMap,
       this.singleMap,
       this.vendorId,
+      this.subCategoryId = -1,
+      this.subCategoryName = '',
       Key? key})
       : super(key: key);
 
@@ -58,6 +62,8 @@ class CategoryScreenProvider extends StatelessWidget {
         singleMap: singleMap,
         vendorId: vendorId!,
         categoryName: categoryName!,
+        subCategoryId: subCategoryId, subCategoryName: subCategoryName,
+        // isSlider: isSlider,
       ),
     );
   }
@@ -65,6 +71,9 @@ class CategoryScreenProvider extends StatelessWidget {
 
 class CategoryScreen extends StatefulWidget {
   final int categoriesId;
+  int? subCategoryId;
+  // bool? isSlider;
+  String? subCategoryName;
   final int vendorId;
   final String categoryName;
   final List<CategoriesDataChildren?>? subCategories;
@@ -80,6 +89,9 @@ class CategoryScreen extends StatefulWidget {
       required this.rangeMap,
       required this.singleMap,
       required this.vendorId,
+      this.subCategoryId = -1,
+      // this.isSlider = false,
+      this.subCategoryName = '',
       Key? key})
       : super(key: key);
 
@@ -90,8 +102,8 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   bool hasData = false;
   bool? isRefresh;
-  int? _subCategoryId = -1;
-  String? subCategoryName = "";
+  // int? _subCategoryId = -1;
+  // String? subCategoryName = "";
   String? vendorSubCategoryName = "";
 
   int currentPage = 1;
@@ -100,11 +112,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
   final RefreshController refreshController = RefreshController();
 
   fetchMoreData() {
+    print("widget.subCategoryId ${widget.subCategoryId}");
+    print("widget.subCategoryName ${widget.subCategoryName}");
+
     BlocProvider.of<CategoryProductsCubit>(context).getCategoryProducts(
       vendorId: widget.vendorId,
       page: currentPage,
       limit: limit,
-      subCategoryId: _subCategoryId,
+      subCategoryId: widget.subCategoryId,
       categoryId: widget.categoriesId,
       multiMap: widget.multiMap,
       rangeMap: widget.rangeMap,
@@ -302,7 +317,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               widget.rangeMap = {};
                                               widget.singleMap = {};
 
-                                              _subCategoryId ==
+                                              widget.subCategoryId ==
                                                       state
                                                           .categoryProducts!
                                                           .data!
@@ -316,14 +331,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                           .subCategory![index]!
                                                           .name!;
 
-                                              _subCategoryId ==
+                                              widget.subCategoryId ==
                                                       state
                                                           .categoryProducts!
                                                           .data!
                                                           .subCategory![index]!
                                                           .id!
-                                                  ? _subCategoryId = -1
-                                                  : _subCategoryId = state
+                                                  ? widget.subCategoryId = -1
+                                                  : widget.subCategoryId = state
                                                       .categoryProducts!
                                                       .data!
                                                       .subCategory![index]!
@@ -354,7 +369,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           side: MaterialStateProperty.all<
                                               BorderSide>(
                                             BorderSide(
-                                              color: _subCategoryId ==
+                                              color: widget.subCategoryId ==
                                                       state
                                                           .categoryProducts!
                                                           .data!
@@ -448,25 +463,28 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               widget.multiMap = {};
                                               widget.rangeMap = {};
                                               widget.singleMap = {};
-
-                                              _subCategoryId ==
+                                              widget.subCategoryId ==
                                                       widget
                                                           .subCategories![
                                                               index]!
                                                           .id!
-                                                  ? subCategoryName = ''
-                                                  : subCategoryName = widget
-                                                      .subCategories![index]!
-                                                      .name!;
-                                              _subCategoryId ==
+                                                  ? widget.subCategoryName = ''
+                                                  : widget.subCategoryName =
+                                                      widget
+                                                          .subCategories![
+                                                              index]!
+                                                          .name!;
+                                              widget.subCategoryId ==
                                                       widget
                                                           .subCategories![
                                                               index]!
                                                           .id!
-                                                  ? _subCategoryId = -1
-                                                  : _subCategoryId = widget
-                                                      .subCategories![index]!
-                                                      .id!;
+                                                  ? widget.subCategoryId = -1
+                                                  : widget.subCategoryId =
+                                                      widget
+                                                          .subCategories![
+                                                              index]!
+                                                          .id!;
 
                                               await fetchMoreData();
                                               refreshController.loadComplete();
@@ -501,7 +519,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                   //             .subCategories![index]!
                                                   //             .id!
 
-                                                  _subCategoryId ==
+                                                  widget.subCategoryId ==
                                                           widget
                                                               .subCategories![
                                                                   index]!
@@ -577,36 +595,39 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            RichText(
-                              textAlign: TextAlign.start,
-                              text: TextSpan(
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: widget.vendorId != -1
-                                        ? vendorSubCategoryName == ''
-                                            ? '${widget.categoryName} '
-                                            : "$vendorSubCategoryName "
-                                        : subCategoryName == ''
-                                            ? '${state.categoryProducts!.data!.category!.name} '
-                                            : "$subCategoryName ",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline1!
-                                        .copyWith(
-                                          fontSize: 18.sp,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '(${state.categoryProducts!.data!.paginate!.total} ${translator.translate("categories_screen.item")})',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline1!
-                                        .copyWith(
-                                          fontSize: 12.sp,
-                                        ),
-                                  ),
-                                ],
+                            Container(
+                              width: 250.w,
+                              child: RichText(
+                                textAlign: TextAlign.start,
+                                text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: widget.vendorId != -1
+                                          ? vendorSubCategoryName == ''
+                                              ? '${widget.categoryName} '
+                                              : "$vendorSubCategoryName "
+                                          : widget.subCategoryName == ''
+                                              ? '${state.categoryProducts!.data!.category!.name} '
+                                              : "${widget.subCategoryName} ",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline1!
+                                          .copyWith(
+                                            fontSize: 18.sp,
+                                          ),
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          '(${state.categoryProducts!.data!.paginate!.total} ${translator.translate("categories_screen.item")})',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline1!
+                                          .copyWith(
+                                            fontSize: 12.sp,
+                                          ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             CustomOutlineButton(
