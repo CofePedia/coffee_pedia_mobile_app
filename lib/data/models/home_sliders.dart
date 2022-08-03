@@ -107,7 +107,7 @@ class HomeSlidersData {
     productId = json['product_id']?.toInt();
     categoryId = json['category_id']?.toInt();
     subCategoryId = json['sub_category_id']?.toInt();
-    subCategoryName = json['sub_category_name']?.toInt();
+    subCategoryName = json['sub_category_name']?.toString();
     if (json['sub_categories'] != null) {
       final v = json['sub_categories'];
       final arr0 = <CategoriesDataChildren>[];

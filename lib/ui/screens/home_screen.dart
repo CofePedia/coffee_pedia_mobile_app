@@ -69,138 +69,146 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return CheckInternetConnection(
         screen: Scaffold(
-      body: Padding(
-        padding: EdgeInsets.only(bottom: 70.h),
-        child: ListView(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          padding: EdgeInsets.zero,
-          controller: widget.controller,
-          children: [
-            // search bar
-            Container(
-              padding: EdgeInsets.only(
-                left: 15.w,
-                right: 15.w,
-                bottom: 9.h,
-                top: 53.h,
-              ),
-              height: 160.h,
-              width: MediaQuery.of(context).size.width,
-              color: Theme.of(context).primaryColor,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SvgPicture.asset(
-                    Assets.iconsHomeLogo,
-                    height: 50.h,
-                    width: 151.w,
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Expanded(
-                    child: SearchWidget(
-                      width: 345.w,
-                    ),
-                  ),
-                ],
-              ),
+      body: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          // search bar
+          Container(
+            padding: EdgeInsets.only(
+              left: 15.w,
+              right: 15.w,
+              bottom: 9.h,
+              top: 53.h,
             ),
-            SizedBox(
-              height: 16.h,
+            height: 160.h,
+            width: MediaQuery.of(context).size.width,
+            color: Theme.of(context).primaryColor,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SvgPicture.asset(
+                  Assets.iconsHomeLogo,
+                  height: 50.h,
+                  width: 151.w,
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Expanded(
+                  child: SearchWidget(
+                    width: 345.w,
+                  ),
+                ),
+              ],
             ),
-            //home ads
-            HomeSlidersProvider(),
-            BlocBuilder<HomeAdsCubit, HomeAdsState>(
-              builder: (context, state) {
-                if (state is HomeAdsLoaded) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 60.h,
-                    child: ListView.builder(
-                      itemCount: state.homeAds!.data!.topHeader!.length,
-                      // itemCount: 1,
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height,
+            child: ListView(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              padding: EdgeInsets.zero,
+              controller: widget.controller,
+              children: [
+                SizedBox(
+                  height: 16.h,
+                ),
+                //home ads
+                HomeSlidersProvider(),
+                BlocBuilder<HomeAdsCubit, HomeAdsState>(
+                  builder: (context, state) {
+                    if (state is HomeAdsLoaded) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 60.h,
+                        child: ListView.builder(
+                          itemCount: state.homeAds!.data!.topHeader!.length,
+                          // itemCount: 1,
 
-                      scrollDirection: Axis.horizontal,
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
-                      itemBuilder: (context, index) => Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5.w),
-                        child: CustomNetworkImage(
-                          imageUrl:
-                              state.homeAds!.data!.topHeader![index].image!,
-                          height: 60.h,
-                          width: 250.w,
-                          radius: 0.r,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  );
-                } else {
-                  return SecondSliderShimmerWidget();
-                }
-              },
-            ),
-            SizedBox(
-              height: 19.h,
-            ),
-            SectionName(
-                sectionName:
-                    translator.translate("home_screen.shop_by_category")),
-            Categories(),
-            SectionName(
-                sectionName:
-                    translator.translate("home_screen.featured_products")),
-            FeaturedProducts(onAddTapped: widget.onAddTapped),
-
-            BlocBuilder<HomeAdsCubit, HomeAdsState>(
-              builder: (context, state) {
-                if (state is HomeAdsLoaded) {
-                  return Container(
-                    margin: EdgeInsets.only(bottom: 24.h),
-                    width: MediaQuery.of(context).size.width,
-                    child: ListView.builder(
-                      itemCount: state.homeAds!.data!.inPage!.length,
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      padding: EdgeInsets.only(left: 8.w, right: 8.w),
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 5.h, horizontal: 5.w),
-                          child: CustomNetworkImage(
-                            imageUrl:
-                                state.homeAds!.data!.inPage![index].image!,
-                            height: 210.h,
-                            width: 344.w,
-                            radius: 0.r,
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          itemBuilder: (context, index) => Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5.w),
+                            child: CustomNetworkImage(
+                              imageUrl:
+                                  state.homeAds!.data!.topHeader![index].image!,
+                              height: 60.h,
+                              width: 250.w,
+                              radius: 0.r,
+                              fit: BoxFit.fill,
+                            ),
                           ),
-                        );
-                        // return Ads(
-                        //   adImageBackground: state
-                        //       .homeAds!.data!.inPage![index].image,
-                        // );
-                      },
-                    ),
-                  );
-                } else {
-                  return AdsShimmerWidget();
-                }
-              },
-            ),
-            SectionName(
-                sectionName:
-                    translator.translate("home_screen.shop_by_brands")),
-            BrandsProvider(),
+                        ),
+                      );
+                    } else {
+                      return SecondSliderShimmerWidget();
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 19.h,
+                ),
+                SectionName(
+                    sectionName:
+                        translator.translate("home_screen.shop_by_category")),
+                Categories(),
+                SectionName(
+                    sectionName:
+                        translator.translate("home_screen.featured_products")),
+                FeaturedProducts(onAddTapped: widget.onAddTapped),
 
-            SectionName(
-                sectionName:
-                    translator.translate("home_screen.recent_products")),
-            MostRecent(onAddTapped: widget.onAddTapped),
-          ],
-        ),
+                BlocBuilder<HomeAdsCubit, HomeAdsState>(
+                  builder: (context, state) {
+                    if (state is HomeAdsLoaded) {
+                      return Container(
+                        margin: EdgeInsets.only(bottom: 24.h),
+                        width: MediaQuery.of(context).size.width,
+                        child: ListView.builder(
+                          itemCount: state.homeAds!.data!.inPage!.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          padding: EdgeInsets.only(left: 8.w, right: 8.w),
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5.h, horizontal: 5.w),
+                              child: CustomNetworkImage(
+                                imageUrl:
+                                    state.homeAds!.data!.inPage![index].image!,
+                                height: 210.h,
+                                width: 344.w,
+                                radius: 0.r,
+                              ),
+                            );
+                            // return Ads(
+                            //   adImageBackground: state
+                            //       .homeAds!.data!.inPage![index].image,
+                            // );
+                          },
+                        ),
+                      );
+                    } else {
+                      return AdsShimmerWidget();
+                    }
+                  },
+                ),
+                SectionName(
+                    sectionName:
+                        translator.translate("home_screen.shop_by_brands")),
+                BrandsProvider(),
+
+                SectionName(
+                    sectionName:
+                        translator.translate("home_screen.recent_products")),
+                MostRecent(onAddTapped: widget.onAddTapped),
+                SizedBox(
+                  height: 230.h,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     ));
   }

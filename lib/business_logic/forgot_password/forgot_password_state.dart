@@ -21,7 +21,7 @@ class SendOTPIsPressed extends ForgotPasswordState {
 }
 
 class VerifyCodeIsSent extends ForgotPasswordState {
-  final VerifyOTP? verifyOTP;
+  final VerifyUserOTP? verifyOTP;
   VerifyCodeIsSent(this.verifyOTP);
 }
 

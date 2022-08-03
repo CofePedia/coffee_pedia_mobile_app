@@ -249,8 +249,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     pass = false;
                   });
                 } else if (state.formStatus is SubmissionSuccess) {
-                  BlocProvider.of<ForgotPasswordCubit>(context)
-                      .postSendOTP(_mobile.text);
+                  // BlocProvider.of<ForgotPasswordCubit>(context)
+                  //     .postSendOTP(_mobile.text);
 
                   Navigator.of(context).push(
                     MaterialPageRoute(

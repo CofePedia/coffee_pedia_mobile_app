@@ -4,6 +4,8 @@ import 'package:coffepedia/data/models/update_password.dart';
 import 'package:coffepedia/data/models/verify_otp.dart';
 import 'package:coffepedia/data/web_services/forgot_password_web_services.dart';
 
+import '../models/Verify_user_otp.dart';
+
 class ForgotPasswordRepository {
   final ForgotPasswordWebServices forgotPasswordWebServices;
   const ForgotPasswordRepository(this.forgotPasswordWebServices);
@@ -34,7 +36,7 @@ class ForgotPasswordRepository {
     return result;
   }
 
-  Future<VerifyOTP> postVerifyOTP(String mobile, String otp) async {
+  Future<VerifyUserOTP> postVerifyOTP(String mobile, String otp) async {
     final result = forgotPasswordWebServices.postVerifyOTP(mobile, otp);
     return result;
   }

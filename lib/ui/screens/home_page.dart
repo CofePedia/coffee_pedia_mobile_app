@@ -119,12 +119,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  @override
-  void initState() {
-    print('hvbsa ${Prefs.getBool("logged")}');
-    super.initState();
-  }
-
   Map<int, GlobalKey> navigatorKeys = {
     0: GlobalKey(),
     1: GlobalKey(),
@@ -174,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                   currentIndex = index;
                 });
                 if (currentIndex == 0)
-                  _controller.animateTo(-200,
+                  _controller.animateTo(0,
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInOut);
               },

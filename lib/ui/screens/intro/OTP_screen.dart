@@ -3,13 +3,14 @@ import 'package:coffepedia/business_logic/forgot_password/forgot_password_cubit.
 import 'package:coffepedia/data/repository/forgot_password_repository.dart';
 import 'package:coffepedia/data/web_services/forgot_password_web_services.dart';
 import 'package:coffepedia/main.dart';
-import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/screens/intro/new_password_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_input_text_field/pin_input_text_field.dart';
+
+import 'login_register_screen.dart';
 
 class OTPScreenProvider extends StatelessWidget {
   final String mobile;
@@ -54,12 +55,14 @@ class OTPScreen extends StatelessWidget {
       body: BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
         listener: (context, state) {
           if (state is VerifyCodeIsSent) {
-            print('amr1');
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) {
-                return HomePageProvider(
-                  currentIndex: 0,
+                return LoginPage(
+                  isLogin: true,
                 );
+                // return HomePageProvider(
+                //   currentIndex: 0,
+                // );
               }),
             );
           } else if (state is VerifyCodeIsFalse) {
@@ -176,9 +179,15 @@ class OTPScreen extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment.center,
-                  child: Text(
-                    translator.translate("OTP_screen.send_again"),
-                    style: Theme.of(context).textTheme.headline6,
+                  child: InkWell(
+                    onTap: () {
+                      BlocProvider.of<ForgotPasswordCubit>(context)
+                          .postSendOTP(mobile);
+                    },
+                    child: Text(
+                      translator.translate("OTP_screen.send_again"),
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
                   ),
                 ),
               ],

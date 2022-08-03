@@ -565,6 +565,8 @@ class _CheckoutItemsScreenState extends State<CheckoutItemsScreen> {
 
               //TODO: LOCAL
               return state.basketLocalList.length > 0 &&
+                          // Prefs.getString("totalItems") == "0" &&
+                          // Prefs.getString("totalItems") == null &&
                           isLoggedIn == false &&
                           Prefs.getBool("logged") == false ||
                       Prefs.getBool("logged") == null

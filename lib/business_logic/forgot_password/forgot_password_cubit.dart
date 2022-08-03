@@ -6,6 +6,8 @@ import 'package:coffepedia/data/models/verify_otp.dart';
 import 'package:coffepedia/data/repository/forgot_password_repository.dart';
 import 'package:meta/meta.dart';
 
+import '../../data/models/Verify_user_otp.dart';
+
 part 'forgot_password_state.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {

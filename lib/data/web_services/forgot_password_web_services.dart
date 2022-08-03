@@ -10,6 +10,8 @@ import 'package:coffepedia/data/models/verify_otp.dart';
 import 'package:coffepedia/main.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/Verify_user_otp.dart';
+
 class ForgotPasswordWebServices {
   Future<ForgotMobile> postForgotMobile(String mobile) async {
     var headers = {
@@ -145,36 +147,66 @@ class ForgotPasswordWebServices {
     }
   }
 
-  Future<VerifyOTP> postVerifyOTP(String mobile, String otp) async {
-    var headers = {
-      'Content-Type': 'application/json',
-      'Content-Language': translator.currentLanguage,
-      'platform': Platform.operatingSystem,
-      'OSVersion': Platform.operatingSystemVersion,
-    };
+  Future<VerifyUserOTP> postVerifyOTP(String mobile, String otp) async {
+    final url = Uri.parse(baseUrl + '/auth/verifyUser');
 
-    var request = http.Request(
-      'POST',
-      Uri.parse(baseUrl + '/verfiy_otp'),
+    final http.Response response = await http.post(
+      url,
+      headers: {
+        'Content-Language': translator.currentLanguage,
+        'platform': Platform.operatingSystem,
+        'OSVersion': Platform.operatingSystemVersion,
+      },
+      body: {
+        'mobile': mobile,
+        'token': otp,
+      },
     );
-    request.body = json.encode({
-      "phone_number": "2" + mobile,
-      "otp": otp,
-    });
-    request.headers.addAll(headers);
-    final response = await request.send();
-    final http.Response res = await http.Response.fromStream(response);
+    print("response verifyUser ${response.body}");
 
     if (response.statusCode == 200) {
-      final result = VerifyOTP.fromJson(
-        json.decode(res.body),
+      final result = VerifyUserOTP.fromJson(
+        json.decode(response.body),
       );
-      BotToast.showText(text: result.data!.msg!);
+      BotToast.showText(text: result.message!);
       return result;
     } else {
       throw Exception(
-        VerifyOTP.fromJson(json.decode(res.body)),
+        json.decode(response.body),
       );
     }
   }
+
+  // Future<VerifyOTP> postVerifyOTP(String mobile, String otp) async {
+  //   var headers = {
+  //     'Content-Type': 'application/json',
+  //     'Content-Language': translator.currentLanguage,
+  //     'platform': Platform.operatingSystem,
+  //     'OSVersion': Platform.operatingSystemVersion,
+  //   };
+  //
+  //   var request = http.Request(
+  //     'POST',
+  //     Uri.parse(baseUrl + '/verfiy_otp'),
+  //   );
+  //   request.body = json.encode({
+  //     "phone_number": "2" + mobile,
+  //     "otp": otp,
+  //   });
+  //   request.headers.addAll(headers);
+  //   final response = await request.send();
+  //   final http.Response res = await http.Response.fromStream(response);
+  //
+  //   if (response.statusCode == 200) {
+  //     final result = VerifyOTP.fromJson(
+  //       json.decode(res.body),
+  //     );
+  //     BotToast.showText(text: result.data!.msg!);
+  //     return result;
+  //   } else {
+  //     throw Exception(
+  //       VerifyOTP.fromJson(json.decode(res.body)),
+  //     );
+  //   }
+  // }
 }
