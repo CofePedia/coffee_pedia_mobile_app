@@ -171,7 +171,6 @@ class BasketCubit extends Cubit<BasketState> {
       emit(
         RemoveFromLocalBasketIsPressed(),
       );
-      print('asfbasf');
       //TODO 2) get all items from the local database..
       List<Map<String, int>> basket = [];
       print("A 1");

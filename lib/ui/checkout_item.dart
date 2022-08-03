@@ -469,18 +469,15 @@ class _CheckoutItemState extends State<CheckoutItem> {
                 //remove button
                 InkWell(
                   onTap: () {
-                    print('fajsdabf');
                     BlocProvider.of<BasketCubit>(context)
                         .deleteFromLocalBasket(int.parse(widget.productId));
                     // widget.onRemoveItem();
-                    print('jabffafa');
                     String oldQuantity =
                         Prefs.getString("totalItems").toString();
                     String newQuantity =
                         (int.parse(oldQuantity) - widget.quantity).toString();
                     Prefs.setString("totalItems", newQuantity);
                     widget.onRemoveItem.call();
-                    print('afbasfma');
                     if (!widget.isLocal) {
                       BlocProvider.of<BasketCubit>(context)
                           .getRemoveFromBasket(widget.productId);
