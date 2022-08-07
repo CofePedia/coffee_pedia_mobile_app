@@ -7,8 +7,6 @@ import 'package:coffepedia/services/restart.dart';
 import 'package:coffepedia/services/translator.dart';
 import 'package:coffepedia/ui/screens/intro/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +22,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Pushwoosh.initialize({"app_id": "110FF-9CE72", "sender_id": "177929575410"});
   Pushwoosh.getInstance.registerForPushNotifications();
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
 
   await AppmetricaSdk()
       .activate(apiKey: '315bc60f-eca2-4714-882c-57bd59719f9c');
@@ -73,9 +71,9 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: analytics);
+  // static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  // static FirebaseAnalyticsObserver observer =
+  //     FirebaseAnalyticsObserver(analytics: analytics);
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
@@ -99,12 +97,12 @@ class MyApp extends StatelessWidget {
             supportedLocales: translator.locals(),
             debugShowCheckedModeBanner: false,
             builder: BotToastInit(),
-            navigatorObservers: <NavigatorObserver>[observer],
+            // navigatorObservers: <NavigatorObserver>[observer],
 
-            // navigatorObservers: [
-            //   BotToastNavigatorObserver(),
-            //   // AnalyticsService.observer,
-            // ],
+            navigatorObservers: [
+              BotToastNavigatorObserver(),
+              // AnalyticsService.observer,
+            ],
             home: SplashScreen(),
             // home: HomePage(
             //   currentIndex: 0,

@@ -218,8 +218,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                         .product!.data!.priceBeforeDiscount,
                                   ),
                                 );
-                                MyApp.analytics.logAddToCart(
-                                    value: counter.toDouble(), currency: 'EGP');
+                                // MyApp.analytics.logAddToCart(
+                                //     value: counter.toDouble(), currency: 'EGP');
                                 AppmetricaSdk()
                                     .reportEvent(name: 'Added to Local Cart');
                               }
