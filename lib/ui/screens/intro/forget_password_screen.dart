@@ -137,8 +137,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
                               () {
                             if (_formKey.currentState!.validate()) {
-                              print("jbadna642");
-
                               BlocProvider.of<ForgotPasswordCubit>(context)
                                   .postForgotMobile(_mobile.text);
 

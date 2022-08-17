@@ -3,6 +3,7 @@ import 'package:coffepedia/business_logic/forgot_password/forgot_password_cubit.
 import 'package:coffepedia/data/repository/forgot_password_repository.dart';
 import 'package:coffepedia/data/web_services/forgot_password_web_services.dart';
 import 'package:coffepedia/main.dart';
+import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/screens/intro/new_password_screen.dart';
 import 'package:coffepedia/ui/shared/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +16,12 @@ import 'login_register_screen.dart';
 class OTPScreenProvider extends StatelessWidget {
   final String mobile;
   final bool isForgotPassword;
+  final bool isLogin;
 
   const OTPScreenProvider({
     required this.mobile,
     this.isForgotPassword = false,
+    this.isLogin = false,
     Key? key,
   }) : super(key: key);
 
@@ -33,6 +36,7 @@ class OTPScreenProvider extends StatelessWidget {
       child: OTPScreen(
         mobile: mobile,
         isForgotPassword: isForgotPassword,
+        isLogin: isLogin,
       ),
     );
   }
@@ -41,8 +45,10 @@ class OTPScreenProvider extends StatelessWidget {
 class OTPScreen extends StatelessWidget {
   final String mobile;
   final bool isForgotPassword;
+  final bool isLogin;
   OTPScreen({
     required this.mobile,
+    required this.isLogin,
     required this.isForgotPassword,
     Key? key,
   }) : super(key: key);
@@ -57,29 +63,25 @@ class OTPScreen extends StatelessWidget {
           if (state is VerifyCodeIsSent) {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) {
-                return LoginPage(
-                  isLogin: true,
-                );
+                return isLogin
+                    ? HomePageProvider(currentIndex: 0)
+                    : LoginPage(
+                        isLogin: true,
+                      );
                 // return HomePageProvider(
                 //   currentIndex: 0,
                 // );
               }),
             );
           } else if (state is VerifyCodeIsFalse) {
-            print('amr2');
-
             BotToast.showText(text: state.error!.toString());
           } else if (state is VerifyNewPasswordIsSent) {
-            print('amr3');
-
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) {
                 return NewPasswordScreenProvider(otp: otp.text, mobile: mobile);
               }),
             );
           } else if (state is VerifyNewPasswordIsFalse) {
-            print('amr4');
-
             BotToast.showText(text: state.error!.toString());
           }
         },

@@ -26,7 +26,9 @@ class ForgotPasswordWebServices {
       Uri.parse(baseUrl + '/auth/mobile'),
     );
 
-    request.body = json.encode({"mobile": "2" + mobile});
+    request.body = json.encode(
+      {"mobile": mobile},
+    );
     print("forgot? ${request.body}");
 
     request.headers.addAll(headers);
@@ -64,7 +66,7 @@ class ForgotPasswordWebServices {
       Uri.parse(baseUrl + '/auth/newPassword'),
     );
     request.body = json.encode({
-      "mobile": "2" + mobile,
+      "mobile": mobile,
       "code": code,
       "password": password,
       "password_confirmation": passwordConfirmation,
@@ -99,7 +101,7 @@ class ForgotPasswordWebServices {
         'OSVersion': Platform.operatingSystemVersion,
       },
       body: {
-        'mobile': "2" + mobile,
+        'mobile': mobile,
         'code': otp,
       },
     );
@@ -128,7 +130,9 @@ class ForgotPasswordWebServices {
       'POST',
       Uri.parse(baseUrl + '/send_otp'),
     );
-    request.body = json.encode({"phone_number": "2" + mobile});
+    request.body = json.encode(
+      {"phone_number": mobile},
+    );
     request.headers.addAll(headers);
     final response = await request.send();
     final http.Response res = await http.Response.fromStream(response);

@@ -15,7 +15,8 @@ import 'package:coffepedia/services/preferences.dart';
 import 'package:coffepedia/ui/screens/home_page.dart';
 import 'package:coffepedia/ui/screens/intro/OTP_screen.dart';
 import 'package:coffepedia/ui/screens/intro/forget_password_screen.dart';
-import 'package:coffepedia/ui/screens/webviewWidget.dart';
+import 'package:coffepedia/ui/screens/privacy_policy_screen.dart';
+import 'package:coffepedia/ui/screens/terms_and_conditions_screen.dart';
 import 'package:coffepedia/ui/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,7 +58,10 @@ class LoginPage extends StatelessWidget {
 class LoginRegisterScreen extends StatefulWidget {
   bool isLogin;
 
-  LoginRegisterScreen({this.isLogin = true, Key? key}) : super(key: key);
+  LoginRegisterScreen({
+    this.isLogin = true,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<LoginRegisterScreen> createState() => _LoginRegisterScreenState();
@@ -174,6 +178,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   final BasketRepository basketRepository = BasketRepository(
                     BasketWebServices(),
                   );
+
                   List<Map<String, int>> basket = [];
                   List<BasketLocal> basketInLocal =
                       await basketRepository.getAllLocalProductsFromBasket();
@@ -214,14 +219,28 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   //     }
                   //   }
                   // }
+
                   basketRepository.truncateLocalBasket();
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => HomePageProvider(
-                        currentIndex: 0,
+                  if (state.user!.user!.status == 'verified') {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => HomePageProvider(
+                          currentIndex: 0,
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  } else {
+                    BlocProvider.of<ForgotPasswordCubit>(context)
+                        .postSendOTP(_mobile.text);
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => OTPScreenProvider(
+                          mobile: _mobile.text,
+                          isLogin: true,
+                        ),
+                      ),
+                    );
+                  }
                   BlocProvider.of<SignupBloc>(context).close();
                   setState(() {
                     pass = false;
@@ -730,75 +749,77 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              // InAppWebView(
-                                                              //   initialUrlRequest:
-                                                              //       URLRequest(
-                                                              //     url:
-                                                              //         Uri.parse(
-                                                              //       "https://cofepedia.com/privacy_police.html",
-                                                              //     ),
-                                                              //   ),
-                                                              //   initialOptions:
-                                                              //       InAppWebViewGroupOptions(
-                                                              //     crossPlatform:
-                                                              //         InAppWebViewOptions(
-                                                              //       useShouldOverrideUrlLoading:
-                                                              //           true,
-                                                              //       mediaPlaybackRequiresUserGesture:
-                                                              //           false,
-                                                              //     ),
-                                                              //     android:
-                                                              //         AndroidInAppWebViewOptions(
-                                                              //       useHybridComposition:
-                                                              //           true,
-                                                              //     ),
-                                                              //     ios:
-                                                              //         IOSInAppWebViewOptions(
-                                                              //       allowsInlineMediaPlayback:
-                                                              //           true,
-                                                              //     ),
-                                                              //   ),
-                                                              //   onWebViewCreated:
-                                                              //       (InAppWebViewController
-                                                              //           controller) {
-                                                              //     webView =
-                                                              //         controller;
-                                                              //   },
-                                                              //   onLoadStart:
-                                                              //       (InAppWebViewController
-                                                              //               controller,
-                                                              //           url) {
-                                                              //     setState(() {
-                                                              //       this.url =
-                                                              //           url!;
-                                                              //     });
-                                                              //   },
-                                                              //   onLoadStop:
-                                                              //       (InAppWebViewController
-                                                              //               controller,
-                                                              //           url) {
-                                                              //     setState(() {
-                                                              //       this.url =
-                                                              //           url!;
-                                                              //     });
-                                                              //   },
-                                                              //   onProgressChanged:
-                                                              //       (InAppWebViewController
-                                                              //               controller,
-                                                              //           int progress) {
-                                                              //     setState(() {
-                                                              //       this.progress =
-                                                              //           progress /
-                                                              //               100;
-                                                              //       print(
-                                                              //           'onProgressChangeAmr $progress');
-                                                              //     });
-                                                              //   },
-                                                              // ),
-                                                              WebViewWidget(
-                                                                  webUrl:
-                                                                      "https://cofepedia.com/privacy-policy")),
+                                                        builder: (context) =>
+                                                            PrivacyPolicyScreenProvider(),
+                                                      ),
+                                                      // InAppWebView(
+                                                      //   initialUrlRequest:
+                                                      //       URLRequest(
+                                                      //     url:
+                                                      //         Uri.parse(
+                                                      //       "https://cofepedia.com/privacy_police.html",
+                                                      //     ),
+                                                      //   ),
+                                                      //   initialOptions:
+                                                      //       InAppWebViewGroupOptions(
+                                                      //     crossPlatform:
+                                                      //         InAppWebViewOptions(
+                                                      //       useShouldOverrideUrlLoading:
+                                                      //           true,
+                                                      //       mediaPlaybackRequiresUserGesture:
+                                                      //           false,
+                                                      //     ),
+                                                      //     android:
+                                                      //         AndroidInAppWebViewOptions(
+                                                      //       useHybridComposition:
+                                                      //           true,
+                                                      //     ),
+                                                      //     ios:
+                                                      //         IOSInAppWebViewOptions(
+                                                      //       allowsInlineMediaPlayback:
+                                                      //           true,
+                                                      //     ),
+                                                      //   ),
+                                                      //   onWebViewCreated:
+                                                      //       (InAppWebViewController
+                                                      //           controller) {
+                                                      //     webView =
+                                                      //         controller;
+                                                      //   },
+                                                      //   onLoadStart:
+                                                      //       (InAppWebViewController
+                                                      //               controller,
+                                                      //           url) {
+                                                      //     setState(() {
+                                                      //       this.url =
+                                                      //           url!;
+                                                      //     });
+                                                      //   },
+                                                      //   onLoadStop:
+                                                      //       (InAppWebViewController
+                                                      //               controller,
+                                                      //           url) {
+                                                      //     setState(() {
+                                                      //       this.url =
+                                                      //           url!;
+                                                      //     });
+                                                      //   },
+                                                      //   onProgressChanged:
+                                                      //       (InAppWebViewController
+                                                      //               controller,
+                                                      //           int progress) {
+                                                      //     setState(() {
+                                                      //       this.progress =
+                                                      //           progress /
+                                                      //               100;
+                                                      //       print(
+                                                      //           'onProgressChangeAmr $progress');
+                                                      //     });
+                                                      //   },
+                                                      // ),
+                                                      // WebViewWidget(
+                                                      //     webUrl:
+                                                      //         "https://cofepedia.com/privacy-policy")),
                                                     );
                                                   },
                                                   child: Text(
@@ -832,75 +853,77 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              // InAppWebView(
-                                                              //   initialUrlRequest:
-                                                              //       URLRequest(
-                                                              //     url:
-                                                              //         Uri.parse(
-                                                              //       "https://cofepedia.com/terms_condation.html",
-                                                              //     ),
-                                                              //   ),
-                                                              //   initialOptions:
-                                                              //       InAppWebViewGroupOptions(
-                                                              //     crossPlatform:
-                                                              //         InAppWebViewOptions(
-                                                              //       useShouldOverrideUrlLoading:
-                                                              //           true,
-                                                              //       mediaPlaybackRequiresUserGesture:
-                                                              //           false,
-                                                              //     ),
-                                                              //     android:
-                                                              //         AndroidInAppWebViewOptions(
-                                                              //       useHybridComposition:
-                                                              //           true,
-                                                              //     ),
-                                                              //     ios:
-                                                              //         IOSInAppWebViewOptions(
-                                                              //       allowsInlineMediaPlayback:
-                                                              //           true,
-                                                              //     ),
-                                                              //   ),
-                                                              //   onWebViewCreated:
-                                                              //       (InAppWebViewController
-                                                              //           controller) {
-                                                              //     webView =
-                                                              //         controller;
-                                                              //   },
-                                                              //   onLoadStart:
-                                                              //       (InAppWebViewController
-                                                              //               controller,
-                                                              //           url) {
-                                                              //     setState(() {
-                                                              //       this.url =
-                                                              //           url!;
-                                                              //     });
-                                                              //   },
-                                                              //   onLoadStop:
-                                                              //       (InAppWebViewController
-                                                              //               controller,
-                                                              //           url) {
-                                                              //     setState(() {
-                                                              //       this.url =
-                                                              //           url!;
-                                                              //     });
-                                                              //   },
-                                                              //   onProgressChanged:
-                                                              //       (InAppWebViewController
-                                                              //               controller,
-                                                              //           int progress) {
-                                                              //     setState(() {
-                                                              //       this.progress =
-                                                              //           progress /
-                                                              //               100;
-                                                              //       print(
-                                                              //           'onProgressChangeAmr $progress');
-                                                              //     });
-                                                              //   },
-                                                              // ),
-                                                              WebViewWidget(
-                                                                  webUrl:
-                                                                      "https://cofepedia.com/terms-and-conditions")),
+                                                        builder: (context) =>
+                                                            // InAppWebView(
+                                                            //   initialUrlRequest:
+                                                            //       URLRequest(
+                                                            //     url:
+                                                            //         Uri.parse(
+                                                            //       "https://cofepedia.com/terms_condation.html",
+                                                            //     ),
+                                                            //   ),
+                                                            //   initialOptions:
+                                                            //       InAppWebViewGroupOptions(
+                                                            //     crossPlatform:
+                                                            //         InAppWebViewOptions(
+                                                            //       useShouldOverrideUrlLoading:
+                                                            //           true,
+                                                            //       mediaPlaybackRequiresUserGesture:
+                                                            //           false,
+                                                            //     ),
+                                                            //     android:
+                                                            //         AndroidInAppWebViewOptions(
+                                                            //       useHybridComposition:
+                                                            //           true,
+                                                            //     ),
+                                                            //     ios:
+                                                            //         IOSInAppWebViewOptions(
+                                                            //       allowsInlineMediaPlayback:
+                                                            //           true,
+                                                            //     ),
+                                                            //   ),
+                                                            //   onWebViewCreated:
+                                                            //       (InAppWebViewController
+                                                            //           controller) {
+                                                            //     webView =
+                                                            //         controller;
+                                                            //   },
+                                                            //   onLoadStart:
+                                                            //       (InAppWebViewController
+                                                            //               controller,
+                                                            //           url) {
+                                                            //     setState(() {
+                                                            //       this.url =
+                                                            //           url!;
+                                                            //     });
+                                                            //   },
+                                                            //   onLoadStop:
+                                                            //       (InAppWebViewController
+                                                            //               controller,
+                                                            //           url) {
+                                                            //     setState(() {
+                                                            //       this.url =
+                                                            //           url!;
+                                                            //     });
+                                                            //   },
+                                                            //   onProgressChanged:
+                                                            //       (InAppWebViewController
+                                                            //               controller,
+                                                            //           int progress) {
+                                                            //     setState(() {
+                                                            //       this.progress =
+                                                            //           progress /
+                                                            //               100;
+                                                            //       print(
+                                                            //           'onProgressChangeAmr $progress');
+                                                            //     });
+                                                            //   },
+                                                            // ),
+                                                            // WebViewWidget(
+                                                            //     webUrl:
+                                                            //         "https://cofepedia.com/terms-and-conditions")),
+                                                            TermsAndConditionsScreenProvider(),
+                                                      ),
                                                     );
                                                   },
                                                   child: Text(

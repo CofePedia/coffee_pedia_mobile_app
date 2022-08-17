@@ -5,6 +5,8 @@ import 'package:coffepedia/business_logic/auth/auth_bloc.dart';
 import 'package:coffepedia/data/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../data/models/login_data_user.dart';
+
 part 'login_event.dart';
 part 'login_state.dart';
 
@@ -32,7 +34,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
         authBloc.add(LoggedIn(user: user));
 
-        yield LoginSuccess();
+        yield LoginSuccess(user: user);
       } catch (error) {
         yield LoginFailure(error: error.toString());
       }
