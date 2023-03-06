@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:coffepedia/business_logic/basket/basket_cubit.dart';
 import 'package:coffepedia/data/repository/basket_repository.dart';
 import 'package:coffepedia/data/web_services/basket_web_services.dart';
@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         child: BlocBuilder<BasketCubit, BasketState>(
           builder: (context, state) {
             if (state is BasketLoaded) {
-              return Badge(
+              return badges.Badge(
                 badgeColor: kYellow,
                 showBadge: state.basket!.data!.totalItems != 0 &&
                         state.basket!.data!.totalItems != null &&
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             } else {
-              return Badge(
+              return badges.Badge(
                 badgeColor: kYellow,
                 showBadge: Prefs.getString("totalItems") != null &&
                         Prefs.getString("totalItems") != "0" &&
