@@ -77,36 +77,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      builder: () {
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider<LoginBloc>(
-              create: (_) => LoginBloc(
-                authBloc: BlocProvider.of<AuthBloc>(context),
-                userRepository: RepositoryProvider.of<UserRepository>(context),
-              ),
-            ),
-          ],
-          child: MaterialApp(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginBloc>(
+          create: (_) => LoginBloc(
+            authBloc: BlocProvider.of<AuthBloc>(context),
+            userRepository: RepositoryProvider.of<UserRepository>(context),
+          ),
+        ),
+      ],
+      child: ScreenUtilInit(
+        builder: (BuildContext context, Widget? child) {
+          return MaterialApp(
             title: 'CofePedia',
             localizationsDelegates: translator.delegates,
             locale: translator.locale,
             supportedLocales: translator.locals(),
             debugShowCheckedModeBanner: false,
             builder: BotToastInit(),
-            // navigatorObservers: <NavigatorObserver>[observer],
-
             navigatorObservers: [
               BotToastNavigatorObserver(),
-              // AnalyticsService.observer,
             ],
             home: SplashScreen(),
-            // home: HomePage(
-            //   currentIndex: 0,
-            // ),
             /*SplashScreen()*/
             theme: ThemeData(
               colorScheme: ThemeData().colorScheme.copyWith(
@@ -180,9 +172,10 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+        designSize: const Size(375, 812),
+      ),
     );
   }
 }

@@ -59,7 +59,7 @@ class _MapViewerWidgetState extends State<MapViewerWidget> {
       final now = details.focalPoint;
       final diff = now - _dragStart!;
       _dragStart = now;
-      widget.controller.drag(diff.dx, diff.dy);
+      widget.controller.center;
       setState(() {});
     }
   }
@@ -121,9 +121,9 @@ class _MapViewerWidgetState extends State<MapViewerWidget> {
               onScaleUpdate: _onScaleUpdate,
               onTapUp: (details) {
                 final location =
-                    transformer.fromXYCoordsToLatLng(details.localPosition);
+                    transformer.toLatLng(details.localPosition);
 
-                final clicked = transformer.fromLatLngToXYCoords(location);
+                final clicked = transformer.toOffset(location);
 
                 debugPrint('${location.longitude}, ${location.latitude}');
                 debugPrint('${clicked.dx}, ${clicked.dy}');
