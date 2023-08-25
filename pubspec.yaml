@@ -56,7 +56,6 @@ dependencies:
   shimmer: ^2.0.0
   easy_debounce: ^2.0.2+1
   flutter_inappwebview: 5.7.2+3
-  pushwoosh: ^2.2.3
   appmetrica_sdk: ^0.0.7+1
   url_launcher: ^6.0.20
   latlng: ^0.2.1
@@ -67,6 +66,7 @@ dependencies:
   file: ^6.1.4
   fwfh_text_style: ^2.22.8+1
   just_audio: ^0.9.31
+  pushwoosh_flutter: ^2.2.14
 #  firebase_analytics: ^9.2.0
 #  firebase_core: ^1.19.2
 

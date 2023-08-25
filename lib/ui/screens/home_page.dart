@@ -135,7 +135,6 @@ class _HomePageState extends State<HomePage> {
         extendBody: true,
         bottomNavigationBar: Container(
           width: MediaQuery.of(context).size.width,
-          height: 69.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(22.r),

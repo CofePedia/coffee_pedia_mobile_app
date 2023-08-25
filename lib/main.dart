@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pushwoosh/pushwoosh.dart';
+import 'package:pushwoosh_flutter/pushwoosh_flutter.dart';
 
 import 'business_logic/auth/auth_bloc.dart';
 import 'data/web_services/auth_web_services.dart';
